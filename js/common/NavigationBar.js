@@ -62,7 +62,7 @@ export default class Navigator extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "white"
+		backgroundColor: "white",
 	},
 	navBar: {
 		justifyContent: "space-between",
