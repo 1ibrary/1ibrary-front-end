@@ -52,7 +52,12 @@ export default class SearchNav extends Component {
 			        <TextInput style={styles.textInput}
 			        	placeholder={this.props.placeholder}
 			        	placeholderColor={"rgb(165,165,165)"}
-			        	value = {this.props.value}
+			        	defaultValue = {this.props.defaultValue}
+			        	// onTextChange={
+			        	// 	()=>{
+			        			
+			        	// 	}
+			        	// }
 			        	onFocus={()=>{
 			        		if(this.props.onFocus) {
 			        			this.props.onFocus();

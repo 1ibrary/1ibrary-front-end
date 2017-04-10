@@ -19,7 +19,7 @@ export default class SearchPage extends Component {
 		this.state = {
 			history:[],
 			history_num:0,
-			textInput:"",
+			defaultValue:"",
 		}
 		// AsyncStorage.removeItem("history");
 		AsyncStorage.getItem("history",(error,array)=>{
@@ -62,7 +62,7 @@ export default class SearchPage extends Component {
 		<View>
 		<SearchNav 
 		    placeholder={"搜索书名，作者或出版社"}
-		    value={this.state.textInput}
+		    defaultValue={this.state.defaultValue}
 		    onSubmitEditing={
 		    	(event)=>{
 		    		// alert(event.nativeEvent.text);
@@ -109,7 +109,13 @@ export default class SearchPage extends Component {
 						}	
 						return (<View style={styles.history_item}>
 							<Image style={styles.history_image} source={require("../../res/images/clock.png")}/>
-								<Text style={styles.history_font}>{item}</Text>
+								<Text 
+									onPress={
+				        		        ()=>{
+				        			        this.setState({defaultValue:item,history_num:0})
+				        		        }
+				        	        }
+								    style={styles.history_font}>{item}</Text>
 							</View>)
 					})
 				}
@@ -186,7 +192,8 @@ const styles = StyleSheet.create({
 		fontSize:12,
 		color:"gray",
 		fontWeight:"200",
-		marginLeft:16
+		marginLeft:16,
+		width:200
 	},
 	close: {
 		width:20,
