@@ -8,6 +8,7 @@ import {
 	Image,
 	ListView
 } from "react-native";
+import BookItem1 from "./BookItem1";
 
 export default class BookList extends Component {
 	constructor(props) {
@@ -29,20 +30,7 @@ export default class BookList extends Component {
 		}
 	}
 	renderRow(data) {
-		 picture_path = "../../res/images/test1.png";
-		return <View style={styles.item}>
-			<Image style={styles.image} source={{uri:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491754581994&di=1db59cd5fa4e2820fb04022afb517d68&imgtype=0&src=http%3A%2F%2Ffdfs.xmcdn.com%2Fgroup18%2FM09%2F4E%2F71%2FwKgJJVeWMA3iSLL6AABg7zEQtSQ734.jpg"}} />
-			<View style={styles.information}>
-				<Text style={styles.item_title}>{data.title}</Text>
-			    <Text style={styles.item_author}>{data.author} 著</Text>
-			    <Text style={styles.item_publish}>{data.publish} {data.time}</Text>
-			    <View style={styles.round}>
-			    	<Image style={styles.round_image} source={require("../../res/images/round.png")}>
-			    	    <Text style={styles.round_num}>{data.num}</Text>
-			    	</Image>
-			    </View>
-			</View>
-		</View>
+		return <BookItem1 data={data}/>;
 	}
 	render() {
 		return <View style={styles.booklist}>
@@ -55,57 +43,7 @@ export default class BookList extends Component {
 }
 
 const styles = StyleSheet.create({
-	image: {
-		height:96,
-		width:61
-	},
 	booklist: {
 		marginTop:64
 	},
-	item :{
-		borderBottomWidth:1,
-		borderBottomColor:"rgb(230,230,234)",
-		paddingVertical:14,
-		paddingHorizontal:16
-	},
-	information: {
-		position:"absolute",
-		left:98,
-		top:33
-	},
-	item_title: {
-		fontSize:16,
-		color:"#607D8B",
-	},
-	item_author: {
-		fontSize:10,
-		fontWeight:"200",
-		color:"#000000",
-		fontFamily:"Heiti SC",
-		marginTop:10,
-		marginBottom:12
-	},
-	item_publish: {
-		fontSize:10,
-		fontWeight:"200",
-		color:"#000000",
-		fontFamily:"Heiti SC",
-	},
-	round:{
-		height:40,
-		width:40,
-		position:"absolute",
-		left:220,
-		top:10,
-	},
-	round_image: {
-		tintColor:"#607D8B",
-		alignItems:"center",
-		justifyContent:"center"
-	},
-	round_num: {
-		color:"white",
-		fontSize:20,
-		backgroundColor:"#607D8B"
-	}
 });

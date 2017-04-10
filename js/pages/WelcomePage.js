@@ -12,8 +12,15 @@ import ShareNav from "../common/ShareNav";
 import BottomTabs from "../common/BottomTabs";
 import SearchNav from "../common/SearchNav"
 import BookList from "../common/BookList";
+import SearchPage from "./SearchPage";
 
 export default class WelcomePage extends Component {
+	constructor(props) {
+		super(props);
+		this.state={
+			show:1
+		}
+	}
 
 	// loadData() {
 	// 	let url = "";
@@ -21,16 +28,28 @@ export default class WelcomePage extends Component {
 	// }
 	render() {
 		return (
-		    // <ShareNav/>
-		    // <BottomTabs/>
-		    	
-		        <BottomTabs
-		        	page1 = {
-		        		<View style={styles.container}>
-		        			<SearchNav style/>
-		        			<BookList style={styles.booklist}/>
-		        		</View>
-		        	}
+			<BottomTabs
+			    page1 = {
+			    	<View style={styles.container}>
+			    	    {
+			    	    	this.state.show===1?
+			    	    	<SearchNav placeholder={"搜索"} 
+			    	    	    onFocus = {
+			    	    	    	()=>{
+			    	    	    		this.setState({show:2});
+			    	    	    	}
+			    	    	    }/> 
+			    	    	: <SearchPage
+			    	    	    onPressClose={
+			    	    	    	()=>{
+			    	    	    		this.setState({show:1});
+			    	    	    	}
+			    	    	    }
+			    	    	  />
+			    	    }
+			    	    <BookList/>
+			    	</View>
+		        }
 		        />
 		    
 		)
