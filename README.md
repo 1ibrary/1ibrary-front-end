@@ -25,5 +25,12 @@
 ### 17.04.11
 - 完成搜索提示页
 - 完成搜索结果页除ScrollableBar之外的部分
+待做:    
+- 搜索结果页
+- 抽象出BookList组件，将BookItem设置为自定义    
+后续思路:     
+- 在每个BookItem上设定navigator组件，实现BookItem和Book详情页面的跳转
+
+- 
 
 
