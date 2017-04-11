@@ -33,12 +33,15 @@ export default class WelcomePage extends Component {
 			    	<View style={styles.container}>
 			    	    {
 			    	    	this.state.show===1?
+			    	    	<View>
 			    	    	<SearchNav placeholder={"搜索"} 
 			    	    	    onFocus = {
 			    	    	    	()=>{
 			    	    	    		this.setState({show:2});
 			    	    	    	}
 			    	    	    }/> 
+			    	    	  <BookList/>
+			    	    	  </View>
 			    	    	: <SearchPage
 			    	    	    onPressClose={
 			    	    	    	()=>{
@@ -47,7 +50,7 @@ export default class WelcomePage extends Component {
 			    	    	    }
 			    	    	  />
 			    	    }
-			    	    <BookList/>
+			    	    
 			    	</View>
 		        }
 		        />

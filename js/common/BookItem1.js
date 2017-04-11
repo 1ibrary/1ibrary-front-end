@@ -14,6 +14,9 @@ export default class BookItem extends Component {
 		super(props);
 	}
 	render() {
+		// if(!this.props.data) {
+		// 	return ;
+		// }
 		return <View style={styles.item}>
 			<Image style={styles.image} source={{uri:this.props.data.picture}} />
 			<View style={styles.information}>

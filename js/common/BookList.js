@@ -26,8 +26,9 @@ export default class BookList extends Component {
 				rowHasChanged:(r1,r2)=>r1!==r2
 			});
 		this.state = {
-			dataSource: ds.cloneWithRows(data)
+			dataSource: ds.cloneWithRows(this.props.data?this.props.data:data)
 		}
+		// alert(this.props.data)
 	}
 	renderRow(data) {
 		return <BookItem1 data={data}/>;

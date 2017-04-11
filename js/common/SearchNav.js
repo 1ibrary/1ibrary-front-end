@@ -36,6 +36,9 @@ export default class SearchNav extends Component {
 	        </TouchableOpacity>
 	     ),
 		// value:""
+		onChangeText: (text)=>{
+			
+		}
 	}
 	// onSave(text) {
 	// 	AsyncStorage.setItem(text,text,(error)=>{
@@ -58,12 +61,18 @@ export default class SearchNav extends Component {
 			        			
 			        	// 	}
 			        	// }
+			        	onChangeText={
+			        		(text)=>{
+			        			this.props.onChangeText(text);
+			        		}
+			        	}
 			        	onFocus={()=>{
 			        		if(this.props.onFocus) {
 			        			this.props.onFocus();
 			        		}
 			        		
 			        	}}
+			        	clearButtonMode={"while-editing"}
 			        	onSubmitEditing={(event)=>{
 			        		if(this.props.onSubmitEditing) {
 			        			this.props.onSubmitEditing(event);
@@ -71,7 +80,7 @@ export default class SearchNav extends Component {
 			        	}}
 			        	>
 
-			       		<Image style={styles.image} source={require("../../res/images/search_icon.png")}/>
+			       		<Image style={styles.image_search} source={require("../../res/images/search_icon.png")}/>
 			        </TextInput>
 		            {this.props.icon}
 	            </View>
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
 	hide:{
 		display:"none"
 	},
-	image: {
+	image_search: {
 		width:35,
 		height:34,
 		backgroundColor:"#F3F3F3",
@@ -100,6 +109,12 @@ const styles = StyleSheet.create({
 		left:0,
 		top:0,
 		zIndex:2
+	},
+	image_delete: {
+		position:"absolute",
+		right:12,
+		width:16,
+		height:16
 	},
 	close: {
 		width:20,
@@ -116,6 +131,8 @@ const styles = StyleSheet.create({
 		position:"absolute",
 		left:16,
 		top:25,
-		paddingLeft:40
+		paddingLeft:40,
+		flexDirection:"row",
+		alignItems:"center"
 	}
 });
