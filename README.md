@@ -31,6 +31,5 @@
 后续思路:     
 - 在每个BookItem上设定navigator组件，实现BookItem和Book详情页面的跳转
 
-- 
 
 
