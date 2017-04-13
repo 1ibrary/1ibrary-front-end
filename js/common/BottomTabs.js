@@ -51,23 +51,15 @@ export default class BottomTabs extends Component {
 			            selected={this.state.selectedTab === 'home'}
 			            title="首页"
 			            renderIcon={() => <Image style={styles.image} source={require("../../res/images/Home.png")} />}
-			            renderSelectedIcon={() => <Image style={styles.active} source={require("../../res/images/Home.png")} />}
+			            renderSelectedIcon={() => <Image  source={require("../../res/images/Home1.png")} />}
 			            onPress={() => this.setState({ selectedTab: 'home' })}>
 			        	{this.props.page1}
-			        </TabNavigator.Item>
-			        <TabNavigator.Item
-			        	selected={this.state.selectedTab === 'function'}
-			        	title="功能"
-			        	renderIcon={() => <Image source={require("../../res/images/function.png")} />}
-			        	renderSelectedIcon={() => <Image style={styles.active}  source={require("../../res/images/function.png")} />}
-			        	onPress={() => this.setState({ selectedTab: 'function' })}>
-			        		{this.props.page2}
 			        </TabNavigator.Item>
 			        <TabNavigator.Item
 			            selected={this.state.selectedTab === 'message'}
 			            title="通知"
 			            renderIcon={() => <Image style={styles.image} source={require("../../res/images/message.png")} />}
-			            renderSelectedIcon={() => <Image style={styles.active}  source={require("../../res/images/message.png")} />}
+			            renderSelectedIcon={() => <Image  source={require("../../res/images/message1.png")} />}
 			            onPress={() => this.setState({ selectedTab: 'message' })}>
 			        		{this.props.page3}
 			        </TabNavigator.Item>
@@ -75,7 +67,7 @@ export default class BottomTabs extends Component {
 			        	selected={this.state.selectedTab === 'profile'}
 			        	title="我的"
 			        	renderIcon={() => <Image style={styles.image} source={require("../../res/images/profile.png")} />}
-			        	renderSelectedIcon={() => <Image style={styles.active}  source={require("../../res/images/profile.png")} />}
+			        	renderSelectedIcon={() => <Image  source={require("../../res/images/profile1.png")} />}
 			        	onPress={() => this.setState({ selectedTab: 'profile' })}>
 			        		{this.props.page4}
 			        </TabNavigator.Item>

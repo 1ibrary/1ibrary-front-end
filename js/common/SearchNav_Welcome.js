@@ -11,9 +11,6 @@ import {
 	Dimensions
 } from "react-native";
 import NavigationBar from "./NavigationBar";
-import SearchPage from "../pages/SearchPage";
-const history = "history";
-
 
 export default class SearchNav extends Component {
 	constructor(props) {
@@ -30,6 +27,11 @@ export default class SearchNav extends Component {
 	// 	}
 	// }
 	static defaultProps = {
+		// icon:(
+		// 	<TouchableOpacity>
+		//         <Image style={{position:"absolute",left:337,top:31}} source={require("../../res/images/scan.png")}/>
+	 //        </TouchableOpacity>
+	 //     ),
 		// value:""
 		onChangeText: (text)=>{
 			
@@ -46,9 +48,9 @@ export default class SearchNav extends Component {
 	// 	AsyncStorage.getAllKeys((error,keys)=>{alert(keys)});
 	// }
 	render() {
-		return  <View style={[styles.container,this.props.style]}>
-			        <TextInput style={[styles.textInput,this.props.textinputColor]}
-			        	placeholder={this.props.placeholder}
+		return  <View style={styles.container}>
+			        <TextInput style={styles.textInput}
+			        	placeholder={"请输入你想要搜索的书籍"}
 			        	placeholderColor={"rgb(165,165,165)"}
 			        	defaultValue = {this.props.defaultValue}
 			        	// onTextChange={
@@ -72,7 +74,8 @@ export default class SearchNav extends Component {
 			        		if(this.props.onSubmitEditing) {
 			        			this.props.onSubmitEditing(event);
 			        		}
-			        	}}>
+			        	}}
+			        	>
 			        	<Image style={styles.image_search} source={require("../../res/images/search_image.png")}/>
 			        </TextInput>
 		            {this.props.icon}
@@ -81,15 +84,15 @@ export default class SearchNav extends Component {
 }
 
 const styles = StyleSheet.create({
-	container : {
-		// flex:1,
-		flexDirection:"row",
+	contianer : {
+		flex:1,
+		// flexDirection:"",
 		alignItems:"center",
-		// justifyContent:"center",
-		height:36,
-		marginTop:28,
+		height:54,
 		width:360,
-		
+		marginTop:16,
+		backgroundColor:"rgb(242,246,250)",
+		marginBottom:8
 	},
 	show:{
 		display:"flex"
@@ -103,21 +106,27 @@ const styles = StyleSheet.create({
 		// backgroundColor:"#F3F3F3",
 		borderRadius:0,
 		position:"absolute",
-		left:8,
-		top:7,
+		left:92,
+		top:16,
 		zIndex:2
 	},
-	// close: {
-	// 	fontSize:17,
-	// 	color:"#FF7373"
-	// },
+	image_delete: {
+		position:"absolute",
+		right:12,
+		width:16,
+		height:16
+	},
+	close: {
+		fontSize:17,
+		color:"#FF7373"
+	},
 	textInput: {
-		width:316,
-		height:28,
-		paddingLeft:30,
+		width:360,
+		height:44,
+		paddingLeft:122,
 		backgroundColor:"white",
 		borderRadius:8,
-		// marginTop:28,
+		marginTop:28,
 		// position:"absolute",
 		// left:16,
 		// top:25,
