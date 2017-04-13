@@ -107,14 +107,8 @@ const styles = StyleSheet.create({
 		borderRadius:0,
 		position:"absolute",
 		left:92,
-		top:16,
+		top:15,
 		zIndex:2
-	},
-	image_delete: {
-		position:"absolute",
-		right:12,
-		width:16,
-		height:16
 	},
 	close: {
 		fontSize:17,
@@ -123,7 +117,7 @@ const styles = StyleSheet.create({
 	textInput: {
 		width:360,
 		height:44,
-		paddingLeft:122,
+		paddingLeft:114,
 		backgroundColor:"white",
 		borderRadius:8,
 		marginTop:28,
