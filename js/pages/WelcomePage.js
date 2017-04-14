@@ -8,13 +8,14 @@ import {
 	Image,
 	ListView
 } from "react-native";
-import ShareNav from "../common/ShareNav";
+// import ShareNav from "../common/ShareNav";
 import BottomTabs from "../common/BottomTabs";
 import SearchNav from "../common/SearchNav"
 import BookList from "../common/BookList";
 import SearchPage from "./SearchPage";
 import SearchResultPage from "./SearchResultPage";
 import SearchNav_Welcome from "../common/SearchNav_Welcome";
+import BookInfoPage from "./BookInfoPage";
 
 
 export default class WelcomePage extends Component {
@@ -30,30 +31,31 @@ export default class WelcomePage extends Component {
 	// 	this.dataR
 	// }
 	render() {
-		return <BottomTabs
-		page1 = {
-			<View style={styles.container}>
-			{
-				this.state.show===1?
-				<View>
-				<SearchNav_Welcome placeholder={"搜索"} 
-				onFocus = {
-					()=>{
-						this.setState({show:2});
-					}
-				}/> 
-				<BookList/>
-				</View>
-				: <SearchPage
-				onPressClose={
-					()=>{
-						this.setState({show:1});
-					}
-				}
-				/>
-			}
-			</View>
-		}/>
+		// return <BottomTabs
+		// page1 = {
+		// 	<View style={styles.container}>
+		// 	{
+		// 		this.state.show===1?
+		// 		<View>
+		// 		<SearchNav_Welcome placeholder={"搜索"} 
+		// 		onFocus = {
+		// 			()=>{
+		// 				this.setState({show:2});
+		// 			}
+		// 		}/> 
+		// 		<BookList/>
+		// 		</View>
+		// 		: <SearchPage
+		// 		onPressClose={
+		// 			()=>{
+		// 				this.setState({show:1});
+		// 			}
+		// 		}
+		// 		/>
+		// 	}
+		// 	</View>
+		// }/>
+		return <BookInfoPage />
 	}
 }
 

@@ -6,6 +6,7 @@ import {
 	StyleSheet,
 	StatusBar,
 	TouchableOpacity,
+    Dimensions
 }from "react-native";
 const NAVBAR_HEIGHT = 44;
 const STATUS_BAR_HEIGHT = 20;
@@ -63,26 +64,31 @@ export default class Navigator extends Component {
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "white",
+        justifyContent:"center",
+        alignItems:"center"
 	},
 	navBar: {
-		justifyContent: "space-between",
+		// justifyContent: "center",
 		alignItems:"center",
 		height:NAVBAR_HEIGHT,
 		backgroundColor:"white",
-		flexDirection:"row"
+		flexDirection:"row",
+        width:Dimensions.get("window").width-16
 	},
 	titleViewContainer: {
 		justifyContent: "center",
 		alignItems:"center",
-		position:"absolute",
-		left:20,
-		right:20,
-		top:0,
-		bottom:0
+        marginLeft:127
+		// position:"absolute",
+		// left:20,
+		// right:20,
+		// top:0,
+		// bottom:0
 	},
 	title: {
 		fontSize:17,
-		color:"#607D8B",
+		color:"black",
+
 	},
 	statusBar: {
 		height:STATUS_BAR_HEIGHT,
