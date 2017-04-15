@@ -23,7 +23,7 @@ export default class BookCollectAddPage extends Component {
 	rightOnPress(){
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			// alert(array);
-			array = JSON.parse(array);
+			array = JSON.parse(array)
 			let item = {
 				title:this.state.title,
 				des:this.state.des,
@@ -35,15 +35,17 @@ export default class BookCollectAddPage extends Component {
 					return d.title===item.title
 				})
 				if(!flag){
-				    array = [...array,item];
+				    array = [...array,item]
 				}
 			} else {
-				array = [item];
+				array = [item]
 			}
 			AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
 				if(error) {
-					alert(error);
+					alert(error)
 				}
+				this.props.onCallBack()
+				this.props.navigator.pop()
 			});
 		});
 	}
@@ -55,6 +57,7 @@ export default class BookCollectAddPage extends Component {
 						this.rightOnPress();
 					}
 				}
+				navigator={this.props.navigator}
 			/>
 			<TextInput
 				placeholder="书单标题"

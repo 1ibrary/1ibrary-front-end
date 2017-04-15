@@ -6,24 +6,16 @@ import {
 	Navigator,
 	TouchableOpacity,
 	Image,
-	ListView
+	ListView,
 } from "react-native";
 // import ShareNav from "../common/ShareNav";
-import BottomTabs from "../common/BottomTabs";
-import SearchNav from "../common/SearchNav"
-import BookList from "../common/BookList";
-import SearchPage from "./SearchPage";
-import SearchResultPage from "./SearchResultPage";
-import SearchNav_Welcome from "../common/SearchNav_Welcome";
-import BookInfoPage from "./BookInfoPage";
-import BookCollectPage from "./BookCollectPage";
-import BookCollectAddPage from "./BookCollectAddPage";
+import HomePage from "./HomePage"
 
 export default class WelcomePage extends Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			show:2
+			show:1
 		}
 	}
 
@@ -32,31 +24,20 @@ export default class WelcomePage extends Component {
 	// 	this.dataR
 	// }
 	render() {
-		// return <BottomTabs
-		// page1 = {
-		// 	<View style={styles.container}>
-		// 	{
-		// 		this.state.show===1?
-		// 		<View>
-		// 		<SearchNav_Welcome placeholder={"搜索"} 
-		// 		onFocus = {
-		// 			()=>{
-		// 				this.setState({show:2});
-		// 			}
-		// 		}/> 
-		// 		<BookList/>
-		// 		</View>
-		// 		: <SearchPage
-		// 		onPressClose={
-		// 			()=>{
-		// 				this.setState({show:1});
-		// 			}
-		// 		}
-		// 		/>
-		// 	}
-		// 	</View>
-		// }/>
-		return <BookCollectPage />
+		return <Navigator
+				initialRoute={{
+					component:HomePage
+				}}
+				renderScene={
+					(route, navigator)=>{
+						let Component = route.component
+						return <Component navigator={navigator} {...route.params}/>
+					}
+				}
+				>
+			
+		</Navigator>
+		
 	}
 }
 

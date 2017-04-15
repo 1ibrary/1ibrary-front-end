@@ -27,12 +27,12 @@ export default class BookList extends Component {
 				rowHasChanged:(r1,r2)=>r1!==r2
 			});
 		this.state = {
-			dataSource: ds.cloneWithRows(this.props.data?this.props.data:data)
+			dataSource: ds.cloneWithRows(data)
 		}
 		// alert(this.props.data)
 	}
 	renderRow(data) {
-		return <BookItem1 data={data}/>;
+		return <BookItem1 navigator={this.props.navigator} data={data}/>;
 	}
 	render() {
 		return <View style={[styles.booklist,this.props.style]}>

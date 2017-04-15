@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import RightButtonNav from "../common/RightButtonNav";
 import BookCollectItem from "../common/BookCollectItem";
+import BookCollectAddPage from "./BookCollectAddPage";
 const INNERWIDTH = Dimensions.get("window").width - 16;
 const HEIGHT = Dimensions.get("window").height
 
@@ -88,12 +89,28 @@ export default class BookCollectPage extends Component{
 		    {title:"经典书籍",des:"反正就是很经典的啦"}
 		]
 		return <View style={styles.container}>
-			<RightButtonNav 
+			<RightButtonNav navigator={this.props.navigator}
 				title="加入书单"
 				rightOnPress={
 					()=>this.rightOnPress()
 				}/>
-			<TouchableOpacity style={styles.add}>
+			<TouchableOpacity style={styles.add}
+				onPress={
+					()=>{
+						this.props.navigator.push({
+							component:BookCollectAddPage,
+							params:{
+								onCallBack:()=> {
+									AsyncStorage.getItem("book_list",(error,array)=>{
+		                        	array = JSON.parse(array)
+		                        	this.setState({lists:array})
+		                        })
+								}
+							}
+						})
+					}
+				}
+			    >
 				<Image source={require("../../res/images/icon_add.png")}/>
 			</TouchableOpacity>
 			<ScrollView style={styles.item_container}>

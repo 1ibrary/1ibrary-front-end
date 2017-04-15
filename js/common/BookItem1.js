@@ -7,9 +7,10 @@ import {
 	TouchableOpacity,
 	Image,
 	ListView,
-	Dimensions
+	Dimensions,
 } from "react-native";
-import Round from "../common/Round";
+import Round from "./Round";
+import BookInfoPage from "../pages/BookInfoPage";
 
 
 export default class BookItem extends Component {
@@ -21,18 +22,31 @@ export default class BookItem extends Component {
 		// if(!this.props.data) {
 		// 	return ;
 		// }
-		return <View style={styles.item}>
-			<Image style={styles.image} source={{uri:this.props.data.picture}} />
-			<View style={styles.information}>
-				<Text style={styles.item_title}>{this.props.data.title}</Text>
-			    <Text style={styles.item_author}>{this.props.data.author}</Text>
-			    <Text style={styles.item_publish}>{this.props.data.publish} {this.props.data.time}</Text>
-			    <Text style={styles.item_grade}>{this.props.data.grade}</Text>
-			</View>
-			<View style={styles.round}>
-			    <Round data={this.props.data.num}/>
-			</View>
-		</View>
+		return <TouchableOpacity
+				onPress={
+					()=>{this.props.navigator.push({
+						component:BookInfoPage,
+						params:{
+
+						}
+					})
+				}
+				}
+		        >
+				 <View style={styles.item}>
+			          <Image style={styles.image} source={{uri:this.props.data.picture}} />
+			          <View style={styles.information}>
+			          	<Text style={styles.item_title}>{this.props.data.title}</Text>
+			              <Text style={styles.item_author}>{this.props.data.author}</Text>
+			              <Text style={styles.item_publish}>{this.props.data.publish} {this.props.data.time}</Text>
+			              <Text style={styles.item_grade}>{this.props.data.grade}</Text>
+			          </View>
+			          <View style={styles.round}>
+			              <Round data={this.props.data.num}/>
+			          </View>
+		         </View>
+			</TouchableOpacity>
+		   
 	}
 }
 

@@ -125,6 +125,7 @@ export default class SearchPage extends Component {
 				
 		    
 		    <SearchResultPage
+		    navigator={this.props.navigator}
 		    data={[{grade:"暂无评分",title:"设计心理学4:未来设计",num:5,author:"唐纳德诺曼",publish:"中信出版社",time:2015,picture:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491754581994&di=1db59cd5fa4e2820fb04022afb517d68&imgtype=0&src=http%3A%2F%2Ffdfs.xmcdn.com%2Fgroup18%2FM09%2F4E%2F71%2FwKgJJVeWMA3iSLL6AABg7zEQtSQ734.jpg"}]} />
 		</View>
 		}
@@ -370,4 +371,3 @@ const styles = StyleSheet.create({
 	// 	// height:21.93
 	// },
 });
-

@@ -21,7 +21,13 @@ export default class CommonNav extends Component {
 		return <View>
 		    <NavigationBar
 		    	title={this.props.title}
-		    	 leftButton={<TouchableOpacity style={styles.image_icon1}>
+		    	 leftButton={<TouchableOpacity style={styles.image_icon1}
+		    	 	onPress={
+		    	 		()=>{
+		    	 			this.props.navigator.pop()
+		    	 		}
+		    	 	}
+		    	 >
 		    	<Image 
 		    	    source={require("../../res/images/BackArrow.png")}/>
 		    </TouchableOpacity>}

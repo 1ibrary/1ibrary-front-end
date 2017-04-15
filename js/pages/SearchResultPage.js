@@ -31,9 +31,9 @@ export default class SearchResultPage extends Component {
 		    	}
 		    }
 		    >
-			<View style={styles.page_container} tabLabel="书名"><BookList styles={styles.booklist}/></View>
-			<View style={styles.page_container} tabLabel="作者"><BookList styles={styles.booklist}/></View>
-			<View style={styles.page_container} tabLabel="出版社"><BookList styles={styles.booklist}/></View>
+			<View style={styles.page_container} tabLabel="书名"><BookList navigator={this.props.navigator} styles={styles.booklist}/></View>
+			<View style={styles.page_container} tabLabel="作者"><BookList navigator={this.props.navigator} styles={styles.booklist}/></View>
+			<View style={styles.page_container} tabLabel="出版社"><BookList navigator={this.props.navigator} styles={styles.booklist}/></View>
 			
 		</ScrollableTabView>
 		</View>

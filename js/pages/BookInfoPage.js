@@ -12,6 +12,7 @@ import {
 }from "react-native";
 import CommonNav from "../common/CommonNav";
 import Round from "../common/Round";
+import BookCollectPage from "./BookCollectPage";
 const ALLWIDTH = Dimensions.get("window").width;
 const INNERWIDTH = ALLWIDTH - 16;
 
@@ -51,7 +52,15 @@ export default class BookInfoPage extends Component {
 	render() {
 		let bottomBar = (<View style={styles.bottom_bar}>
 			<TouchableOpacity style={[styles.subscribe,this.props.data.book_subscribe?{}:styles.subscribe_disbaled]}><Text style={[styles.subscribe_font,this.props.data.book_subscribe?{}:styles.subscribe_font_disabled]}>订阅</Text></TouchableOpacity>
-			<TouchableOpacity style={styles.collect}><Text style={styles.collect_font}>收藏</Text></TouchableOpacity>
+			<TouchableOpacity style={styles.collect}
+				onPress={
+					()=>{
+						this.props.navigator.push({
+							component:BookCollectPage
+						})
+					}
+				}
+			><Text style={styles.collect_font}>收藏</Text></TouchableOpacity>
 		</View>)
 
 		let content = <View style={styles.book_content}>
@@ -63,7 +72,7 @@ export default class BookInfoPage extends Component {
 		let blue_dot = require("../../res/images/blue_dot.png")
 		
 		return <View style={styles.container}>
-			<CommonNav title={"图书详情"}/>
+			<CommonNav navigator={this.props.navigator} title={"图书详情"}/>
 			<ScrollView>
 				<View  style={styles.outline_container}>
 					<View style={styles.outline_image_view}>

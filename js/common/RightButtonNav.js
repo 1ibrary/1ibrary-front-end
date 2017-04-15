@@ -17,6 +17,7 @@ export default class RightButtonNav extends Component {
 	render() {
 		return <CommonNav 
 				title={this.props.title}
+				navigator={this.props.navigator}
 			    rightButton={
 				<TouchableOpacity
 					onPress={ 
@@ -25,12 +26,11 @@ export default class RightButtonNav extends Component {
 				 style={styles.rightButton}>
 					<Text style={styles.rightButton_font}>完成</Text>
 				</TouchableOpacity>
-				
 			}/>
 	}
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
 	rightButton:{
 		position:"absolute",
 		right:16
