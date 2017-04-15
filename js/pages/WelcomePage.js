@@ -16,7 +16,8 @@ import SearchPage from "./SearchPage";
 import SearchResultPage from "./SearchResultPage";
 import SearchNav_Welcome from "../common/SearchNav_Welcome";
 import BookInfoPage from "./BookInfoPage";
-
+import BookCollectPage from "./BookCollectPage";
+import BookCollectAddPage from "./BookCollectAddPage";
 
 export default class WelcomePage extends Component {
 	constructor(props) {
@@ -55,7 +56,7 @@ export default class WelcomePage extends Component {
 		// 	}
 		// 	</View>
 		// }/>
-		return <BookInfoPage />
+		return <BookCollectPage />
 	}
 }
 

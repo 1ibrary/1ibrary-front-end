@@ -20,7 +20,7 @@ export default class CommonNav extends Component {
 	render() {
 		return <View>
 		    <NavigationBar
-		    	title={"图书详情"}
+		    	title={this.props.title}
 		    	 leftButton={<TouchableOpacity style={styles.image_icon1}>
 		    	<Image 
 		    	    source={require("../../res/images/BackArrow.png")}/>

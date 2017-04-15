@@ -11,21 +11,114 @@ import {
 	Dimensions
 }from "react-native";
 import CommonNav from "../common/CommonNav";
+import Round from "../common/Round";
+const ALLWIDTH = Dimensions.get("window").width;
+const INNERWIDTH = ALLWIDTH - 16;
 
 export default class BookInfoPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			show_content:false
+		}
+	}
+	static defaultProps = {
+		data: {
+			book_title:"美洲小宇宙",
+			book_content:"一本书带你深度探访中南美洲腹地，身未动，心已远。沿着旧地图，走不到新大陆，毕淑敏带你走出自助旅行新路线: “世界最美岛屿”加拉帕戈斯群岛，“热带雾林王冠上的宝石”哥斯达黎加蒙特维德雾林，古印第安人的太阳、月亮金字塔与亡灵大道，全球银饰之都塔斯科，切•格瓦拉故居……太多秘密，等你探索，太多奇迹，等你发现。",
+			book_cover:"https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg",
+			book_key:"TB47-05-/9",
+			book_place:"中文文科库(418)",
+			book_author:"毕淑敏",
+			book_publish:"湖南文艺出版社",
+			book_rate:9.3,
+			detail_data:[
+			    {detail_place:"中文文科库418",detail_id:11,detail_key:1,detail_in:true},
+			    {detail_place:"中文文科库418",detail_id:11,detail_key:2,detail_in:true},
+			    {detail_place:"中文文科库418",detail_id:11,detail_key:3,detail_in:false}
+			],
+			book_last_number:2,
+			book_subscribe:true
+		}
+	}
+	changeNum(x) {
+		if(x<10) {
+			return "0"+x;
+		} else {
+			return x;
+		}
+	}
 	render() {
 		let bottomBar = (<View style={styles.bottom_bar}>
-			<TouchableHighlight style={styles.subscribe}><Text style={styles.subscribe_font}>订阅</Text></TouchableHighlight>
-			<TouchableHighlight style={styles.collect}><Text style={styles.collect_font}>收藏</Text></TouchableHighlight>
+			<TouchableOpacity style={[styles.subscribe,this.props.data.book_subscribe?{}:styles.subscribe_disbaled]}><Text style={[styles.subscribe_font,this.props.data.book_subscribe?{}:styles.subscribe_font_disabled]}>订阅</Text></TouchableOpacity>
+			<TouchableOpacity style={styles.collect}><Text style={styles.collect_font}>收藏</Text></TouchableOpacity>
 		</View>)
+
+		let content = <View style={styles.book_content}>
+				    	<Text style={styles.book_content_font}>{this.props.data.book_content}</Text>
+				    </View>
+		let image_down = require("../../res/images/downArrow.png")
+		let image_up = require("../../res/images/upArrow.png")
+		let red_dot = require("../../res/images/red_dot.png")
+		let blue_dot = require("../../res/images/blue_dot.png")
 		
 		return <View style={styles.container}>
 			<CommonNav title={"图书详情"}/>
 			<ScrollView>
 				<View  style={styles.outline_container}>
-					<Image source={}/>
+					<View style={styles.outline_image_view}>
+						<Image style={styles.outline_image} source={{uri:this.props.data.book_cover}}/>
+					</View>
+					<View style={styles.outline_text}>
+						<Text style={styles.outline_title}>{this.props.data.book_title}</Text>
+					    <Text style={styles.outline_a_p}>{this.props.data.book_author}</Text>
+						<Text style={styles.outline_a_p}>{this.props.data.book_publish}</Text>
+						<Text style={styles.outline_rate}>{this.props.data.book_rate?this.props.data.book_rate+" 分":"暂无评分"}</Text>
+						<TouchableOpacity style={styles.outline_button}
+							  onPress={
+							  	()=>this.setState({show_content:!this.state.show_content})
+							  }
+							>
+							<Text style={styles.outline_button_font}>{this.state.show_content?"收起详情":"展开详情"}</Text>
+							<Image style={styles.outline_button_image} source={this.state.show_content?image_up:image_down}/>
+						</TouchableOpacity>
+					</View>
 				</View>
-				<View  style={styles.test1}></View>
+				<View style={styles.book_c_p_container}>
+				    {this.state.show_content?content:<View></View>}
+				    <View style={styles.book_position}>
+				    	<View style={styles.book_position_font_container}>
+				    		<Text style={styles.book_position_font}>索书号: {this.props.data.book_key}</Text>
+				    	    <Text style={styles.book_position_font}>馆藏地点: {this.props.data.book_place}</Text>
+				    	</View>
+				    	<View style={styles.book_position_round}>
+				    		<Round data={this.props.data.book_last_number}/>
+				    	</View>
+				    </View>
+				</View>
+				<View style={styles.book_places_container}>
+					{
+					// 	this.props.data.detail_data.map({
+
+					// })
+					}
+					<View style={styles.book_places_cap}>
+						<Text style={styles.book_places_cap_number}>序号</Text>
+						<Text style={styles.book_places_cap_place}>馆藏地点</Text>
+					</View>
+					
+					{
+						this.props.data.detail_data.map((item)=>{
+							return <View key={item.detail_key} style={styles.book_place_item}>
+						<Image source={item.detail_in?blue_dot:red_dot}/>
+						<Text style={[styles.book_place_item_font,styles.book_place_item_num]}>{this.changeNum(item.detail_key)}</Text>
+						<Text style={[styles.book_place_item_font,styles.book_place_item_place]}>{item.detail_place}</Text>
+					</View>
+						})
+					}
+					
+				</View>
+				
 			</ScrollView>
 			{bottomBar}
 		</View>
@@ -38,8 +131,137 @@ const styles = StyleSheet.create({
 		alignItems:"center"
 	},
 	outline_container:{
+		// alignItems:"center",
+		width:INNERWIDTH,
+		marginTop:18,
+		flexDirection:"row"
+	},
+	outline_image_view: {
+		shadowColor:"gray",
+		shadowOffset:{h:8,w:8},
+		shadowRadius:8,
+		shadowOpacity:0.4
+	},
+	outline_image: {
+		width:106,
+		height:158,
+		marginLeft:8,
+	},
+	outline_text: {
+		marginLeft:20
+	},
+	outline_title: {
+		fontSize:17,
+		fontFamily:"PingFang SC",
+		fontWeight:"500"
+
+	},
+	outline_a_p:{
+		marginTop:8,
+		fontSize:14,
+		fontFamily:"PingFang SC",
+		color:"#666666"
+	},
+	outline_rate:{
+		marginTop:15,
+		color:"#FFB173",
+		fontSize:17,
+		height:24,
+		width:48
+	},	
+	outline_button: {
+		flexDirection:"row",
 		alignItems:"center",
-		width:Dimensions.get("window").width-16
+		height:20,
+		marginTop:20
+	},
+	outline_button_font:{
+		fontSize:14,
+		fontFamily:"PingFang SC",
+		color:"#73C0FF",
+		marginRight:8,
+		marginBottom:4,
+		height:20
+	},
+	outline_button_image: {
+		marginTop:-4
+	},
+	book_c_p_container:{
+		marginTop:26,
+		marginLeft:8
+	},
+	book_content:{
+	    backgroundColor:"#F9F9F9",
+	    padding:16,
+	    width:INNERWIDTH,
+	    borderRadius:8
+	},
+	book_content_font:{
+		color:"#666666",
+		fontSize:14,
+		fontFamily:"PingFang SC"
+	},
+	book_position: {
+		width:INNERWIDTH,
+		height:88,
+		flexDirection:"row",
+		alignItems:"center",
+		backgroundColor:"#F9F9F9",
+		marginTop:14,
+		borderRadius:8
+	},
+	book_position_font_container:{
+		marginLeft:16
+	},
+	book_position_font:{
+		color:"#666666",
+		fontSize:14,
+		fontFamily:"PingFang SC"
+	},
+	book_position_round: {
+		position:"absolute",
+		// top:26,
+		right:12
+	},
+	book_places_container: {
+		width:INNERWIDTH,
+		marginLeft:16,
+		marginTop:20
+	},
+	book_places_cap: {
+		flexDirection:"row",
+	},
+	book_places_cap_number: {
+		marginLeft:50,
+		color:"#999999",
+		fontSize:12,
+		fontFamily:"PingFang SC",
+	},
+	book_places_cap_place: {
+		marginLeft:155,
+		color:"#999999",
+		fontSize:12,
+		fontFamily:"PingFang SC"
+	},
+	book_place_item: {
+		flexDirection:"row",
+		alignItems:"center",
+		height:64,
+		borderBottomWidth:1,
+		borderBottomColor:"#F0F0F0"
+	},
+	book_place_item_font: {
+		fontSize:14,
+		color:"#666666",
+		fontFamily:"PingFang SC",
+		fontWeight:"500"
+	},
+	book_place_item_num: {
+		marginLeft:34,
+		width:40
+	},
+	book_place_item_place:{
+		marginLeft:138
 	},
 	bottom_bar: {
 		flexDirection:"row",
@@ -51,12 +273,17 @@ const styles = StyleSheet.create({
 		alignItems:"center",
 		height:50,
 		width:Dimensions.get("window").width*0.4,
+		backgroundColor:"#FFB173",
+	},
+	subscribe_disbaled:{
 		backgroundColor:"#F9F9F9",
-		
 	},
 	subscribe_font: {
+		fontSize:17,
+		color:"white",
+	},
+	subscribe_font_disabled:{
 		color:"#999999",
-		fontSize:17
 	},
 	collect:{
 		justifyContent:"center",
