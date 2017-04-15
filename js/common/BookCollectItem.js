@@ -25,7 +25,16 @@ export default class BookCollectItem extends Component {
 		let select_image = require("../../res/images/select.png")
 		let unselect_image = require("../../res/images/unselect.png")
 		let data = this.props.data;
-		return <View style={[styles.item,this.props.style]}>
+		return <TouchableWithoutFeedback
+					onPress={(select, data)=>{
+				     	data = this.props.data
+				     	// alert(data)
+				     	this.props.onPress(!this.state.select,data)
+				     	this.setState({select:!this.state.select})
+
+				     }}
+				>
+			<View style={[styles.item,this.props.style]}>
 				<View style={styles.item_text}>
 					<Text style={styles.item_title}>{data.title}</Text>
 				    <Text style={styles.item_des}>{data.des}</Text>
@@ -41,6 +50,7 @@ export default class BookCollectItem extends Component {
 					<Image style={styles.select} source={this.state.select?select_image:unselect_image}/>
 				</TouchableWithoutFeedback>
 			</View>
+		</TouchableWithoutFeedback>
 	}
 }
 

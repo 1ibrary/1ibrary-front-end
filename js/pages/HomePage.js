@@ -39,13 +39,13 @@ export default class WelcomePage extends Component {
 				this.state.show===1?
 				<View>
 				<SearchNav_Welcome placeholder={"搜索"} 
-				navigator={this.props.navigator}
+				
 				onFocus = {
 					()=>{
 						this.setState({show:2});
 					}
 				}/> 
-				<BookList/>
+				<BookList navigator={this.props.navigator}/>
 				</View>
 				: <SearchPage
 				navigator={this.props.navigator}

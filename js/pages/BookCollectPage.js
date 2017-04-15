@@ -25,7 +25,10 @@ export default class BookCollectPage extends Component{
 		}
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			array = JSON.parse(array)
-			this.setState({lists:array})
+			if(array) {
+				this.setState({lists:array})
+			}
+			
 		})
 		
 	}
@@ -56,8 +59,9 @@ export default class BookCollectPage extends Component{
 				array = JSON.parse(array)
 				this.state.choosed.map((item)=>{
 					array.some((d)=>{
-						if(d.title===item) {
+						if(d.title&&d.title===item) {
 							let books = d.books
+							// alert(JSON.stringify(d))
 							// alert(this.props.book)
 							d.books = [...(new Set([...books,this.props.book]))]
 							return d.title===item

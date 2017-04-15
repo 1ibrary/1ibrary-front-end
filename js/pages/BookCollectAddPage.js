@@ -24,6 +24,10 @@ export default class BookCollectAddPage extends Component {
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			// alert(array);
 			array = JSON.parse(array)
+			if(!this.state.title.trim()) {
+				alert("请输入书单的名字噢！")
+				return 
+			}
 			let item = {
 				title:this.state.title,
 				des:this.state.des,
