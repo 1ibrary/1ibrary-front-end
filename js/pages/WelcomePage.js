@@ -10,6 +10,7 @@ import {
 } from "react-native";
 // import ShareNav from "../common/ShareNav";
 import HomePage from "./HomePage"
+import BookCollectPage from "./BookCollectPage"
 
 export default class WelcomePage extends Component {
 	constructor(props) {
@@ -37,7 +38,7 @@ export default class WelcomePage extends Component {
 				>
 			
 		</Navigator>
-		
+		// return <BookCollectPage/>
 	}
 }
 

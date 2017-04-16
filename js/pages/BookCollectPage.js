@@ -8,7 +8,7 @@ import {
 	Dimensions,
 	TouchableHighlight,
 	AsyncStorage,
-	ScrollView
+	ScrollView,
 } from "react-native";
 import RightButtonNav from "../common/RightButtonNav";
 import BookCollectItem from "../common/BookCollectItem";
@@ -20,16 +20,10 @@ export default class BookCollectPage extends Component{
 	constructor(props) {
 		super(props)
 		this.state = {
-			lists:[],
+			lists:this.props.lists,
 			choosed:[]
 		}
-		AsyncStorage.getItem("book_list",(error,array)=>{
-			array = JSON.parse(array)
-			if(array) {
-				this.setState({lists:array})
-			}
-			
-		})
+		
 		
 	}
 	static defaultProps = {
@@ -87,6 +81,30 @@ export default class BookCollectPage extends Component{
 		}
 		this.setState({choosed:choosed})
 	}
+	onDelete(title) {
+		AsyncStorage.getItem("book_list",(error,array)=>{
+			if(error) {
+				alert(error)
+			} else {
+				array = JSON.parse(array)
+				array.some((d,i)=>{
+					if(d.title===title) {
+						array.splice(i,1)
+					}
+					this.setState({lists:array})
+					// alert(this.state.lists)
+					return d.title === title
+				})
+			}
+			AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
+					if(error) {
+						alert(error)
+					} else {
+						// alert("成功!")
+					}
+			})
+		})
+	}
 	render() {
 		let lists = [
 		    {title:"专业书籍",des:"反正就是很专业的啦"},
@@ -117,7 +135,20 @@ export default class BookCollectPage extends Component{
 			    >
 				<Image source={require("../../res/images/icon_add.png")}/>
 			</TouchableOpacity>
-			<ScrollView style={styles.item_container}>
+			{
+			// <BookCollectList
+			//      data = {this.state.lists}
+			// 	 style={styles.list}
+			// 	 onPressButton={(select,data)=>{
+			// 	 	this.onPressButton(select,data)
+			// 	 }}
+			// 	 onDelete={(title)=>{
+			// 	 	this.onDelete(title)
+			// 	 }}
+			// 	/>
+			
+			}
+				<ScrollView style={styles.list}>
 				{
 				this.state.lists.map((item)=>{
 					// if(item===null) {
@@ -125,12 +156,13 @@ export default class BookCollectPage extends Component{
 					// }
 					return <BookCollectItem 
 						onPress = {(select, data)=>this.onPressButton(select,data)}
+						onDelete={(title)=>{
+							this.onDelete(title)
+			 			}}
 					    key={item.title} data={item}/>
 				})
 			    }
 			</ScrollView>
-			
-
 		</View>
 	}
 }	
@@ -150,9 +182,9 @@ const styles = StyleSheet.create({
 		justifyContent:"center",
 		backgroundColor:"white"
 	},
-	item_container: {
+	list: {
 		marginTop:20,
-		marginLeft:8
+		// marginLeft:8
 	}
 
 });

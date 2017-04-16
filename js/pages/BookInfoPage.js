@@ -8,7 +8,8 @@ import {
 	TouchableOpacity,
 	TouchableHighlight,
 	ScrollView,
-	Dimensions
+	Dimensions,
+	AsyncStorage
 }from "react-native";
 import CommonNav from "../common/CommonNav";
 import Round from "../common/Round";
@@ -20,7 +21,7 @@ export default class BookInfoPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			show_content:false
+			show_content:false,
 		}
 	}
 	static defaultProps = {
@@ -42,6 +43,24 @@ export default class BookInfoPage extends Component {
 			book_subscribe:true
 		}
 	}
+	onNavigator() {
+		AsyncStorage.getItem("book_list",(error,array)=>{
+			let lists
+			array = JSON.parse(array)
+			if(array) {
+				lists = array
+			} else {
+				lists = []
+			}
+			this.props.navigator.push({
+				component:BookCollectPage,
+				params:{
+					lists:lists
+				}
+			})
+			
+		})
+	}
 	changeNum(x) {
 		if(x<10) {
 			return "0"+x;
@@ -55,9 +74,7 @@ export default class BookInfoPage extends Component {
 			<TouchableOpacity style={styles.collect}
 				onPress={
 					()=>{
-						this.props.navigator.push({
-							component:BookCollectPage
-						})
+						this.onNavigator()
 					}
 				}
 			><Text style={styles.collect_font}>收藏</Text></TouchableOpacity>
