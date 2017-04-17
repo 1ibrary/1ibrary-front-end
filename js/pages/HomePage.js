@@ -18,6 +18,8 @@ import SearchNav_Welcome from "../common/SearchNav_Welcome";
 import BookInfoPage from "./BookInfoPage";
 import BookCollectPage from "./BookCollectPage";
 import BookCollectAddPage from "./BookCollectAddPage";
+import MessagePage from "./MessagePage";
+import ProfilePage from "./ProfilePage";
 
 export default class WelcomePage extends Component {
 	constructor(props) {
@@ -33,7 +35,7 @@ export default class WelcomePage extends Component {
 	// }
 	render() {
 		return <BottomTabs
-		page1 = {
+		page3 = {
 			<View style={styles.container}>
 			{
 				this.state.show===1?
@@ -58,8 +60,19 @@ export default class WelcomePage extends Component {
 				/>
 			}
 			</View>
-		}/>
-		return <BookCollectPage />
+		}
+		page2 = {
+			<MessagePage
+				navigator={this.props.navigator}
+			/>
+		}
+		page1 = {
+			<ProfilePage 
+				navigator={this.props.navigator}/>
+		}
+		/>
+		// return <BookCollectPage />
+
 	}
 }
 

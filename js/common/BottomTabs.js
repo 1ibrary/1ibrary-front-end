@@ -34,7 +34,6 @@ export default class BottomTabs extends Component {
 	   page1: (<View style={styles.page1}></View>),
 	   page2: (<View style={styles.page2}></View>),
 	   page3:(<View style={styles.page1}></View>),
-	   page4:(<View style={styles.page2}></View>)
 	}
 	constructor(props) {
 		super(props);
@@ -61,7 +60,7 @@ export default class BottomTabs extends Component {
 			            renderIcon={() => <Image style={styles.image} source={require("../../res/images/message.png")} />}
 			            renderSelectedIcon={() => <Image  source={require("../../res/images/message1.png")} />}
 			            onPress={() => this.setState({ selectedTab: 'message' })}>
-			        		{this.props.page3}
+			        		{this.props.page2}
 			        </TabNavigator.Item>
 			        <TabNavigator.Item
 			        	selected={this.state.selectedTab === 'profile'}
@@ -69,7 +68,7 @@ export default class BottomTabs extends Component {
 			        	renderIcon={() => <Image style={styles.image} source={require("../../res/images/profile.png")} />}
 			        	renderSelectedIcon={() => <Image  source={require("../../res/images/profile1.png")} />}
 			        	onPress={() => this.setState({ selectedTab: 'profile' })}>
-			        		{this.props.page4}
+			        		{this.props.page3}
 			        </TabNavigator.Item>
 				</TabNavigator>
 			</View>

@@ -47,7 +47,7 @@ export default class Navigator extends Component {
     	    <Text style={styles.title}>{this.props.title}</Text>
     	let content = <View style={styles.navBar}>
     		{this.props.leftButton}
-    		<View style={styles.titleViewContainer}>
+    		<View style={[styles.titleViewContainer,this.props.titleStyle]}>
     			{titleView}
     		</View> 
     		{this.props.rightButton}

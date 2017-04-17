@@ -18,6 +18,16 @@ export default class BookItem extends Component {
 		super(props);
 		
 	}
+	static defaultProps = {
+		data: {
+			grade:9.3,
+			title:"设计心理学4:未来设计",
+			num:5,author:"唐纳德诺曼",
+			publish:"中信出版社",
+			time:2015,
+			picture:"https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg"
+		}
+	}
 	render() {
 		// if(!this.props.data) {
 		// 	return ;
@@ -33,7 +43,7 @@ export default class BookItem extends Component {
 				}
 				}
 		        >
-				 <View style={styles.item}>
+				 <View style={[styles.item,this.props.style]}>
 			          <Image style={styles.image} source={{uri:this.props.data.picture}} />
 			          <View style={styles.information}>
 			          	<Text style={styles.item_title}>{this.props.data.title}</Text>
@@ -62,7 +72,7 @@ const styles = StyleSheet.create({
 		// paddingTop:20,
 		paddingHorizontal:12,
 		backgroundColor:"white",
-		width:Dimensions.get("window")-16,
+		width:Dimensions.get("window").width-16,
 		height:160,
 		borderRadius:8,
 		marginBottom:8,

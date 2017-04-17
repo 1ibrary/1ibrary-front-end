@@ -66,7 +66,8 @@ export default class BookCollectPage extends Component{
 					if(error) {
 						alert(error)
 					} else {
-						alert("成功!")
+						// alert("成功!")
+						this.props.navigator.pop()
 					}
 				})
 			}
@@ -155,6 +156,7 @@ export default class BookCollectPage extends Component{
 					// 	return;
 					// }
 					return <BookCollectItem 
+						navigator={this.props.navigator}
 						onPress = {(select, data)=>this.onPressButton(select,data)}
 						onDelete={(title)=>{
 							this.onDelete(title)
