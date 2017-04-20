@@ -20,15 +20,20 @@ export default class CommonNav extends Component {
 	render() {
 		return <View>
 		    <NavigationBar
+		    	navBarStyle={this.props.navBarStyle}
+		    	navStyle={this.props.navStyle}
 		    	title={this.props.title}
-		    	 leftButton={<TouchableOpacity style={styles.image_icon1}
+		    	titleStyle={
+		    	 	this.props.titleStyle
+		    	 }
+		    	 leftButton={<TouchableOpacity 
 		    	 	onPress={
 		    	 		()=>{
 		    	 			this.props.navigator.pop()
 		    	 		}
 		    	 	}
 		    	 >
-		    	<Image 
+		    	<Image style={styles.image_icon1}
 		    	    source={require("../../res/images/BackArrow.png")}/>
 		    </TouchableOpacity>}
 		    	rightButton={
@@ -41,11 +46,15 @@ export default class CommonNav extends Component {
 
 const styles = StyleSheet.create({
 	image_icon1:{
-		justifyContent: "center",
-		alignItems:"center",
-		// width:11.26,
-		// height:20.17,
-		marginLeft:8
+		// position:"absolute",
+		// left:16,
+		// marginTop:-10
+		// justifyContent: "center",
+		// alignItems:"center",
+		// // width:11.26,
+		// // height:20.17,
+		marginRight:126,
+		marginLeft:16
 	},
 
 });

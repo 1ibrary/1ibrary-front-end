@@ -45,7 +45,7 @@ export default class Navigator extends Component {
     	</View>;
     	let titleView = this.props.titleView?this.props.titleView:
     	    <Text style={styles.title}>{this.props.title}</Text>
-    	let content = <View style={styles.navBar}>
+    	let content = <View style={[styles.navBar,this.props.navBarStyle]}>
     		{this.props.leftButton}
     		<View style={[styles.titleViewContainer,this.props.titleStyle]}>
     			{titleView}
@@ -53,7 +53,7 @@ export default class Navigator extends Component {
     		{this.props.rightButton}
     	</View>
     	return ( 
-    	    <View style={[styles.container,this.props.style]}>
+    	    <View style={[styles.container,this.props.navStyle]}>
     	        {status}
     	        {content}
     	    </View>
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
 		height:NAVBAR_HEIGHT,
 		backgroundColor:"white",
 		flexDirection:"row",
-        width:Dimensions.get("window").width-16
+        width:Dimensions.get("window").width,
 	},
 	titleViewContainer: {
 		justifyContent: "center",
 		alignItems:"center",
-        marginLeft:127
+        width:70
 		// position:"absolute",
 		// left:20,
 		// right:20,

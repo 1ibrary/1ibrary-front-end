@@ -51,7 +51,7 @@ export default class SearchNav extends Component {
 		return  <View style={styles.container}>
 			        <TextInput style={styles.textInput}
 			        	placeholder={"请输入你想要搜索的书籍"}
-			        	placeholderColor={"rgb(165,165,165)"}
+			        	placeholderTextColor={"rgb(165,165,165)"}
 			        	defaultValue = {this.props.defaultValue}
 			        	// onTextChange={
 			        	// 	()=>{

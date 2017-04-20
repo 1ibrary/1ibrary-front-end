@@ -1,4 +1,4 @@
-import  React, {Component} from "react"
+import  React, {Component} from "react";
 import {
 	View,
 	StyleSheet,
@@ -8,11 +8,14 @@ import {
 	Image,
 	Dimensions,
 	AsyncStorage
-} from "react-native"
-import TextPingFang from "../common/TextPingFang"
-import BookCollectPage from "./BookCollectPage"
-import RentInfoPage from "./RentInfoPage"
-import FeedBackPage from "./FeedBackPage"
+} from "react-native";
+import TextPingFang from "../common/TextPingFang";
+import BookCollectPage from "./BookCollectPage";
+import RentInfoPage from "./RentInfoPage";
+import FeedBackPage from "./FeedBackPage";
+import AboutUsPage from "./AboutUsPage";
+import SettingPage from "./SettingPage";
+
 
 const WIDTH = Dimensions.get("window").width
 const INNERWIDTH = WIDTH - 16
@@ -51,6 +54,17 @@ export default class ProfilePage extends Component {
 			component:FeedBackPage,
 		})
 	}
+	onAboutUs() {
+		this.props.navigator.push({
+			component:AboutUsPage
+		})
+	}
+	onJump(page,params){
+		this.props.navigator.push({
+			component:page,
+			params:params
+		})
+	}
 	render() {
 		let booklist = require("../../res/images/icon_booklist.png")
 		let history = require("../../res/images/icon_history.png")
@@ -64,6 +78,7 @@ export default class ProfilePage extends Component {
 			<View>
 				<Image style={styles.avatar} source={require("../../res/images/avatar_bg.png")}>
 					<Image source={require("../../res/images/avatar.png")}/>
+					<TextPingFang style={styles.avatar_font}>李某某</TextPingFang>
 				</Image>
 			</View>
 			<View style={styles.items1}>
@@ -74,13 +89,17 @@ export default class ProfilePage extends Component {
 			    					key={i}
 			    					onPress={
 			    						()=>{
-			    							switch(d) {
+			    							let text = d
+			    							switch(text) {
 			    								case "我的书单":
 			    									this.onLists()
+			    									break;
 			    							    case "借阅历史":
 			    							    	this.onHistory()
-			    							    case "意见反馈":
-			    							    	this.onFeedBack()
+			    							    	break;
+			    							    case "设置":
+			    							    	this.onJump(SettingPage,{title:"设置"})
+			    							    	break;
 			    							}
 			    						}
 			    					}
@@ -101,12 +120,11 @@ export default class ProfilePage extends Component {
 			    					onPress={
 			    						()=>{
 			    							switch(d) {
-			    								case "我的书单":
-			    									this.onLists()
-			    							    case "借阅历史":
-			    							    	this.onHistory()
 			    							    case "意见反馈":
 			    							    	this.onFeedBack()
+			    							    	break
+			    							    case "关于我们":
+			    							    	this.onAboutUs()
 			    							}
 			    						}
 			    					}
@@ -154,5 +172,12 @@ const styles = StyleSheet.create({
 	},
 	items2: {
 		marginTop:40
+	},
+	avatar_font:{
+		color:"#666666",
+		fontSize:17,
+		backgroundColor:"rgba(0,0,0,0)",
+		marginTop:15,
+		fontWeight:"600"
 	}
 })

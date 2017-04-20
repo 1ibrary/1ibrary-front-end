@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import HomePage from "./HomePage"
 import BookCollectListPage from "./BookCollectListPage"
+import WelcomePage from "./WelcomePage"
 
 function setup() {
 	// 进行一些初始化配置
@@ -17,7 +18,7 @@ function setup() {
 		}
 		render() {
 			return <Navigator
-			    initialRoute = {{component:HomePage}}
+			    initialRoute = {{component:WelcomePage}}
 			    renderScene = {(route, navigator)=>{
 						let Component = route.component
 						return <Component navigator={navigator} {...route.params}/>
