@@ -8,16 +8,59 @@ import {
 	Image,
 	ScrollView,
 	Dimensions,
-	TextInput
+	TextInput,
+	AsyncStorage
 } from "react-native";
 // import CommonNav from "../common/CommonNav";
 import TextPingFang from "../common/TextPingFang";
+import HttpUtils from "../../HttpUtils";
+import HomePage from "./HomePage";
 
 const WIDTH = Dimensions.get("window").width;
 const INNERWIDTH = WIDTH - 16;
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get("window").height;
+const URL = "https://mie-mie.tech/users/login";
 
 export default class WelcomePage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			account:"",
+			password:""
+		}
+	}
+	onSubmit() {
+		// alert(HttpUtils.changeData({
+		// 	    user_account:this.state.account,
+		// 	    user_password:this.state.password
+		//     }))
+		HttpUtils.post(URL,{
+			    user_account:this.state.account,
+			    user_password:this.state.password
+		    })
+			.then((response)=>{
+				// alert("哈哈")
+				if(response.msg==="请求成功") {
+					AsyncStorage.setItem("user_info",JSON.stringify(response.data),(error)=>{
+						if(error) {
+							console.log(error);
+						} else {
+							this.props.navigator.push({
+								component:HomePage,
+								params:{
+									user_name:response.data.user_name
+								}
+							})
+						}
+					});
+				}
+				// alert(response.msg);
+			})
+			.catch((error)=> {
+				// alert("错了")
+				console.log(error)
+			});
+	}
 	render() {
 		return <View style={styles.container}>
 			<Image style={styles.bg} source={require("../../res/images/welcome_bg.png")}>
@@ -31,14 +74,26 @@ export default class WelcomePage extends Component {
 				        placeholder={"                 请输入您的学号"}
 				        placeholderTextColor={"white"}
 				    	style={styles.textinput}
+				    	onChangeText={(text)=>{
+				    		this.setState({account:text})
+				    	}}
 				    	/>
 				    <TextInput 
 				    	placeholder={"                    请输入密码"}
 				    	placeholderTextColor={"white"}
-				        style={styles.textinput}/>
+				        style={styles.textinput}
+				        onChangeText={(text)=>{
+				    		this.setState({password:text})
+				    	}}
+				        />
 				    <Text style={styles.remind}>请使用数字广大的账号密码登录哦</Text>
-				    <TouchableOpacity style={styles.online}>
-				    	<Text style={styles.online_font}>登录</Text>
+				    <TouchableOpacity 
+				    	onPress={()=>{
+				    			this.onSubmit();
+				    		}}
+				        style={styles.online}>
+				    	<Text 
+				    	    style={styles.online_font}>登录</Text>
 				    </TouchableOpacity>
 			    </View>
 			</Image>

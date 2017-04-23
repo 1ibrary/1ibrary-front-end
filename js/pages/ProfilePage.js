@@ -34,7 +34,8 @@ export default class ProfilePage extends Component {
 			this.props.navigator.push({
 				component:BookCollectPage,
 				params:{
-					lists:lists
+					lists:lists,
+					title:"我的书单"
 				}
 		    })
 
@@ -75,10 +76,10 @@ export default class ProfilePage extends Component {
 		let images = [booklist,history,setting,feedback,aboutus,images]
 		let texts = ["我的书单","借阅历史","设置","意见反馈","关于我们"]
 		return <View style={styles.container}>
-			<View>
+			<View style={styles.info_container}>
 				<Image style={styles.avatar} source={require("../../res/images/avatar_bg.png")}>
 					<Image source={require("../../res/images/avatar.png")}/>
-					<TextPingFang style={styles.avatar_font}>李某某</TextPingFang>
+					<TextPingFang style={styles.avatar_font}>{this.props.user_name}</TextPingFang>
 				</Image>
 			</View>
 			<View style={styles.items1}>
@@ -92,7 +93,7 @@ export default class ProfilePage extends Component {
 			    							let text = d
 			    							switch(text) {
 			    								case "我的书单":
-			    									this.onLists()
+			    									this.onLists();
 			    									break;
 			    							    case "借阅历史":
 			    							    	this.onHistory()
@@ -143,6 +144,9 @@ export default class ProfilePage extends Component {
 const styles = StyleSheet.create({
 	container: {
 		height:HEIGHT,
+		alignItems:"center"
+	},
+	info_container:{
 		alignItems:"center"
 	},
 	avatar: {

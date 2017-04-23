@@ -43,8 +43,9 @@ export default class BookCollectItem extends Component {
 		    }).start()
 		}
 	}
-	onPress(ev) {
-		if(ev.dx!==0) {
+
+	onPress(evt,ges) {
+		if(ges.dx!==0) {
 			return 
 		}
 		data = this.props.data
@@ -82,13 +83,12 @@ export default class BookCollectItem extends Component {
             onMoveShouldSetPanResponder: (evt, gestureState) => true,
             onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
- 				 	this.onPress(gestureState)
+ 				 	this.onPress(evt,gestureState)
               },
 			  
            
         })
-	}
-
+		}
 	static defaultProps = {
 		data:{},
 	}
@@ -108,24 +108,31 @@ export default class BookCollectItem extends Component {
 			    //      }}
 			    
 				>
-			<Animated.View 
-			    {...this._panResponder_touch.panHandlers}
-				
+			<Animated.View 			
 			    style={[styles.item,this.props.style,{marginLeft:this.state.marginLeft}]}>
-				<View style={styles.item_text}>
+				<View 
+					{...this._panResponder_touch.panHandlers}
+					style={styles.item_text}>
 					<Text style={styles.item_title}>{data.title}</Text>
 				    <Text style={styles.item_des}>{data.des}</Text>
 				</View>
-				<TouchableWithoutFeedback
+				{
+					this.props.title==="加入书单" ?
+					<TouchableWithoutFeedback
+				// {...this._panResponder_touch_2.panHandlers}
 				     onPress={()=>{
 				     	let data = this.props.data
 				     	// alert(data)
 				     	this.props.onPress(!this.state.select,data)
 				     	this.setState({select:!this.state.select})
+				     	return ;
 				     }}
 				     >
-					<Image style={styles.select} source={this.state.select?select_image:unselect_image}/>
-				</TouchableWithoutFeedback>
+						<Image style={styles.select} source={this.state.select?select_image:unselect_image}/>
+					</TouchableWithoutFeedback>:
+					<View></View>
+				}
+				
 			</Animated.View>
 			<TouchableOpacity
 				onPress={()=>{
@@ -162,7 +169,10 @@ const styles = StyleSheet.create({
 		color:"#666666"
 	},
 	item_text:{
-		marginLeft:8
+		paddingLeft:8,
+		width:360,
+		height:64,
+		paddingTop:12
 	},
 	item_des: {
 		fontFamily:"PingFang SC",

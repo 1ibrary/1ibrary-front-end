@@ -18,7 +18,7 @@ function setup() {
 		}
 		render() {
 			return <Navigator
-			    initialRoute = {{component:WelcomePage}}
+			    initialRoute = {{component:HomePage}}
 			    renderScene = {(route, navigator)=>{
 						let Component = route.component
 						return <Component navigator={navigator} {...route.params}/>

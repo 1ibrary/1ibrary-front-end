@@ -13,18 +13,35 @@ export default class HttpUtils {
 	}
 	static post(url, data) {
 		return new Promise((resolve, reject) => {
+			// alert(JSON.stringify(data))
 			fetch(url, {
 				method: "POST",
-				header:{
+				headers:{
 					"Accept": "application/json",
-					"Content-Type": "application/json"
+					"Content-Type": "application/x-www-form-urlencoded"
 				},
-				body: JSON.stringify(data);
+				body: this.changeData(data)
 			})
 			    .then(response=>response.json())
 			    .then(result=>{
 			    	resolve(result);
 			    })
 		});
+	}
+	static changeData(obj) {
+		var prop,str="";
+		var i = 0;
+		for(prop in obj) {
+			if(!prop) {
+				return ;
+			}
+			if(i==0) {
+				str += prop+'='+obj[prop];
+			} else {
+				str+="&" + prop+'='+obj[prop];
+			}
+			i++;
+		}
+		return str
 	}
 }

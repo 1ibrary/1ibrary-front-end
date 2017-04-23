@@ -46,6 +46,10 @@ export default class BookCollectPage extends Component{
 		}
 	}
 	rightOnPress() {
+		if(this.props.title==="我的书单") {
+			this.props.navigator.pop();
+			return ;
+		}
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			if(error) {
 				alert(error)
@@ -113,7 +117,7 @@ export default class BookCollectPage extends Component{
 		]
 		return <View style={styles.container}>
 			<RightButtonNav navigator={this.props.navigator}
-				title="加入书单"
+				title={this.props.title}
 				rightOnPress={
 					()=>this.rightOnPress()
 				}/>
@@ -156,6 +160,7 @@ export default class BookCollectPage extends Component{
 					// 	return;
 					// }
 					return <BookCollectItem 
+						title={this.props.title}
 						navigator={this.props.navigator}
 						onPress = {(select, data)=>this.onPressButton(select,data)}
 						onDelete={(title)=>{

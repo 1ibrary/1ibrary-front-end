@@ -35,7 +35,7 @@ export default class WelcomePage extends Component {
 	// }
 	render() {
 		return <BottomTabs
-		page3 = {
+		page1 = {
 			<View style={styles.container}>
 			{
 				this.state.show===1?
@@ -66,8 +66,9 @@ export default class WelcomePage extends Component {
 				navigator={this.props.navigator}
 			/>
 		}
-		page1 = {
+		page3 = {
 			<ProfilePage 
+				user_name = {this.props.user_name}
 				navigator={this.props.navigator}/>
 		}
 		/>

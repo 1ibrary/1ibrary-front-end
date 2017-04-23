@@ -55,7 +55,8 @@ export default class BookInfoPage extends Component {
 			this.props.navigator.push({
 				component:BookCollectPage,
 				params:{
-					lists:lists
+					lists:lists,
+					title:"加入书单"
 				}
 			})
 			
