@@ -45,10 +45,17 @@ export default class WelcomePage extends Component {
 						if(error) {
 							console.log(error);
 						} else {
-							this.props.navigator.push({
-								component:HomePage,
-								params:{
-									user_name:response.data.user_name
+							AsyncStorage.getItem("books_data",(error,array)=>{
+								if(error) {
+									console.log(error);
+								} else {
+									this.props.navigator.push({
+								        component:HomePage,
+								        params:{
+								        	user:response.data,
+								        	books_data:JSON.parse(array)
+								        }
+							        });
 								}
 							})
 						}

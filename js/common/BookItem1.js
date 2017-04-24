@@ -46,13 +46,13 @@ export default class BookItem extends Component {
 				 <View style={[styles.item,this.props.style]}>
 			          <Image style={styles.image} source={{uri:this.props.data.picture}} />
 			          <View style={styles.information}>
-			          	<Text style={styles.item_title}>{this.props.data.title}</Text>
-			              <Text style={styles.item_author}>{this.props.data.author}</Text>
-			              <Text style={styles.item_publish}>{this.props.data.publish} {this.props.data.time}</Text>
-			              <Text style={styles.item_grade}>{this.props.data.grade}</Text>
+			          	<Text style={styles.item_title}>{this.props.data.book_title}</Text>
+			              <Text style={styles.item_author}>{this.props.data.book_author}</Text>
+			              <Text style={styles.item_publish}>{this.props.data.book_publish} {this.props.data.time}</Text>
+			              <Text style={styles.item_grade}>{this.props.data.book_rate!==0?this.props.data.book_rate+" 分":"暂无评分"}</Text>
 			          </View>
 			          <View style={styles.round}>
-			              <Round data={this.props.data.num}/>
+			              <Round data={this.props.data.book_last_number}/>
 			          </View>
 		         </View>
 			</TouchableOpacity>

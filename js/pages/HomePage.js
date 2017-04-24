@@ -6,7 +6,7 @@ import {
 	Navigator,
 	TouchableOpacity,
 	Image,
-	ListView
+	ListView,
 } from "react-native";
 // import ShareNav from "../common/ShareNav";
 import BottomTabs from "../common/BottomTabs";
@@ -20,6 +20,8 @@ import BookCollectPage from "./BookCollectPage";
 import BookCollectAddPage from "./BookCollectAddPage";
 import MessagePage from "./MessagePage";
 import ProfilePage from "./ProfilePage";
+// import HttpUtils from "../../HttpUtils"
+
 
 export default class WelcomePage extends Component {
 	constructor(props) {
@@ -27,6 +29,7 @@ export default class WelcomePage extends Component {
 		this.state={
 			show:1
 		}
+
 	}
 
 	// loadData() {
@@ -47,7 +50,10 @@ export default class WelcomePage extends Component {
 						this.setState({show:2});
 					}
 				}/> 
-				<BookList navigator={this.props.navigator}/>
+				<BookList 
+					data = {this.props.books_data}
+					user = {this.props.user}
+				    navigator={this.props.navigator}/>
 				</View>
 				: <SearchPage
 				navigator={this.props.navigator}
@@ -68,7 +74,7 @@ export default class WelcomePage extends Component {
 		}
 		page3 = {
 			<ProfilePage 
-				user_name = {this.props.user_name}
+				user_name = {this.props.user.user_name}
 				navigator={this.props.navigator}/>
 		}
 		/>
