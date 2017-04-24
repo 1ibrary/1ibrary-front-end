@@ -7,12 +7,13 @@ import {
 	TouchableOpacity,
 	Image,
 } from "react-native";
-import NavigationBar from "../common/NavigationBar";
+import CommonNav from "../common/CommonNav";
+
 
 export default class WelcomePage extends Component {
 	render() {
 		return <View>
-		    <NavigationBar
+		    <CommonNav
 		    	title={"图书详情"}
 		    	 leftButton={<TouchableOpacity style={styles.image_icon}>
 		    	<Image 

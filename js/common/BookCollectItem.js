@@ -128,7 +128,9 @@ export default class BookCollectItem extends Component {
 				     	return ;
 				     }}
 				     >
-						<Image style={styles.select} source={this.state.select?select_image:unselect_image}/>
+						<View style={styles.select}>
+							<Image  source={this.state.select?select_image:unselect_image}/>
+						</View>
 					</TouchableWithoutFeedback>:
 					<View></View>
 				}
@@ -138,8 +140,10 @@ export default class BookCollectItem extends Component {
 				onPress={()=>{
 					this.props.onDelete(this.props.data.title)
 				}}
+				style={styles.delete_container}
 			>
-				<Image  style={styles.delete} source={require("../../res/images/icon_clear.png")}/>
+				<Image  
+				    style={styles.delete} source={require("../../res/images/icon_clear.png")}/>
 			</TouchableOpacity>
 		</View>
 	}
@@ -181,9 +185,16 @@ const styles = StyleSheet.create({
 	},
 	select:{
 		position:"absolute",
-		right:25
+		right:5,
+		height:64,
+		width:60,
+		alignItems:"center",
+		justifyContent:"center"
+	},
+	delete_container:{
+		marginLeft:8
 	},
 	delete: {
-		marginLeft:INNERWIDTH*0.12
+		marginLeft:INNERWIDTH*0.12-8,
 	}
 });
