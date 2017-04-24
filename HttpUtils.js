@@ -26,6 +26,9 @@ export default class HttpUtils {
 			    .then(result=>{
 			    	resolve(result);
 			    })
+			    .catch(error=>{
+					reject(error);
+				});
 		});
 	}
 	static changeData(obj) {

@@ -25,10 +25,12 @@ export default class BookList extends Component {
 			dataSource: new ListView.DataSource({
 				rowHasChanged:(r1,r2)=>r1!==r2
 			}),
-			isLoading:false,
+			isLoading:true,
 			page:1
 		}
 		// alert(this.props.data)
+	}
+	componentDidMount() {
 		this.onLoad();
 	}
 	onLoad() {
@@ -40,6 +42,7 @@ export default class BookList extends Component {
 		}).then((result)=>{
 			// alert(JSON.stringify(result));
 			this.setState({dataSource:this.state.dataSource.cloneWithRows(result.data)});
+			this.setState({isLoading:false});
 		});
 	}
 		// this.setState({page:this.state.page+1});
