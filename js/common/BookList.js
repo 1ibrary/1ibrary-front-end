@@ -14,6 +14,7 @@ import BookItem1 from "./BookItem1";
 import HttpUtils from "../../HttpUtils"
 
 const URL = "https://mie-mie.tech/books/show_books"
+const HEIGHT = Dimensions.get("window").height;
 
 
 export default class BookList extends Component {
@@ -26,7 +27,8 @@ export default class BookList extends Component {
 				rowHasChanged:(r1,r2)=>r1!==r2
 			}),
 			isLoading:true,
-			page:1
+			page:1,
+			books:[]
 		}
 		// alert(this.props.data)
 	}
@@ -41,17 +43,39 @@ export default class BookList extends Component {
 			page:1
 		}).then((result)=>{
 			// alert(JSON.stringify(result));
-			this.setState({dataSource:this.state.dataSource.cloneWithRows(result.data)});
+			this.setState({books:result.data},()=>{
+				this.setState({
+					dataSource:this.state.dataSource.cloneWithRows(this.state.books),
+					page:1
+				});
+			});
 			this.setState({isLoading:false});
 		});
 	}
-		// this.setState({page:this.state.page+1});
+	onEndReached() {
+		HttpUtils.post(URL,{
+			uid:this.props.user.uid,
+			token:this.props.user.token,
+			timestamp: new Date().getTime(),
+			page:this.state.page+1
+		}).then((result)=>{
+			alert(this.state.page);
+			this.setState({
+				books:[...this.state.books, ...result.data],
+				dataSource:this.state.dataSource.cloneWithRows(this.state.books),
+				page:this.state.page+1
+			});
+		});
+	}
 	renderRow(data) {
-		return <BookItem1 navigator={this.props.navigator} data={data}/>;
+		return <BookItem1 user={this.props.user} navigator={this.props.navigator} data={data}/>;
 	}
 	render() {
 		return <View style={[styles.booklist,this.props.style]}>
 			<ListView
+				onEndReached={()=>{
+							this.onEndReached();
+						}}
 				dataSource={this.state.dataSource}
 				renderRow={(data)=>this.renderRow(data)}
 				refreshControl = {
@@ -59,7 +83,8 @@ export default class BookList extends Component {
 						refreshing={this.state.isLoading}
 						onRefresh={()=>{
 							this.onLoad();
-						}}/>
+						}}
+						/>
 				}
 			/>
 		</View>
@@ -69,6 +94,7 @@ export default class BookList extends Component {
 const styles = StyleSheet.create({
 	booklist: {
 		marginTop:10,
-		width:Dimensions.get("window")-16
+		flex:1,
+		width:Dimensions.get("window").width-16,
 	},
 });

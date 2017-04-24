@@ -135,10 +135,10 @@ export default class BookInfoPage extends Component {
 					</View>
 					
 					{
-						this.props.data.detail_data.map((item)=>{
-							return <View key={item.detail_key} style={styles.book_place_item}>
+						this.props.data.detail_data.map((item,i)=>{
+							return <View key={i} style={styles.book_place_item}>
 						<Image source={item.detail_in?blue_dot:red_dot}/>
-						<Text style={[styles.book_place_item_font,styles.book_place_item_num]}>{this.changeNum(item.detail_key)}</Text>
+						<Text style={[styles.book_place_item_font,styles.book_place_item_num]}>{this.changeNum(item.id)}</Text>
 						<Text style={[styles.book_place_item_font,styles.book_place_item_place]}>{item.detail_place}</Text>
 					</View>
 						})

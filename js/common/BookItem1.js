@@ -11,6 +11,9 @@ import {
 } from "react-native";
 import Round from "./Round";
 import BookInfoPage from "../pages/BookInfoPage";
+import HttpUtils from "../../HttpUtils";
+
+const URL = "https://mie-mie.tech/books/show_detail";
 
 
 export default class BookItem extends Component {
@@ -28,23 +31,34 @@ export default class BookItem extends Component {
 			picture:"https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg"
 		}
 	}
+	onPress() {
+		HttpUtils.post(URL,{
+			token: this.props.user.token,
+			uid:this.props.user.uid,
+			book_id:this.props.data.book_id,
+			timestamp: new Date().getTime()
+		}).then((result)=>{
+			this.props.navigator.push({
+				component:BookInfoPage,
+				params:{
+					data:result.data
+				}
+		    })
+		});
+	}
 	render() {
 		// if(!this.props.data) {
 		// 	return ;
 		// }
 		return <TouchableOpacity
 				onPress={
-					()=>{this.props.navigator.push({
-						component:BookInfoPage,
-						params:{
-
-						}
-					})
-				}
+					()=>{
+						this.onPress();
+					}
 				}
 		        >
 				 <View style={[styles.item,this.props.style]}>
-			          <Image style={styles.image} source={{uri:this.props.data.picture}} />
+			          <Image style={styles.image} source={{uri:this.props.data.book_cover}} />
 			          <View style={styles.information}>
 			          	<Text style={styles.item_title}>{this.props.data.book_title}</Text>
 			              <Text style={styles.item_author}>{this.props.data.book_author}</Text>

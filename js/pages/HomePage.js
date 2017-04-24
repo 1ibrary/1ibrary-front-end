@@ -7,6 +7,8 @@ import {
 	TouchableOpacity,
 	Image,
 	ListView,
+	Dimensions,
+	ScrollView
 } from "react-native";
 // import ShareNav from "../common/ShareNav";
 import BottomTabs from "../common/BottomTabs";
@@ -21,6 +23,8 @@ import BookCollectAddPage from "./BookCollectAddPage";
 import MessagePage from "./MessagePage";
 import ProfilePage from "./ProfilePage";
 // import HttpUtils from "../../HttpUtils"
+
+const HEIGHT = Dimensions.get("window").height;
 
 
 export default class WelcomePage extends Component {
@@ -42,7 +46,7 @@ export default class WelcomePage extends Component {
 			<View style={styles.container}>
 			{
 				this.state.show===1?
-				<View>
+				<View style={styles.list}>
 				<SearchNav_Welcome placeholder={"搜索"} 
 				
 				onFocus = {
@@ -100,5 +104,5 @@ const styles = StyleSheet.create({
 	search_result_bar: {
 		// paddingTop:28,
 		backgroundColor:"white",
-	}
+	},
 });
