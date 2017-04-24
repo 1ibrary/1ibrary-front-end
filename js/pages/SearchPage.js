@@ -135,8 +135,8 @@ export default class SearchPage extends Component {
 		    	<Text style={styles.tab_title}>热门搜索</Text>
 		    	<View style={styles.tab_container}>
 		    	    {
-		    	    	this.state.history.map((item)=>{
-		    		    return <View style={styles.tab_item}>
+		    	    	this.state.history.map((item,i)=>{
+		    		    return <View key={i} style={styles.tab_item}>
 		    		        <Text style={styles.tab_font}
 		    		        	onPress={
 		    		        		()=>{
@@ -154,12 +154,12 @@ export default class SearchPage extends Component {
 		    	    <View style={styles.history_container}>
 		    	    	
 		    		{
-		    				this.state.history.map((item)=>{
+		    				this.state.history.map((item,i)=>{
 		    				this.state.history_num++;
 		    				if(this.state.history_num>MAX_LENGTH) {
 		    					return ;
 		    				}	
-		    				return (<View style={styles.history_item}>
+		    				return (<View key={i} style={styles.history_item}>
 		    						<Text 
 		    							onPress={
 		    		        		        ()=>{
@@ -187,8 +187,8 @@ export default class SearchPage extends Component {
 		    	<Text style={styles.tab_title}>搜索建议</Text>
 		    	<View style={styles.tab_container}>
 		    	    {
-		    	    	this.state.information.map((item)=>{
-		    		    return <View style={styles.tab_item}>
+		    	    	this.state.information.map((item,i)=>{
+		    		    return <View key={i} style={styles.tab_item}>
 		    		        <Text style={styles.tab_font}
 		    		        	onPress={
 		    		        		()=>{

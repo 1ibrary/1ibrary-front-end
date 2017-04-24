@@ -72,9 +72,8 @@ export default class SearchNav extends Component {
 			        		if(this.props.onSubmitEditing) {
 			        			this.props.onSubmitEditing(event);
 			        		}
-			        	}}>
+			        	}}/>
 			        	<Image style={styles.image_search} source={require("../../res/images/search_image.png")}/>
-			        </TextInput>
 		            {this.props.icon}
 	            </View>
     }
