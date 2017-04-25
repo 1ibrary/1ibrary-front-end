@@ -23,7 +23,11 @@ export default class BookCollectAddPage extends Component {
 	rightOnPress(){
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			// alert(array);
-			array = JSON.parse(array)
+			if(array) {
+				array = JSON.parse(array)
+			} else {
+				array = [];
+			}
 			if(!this.state.title.trim()) {
 				alert("请输入书单的名字噢！")
 				return 

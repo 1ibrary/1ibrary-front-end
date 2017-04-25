@@ -13,14 +13,16 @@ import {
 import RightButtonNav from "../common/RightButtonNav";
 import BookCollectItem from "../common/BookCollectItem";
 import BookCollectAddPage from "./BookCollectAddPage";
+import HttpUtils from "../../HttpUtils";
 const INNERWIDTH = Dimensions.get("window").width - 16;
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get("window").height;
+const URL = "https://mie-mie.tech/lists/show_list";
 
 export default class BookCollectPage extends Component{
 	constructor(props) {
 		super(props)
 		this.state = {
-			lists:this.props.lists,
+			lists:[],
 			choosed:[]
 		}
 		
@@ -45,6 +47,26 @@ export default class BookCollectPage extends Component{
 			book_subscribe:true
 		}
 	}
+	componentDidMount() {
+		AsyncStorage.getItem("book_list",(error,array)=>{
+			let lists = [];
+			array = JSON.parse(array)
+			if(array&&array.length!=0) {
+				lists = array;
+			} else {
+				HttpUtils.post(URL, {
+					token:1,
+					uid:1,
+					timestamp:1
+				}).then((result)=>{
+					lists = result.data;
+				}).catch((error)=>{
+					console.log(error);
+				});
+			}
+			this.setState({lists:lists});
+		});
+	}
 	rightOnPress() {
 		if(this.props.title==="我的书单") {
 			this.props.navigator.pop();
@@ -54,14 +76,26 @@ export default class BookCollectPage extends Component{
 			if(error) {
 				alert(error)
 			} else {
-				array = JSON.parse(array)
+				if(array) {
+					array = JSON.parse(array);
+				} else {
+					array = [];
+				}
 				this.state.choosed.map((item)=>{
 					array.some((d)=>{
 						if(d.title&&d.title===item) {
-							let books = d.books
+							let books = d.books;
 							// alert(JSON.stringify(d))
 							// alert(this.props.book)
-							d.books = [...(new Set([...books,this.props.book]))]
+							let flag = false;
+							d.books.some((item,i)=>{
+								if(item.book_id==this.props.book.book_id){
+									return flag = true;
+								}
+							});
+							if(!flag) {
+								d.books = [...books,this.props.book];
+							}
 							return d.title===item
 						}
 					})
@@ -160,12 +194,14 @@ export default class BookCollectPage extends Component{
 					// 	return;
 					// }
 					return <BookCollectItem 
-						title={this.props.title}
+						title={item.title}
+						big_title={this.props.title}
 						navigator={this.props.navigator}
 						onPress = {(select, data)=>this.onPressButton(select,data)}
 						onDelete={(title)=>{
 							this.onDelete(title)
 			 			}}
+			 			user={this.props.user}
 					    key={item.title} data={item}/>
 				})
 			    }

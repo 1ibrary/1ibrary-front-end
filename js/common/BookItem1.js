@@ -13,7 +13,7 @@ import Round from "./Round";
 import BookInfoPage from "../pages/BookInfoPage";
 import HttpUtils from "../../HttpUtils";
 
-const URL = "https://mie-mie.tech/books/show_detail";
+// const URL = "https://mie-mie.tech/books/show_detail";
 
 
 export default class BookItem extends Component {
@@ -32,19 +32,14 @@ export default class BookItem extends Component {
 		}
 	}
 	onPress() {
-		HttpUtils.post(URL,{
-			token: this.props.user.token,
-			uid:this.props.user.uid,
-			book_id:this.props.data.book_id,
-			timestamp: new Date().getTime()
-		}).then((result)=>{
-			this.props.navigator.push({
+		this.props.navigator.push({
 				component:BookInfoPage,
-				params:{
-					data:result.data
+				params: {
+					data:this.props.data,
+				    user:this.props.user,
+				    timestamp:this.props.timestamp
 				}
-		    })
-		});
+		    });
 	}
 	render() {
 		// if(!this.props.data) {
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
 		color:"#FFB173",
 		fontSize:17,
 		marginTop:14,
-		height:24
+		flexDirection:"row"
 	},
 	round:{
 		position:"absolute",

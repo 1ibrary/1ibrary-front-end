@@ -12,16 +12,21 @@ import {
 	AsyncStorage
 }from "react-native";
 import CommonNav from "../common/CommonNav";
+import HttpUtils from "../../HttpUtils";
 import Round from "../common/Round";
 import BookCollectPage from "./BookCollectPage";
 const ALLWIDTH = Dimensions.get("window").width;
 const INNERWIDTH = ALLWIDTH - 16;
+
+const URL = "https://mie-mie.tech/books/show_detail";
+
 
 export default class BookInfoPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			show_content:false,
+			book_data: {detail_data:[]}
 		}
 	}
 	static defaultProps = {
@@ -43,6 +48,19 @@ export default class BookInfoPage extends Component {
 			book_subscribe:true
 		}
 	}
+	componentDidMount() {
+		HttpUtils.post(URL,{
+			token: this.props.user.token,
+			uid:this.props.user.uid,
+			book_id:this.props.data.book_id,
+			timestamp: this.props.timestamp
+		}).then((result)=>{
+			this.setState({book_data:result.data});
+		})
+		.catch((error)=>{
+			console.log(error);
+		}) ;
+	}
 	onNavigator() {
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			let lists
@@ -56,7 +74,10 @@ export default class BookInfoPage extends Component {
 				component:BookCollectPage,
 				params:{
 					lists:lists,
-					title:"加入书单"
+					title:"加入书单",
+					book: this.props.data,
+					user:this.props.user,
+					timestamp:this.props.timestamp
 				}
 			})
 			
@@ -71,7 +92,13 @@ export default class BookInfoPage extends Component {
 	}
 	render() {
 		let bottomBar = (<View style={styles.bottom_bar}>
-			<TouchableOpacity style={[styles.subscribe,this.props.data.book_subscribe?{}:styles.subscribe_disbaled]}><Text style={[styles.subscribe_font,this.props.data.book_subscribe?{}:styles.subscribe_font_disabled]}>订阅</Text></TouchableOpacity>
+			<TouchableOpacity>
+				<View style={[styles.subscribe,this.state.book_data.is_subscribe?styles.subscribe_disbaled:{}]}>
+					<View>
+				        <Text style={[styles.subscribe_font, this.state.book_data.is_subscribe?styles.subscribe_font_disabled:{}]}>订阅</Text>	
+					</View>
+				</View>
+			</TouchableOpacity>
 			<TouchableOpacity style={styles.collect}
 				onPress={
 					()=>{
@@ -82,7 +109,7 @@ export default class BookInfoPage extends Component {
 		</View>)
 
 		let content = <View style={styles.book_content}>
-				    	<Text style={styles.book_content_font}>{this.props.data.book_content}</Text>
+				    	<Text style={styles.book_content_font}>{this.state.book_data.book_content}</Text>
 				    </View>
 		let image_down = require("../../res/images/downArrow.png")
 		let image_up = require("../../res/images/upArrow.png")
@@ -91,16 +118,16 @@ export default class BookInfoPage extends Component {
 		
 		return <View style={styles.container}>
 			<CommonNav navigator={this.props.navigator} title={"图书详情"}/>
-			<ScrollView>
+			<ScrollView  style={styles.scroll_view}>
 				<View  style={styles.outline_container}>
 					<View style={styles.outline_image_view}>
 						<Image style={styles.outline_image} source={{uri:this.props.data.book_cover}}/>
 					</View>
 					<View style={styles.outline_text}>
-						<Text style={styles.outline_title}>{this.props.data.book_title}</Text>
-					    <Text style={styles.outline_a_p}>{this.props.data.book_author}</Text>
-						<Text style={styles.outline_a_p}>{this.props.data.book_publish}</Text>
-						<Text style={styles.outline_rate}>{this.props.data.book_rate?this.props.data.book_rate+" 分":"暂无评分"}</Text>
+						<Text style={styles.outline_title}>{this.state.book_data.book_title}</Text>
+					    <Text style={styles.outline_a_p}>{this.state.book_data.book_author}</Text>
+						<Text style={styles.outline_a_p}>{this.state.book_data.book_publish}</Text>
+						<Text style={styles.outline_rate}>{this.state.book_data.book_rate?this.state.book_data.book_rate+" 分":"暂无评分"}</Text>
 						<TouchableOpacity style={styles.outline_button}
 							  onPress={
 							  	()=>this.setState({show_content:!this.state.show_content})
@@ -115,15 +142,15 @@ export default class BookInfoPage extends Component {
 				    {this.state.show_content?content:<View></View>}
 				    <View style={styles.book_position}>
 				    	<View style={styles.book_position_font_container}>
-				    		<Text style={styles.book_position_font}>索书号: {this.props.data.book_key}</Text>
-				    	    <Text style={styles.book_position_font}>馆藏地点: {this.props.data.book_place}</Text>
+				    		<Text style={styles.book_position_font}>索书号: {this.state.book_data.book_key}</Text>
+				    	    <Text style={styles.book_position_font}>馆藏地点: {this.state.book_data.book_place}</Text>
 				    	</View>
 				    	<View style={styles.book_position_round}>
-				    		<Round data={this.props.data.book_last_number}/>
+				    		<Round data={this.state.book_data.book_last_number}/>
 				    	</View>
 				    </View>
 				</View>
-				<View style={styles.book_places_container}>
+				<View style={[styles.book_places_container,styles.scroll_view]}>
 					{
 					// 	this.props.data.detail_data.map({
 
@@ -135,9 +162,9 @@ export default class BookInfoPage extends Component {
 					</View>
 					
 					{
-						this.props.data.detail_data.map((item,i)=>{
+						this.state.book_data.detail_data.map((item,i)=>{
 							return <View key={i} style={styles.book_place_item}>
-						<Image source={item.detail_in?blue_dot:red_dot}/>
+						<Image source={item.is_borrowed?red_dot:blue_dot}/>
 						<Text style={[styles.book_place_item_font,styles.book_place_item_num]}>{this.changeNum(item.id)}</Text>
 						<Text style={[styles.book_place_item_font,styles.book_place_item_place]}>{item.detail_place}</Text>
 					</View>
@@ -194,7 +221,6 @@ const styles = StyleSheet.create({
 		color:"#FFB173",
 		fontSize:17,
 		height:24,
-		width:48
 	},	
 	outline_button: {
 		flexDirection:"row",
@@ -212,6 +238,9 @@ const styles = StyleSheet.create({
 	},
 	outline_button_image: {
 		marginTop:-4
+	},
+	scroll_view: {
+		flex:1
 	},
 	book_c_p_container:{
 		marginTop:26,

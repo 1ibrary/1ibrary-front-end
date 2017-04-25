@@ -39,7 +39,7 @@ export default class BookList extends Component {
 		HttpUtils.post(URL,{
 			uid:this.props.user.uid,
 			token:this.props.user.token,
-			timestamp: new Date().getTime(),
+			timestamp: this.props.timestamp,
 			page:1
 		}).then((result)=>{
 			// alert(JSON.stringify(result));
@@ -48,8 +48,11 @@ export default class BookList extends Component {
 					dataSource:this.state.dataSource.cloneWithRows(this.state.books),
 					page:1
 				});
-			});
+			})
 			this.setState({isLoading:false});
+		})
+		.catch((error)=>{
+				console.log(error);
 		});
 	}
 	onEndReached() {
@@ -59,16 +62,22 @@ export default class BookList extends Component {
 			timestamp: new Date().getTime(),
 			page:this.state.page+1
 		}).then((result)=>{
-			alert(this.state.page);
+			// alert(this.state.page+1);
+			// alert(JSON.stringify(this.state.books));
 			this.setState({
-				books:[...this.state.books, ...result.data],
-				dataSource:this.state.dataSource.cloneWithRows(this.state.books),
-				page:this.state.page+1
-			});
+				books:[...this.state.books, ...result.data]},()=>{
+					this.setState({
+						dataSource:this.state.dataSource.cloneWithRows(this.state.books),
+				        page:this.state.page+1
+			         });
+				});
+		})
+		.catch((error)=>{
+			console.log(error);
 		});
 	}
 	renderRow(data) {
-		return <BookItem1 user={this.props.user} navigator={this.props.navigator} data={data}/>;
+		return <BookItem1 timestamp={this.props.timestamp} user={this.props.user} navigator={this.props.navigator} data={data}/>;
 	}
 	render() {
 		return <View style={[styles.booklist,this.props.style]}>
@@ -77,6 +86,7 @@ export default class BookList extends Component {
 							this.onEndReached();
 						}}
 				dataSource={this.state.dataSource}
+				onEndReachedThreshold={0}
 				renderRow={(data)=>this.renderRow(data)}
 				refreshControl = {
 					<RefreshControl 

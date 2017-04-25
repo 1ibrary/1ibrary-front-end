@@ -35,7 +35,8 @@ export default class ProfilePage extends Component {
 				component:BookCollectPage,
 				params:{
 					lists:lists,
-					title:"我的书单"
+					title:"我的书单",
+					user:this.props.user
 				}
 		    })
 
@@ -79,7 +80,7 @@ export default class ProfilePage extends Component {
 			<View style={styles.info_container}>
 				<Image style={styles.avatar} source={require("../../res/images/avatar_bg.png")}>
 					<Image source={require("../../res/images/avatar.png")}/>
-					<TextPingFang style={styles.avatar_font}>{this.props.user_name}</TextPingFang>
+					<TextPingFang style={styles.avatar_font}>{this.props.user.user_name}</TextPingFang>
 				</Image>
 			</View>
 			<View style={styles.items1}>

@@ -53,13 +53,16 @@ export default class WelcomePage extends Component {
 								        component:HomePage,
 								        params:{
 								        	user:response.data,
-								        	books_data:JSON.parse(array)
+								        	books_data:JSON.parse(array),
+								        	timestamp:response.timestamp
 								        }
 							        });
 								}
 							})
 						}
 					});
+				} else {
+					alert(response.msg);
 				}
 				// alert(response.msg);
 			})

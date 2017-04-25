@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
     Dimensions
 }from "react-native";
+const WIDTH = Dimensions.get("window").width;
 const NAVBAR_HEIGHT = 44;
 const STATUS_BAR_HEIGHT = 20;
 const StatusBarShape = {
@@ -73,12 +74,13 @@ const styles = StyleSheet.create({
 		height:NAVBAR_HEIGHT,
 		backgroundColor:"white",
 		flexDirection:"row",
-        width:Dimensions.get("window").width,
+        width:WIDTH,
+        justifyContent:"center"
 	},
 	titleViewContainer: {
 		justifyContent: "center",
 		alignItems:"center",
-        width:70
+        width:WIDTH-100
 		// position:"absolute",
 		// left:20,
 		// right:20,

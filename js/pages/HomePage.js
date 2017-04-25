@@ -55,12 +55,14 @@ export default class WelcomePage extends Component {
 					}
 				}/> 
 				<BookList 
+					timestamp={this.props.timestamp}
 					data = {this.props.books_data?this.props.books_data:[]}
 					user = {this.props.user?this.props.user:{}}
 				    navigator={this.props.navigator}/>
 				</View>
 				: <SearchPage
 				navigator={this.props.navigator}
+				timestamp={this.props.timestamp}
 				onPressClose={
 					
 					()=>{
@@ -78,7 +80,8 @@ export default class WelcomePage extends Component {
 		}
 		page3 = {
 			<ProfilePage 
-				user_name = {this.props.user&&this.props.user.user_name?this.props.user.user_name:""}
+				timestamp={this.props.timestamp}
+				user = {this.props.user?this.props.user:{}}
 				navigator={this.props.navigator}/>
 		}
 		/>

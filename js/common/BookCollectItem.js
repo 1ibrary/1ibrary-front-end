@@ -54,7 +54,11 @@ export default class BookCollectItem extends Component {
 		}
 		// alert(data)
 		this.props.navigator.push({
-			component:BookCollectListPage
+			component:BookCollectListPage,
+			params:{
+				title:this.props.title,
+				user:this.props.user
+			}
 		})
 	}
 	componentWillMount() {
@@ -117,7 +121,7 @@ export default class BookCollectItem extends Component {
 				    <Text style={styles.item_des}>{data.des}</Text>
 				</View>
 				{
-					this.props.title==="加入书单" ?
+					this.props.big_title==="加入书单" ?
 					<TouchableWithoutFeedback
 				// {...this._panResponder_touch_2.panHandlers}
 				     onPress={()=>{
