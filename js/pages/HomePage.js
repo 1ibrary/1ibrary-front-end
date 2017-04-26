@@ -33,7 +33,7 @@ export default class WelcomePage extends Component {
 		this.state={
 			show:1
 		}
-
+		// alert(JSON.stringify(this.props.user));
 	}
 
 	// loadData() {
@@ -63,6 +63,7 @@ export default class WelcomePage extends Component {
 				: <SearchPage
 				navigator={this.props.navigator}
 				timestamp={this.props.timestamp}
+				user={this.props.user}
 				onPressClose={
 					
 					()=>{

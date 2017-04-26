@@ -8,17 +8,41 @@ import {
 	AsyncStorage
 } from "react-native";
 import RightButtonNav from "../common/RightButtonNav";
+import HttpUtils from "../../HttpUtils";
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 const INNERWIDTH =  WIDTH - 16;
+const URL = "https://mie-mie.tech/users/feedback";
 
 export default class FeedBackPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			contact:"",
+			content:""
+		}
+	}
+	onPost() {
+		HttpUtils.post(URL,{
+			token:this.props.user.token,
+			content:this.state.content,
+			contact:this.state.contact,
+			uid:this.props.user.uid,
+			timestamp:this.props.timestamp
+		}).then((response)=>{
+			// alert(response.msg);
+			if(response.msg==="请求成功") {
+				// alert("已经提交啦～");
+				this.props.navigator.pop();
+			}
+		})
+	}
 	render() {
 		return <View style={styles.container}>
 			<RightButtonNav
 				title={"意见反馈"}
 				rightOnPress={()=>{
-					    this.props.navigator.pop()
+					    this.onPost();
 				    }
 			    }
 			    navigator={
@@ -29,12 +53,18 @@ export default class FeedBackPage extends Component {
 				placeholder={"请输入您的邮箱或者电话"}
 				placeholderTextColor={"#999999"}
 				style={styles.textInput_title}
+				onChangeText={(text)=>{
+				   this.setState({contact:text})
+				}}
 				/>
 			<TextInput
 				placeholder={"描述一下你的体验或者建议吧～"}
 				placeholderTextColor={"#999999"}
 				multiline={true}
 				style={[styles.textInput_title,styles.textInput_content]}
+				onChangeText={(text)=>{
+				   this.setState({content:text})
+				}}
 				/>
 				
 		</View>

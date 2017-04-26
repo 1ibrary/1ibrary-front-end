@@ -16,7 +16,9 @@ import BookCollectAddPage from "./BookCollectAddPage";
 import HttpUtils from "../../HttpUtils";
 const INNERWIDTH = Dimensions.get("window").width - 16;
 const HEIGHT = Dimensions.get("window").height;
-const URL = "https://mie-mie.tech/lists/show_list";
+const URL = "https://mie-mie.tech/lists/show_list"; 
+const URL_ADD_BOOK = "https://mie-mie.tech/lists/collect_book";
+
 
 export default class BookCollectPage extends Component{
 	constructor(props) {
@@ -48,23 +50,33 @@ export default class BookCollectPage extends Component{
 		}
 	}
 	componentDidMount() {
+		// AsyncStorage.removeItem("book_list",(error,array)=>{})
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			let lists = [];
 			array = JSON.parse(array)
 			if(array&&array.length!=0) {
 				lists = array;
+				this.setState({lists:lists});
 			} else {
 				HttpUtils.post(URL, {
-					token:1,
-					uid:1,
-					timestamp:1
+					token:this.props.user.token,
+					uid:this.props.user.uid,
+					timestamp:this.props.timestamp
 				}).then((result)=>{
 					lists = result.data;
+					this.setState({lists:lists});
+					 AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
+					     if(error) {
+					     		alert(error)
+					     } else {
+					     		this.props.navigator.pop()
+					 	}
+					 });
 				}).catch((error)=>{
 					console.log(error);
 				});
 			}
-			this.setState({lists:lists});
+			
 		});
 	}
 	rightOnPress() {
@@ -83,40 +95,84 @@ export default class BookCollectPage extends Component{
 				}
 				this.state.choosed.map((item)=>{
 					array.some((d)=>{
-						if(d.title&&d.title===item) {
-							let books = d.books;
+						if(d.list_name&&d.list_name===item) {
+							d.book_list = d.book_list.split(",");
+							if(!d.book_list) {
+								d.books_list = [];
+							}
+							if(!d.book_list.some) {
+								// alert(d.book_list);
+								return false;
+							}
+							
+							let book_list = d.book_list;
 							// alert(JSON.stringify(d))
 							// alert(this.props.book)
 							let flag = false;
-							d.books.some((item,i)=>{
-								if(item.book_id==this.props.book.book_id){
+							d.book_list.some((item,i)=>{
+								if(item==this.props.book.book_id){
+									// alert(d.list_name+"书单已经收藏过这本书啦！");
+									this.props.navigator.pop();
 									return flag = true;
 								}
 							});
+							
+							// alert(d.book_list);
 							if(!flag) {
-								d.books = [...books,this.props.book];
+								d.book_list = [...d.book_list,this.props.book.book_id];
+								HttpUtils.post(URL_ADD_BOOK,{
+					                timestamp:this.props.timestamp,
+					                uid:this.props.user.uid,
+					                token:this.props.user.token,
+					                list_id:d.list_id,
+					                book_list:d.book_list.join(","),
+							    }).then((result)=> {
+							    	// alert(result.msg);
+							    	// alert(result.msg)
+							    	if(result.msg=="请求成功") {
+							    		HttpUtils.post(URL, {
+											token:this.props.user.token,
+											uid:this.props.user.uid,
+											timestamp:this.props.timestamp
+										}).then((result)=>{
+											alert(result.msg);
+											if(result.msg==="请求成功"){
+												let lists = result.data;
+											    this.setState({lists:lists});
+											    // alert(JSON.stringify(lists));
+											    AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
+											    	if(error) {
+											    			alert(error)
+											    	} else {
+											    			this.props.navigator.pop()
+											    		}
+											});
+										    }
+										}).catch((error)=>{
+											console.log(error);
+										});
+							    		
+							    	}
+							    }).catch((error)=>{
+							    	console.log(error);
+							    })
+							    ;
 							}
-							return d.title===item
+							return d.list_name===item.list_name;
 						}
 					})
-				})
-				AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
-					if(error) {
-						alert(error)
-					} else {
-						// alert("成功!")
-						this.props.navigator.pop()
-					}
-				})
+				});
+
+				
 			}
 		})
 	}
 	onPressButton(select,item) {
 		let choosed = this.state.choosed
 		if(select) {
-			choosed = [...new Set([...choosed,item.title])]
+			choosed = [...new Set([...choosed,item.list_name])]
 		}  else {
-			choosed.splice(choosed.indexOf(item.title),1)
+			choosed.splice(choosed.indexOf(item.list_name),1)
 		}
 		this.setState({choosed:choosed})
 	}
@@ -163,10 +219,12 @@ export default class BookCollectPage extends Component{
 							params:{
 								onCallBack:()=> {
 									AsyncStorage.getItem("book_list",(error,array)=>{
-		                        	array = JSON.parse(array)
+		                        	array = JSON.parse(array);
 		                        	this.setState({lists:array})
 		                        })
-								}
+								},
+								user:this.props.user,
+					            timestamp:this.props.timestamp
 							}
 						})
 					}
@@ -189,20 +247,22 @@ export default class BookCollectPage extends Component{
 			}
 				<ScrollView style={styles.list}>
 				{
-				this.state.lists.map((item)=>{
+				this.state.lists.map((item,i)=>{
 					// if(item===null) {
 					// 	return;
 					// }
+					// alert(item.book_list);
 					return <BookCollectItem 
-						title={item.title}
+						title={item.list_name}
 						big_title={this.props.title}
 						navigator={this.props.navigator}
 						onPress = {(select, data)=>this.onPressButton(select,data)}
 						onDelete={(title)=>{
 							this.onDelete(title)
 			 			}}
+			 			timestamp={this.props.timestamp}
 			 			user={this.props.user}
-					    key={item.title} data={item}/>
+					    key={i} data={item}/>
 				})
 			    }
 			</ScrollView>

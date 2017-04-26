@@ -8,19 +8,31 @@ import {
 	AsyncStorage
 } from "react-native";
 import RightButtonNav from "../common/RightButtonNav";
+import HttpUtils from "../../HttpUtils";
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 const INNERWIDTH =  WIDTH - 16;
+
+const URL = "https://mie-mie.tech/lists/create_list"// 缓存前先请求showxs
+const URL_SHOW = "https://mie-mie.tech/lists/show_list"; 
 
 export default class BookCollectAddPage extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			title:"",
-			des:""
+			list_name:"",
+			list_content:""
 		}
 	}
 	rightOnPress(){
+		if(!this.state.list_name.trim()) {
+				alert("请输入书单的名字噢！")
+				return ;
+			}
+	    if(!this.state.list_content.trim()) {
+	    	alert("请输入书单的描述内容噢！")
+	    	return ;
+	    }
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			// alert(array);
 			if(array) {
@@ -28,32 +40,61 @@ export default class BookCollectAddPage extends Component {
 			} else {
 				array = [];
 			}
-			if(!this.state.title.trim()) {
-				alert("请输入书单的名字噢！")
-				return 
-			}
 			let item = {
-				title:this.state.title,
-				des:this.state.des,
-				books:[]
+				list_name:this.state.list_name,
+				list_content:this.state.list_content,
 			}
-			let flag = true;
+			let flag = false;
 			if(array&&array.length>0){
 				flag = array.some((d)=>{
-					return d.title===item.title
+					if(d.list_name===item.list_name){
+						alert("该书单已存在!");
+						this.navigator.pop();
+					    flag = false;
+					    return true;
+					}
+					
 				})
-				if(!flag){
-				    array = [...array,item]
-				}
-			} else {
-				array = [item]
+				if(flag){
+				    return ;
+			    } 
 			}
-			AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
-				if(error) {
-					alert(error)
+
+			HttpUtils.post(URL,{
+				list_name:this.state.list_name,
+				uid:this.props.user.uid,
+				list_content:this.state.list_content,
+				timestamp:this.props.timestamp,
+				token:this.props.user.token
+			}).then((response)=>{
+				if(response.msg==="请求成功") {
+					// alert("成功");
+					// alert(array);
+					HttpUtils.post(URL_SHOW, {
+						token:this.props.user.token,
+						uid:this.props.user.uid,
+						timestamp:this.props.timestamp
+					}).then((result)=>{
+						if(result.msg==="请求成功") {
+							let lists = result.data;
+						    AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
+						    	if(error) {
+						    		alert(error)
+						    	} else {
+						    		this.props.onCallBack();
+						    		this.props.navigator.pop()
+						    	}
+						    });
+						}
+						
+					}).catch((error)=>{
+						console.log(error);
+					});
+				} else {
+					alert(response.msg);
 				}
-				this.props.onCallBack()
-				this.props.navigator.pop()
+			}).catch((error)=>{
+				console.log(error);
 			});
 		});
 	}
@@ -73,7 +114,7 @@ export default class BookCollectAddPage extends Component {
 				style={styles.textInput_title}
 				onChangeText = {
 					(text) => {
-						this.setState({title:text});
+						this.setState({list_name:text});
 					}
 				}
 				/>
@@ -83,7 +124,7 @@ export default class BookCollectAddPage extends Component {
 				multiline={true}
 				onChangeText = {
 					(text) => {
-						this.setState({des:text});
+						this.setState({list_content:text});
 					}
 				}
 				/>

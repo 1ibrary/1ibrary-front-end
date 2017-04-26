@@ -36,7 +36,8 @@ export default class ProfilePage extends Component {
 				params:{
 					lists:lists,
 					title:"我的书单",
-					user:this.props.user
+					user:this.props.user,
+					timestamp:this.props.timestamp
 				}
 		    })
 
@@ -49,11 +50,6 @@ export default class ProfilePage extends Component {
 				title:"借阅历史"
 			}
 
-		})
-	}
-	onFeedBack() {
-		this.props.navigator.push({
-			component:FeedBackPage,
 		})
 	}
 	onAboutUs() {
@@ -76,10 +72,15 @@ export default class ProfilePage extends Component {
 		let aboutus = require("../../res/images/icon_aboutus.png")
 		let images = [booklist,history,setting,feedback,aboutus,images]
 		let texts = ["我的书单","借阅历史","设置","意见反馈","关于我们"]
+		let male_pic = require("../../res/images/avatar.png");
+		let fm_pic = require("../../res/images/avatar2.png")
 		return <View style={styles.container}>
 			<View style={styles.info_container}>
 				<Image style={styles.avatar} source={require("../../res/images/avatar_bg.png")}>
-					<Image source={require("../../res/images/avatar.png")}/>
+				<Image style={styles.avatar_round} source={require("../../res/images/avatar_round.png")}>
+					<Image style={this.props.user.user_sex?{marginTop:-6}:{}}source={this.props.user.user_sex?fm_pic:male_pic}/>
+				</Image>
+					
 					<TextPingFang style={styles.avatar_font}>{this.props.user.user_name}</TextPingFang>
 				</Image>
 			</View>
@@ -123,7 +124,11 @@ export default class ProfilePage extends Component {
 			    						()=>{
 			    							switch(d) {
 			    							    case "意见反馈":
-			    							    	this.onFeedBack()
+			    							    	this.onJump(FeedBackPage,{
+			    							    		user:this.props.user,
+			    							    		timestamp:this.props.timestamp,
+			    							    		navigator:this.props.navigator
+			    							    	})
 			    							    	break
 			    							    case "关于我们":
 			    							    	this.onAboutUs()
@@ -154,6 +159,10 @@ const styles = StyleSheet.create({
 		justifyContent:"center",
 		alignItems:"center",
 		marginTop:52
+	},
+	avatar_round: {
+		justifyContent:"center",
+		alignItems:"center",
 	},
 	item: {
 		width:WIDTH-30,

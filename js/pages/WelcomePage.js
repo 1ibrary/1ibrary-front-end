@@ -34,6 +34,14 @@ export default class WelcomePage extends Component {
 		// 	    user_account:this.state.account,
 		// 	    user_password:this.state.password
 		//     }))
+		if(!this.state.account) {
+			alert("请输入学号哦~")
+			return ;
+		}
+		if(!this.state.password) {
+			alert("请输入密码哦~")
+			return ;
+		}
 		HttpUtils.post(URL,{
 			    user_account:this.state.account,
 			    user_password:this.state.password
@@ -41,6 +49,7 @@ export default class WelcomePage extends Component {
 			.then((response)=>{
 				// alert("哈哈")
 				if(response.msg==="请求成功") {
+					// alert(JSON.stringify(response.data));
 					AsyncStorage.setItem("user_info",JSON.stringify(response.data),(error)=>{
 						if(error) {
 							console.log(error);
@@ -49,12 +58,14 @@ export default class WelcomePage extends Component {
 								if(error) {
 									console.log(error);
 								} else {
+									let user = response.data;
+									// alert(JSON.stringify(response.timestamp));
 									this.props.navigator.push({
 								        component:HomePage,
 								        params:{
-								        	user:response.data,
+								        	user:user,
 								        	books_data:JSON.parse(array),
-								        	timestamp:response.timestamp
+								        	timestamp:response.data.timestamp
 								        }
 							        });
 								}

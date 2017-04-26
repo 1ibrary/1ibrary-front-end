@@ -13,17 +13,21 @@ import {
 import SearchNav from "../common/SearchNav";
 import BookList from "../common/BookList";
 import SearchResultPage from "./SearchResultPage";
-const MAX_LENGTH = 8;
+import HttpUtils from "../../HttpUtils";
+const MAX_LENGTH = 6;
 
 export default class SearchPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			history:[],
+			hot:["人民的名义","巨人的陨落","时间简史","平凡的世界"],
+			hot_num:0,
 			history_num:0,
 			defaultValue:"",
 			page:1,
 			information:["美洲小宇宙","美洲的密码","在美洲生存的日子"],
+			text:""
 		}
 		// AsyncStorage.removeItem("history");
 		AsyncStorage.getItem("history",(error,array)=>{
@@ -82,10 +86,10 @@ export default class SearchPage extends Component {
 	 }
 	onSubmitEditing(text) {
 		this.onSave(text);
-		this.setState({page:3});
+		this.setState({page:3,text:text});
 	}
 	onChangeText(text) {
-		let data =["平凡的世界","平凡的生活","平凡的你","测试一下"];
+		let data =["平凡","平凡的世界","人间失格","陕西师范大学出版社","太宰治"];
 		this.setState({page:2,information:data});
 	}
 	render() {
@@ -126,6 +130,9 @@ export default class SearchPage extends Component {
 		    
 		    <SearchResultPage
 		    navigator={this.props.navigator}
+		    user={this.props.user}
+		    timestamp={this.props.timestamp}
+		    content={this.state.text}
 		    data={[{grade:"暂无评分",title:"设计心理学4:未来设计",num:5,author:"唐纳德诺曼",publish:"中信出版社",time:2015,picture:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491754581994&di=1db59cd5fa4e2820fb04022afb517d68&imgtype=0&src=http%3A%2F%2Ffdfs.xmcdn.com%2Fgroup18%2FM09%2F4E%2F71%2FwKgJJVeWMA3iSLL6AABg7zEQtSQ734.jpg"}]} />
 		</View>
 		}
@@ -135,7 +142,7 @@ export default class SearchPage extends Component {
 		    	<Text style={styles.tab_title}>热门搜索</Text>
 		    	<View style={styles.tab_container}>
 		    	    {
-		    	    	this.state.history.map((item,i)=>{
+		    	    	this.state.hot.map((item,i)=>{
 		    		    return <View key={i} style={styles.tab_item}>
 		    		        <Text style={styles.tab_font}
 		    		        	onPress={
@@ -303,7 +310,7 @@ const styles = StyleSheet.create({
 		borderRadius:8,
 		width:Dimensions.get("window").width-16,
 		backgroundColor:"white",
-		height:44,
+		height:264,
 		overflow:"hidden"
 	},
 	history_title: {

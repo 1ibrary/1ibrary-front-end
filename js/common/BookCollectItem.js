@@ -13,9 +13,11 @@ import {
 	AsyncStorage,
 	PanResponder
 } from "react-native";
-import BookCollectListPage from "../pages/BookCollectListPage"
+import BookCollectListPage from "../pages/BookCollectListPage";
+import HttpUtils from "../../HttpUtils";
 const WIDTH = Dimensions.get("window").width;
 const INNERWIDTH = WIDTH - 16;
+const URL_BOOKS = "https://mie-mie.tech/lists/show_detail"
 
  
 export default class BookCollectItem extends Component {
@@ -57,7 +59,9 @@ export default class BookCollectItem extends Component {
 			component:BookCollectListPage,
 			params:{
 				title:this.props.title,
-				user:this.props.user
+				user:this.props.user,
+				timestamp:this.props.timestamp,
+				book_list:this.props.data.book_list
 			}
 		})
 	}
@@ -117,8 +121,8 @@ export default class BookCollectItem extends Component {
 				<View 
 					{...this._panResponder_touch.panHandlers}
 					style={styles.item_text}>
-					<Text style={styles.item_title}>{data.title}</Text>
-				    <Text style={styles.item_des}>{data.des}</Text>
+					<Text style={styles.item_title}>{data.list_name}</Text>
+				    <Text style={styles.item_des}>{data.list_content}</Text>
 				</View>
 				{
 					this.props.big_title==="加入书单" ?
@@ -142,7 +146,7 @@ export default class BookCollectItem extends Component {
 			</Animated.View>
 			<TouchableOpacity
 				onPress={()=>{
-					this.props.onDelete(this.props.data.title)
+					this.props.onDelete(this.props.data.list_name)
 				}}
 				style={styles.delete_container}
 			>

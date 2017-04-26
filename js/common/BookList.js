@@ -36,6 +36,13 @@ export default class BookList extends Component {
 		this.onLoad();
 	}
 	onLoad() {
+		// alert(this.props.content);
+		// alert(JSON.stringify({
+		// 	uid:this.props.user.uid,
+		// 	token:this.props.user.token,
+		// 	timestamp: this.props.timestamp,
+		// 	page:1
+		// }));
 		HttpUtils.post(URL,{
 			uid:this.props.user.uid,
 			token:this.props.user.token,
@@ -43,13 +50,16 @@ export default class BookList extends Component {
 			page:1
 		}).then((result)=>{
 			// alert(JSON.stringify(result));
-			this.setState({books:result.data},()=>{
-				this.setState({
-					dataSource:this.state.dataSource.cloneWithRows(this.state.books),
-					page:1
-				});
-			})
-			this.setState({isLoading:false});
+			if(result.msg==="请求成功"){
+			    this.setState({books:result.data},()=>{
+			    this.setState({
+			    		dataSource:this.state.dataSource.cloneWithRows(this.state.books),
+			    		page:1
+			    	});
+			    })
+			    this.setState({isLoading:false});
+			}
+			
 		})
 		.catch((error)=>{
 				console.log(error);
