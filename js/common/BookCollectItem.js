@@ -48,7 +48,8 @@ export default class BookCollectItem extends Component {
 
 	onPress(evt,ges) {
 		if(ges.dx!==0) {
-			return 
+			this.onMove(ges);
+			return ;
 		}
 		data = this.props.data
 		if(this.state.change) {
@@ -106,6 +107,7 @@ export default class BookCollectItem extends Component {
 		let data = this.props.data;
 		return <View
 					{...this._panResponder_move.panHandlers}
+					{...this._panResponder_touch.panHandlers}
 				     style={styles.container}  
 				     // onStartShouldSetResponderCapture={()=>{
 				     // 	return this.state.change
@@ -119,7 +121,6 @@ export default class BookCollectItem extends Component {
 			<Animated.View 			
 			    style={[styles.item,this.props.style,{marginLeft:this.state.marginLeft}]}>
 				<View 
-					{...this._panResponder_touch.panHandlers}
 					style={styles.item_text}>
 					<Text style={styles.item_title}>{data.list_name}</Text>
 				    <Text style={styles.item_des}>{data.list_content}</Text>
