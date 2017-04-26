@@ -17,6 +17,7 @@ const WIDTH = Dimensions.get("window").width;
 const INNERWIDTH = WIDTH - 16;
 const HEIGHT = Dimensions.get("window").height
 const URL = "https://mie-mie.tech/lists/show_detail";
+const URL_RM_BOOK = "https://mie-mie.tech/lists/update_list";
 
 export default class BookListPage extends Component {
 	constructor(props) {
@@ -48,14 +49,30 @@ export default class BookListPage extends Component {
 		// 	}
 		// })
 		if(this.props.book_list.length>0) {
+			// alert(this.props.book_list);
+			let book_list = this.props.book_list.toString().trim().split(",");
+			book_list.map((item,i)=>{
+				if(!item.trim()) {
+					book_list.splice(i,1);
+				}
+			});
+		// 	alert(JSON.stringify({
+		// 		book_list:book_list,
+		// 		uid:this.props.user.uid,
+		// 		token:this.props.user.token,
+		// 		timestamp:this.props.timestamp
+		// }))
+			if(book_list.length<=0) {
+				return ;
+			}
 			HttpUtils.post(URL,{
-			book_list:this.props.book_list,
-			uid:this.props.user.uid,
-			token:this.props.user.token,
-			timestamp:this.props.timestamp
+				book_list:book_list,
+				uid:this.props.user.uid,
+				token:this.props.user.token,
+				timestamp:this.props.timestamp
 		}).then((result)=>{
 			if(result.msg==="请求成功") {
-				this.setState({book_list:result.data});
+				this.setState({book_list:result.data?result.data:[]});
 				// alert(JSON.stringify(result.data));
 			} else {
 				alert(result.msg);
@@ -82,32 +99,59 @@ export default class BookListPage extends Component {
 							d.book_list=[];
 						} else {
 							d.book_list = d.book_list.toString().trim().split(",");
+							if(!(d.book_list instanceof Array)) return ;
 						}
+						// alert(d.book_list)
 						d.book_list.some((item2,i)=>{
 							// alert("item"+item2+"goal:"+item.book_id)
+							if(!item2.trim()) {
+								d.book_list.splice(i,1);
+								return ;
+							}
 							if(item2==item.book_id){
 								d.book_list.splice(i,1);
-								if(d.book_list.length>0){
-								    HttpUtils.post(URL,{
-								    	book_list:d.book_list,
-								    	uid:this.props.user.uid,
-								    	token:this.props.user.token,
-								    	timestamp:this.props.timestamp
-								    }).then((result)=>{
-								    	if(result.msg==="请求成功") {
-								    		this.setState({book_list:[]},()=>{
-								    			this.setState({book_list:result.data});
-								    		});
-				// alert(JSON.st    ringify(result.data));
-								    	} else {
-								    		alert(result.msg);
-								    	}
-								    }).catch((error)=>{
-								    	console.log(error);
-								    });
-								} else {
-									this.setState({"book_list":[]})
-								}
+								// alert(JSON.stringify({
+								// 	list_id:d.list_id,
+								// 	uid:this.props.user.uid,
+								// 	token:this.props.user.token,
+								// 	timestamp:this.props.timestamp,
+								// 	book_list:d.book_list.join(",")
+								// }));
+								HttpUtils.post(URL_RM_BOOK,{
+									 book_list:d.book_list.join(","),
+									 list_id:d.list_id,
+								     uid:this.props.user.uid,
+								     token:this.props.user.token,
+								     timestamp:this.props.timestamp
+								}).then((response)=>{
+									if(response.msg==="请求成功") {
+										if(d.book_list.length>0){
+								            HttpUtils.post(URL,{
+								            	book_list:d.book_list.join(",")?d.book_list.join(","):null,
+								            	uid:this.props.user.uid,
+								            	token:this.props.user.token,
+								            	timestamp:this.props.timestamp
+								            }).then((result)=>{
+								            	if(result.msg==="请求成功") {
+								            		this.setState({book_list:[]},()=>{
+								            			this.setState({book_list:result.data});
+								            		});
+				// alert(JSON.st            ringify(result.data));
+								            	} else {
+								            		alert("显示"+result.msg);
+								            	}
+								            }).catch((error)=>{
+								            	console.log(error);
+								            });
+								        } else {
+											this.setState({"book_list":[]})
+										}
+									} else {
+										alert("删除"+response.msg);
+									}
+								}).catch((error)=>{
+									console.log(error);
+								});
 								
 								return true;
 							}

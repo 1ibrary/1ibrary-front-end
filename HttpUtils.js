@@ -45,6 +45,7 @@ export default class HttpUtils {
 			}
 			i++;
 		}
+		// alert(str);
 		return str
 	}
 }

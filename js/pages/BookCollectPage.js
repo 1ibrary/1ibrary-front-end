@@ -18,6 +18,7 @@ const INNERWIDTH = Dimensions.get("window").width - 16;
 const HEIGHT = Dimensions.get("window").height;
 const URL = "https://mie-mie.tech/lists/show_list"; 
 const URL_ADD_BOOK = "https://mie-mie.tech/lists/collect_book";
+const URL_RM_LIST = "https://mie-mie.tech/lists/remove_list";
 
 
 export default class BookCollectPage extends Component{
@@ -103,7 +104,7 @@ export default class BookCollectPage extends Component{
 							if(!d.book_list) {
 								d.book_list = [];
 							}
-							if(!d.book_list.some) {
+							if(!(d.book_list instanceof Array)) {
 								// alert(d.book_list);
 								return false;
 							}
@@ -113,6 +114,9 @@ export default class BookCollectPage extends Component{
 							// alert(this.props.book)
 							let flag = false;
 							d.book_list.some((item,i)=>{
+								if(!item.trim()) {
+									d.book_list.splice(i,1);
+								}
 								if(item==this.props.book.book_id){
 									// alert(d.list_name+"书单已经收藏过这本书啦！");
 									this.props.navigator.pop();
@@ -182,28 +186,44 @@ export default class BookCollectPage extends Component{
 	onDelete(title) {
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			if(error) {
-				alert(error)
+				alert("错误:"+error)
 			} else {
 				array = JSON.parse(array)
 				array.some((d,i)=>{
 					if(d.list_name===title) {
 						// array.splice(i,1)
-						array = array.splice(i,1)
+						array.splice(i,1);
 					}
-					this.setState({lists:[]},()=>{
-						this.setState({lists:array});
+					HttpUtils.post(URL_RM_LIST,{
+				         list_id:d.list_id,
+				         uid:this.props.user.uid,
+				         token:this.props.user.token,
+				         timestamp:this.props.timestamp
 					})
+					.then((result)=>{
+						if(result.msg==="请求成功"){
+							this.setState({lists:[]},()=>{
+						        this.setState({lists:array});
+						        // alert(JSON.stringify(array));
+							});
+							AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
+									if(error) {
+										console.log(error)	
+									}
+								});
+						} else{
+								alert(result.msg);
+						}
+					}).catch((error)=>{
+						console.log(error);
+					});
+					
 					// alert(this.state.lists)
 					return d.list_name === title
 				})
 			}
-			AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
-					if(error) {
-						alert(error)
-					} else {
-						// alert("成功!")
-					}
-			})
+
+			
 		})
 	}
 	render() {

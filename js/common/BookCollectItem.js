@@ -93,10 +93,15 @@ export default class BookCollectItem extends Component {
             onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
  				 	this.onPress(evt,gestureState)
-              },
-			  
-           
-        })
+              }
+          });
+              this._panResponder_touch_2 = PanResponder.create({
+      // Ask to be the responder:
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+			  });
 		}
 	static defaultProps = {
 		data:{},
@@ -106,8 +111,7 @@ export default class BookCollectItem extends Component {
 		let unselect_image = require("../../res/images/unselect.png")
 		let data = this.props.data;
 		return <View
-					{...this._panResponder_move.panHandlers}
-					{...this._panResponder_touch.panHandlers}
+					{...this._panResponder_move.panHandlers}		
 				     style={styles.container}  
 				     // onStartShouldSetResponderCapture={()=>{
 				     // 	return this.state.change
@@ -118,9 +122,10 @@ export default class BookCollectItem extends Component {
 			    //      }}
 			    
 				>
-			<Animated.View 			
+			<Animated.View 	
 			    style={[styles.item,this.props.style,{marginLeft:this.state.marginLeft}]}>
 				<View 
+					{...this._panResponder_touch.panHandlers}	
 					style={styles.item_text}>
 					<Text style={styles.item_title}>{data.list_name}</Text>
 				    <Text style={styles.item_des}>{data.list_content}</Text>
