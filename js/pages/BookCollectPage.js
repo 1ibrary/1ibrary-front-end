@@ -135,7 +135,7 @@ export default class BookCollectPage extends Component{
 											uid:this.props.user.uid,
 											timestamp:this.props.timestamp
 										}).then((result)=>{
-											alert(result.msg);
+											// alert(result.msg);
 											if(result.msg==="请求成功"){
 												let lists = result.data;
 											    this.setState({lists:lists});
