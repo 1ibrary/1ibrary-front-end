@@ -52,7 +52,10 @@ export default class CommonNav extends Component {
 const styles = StyleSheet.create({
 	container: {
 		position:"absolute",
-		left:16,
+		width:44,
+		height:24,
+		alignItems:"center",
+		left:0
 		// top:-20
     },
  //    container2: {

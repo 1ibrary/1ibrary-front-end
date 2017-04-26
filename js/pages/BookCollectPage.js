@@ -67,10 +67,8 @@ export default class BookCollectPage extends Component{
 					this.setState({lists:lists});
 					 AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
 					     if(error) {
-					     		alert(error)
-					     } else {
-					     		this.props.navigator.pop()
-					 	}
+					     		console.log(error)
+					     } 
 					 });
 				}).catch((error)=>{
 					console.log(error);
@@ -96,9 +94,14 @@ export default class BookCollectPage extends Component{
 				this.state.choosed.map((item)=>{
 					array.some((d)=>{
 						if(d.list_name&&d.list_name===item) {
-							d.book_list = d.book_list.split(",");
+							if(d.book_list==="[]") {
+								d.book_list=[];
+							} else {
+								d.book_list = d.book_list.toString().trim().split(",");
+							}
+							
 							if(!d.book_list) {
-								d.books_list = [];
+								d.book_list = [];
 							}
 							if(!d.book_list.some) {
 								// alert(d.book_list);
@@ -183,12 +186,15 @@ export default class BookCollectPage extends Component{
 			} else {
 				array = JSON.parse(array)
 				array.some((d,i)=>{
-					if(d.title===title) {
-						array.splice(i,1)
+					if(d.list_name===title) {
+						// array.splice(i,1)
+						array = array.splice(i,1)
 					}
-					this.setState({lists:array})
+					this.setState({lists:[]},()=>{
+						this.setState({lists:array});
+					})
 					// alert(this.state.lists)
-					return d.title === title
+					return d.list_name === title
 				})
 			}
 			AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{

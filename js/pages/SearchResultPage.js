@@ -99,6 +99,9 @@ export default class SearchResultPage extends Component {
 							    			key={i}
 							    			data={item}
 							    			style={styles.item}
+							    			navigator={this.props.navigator}
+							    			user={this.props.user}
+		    								timestamp={this.props.timestamp}
 							    			/>
 						        })
 					}
@@ -114,6 +117,9 @@ export default class SearchResultPage extends Component {
 							    			key={i}
 							    			data={item}
 							    			style={styles.item}
+							    			user={this.props.user}
+		    								timestamp={this.props.timestamp}
+							    			navigator={this.props.navigator}
 							    			/>
 						        })
 					}
@@ -129,6 +135,9 @@ export default class SearchResultPage extends Component {
 							    			key={i}
 							    			data={item}
 							    			style={styles.item}
+							    			navigator={this.props.navigator}
+							    			user={this.props.user}
+		    								timestamp={this.props.timestamp}
 							    			/>
 						        })
 					}

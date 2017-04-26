@@ -25,8 +25,8 @@ export default class WelcomePage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			account:"",
-			password:""
+			account:"1308200047",
+			password:"123456"
 		}
 	}
 	onSubmit() {
@@ -34,17 +34,17 @@ export default class WelcomePage extends Component {
 		// 	    user_account:this.state.account,
 		// 	    user_password:this.state.password
 		//     }))
-		if(!this.state.account) {
+		if(!this.state.account.trim()) {
 			alert("请输入学号哦~")
 			return ;
 		}
-		if(!this.state.password) {
+		if(!this.state.password.trim()) {
 			alert("请输入密码哦~")
 			return ;
 		}
 		HttpUtils.post(URL,{
-			    user_account:this.state.account,
-			    user_password:this.state.password
+			    user_account:this.state.account.trim(),
+			    user_password:this.state.password.trim()
 		    })
 			.then((response)=>{
 				// alert("哈哈")

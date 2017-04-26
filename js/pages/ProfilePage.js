@@ -95,7 +95,11 @@ export default class ProfilePage extends Component {
 			    							let text = d
 			    							switch(text) {
 			    								case "我的书单":
-			    									this.onLists();
+			    									this.onJump(BookCollectPage,{
+															title:"我的书单",
+															user:this.props.user,
+															timestamp:this.props.timestamp
+														});
 			    									break;
 			    							    case "借阅历史":
 			    							    	this.onHistory()

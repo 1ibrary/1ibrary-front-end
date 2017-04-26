@@ -26,7 +26,7 @@ export default class SearchPage extends Component {
 			history_num:0,
 			defaultValue:"",
 			page:1,
-			information:["美洲小宇宙","美洲的密码","在美洲生存的日子"],
+			information:["平凡","平凡的世界","人间失格","陕西师范大学出版社","太宰治"],
 			text:""
 		}
 		// AsyncStorage.removeItem("history");

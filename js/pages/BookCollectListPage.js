@@ -47,7 +47,8 @@ export default class BookListPage extends Component {
 		// 		});
 		// 	}
 		// })
-		HttpUtils.post(URL,{
+		if(this.props.book_list.length>0) {
+			HttpUtils.post(URL,{
 			book_list:this.props.book_list,
 			uid:this.props.user.uid,
 			token:this.props.user.token,
@@ -62,6 +63,8 @@ export default class BookListPage extends Component {
 		}).catch((error)=>{
 			console.log(error);
 		})
+		}
+		
 	}
 	onDelete(item) {
 		AsyncStorage.getItem("book_list",(error,array)=>{
@@ -74,19 +77,43 @@ export default class BookListPage extends Component {
 					array = [];
 				}
 				array.some((d)=>{
-					if(d.title&&d.title===this.props.title) {
-						d.books.some((item2,i)=>{
-							if(item2.book_id===item.book_id){
-								d.books.splice(i,1);
-								let books = d.books;
-								this.setState({books:books});	
+					if(d.list_name&&d.list_name===this.props.title) {
+						if(d.book_list==="[]") {
+							d.book_list=[];
+						} else {
+							d.book_list = d.book_list.toString().trim().split(",");
+						}
+						d.book_list.some((item2,i)=>{
+							// alert("item"+item2+"goal:"+item.book_id)
+							if(item2==item.book_id){
+								d.book_list.splice(i,1);
+								if(d.book_list.length>0){
+								    HttpUtils.post(URL,{
+								    	book_list:d.book_list,
+								    	uid:this.props.user.uid,
+								    	token:this.props.user.token,
+								    	timestamp:this.props.timestamp
+								    }).then((result)=>{
+								    	if(result.msg==="请求成功") {
+								    		this.setState({book_list:[]},()=>{
+								    			this.setState({book_list:result.data});
+								    		});
+				// alert(JSON.st    ringify(result.data));
+								    	} else {
+								    		alert(result.msg);
+								    	}
+								    }).catch((error)=>{
+								    	console.log(error);
+								    });
+								} else {
+									this.setState({"book_list":[]})
+								}
+								
 								return true;
 							}
 						});
-						// alert(JSON.stringify(books))
-						// alert(this.props.title)
 						
-						return d.title===this.props.title
+						return d.list_name===this.props.title
 					}
 				});
 			}
@@ -110,9 +137,6 @@ export default class BookListPage extends Component {
 				{
 					this.state.book_list.map((item,i)=>{
 						// alert(item);
-						HttpUtils.post(URL,{
-							
-						})
 						return <BookItem2
 							 key={i} item={item} user={this.props.user} navigator={this.props.navigator}
 							onDelete={(item,i)=>{this.onDelete(item);}}

@@ -20,9 +20,6 @@ export default class MessagePage extends Component {
 		return <View style={styles.container}>
 			<NavigationBar 
 					title={"通知"}
-					titleStyle={{
-						marginLeft:163
-					}}
 					/>
 			<ScrollView style={styles.item_container}>
 				<MessageItem navigator={this.props.navigator} />
