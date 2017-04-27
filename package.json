@@ -10,6 +10,7 @@
     "react": "16.0.0-alpha.6",
     "react-native": "^0.43.2",
     "react-native-scrollable-tab-view": "^0.7.4",
+    "react-native-splash-screen": "^2.0.0",
     "react-native-tab-navigator": "^0.3.3"
   },
   "devDependencies": {

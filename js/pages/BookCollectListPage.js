@@ -15,7 +15,7 @@ import CommonNav from "../common/CommonNav"
 import HttpUtils from "../../HttpUtils";
 const WIDTH = Dimensions.get("window").width;
 const INNERWIDTH = WIDTH - 16;
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get("window").height;
 const URL = "https://mie-mie.tech/lists/show_detail";
 const URL_RM_BOOK = "https://mie-mie.tech/lists/update_list";
 
@@ -86,7 +86,7 @@ export default class BookListPage extends Component {
 	onDelete(item) {
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			if(error) {
-				alert(error)
+				alert(error);
 			} else {
 				if(array) {
 					array = JSON.parse(array);
@@ -118,7 +118,7 @@ export default class BookListPage extends Component {
 								// 	book_list:d.book_list.join(",")
 								// }));
 								HttpUtils.post(URL_RM_BOOK,{
-									 book_list:d.book_list.join(","),
+									 book_list:d.book_list.join(",").trim()?d.book_list.join(","):"[]",
 									 list_id:d.list_id,
 								     uid:this.props.user.uid,
 								     token:this.props.user.token,
@@ -144,7 +144,7 @@ export default class BookListPage extends Component {
 								            	console.log(error);
 								            });
 								        } else {
-											this.setState({"book_list":[]})
+											this.setState({"book_list":[]});
 										}
 									} else {
 										alert("删除"+response.msg);
@@ -164,7 +164,7 @@ export default class BookListPage extends Component {
 			AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
 
 					if(error) {
-						alert(error)
+						alert(error);
 					} else {
 						
 					}

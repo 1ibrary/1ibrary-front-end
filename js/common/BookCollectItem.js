@@ -36,13 +36,13 @@ export default class BookCollectItem extends Component {
 		    	toValue:-86,
 		    	 duration: 200, // 动画时间
                 // easing: Easing.linear
-		    }).start()
+		    }).start();
 		} else if(ev.dx>0) {
 			Animated.timing(this.state.marginLeft,{
 		    	toValue:8,
 		    	 duration: 200, // 动画时间
                 // easing: Easing.linear
-		    }).start()
+		    }).start();
 		}
 	}
 
@@ -64,7 +64,7 @@ export default class BookCollectItem extends Component {
 				timestamp:this.props.timestamp,
 				book_list:this.props.data.book_list
 			}
-		})
+		});
 	}
 	componentWillMount() {
 		// this._gestureHandler = {
@@ -84,7 +84,7 @@ export default class BookCollectItem extends Component {
 			    		this.onMove(gestureState)
 			    	},
 			 
-        })
+        });
 		 this._panResponder_touch = PanResponder.create({
       // Ask to be the responder:
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -107,8 +107,8 @@ export default class BookCollectItem extends Component {
 		data:{},
 	}
 	render() {
-		let select_image = require("../../res/images/select.png")
-		let unselect_image = require("../../res/images/unselect.png")
+		let select_image = require("../../res/images/select.png");
+		let unselect_image = require("../../res/images/unselect.png");
 		let data = this.props.data;
 		return <View
 					{...this._panResponder_move.panHandlers}		
@@ -135,10 +135,10 @@ export default class BookCollectItem extends Component {
 					<TouchableWithoutFeedback
 				// {...this._panResponder_touch_2.panHandlers}
 				     onPress={()=>{
-				     	let data = this.props.data
+				     	let data = this.props.data;
 				     	// alert(data)
-				     	this.props.onPress(!this.state.select,data)
-				     	this.setState({select:!this.state.select})
+				     	this.props.onPress(!this.state.select,data);
+				     	this.setState({select:!this.state.select});
 				     	return ;
 				     }}
 				     >
@@ -152,7 +152,7 @@ export default class BookCollectItem extends Component {
 			</Animated.View>
 			<TouchableOpacity
 				onPress={()=>{
-					this.props.onDelete(this.props.data.list_name)
+					this.props.onDelete(this.props.data.list_name);
 				}}
 				style={styles.delete_container}
 			>

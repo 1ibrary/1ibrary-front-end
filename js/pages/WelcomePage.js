@@ -35,11 +35,11 @@ export default class WelcomePage extends Component {
 		// 	    user_password:this.state.password
 		//     }))
 		if(!this.state.account.trim()) {
-			alert("请输入学号哦~")
+			alert("请输入学号哦~");
 			return ;
 		}
 		if(!this.state.password.trim()) {
-			alert("请输入密码哦~")
+			alert("请输入密码哦~");
 			return ;
 		}
 		HttpUtils.post(URL,{
@@ -79,7 +79,7 @@ export default class WelcomePage extends Component {
 			})
 			.catch((error)=> {
 				// alert("错了")
-				console.log(error)
+				console.log(error);
 			});
 	}
 	render() {
@@ -103,6 +103,7 @@ export default class WelcomePage extends Component {
 				    	placeholder={"                    请输入密码"}
 				    	placeholderTextColor={"white"}
 				        style={styles.textinput}
+				        password={true}
 				        onChangeText={(text)=>{
 				    		this.setState({password:text})
 				    	}}
