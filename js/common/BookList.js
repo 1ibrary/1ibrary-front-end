@@ -74,9 +74,7 @@ export default class BookList extends Component {
 		}).then((result)=>{
 			// alert(this.state.page+1);
 			// alert(JSON.stringify(this.state.books));
-			if(this.state.page>1) {
-				return;
-			}
+			
 			this.setState({
 				books:[...this.state.books, ...result.data]},()=>{
 					this.setState({
