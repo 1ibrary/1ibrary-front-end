@@ -157,23 +157,25 @@ const styles = StyleSheet.create({
 		alignItems:"center"
 	},
 	info_container:{
-		alignItems:"center"
+		alignItems:"center",
+		width:INNERWIDTH
 	},
 	avatar: {
 		justifyContent:"center",
 		alignItems:"center",
-		marginTop:52
+		marginTop:52,
+		width:INNERWIDTH
 	},
 	avatar_round: {
 		justifyContent:"center",
 		alignItems:"center",
 	},
 	item: {
-		width:WIDTH-30,
+		width:WIDTH-30/375*WIDTH,
 		flexDirection:"row",
-		marginLeft:30,
+		marginLeft:30/375*WIDTH,
 		alignItems:"center",
-		height:56
+		height:56/667*HEIGHT,
 	},
 	item_font: {
 		fontSize:14,
@@ -183,7 +185,8 @@ const styles = StyleSheet.create({
 		width:56
 	},
 	item_arrow: {
-		marginLeft:206
+		position:"absolute",
+		right:30/375*WIDTH
 	},
 	items1: {
 		marginTop:24

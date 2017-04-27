@@ -55,6 +55,7 @@ export default class WelcomePage extends Component {
 					}
 				}/> 
 				<BookList 
+					style={styles.booklist}
 					timestamp={this.props.timestamp}
 					data = {this.props.books_data?this.props.books_data:[]}
 					user = {this.props.user?this.props.user:{}}
@@ -97,13 +98,18 @@ const styles = StyleSheet.create({
 		flexDirection:"column",
 		alignItems:"center",
 		backgroundColor:"rgb(242,246,250)",
-		alignItems:"center"
+		alignItems:"center",
+		height:HEIGHT
 	},
 	top: {
 		height:28,
 		backgroundColor:"white",
 		marginTop:-28,
 		width:375
+	},
+	booklist:{
+		// 一半的输入框高度加上maginBottom
+		paddingTop:10/667*HEIGHT
 	},
 	search_result_bar: {
 		// paddingTop:28,

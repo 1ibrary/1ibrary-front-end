@@ -74,6 +74,9 @@ export default class BookList extends Component {
 		}).then((result)=>{
 			// alert(this.state.page+1);
 			// alert(JSON.stringify(this.state.books));
+			if(this.state.page>1) {
+				return;
+			}
 			this.setState({
 				books:[...this.state.books, ...result.data]},()=>{
 					this.setState({
@@ -92,6 +95,7 @@ export default class BookList extends Component {
 	render() {
 		return <View style={[styles.booklist,this.props.style]}>
 			<ListView
+				style={styles.list}
 				onEndReached={()=>{
 							this.onEndReached();
 						}}
@@ -113,8 +117,15 @@ export default class BookList extends Component {
 
 const styles = StyleSheet.create({
 	booklist: {
-		marginTop:10,
 		flex:1,
+		// marginTop:10/667*HEIGHT,
 		width:Dimensions.get("window").width-16,
+		// height:HEIGHT
+		paddingBottom:44/568*HEIGHT,
 	},
+	list : {
+		height:HEIGHT,
+
+		// flex:1
+	}
 });

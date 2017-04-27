@@ -12,7 +12,11 @@ import {
 } from "react-native";
 import NavigationBar from "./NavigationBar";
 import SearchPage from "../pages/SearchPage";
+
 const history = "history";
+const WIDTH = Dimensions.get("window").width;
+const INNERWIDTH = WIDTH - 16;
+const HEIGHT = Dimensions.get("window").height;
 
 
 export default class SearchNav extends Component {
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
 		// justifyContent:"center",
 		height:36,
 		marginTop:28,
-		width:360,
+		width:INNERWIDTH,
 		
 	},
 	show:{
@@ -97,8 +101,6 @@ const styles = StyleSheet.create({
 		display:"none"
 	},
 	image_search: {
-		width:13,
-		height:13,
 		// backgroundColor:"#F3F3F3",
 		borderRadius:0,
 		position:"absolute",
@@ -111,9 +113,9 @@ const styles = StyleSheet.create({
 	// 	color:"#FF7373"
 	// },
 	textInput: {
-		width:316,
+		width:316*WIDTH/375,
 		height:28,
-		paddingLeft:30,
+		paddingLeft:30*WIDTH/375,
 		backgroundColor:"white",
 		borderRadius:8,
 		// marginTop:28,

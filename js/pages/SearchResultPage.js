@@ -170,8 +170,8 @@ styles = StyleSheet.create({
 	},
 	active_tag:{
 		backgroundColor:"#73C0FF",
-		width:70,
-		marginLeft:30,
+		width:70*WIDTH/375,
+		marginLeft:30*WIDTH/375,
 		height:4,
 		borderRadius:4
 	},

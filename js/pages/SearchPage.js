@@ -14,7 +14,11 @@ import SearchNav from "../common/SearchNav";
 import BookList from "../common/BookList";
 import SearchResultPage from "./SearchResultPage";
 import HttpUtils from "../../HttpUtils";
+
 const MAX_LENGTH = 6;
+const WIDTH = Dimensions.get("window").width;
+const INNERWIDTH = WIDTH - 16;
+const HEIGHT = Dimensions.get("window").height;
 
 export default class SearchPage extends Component {
 	constructor(props) {
@@ -271,7 +275,7 @@ const styles = StyleSheet.create({
 		// flexWrap:"wrap",
 		// marginTop:8,
 		borderRadius:8,
-		height:176,
+		// height:176,
 		backgroundColor:"white",
 		width:Dimensions.get("window").width-16,
 		paddingLeft:24,
@@ -310,7 +314,7 @@ const styles = StyleSheet.create({
 		borderRadius:8,
 		width:Dimensions.get("window").width-16,
 		backgroundColor:"white",
-		height:264,
+		// height:264,
 		overflow:"hidden"
 	},
 	history_title: {
@@ -350,8 +354,10 @@ const styles = StyleSheet.create({
 	},
 	close_container: {
 		height:28,
-		width:36,
-		marginLeft:8,
+		width:44,
+		justifyContent:"center",
+		flexDirection:"row"
+		// paddingLeft:8*WIDTH/375,
 	},
 
 	information:{

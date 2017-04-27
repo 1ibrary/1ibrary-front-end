@@ -21,7 +21,7 @@ const HEIGHT = Dimensions.get("window").height
 export default class AboutUsPage extends Component {
 	render() {
 		return <View style={styles.container}>
-			<Image source={require("../../res/images/about_bg.png")}>
+			<Image style={styles.bg} source={require("../../res/images/about_bg.png")}>
 				<CommonNav title={"关于我们"} navigator={this.props.navigator} navStyle={styles.opacity0} navBarStyle={styles.opacity0}/>
 			</Image>
 			<Image style={styles.logo} source={require("../../res/images/about_logo.png")}/>
@@ -59,15 +59,18 @@ const styles = StyleSheet.create({
 		height:HEIGHT,
 		alignItems:"center"
 	},
+	bg:{
+		width:WIDTH,
+	},
 	opacity0:{
 		backgroundColor:"rgba(0,0,0,0)"
 	},
 	logo: {
-		marginTop:-126
+		marginTop:-126,
 	},
 	text:{
 		alignItems:"center",
-		marginTop:18
+		marginTop:18*HEIGHT/667
 	},
 	name:{
 		color:"#666666",
@@ -79,28 +82,29 @@ const styles = StyleSheet.create({
 	},
 	border: {
 		width:2,
-		height:74,
+		height:74/667*HEIGHT,
 		backgroundColor:"#999999",
-		marginTop:-74
+		marginTop:-74/667*HEIGHT
 	},
 	names: {
-		marginTop:34,
+		marginTop:32*HEIGHT/667,
 		alignItems:"center"
 	},
 	name: {
 		color:"#999999",
 		fontSize:14,
-		marginBottom:4
+		marginBottom:4/667
 	},
 	version:{
-		marginTop:82,
+		position:"absolute",
+		bottom:5,
 		color:"#999999",
 		fontSize:14,
 	},
 	contact: {
 		width:INNERWIDTH,
-		height:44,
-		marginTop:20,
+		height:44*HEIGHT/667,
+		marginTop:20*HEIGHT/667,
 		alignItems:"center"
 	},
 	contact_font:{

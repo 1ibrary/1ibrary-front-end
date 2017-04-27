@@ -97,7 +97,7 @@ export default class WelcomePage extends Component {
 				</View>
 				<View style={styles.form}>
 				    <TextInput 
-				        placeholder={"                 请输入您的学号"}
+				        placeholder={"请输入您的学号"}
 				        placeholderTextColor={"white"}
 				    	style={styles.textinput}
 				    	onChangeText={(text)=>{
@@ -105,7 +105,7 @@ export default class WelcomePage extends Component {
 				    	}}
 				    	/>
 				    <TextInput 
-				    	placeholder={"                    请输入密码"}
+				    	placeholder={"请输入密码"}
 				    	placeholderTextColor={"white"}
 				        style={styles.textinput}
 				        password={true}
@@ -114,7 +114,9 @@ export default class WelcomePage extends Component {
 				    	}}
 				        />
 				    <Text style={styles.remind}>请使用数字广大的账号密码登录哦</Text>
-				    <TouchableOpacity 
+				    
+			    </View>
+			    <TouchableOpacity 
 				    	onPress={()=>{
 				    			this.onSubmit();
 				    		}}
@@ -122,7 +124,6 @@ export default class WelcomePage extends Component {
 				    	<Text 
 				    	    style={styles.online_font}>登录</Text>
 				    </TouchableOpacity>
-			    </View>
 			</Image>
 			
 		</View>
@@ -133,13 +134,16 @@ const styles = StyleSheet.create({
 	container : {
 		backgroundColor:"#73C0FF",
 		width:WIDTH,
-		height:HEIGHT
+		height:HEIGHT,
+		alignItems:"center",
 	},
 	bg: {
-		alignItems:"center"
+		alignItems:"center",
+		width:WIDTH,
+		height:HEIGHT
 	},
 	logo: {
-		marginTop:60
+		marginTop:60*HEIGHT/667,
 	},
 	text: {
 		alignItems:"center",
@@ -149,8 +153,8 @@ const styles = StyleSheet.create({
 		color:"white",
 		fontSize:20,
 		fontWeight:"600",
-		height:33,
-		marginTop:28
+		height:33/667*HEIGHT,
+		marginTop:HEIGHT*0.0419
 	},
 	e_title: {
 		backgroundColor:"rgba(0,0,0,0)",
@@ -158,39 +162,40 @@ const styles = StyleSheet.create({
 		color:"white"
 	},
 	form:{
-		marginTop:32,
+		marginTop:HEIGHT*0.0479,
 		alignItems:"center",
 		justifyContent:"center",
 		// width:240
 	},
 	textinput: {
-		height:44,
-		width:240,
+		height:44/667*HEIGHT,
+		width:240/375*WIDTH,
 		color:"white",
 		backgroundColor:"rgb(139,203,255)",
-		borderRadius:22,
-		marginBottom:14,
+		borderRadius:22/667*HEIGHT,
+		marginBottom:14/667*HEIGHT,
 		fontSize:14,
 		alignItems:"center",
 		justifyContent:"center",
-		paddingLeft:10,
+		paddingLeft:10/375*WIDTH,
 		flexDirection:"row"
 	},
 	remind: {
 		fontSize:10,
 		color:"white",
 		// width:160,
-		marginTop:25,
+		marginTop:HEIGHT*0.037,
 		backgroundColor:"rgba(0,0,0,0)"
 	},
 	online:{
-		marginTop:80,
+		position:"absolute",
+		bottom:HEIGHT*0.115,
 		backgroundColor:"white",
 		alignItems:"center",
 		justifyContent:"center",
-		width:150,
-		height:44,
-		borderRadius:22
+		width:150/375*WIDTH,
+		height:44/667*HEIGHT,
+		borderRadius:22/667*HEIGHT
 	},
 	online_font: {
 		fontSize:14

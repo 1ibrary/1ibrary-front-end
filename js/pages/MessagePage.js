@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
 		backgroundColor:"rgb(242,246,250)"
 	},
 	item_container: {
-		marginTop:17
+		marginTop:17/667*HEIGHT
 	}
 })

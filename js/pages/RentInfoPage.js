@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 		height:160,
 		backgroundColor:"white",
 		borderRadius:8,
-		marginTop:8,
+		marginTop:8/667*HEIGHT,
 		flexDirection:"row",
 	},
 	book_image: {

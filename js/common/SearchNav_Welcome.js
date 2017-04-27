@@ -11,6 +11,9 @@ import {
 	Dimensions
 } from "react-native";
 import NavigationBar from "./NavigationBar";
+const WIDTH = Dimensions.get("window").width;
+const INNERWIDTH = WIDTH - 16;
+const HEIGHT = Dimensions.get("window").height;
 
 export default class SearchNav extends Component {
 	constructor(props) {
@@ -83,15 +86,14 @@ export default class SearchNav extends Component {
 }
 
 const styles = StyleSheet.create({
-	contianer : {
-		flex:1,
+	container : {
+		// flex:1,
 		// flexDirection:"",
 		alignItems:"center",
-		height:54,
-		width:360,
-		marginTop:16,
+		height:44/667*HEIGHT,
+		width:INNERWIDTH,
+		marginTop:36*HEIGHT/667,
 		backgroundColor:"rgb(242,246,250)",
-		marginBottom:8
 	},
 	show:{
 		display:"flex"
@@ -103,8 +105,8 @@ const styles = StyleSheet.create({
 		// backgroundColor:"#F3F3F3",
 		borderRadius:0,
 		position:"absolute",
-		left:92,
-		top:44,
+		left:92/360*INNERWIDTH,
+		top:16*HEIGHT/667,
 		zIndex:2
 	},
 	close: {
@@ -112,12 +114,12 @@ const styles = StyleSheet.create({
 		color:"#FF7373"
 	},
 	textInput: {
-		width:360,
-		height:44,
-		paddingLeft:114,
+		width:INNERWIDTH,
+		height:44*HEIGHT/667,
+		paddingLeft:114/360*INNERWIDTH,
 		backgroundColor:"white",
 		borderRadius:8,
-		marginTop:28,
+		// marginTop:28/667*HEIGHT,
 		// position:"absolute",
 		// left:16,
 		// top:25,
