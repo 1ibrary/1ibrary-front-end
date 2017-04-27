@@ -94,3 +94,8 @@
 ### 17.04.26
 ## 除了书单列表里的删除效果很丑以外，基本完结了
 
+### 17.04.27
+- bug: 启动页加载不出来 完全卡死
+- 关于我们页面要新增webview 不过很明显现在进不去了
+- webview这个比较简单 等启动页弄完之后参考[文章1](http://blog.csdn.net/codetomylaw/article/details/52490378)和[文章2](http://blog.csdn.net/wxs0124/article/details/50722135)即可
+
