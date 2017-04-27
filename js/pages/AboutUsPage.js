@@ -7,11 +7,12 @@ import {
 	TouchableOpacity,
 	Image,
 	ScrollView,
-	Dimensions
+	Dimensions,
+	WebView
 } from "react-native";
 import CommonNav from "../common/CommonNav";
 import TextPingFang from "../common/TextPingFang";
-
+import AboutUsWebPage from "./AboutUsWebPage";
 
 const WIDTH = Dimensions.get("window").width
 const INNERWIDTH = WIDTH - 16
@@ -34,6 +35,18 @@ export default class AboutUsPage extends Component {
 				<Text style={styles.name}>Back-End:Airing</Text>
 				<Text style={styles.name}>UI Design:Albert Leung</Text>
 				<Text style={styles.name}>IOS APP:YiFan Wang</Text>
+				<View>
+					<TouchableOpacity
+					    style={styles.contact}
+						onPress={()=>{
+							this.props.navigator.push({
+								component:AboutUsWebPage,
+							})
+						}}
+						>
+						<Text style={styles.contact_font}>联系我们</Text>
+					</TouchableOpacity>
+                </View>
 			</View>
 			<Text style={styles.version}>Verison1.0</Text>
 		</View>
@@ -83,5 +96,14 @@ const styles = StyleSheet.create({
 		marginTop:82,
 		color:"#999999",
 		fontSize:14,
+	},
+	contact: {
+		width:INNERWIDTH,
+		height:44,
+		marginTop:20,
+		alignItems:"center"
+	},
+	contact_font:{
+		textDecorationLine:"underline",
 	}
 })

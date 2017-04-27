@@ -15,6 +15,7 @@ import {
 import TextPingFang from "../common/TextPingFang";
 import HttpUtils from "../../HttpUtils";
 import HomePage from "./HomePage";
+// import SplashScreen from 'react-native-splash-screen';
 
 const WIDTH = Dimensions.get("window").width;
 const INNERWIDTH = WIDTH - 16;
@@ -25,10 +26,14 @@ export default class WelcomePage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			account:"1308200047",
-			password:"123456"
+			account:"",
+			password:""
 		}
 	}
+	// componentDidMount() {
+ //    	 // do anything while splash screen keeps, use await to wait for an async task.
+ //        SplashScreen.hide();
+ //    }
 	onSubmit() {
 		// alert(HttpUtils.changeData({
 		// 	    user_account:this.state.account,

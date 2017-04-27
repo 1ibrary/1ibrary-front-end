@@ -39,7 +39,7 @@ export default class MessageInfoPage extends Component {
 			    />
 			</View>
 			<View style={styles.item}>
-			    <Image style={styles.book_image} source={require("../../res/images/book.jpg")}/>
+			    <Image style={styles.book_image} source={require("../../res/images/book.png")}/>
 				<View style={styles.info}>
 					<TextPingFang style={styles.info_title}>{this.props.data.title}</TextPingFang>
 					<TextPingFang style={styles.info_rent}>借阅日期: {this.props.data.rent}</TextPingFang>

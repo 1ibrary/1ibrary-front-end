@@ -100,8 +100,6 @@ const styles = StyleSheet.create({
 		display:"none"
 	},
 	image_search: {
-		width:13,
-		height:13,
 		// backgroundColor:"#F3F3F3",
 		borderRadius:0,
 		position:"absolute",
