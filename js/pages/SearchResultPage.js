@@ -13,6 +13,7 @@ import HttpUtils from "../../HttpUtils";
 
 const URL = "https://mie-mie.tech/books/search_book";
 const WIDTH = Dimensions.get("window").width;
+const INNERWIDTH = WIDTH - 16;
 
 export default class SearchResultPage extends Component {
 	constructor(props) {
@@ -194,7 +195,7 @@ styles = StyleSheet.create({
 		marginBottom:8
 	},
 	remind: {
-		width:WIDTH,
+		width:INNERWIDTH,
 		alignItems:"center",
 		marginTop:20
 	},

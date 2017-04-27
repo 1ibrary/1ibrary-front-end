@@ -5,7 +5,8 @@ import {
 	TextInput,
 	StyleSheet,
 	Dimensions,
-	AsyncStorage
+	AsyncStorage,
+	Alert
 } from "react-native";
 import RightButtonNav from "../common/RightButtonNav";
 import HttpUtils from "../../HttpUtils";
@@ -26,11 +27,11 @@ export default class BookCollectAddPage extends Component {
 	}
 	rightOnPress(){
 		if(!this.state.list_name.trim()) {
-				alert("请输入书单的名字噢！")
+				Alert.alert("小提示","请输入书单的名字哦！");
 				return ;
 			}
 	    if(!this.state.list_content.trim()) {
-	    	alert("请输入书单的描述内容噢！")
+	    	Alert.alert("小提示","请输入书单的描述内容哦！");
 	    	return ;
 	    }
 		AsyncStorage.getItem("book_list",(error,array)=>{
@@ -48,9 +49,9 @@ export default class BookCollectAddPage extends Component {
 			if(array&&array.length>0){
 				flag = array.some((d)=>{
 					if(d.list_name===item.list_name){
-						alert("该书单已存在!");
-						this.navigator.pop();
-					    flag = false;
+						Alert.alert("小提示","你已经创建过同名书单啦！");
+						this.props.navigator.pop();
+					    flag = true;
 					    return true;
 					}
 					
@@ -79,7 +80,7 @@ export default class BookCollectAddPage extends Component {
 							let lists = result.data;
 						    AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
 						    	if(error) {
-						    		alert(error)
+						    		console.log(error)
 						    	} else {
 						    		this.props.onCallBack();
 						    		this.props.navigator.pop()
@@ -91,7 +92,7 @@ export default class BookCollectAddPage extends Component {
 						console.log(error);
 					});
 				} else {
-					alert(response.msg);
+					Alert.alert("网络请求出错啦",response.msg);
 				}
 			}).catch((error)=>{
 				console.log(error);

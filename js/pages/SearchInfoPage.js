@@ -1,1 +1,0 @@
-SearchInfoPage.js

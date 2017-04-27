@@ -6,6 +6,7 @@ import {
 	Image,
 	Dimensions,
 	ScrollView,
+	Alert,
 	AsyncStorage,
 } from "react-native";
 import BookItem1 from "../common/BookItem1";
@@ -75,7 +76,7 @@ export default class BookListPage extends Component {
 				this.setState({book_list:result.data?result.data:[]});
 				// alert(JSON.stringify(result.data));
 			} else {
-				alert(result.msg);
+				Alert.alert("网络请求出错啦",result.msg);
 			}
 		}).catch((error)=>{
 			console.log(error);
@@ -86,7 +87,7 @@ export default class BookListPage extends Component {
 	onDelete(item) {
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			if(error) {
-				alert(error);
+				console.log(error);
 			} else {
 				if(array) {
 					array = JSON.parse(array);
@@ -138,7 +139,7 @@ export default class BookListPage extends Component {
 								            		});
 				// alert(JSON.st            ringify(result.data));
 								            	} else {
-								            		alert("显示"+result.msg);
+								            		Alert.alert("网络请求出错啦",response.msg);
 								            	}
 								            }).catch((error)=>{
 								            	console.log(error);
@@ -147,7 +148,7 @@ export default class BookListPage extends Component {
 											this.setState({"book_list":[]});
 										}
 									} else {
-										alert("删除"+response.msg);
+										Alert.alert("网络请求出错啦",response.msg);
 									}
 								}).catch((error)=>{
 									console.log(error);
@@ -164,7 +165,7 @@ export default class BookListPage extends Component {
 			AsyncStorage.setItem("book_list",JSON.stringify(array),(error)=>{
 
 					if(error) {
-						alert(error);
+						console.log(error);
 					} else {
 						
 					}

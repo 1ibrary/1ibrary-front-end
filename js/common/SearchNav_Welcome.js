@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 		// backgroundColor:"#F3F3F3",
 		borderRadius:0,
 		position:"absolute",
-		left:92/360*INNERWIDTH,
+		left:76/360*INNERWIDTH,
 		top:16*HEIGHT/667,
 		zIndex:2
 	},
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
 	textInput: {
 		width:INNERWIDTH,
 		height:44*HEIGHT/667,
-		paddingLeft:114/360*INNERWIDTH,
+		paddingLeft:92/360*INNERWIDTH,
 		backgroundColor:"white",
 		borderRadius:8,
 		// marginTop:28/667*HEIGHT,

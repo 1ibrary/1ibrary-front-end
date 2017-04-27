@@ -5,7 +5,8 @@ import {
 	TextInput,
 	StyleSheet,
 	Dimensions,
-	AsyncStorage
+	AsyncStorage,
+	Alert
 } from "react-native";
 import RightButtonNav from "../common/RightButtonNav";
 import HttpUtils from "../../HttpUtils";
@@ -23,6 +24,14 @@ export default class FeedBackPage extends Component {
 		}
 	}
 	onPost() {
+		if(!this.state.contact.trim()) {
+			Alert.alert("小提示","请输入您的联系方式哦~");
+			return ;
+		}
+		if(!this.state.content.trim()) {
+			Alert.alert("小提示","请输入您的反馈内容哦~");
+			return ;
+		}
 		HttpUtils.post(URL,{
 			token:this.props.user.token,
 			content:this.state.content,

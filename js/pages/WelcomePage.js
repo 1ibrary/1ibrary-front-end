@@ -9,6 +9,7 @@ import {
 	ScrollView,
 	Dimensions,
 	TextInput,
+	Alert,
 	AsyncStorage
 } from "react-native";
 // import CommonNav from "../common/CommonNav";
@@ -40,11 +41,11 @@ export default class WelcomePage extends Component {
 		// 	    user_password:this.state.password
 		//     }))
 		if(!this.state.account.trim()) {
-			alert("请输入学号哦~");
+			Alert.alert("小提示","请输入学号哦~");
 			return ;
 		}
 		if(!this.state.password.trim()) {
-			alert("请输入密码哦~");
+			Alert.alert("小提示","请输入密码哦~");
 			return ;
 		}
 		HttpUtils.post(URL,{
@@ -78,7 +79,8 @@ export default class WelcomePage extends Component {
 						}
 					});
 				} else {
-					alert(response.msg);
+
+					Alert.alert("网络请求出错啦",response.msg);
 				}
 				// alert(response.msg);
 			})

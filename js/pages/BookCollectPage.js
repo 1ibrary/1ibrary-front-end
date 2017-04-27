@@ -9,6 +9,7 @@ import {
 	TouchableHighlight,
 	AsyncStorage,
 	ScrollView,
+	Alert
 } from "react-native";
 import RightButtonNav from "../common/RightButtonNav";
 import BookCollectItem from "../common/BookCollectItem";
@@ -52,30 +53,20 @@ export default class BookCollectPage extends Component{
 	}
 	componentDidMount() {
 		// AsyncStorage.removeItem("book_list",(error,array)=>{})
-		AsyncStorage.getItem("book_list",(error,array)=>{
-			let lists = [];
-			array = JSON.parse(array)
-			if(array&&array.length!=0) {
-				lists = array;
-				this.setState({lists:lists});
-			} else {
-				HttpUtils.post(URL, {
-					token:this.props.user.token,
-					uid:this.props.user.uid,
-					timestamp:this.props.timestamp
-				}).then((result)=>{
-					lists = result.data;
-					this.setState({lists:lists});
-					 AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
-					     if(error) {
-					     		console.log(error)
-					     } 
-					 });
-				}).catch((error)=>{
-					console.log(error);
-				});
-			}
-			
+		HttpUtils.post(URL, {
+			token:this.props.user.token,
+			uid:this.props.user.uid,
+			timestamp:this.props.timestamp
+		}).then((result)=>{
+			lists = result.data;
+			this.setState({lists:lists});
+			 AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
+			     if(error) {
+			     		console.log(error)
+			     } 
+			 });
+		}).catch((error)=>{
+			console.log(error);
 		});
 	}
 	rightOnPress() {
@@ -85,7 +76,7 @@ export default class BookCollectPage extends Component{
 		}
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			if(error) {
-				alert(error)
+				console.log(error)
 			} else {
 				if(array) {
 					array = JSON.parse(array);
@@ -149,7 +140,7 @@ export default class BookCollectPage extends Component{
 											    // alert(JSON.stringify(lists));
 											    AsyncStorage.setItem("book_list",JSON.stringify(lists),(error)=>{
 											    	if(error) {
-											    			alert(error)
+											    			console.log(error)
 											    	} else {
 											    			this.props.navigator.pop()
 											    		}
@@ -186,7 +177,7 @@ export default class BookCollectPage extends Component{
 	onDelete(title) {
 		AsyncStorage.getItem("book_list",(error,array)=>{
 			if(error) {
-				alert("错误:"+error)
+				console.log("错误:"+error)
 			} else {
 				array = JSON.parse(array)
 				array.some((d,i)=>{
@@ -212,7 +203,7 @@ export default class BookCollectPage extends Component{
 									}
 								});
 						} else{
-								alert(result.msg);
+								Alert.alert("网络请求出错啦",result.msg);
 						}
 					}).catch((error)=>{
 						console.log(error);

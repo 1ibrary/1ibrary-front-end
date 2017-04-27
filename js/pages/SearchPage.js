@@ -62,7 +62,7 @@ export default class SearchPage extends Component {
 			// alert(array);
 			AsyncStorage.setItem("history",JSON.stringify(array),(error)=>{
 				if(error) {
-					alert(error);
+					console.log(error);
 				}
 			});
 			this.setState({history:array});
@@ -81,7 +81,7 @@ export default class SearchPage extends Component {
 			// alert(array);
 			AsyncStorage.setItem("history",JSON.stringify(array),(error)=>{
 				if(error) {
-					alert(error);
+					console.log(error);
 				}
 			});
 			this.setState({history:array});
