@@ -16,6 +16,7 @@ import {
 import BookCollectListPage from "../pages/BookCollectListPage";
 import HttpUtils from "../../HttpUtils";
 const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
 const INNERWIDTH = WIDTH - 16;
 const URL_BOOKS = "https://mie-mie.tech/lists/show_detail"
 
@@ -77,11 +78,12 @@ export default class BookCollectItem extends Component {
 		 this._panResponder_move = PanResponder.create({
       // Ask to be the responder:
             onStartShouldSetPanResponder: (evt, gestureState) => true,
-            onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
-            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) =>false,
+            // onMoveShouldSetPanResponder: (evt, gestureState) => true,
             onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
             onPanResponderMove:(evt, gestureState) => {
-			    		this.onMove(gestureState)
+			    		this.onPress(evt,gestureState)
 			    	},
 			 
         });
@@ -111,7 +113,7 @@ export default class BookCollectItem extends Component {
 		let unselect_image = require("../../res/images/unselect.png");
 		let data = this.props.data;
 		return <View
-					{...this._panResponder_move.panHandlers}		
+						
 				     style={styles.container}  
 				     // onStartShouldSetResponderCapture={()=>{
 				     // 	return this.state.change
@@ -120,11 +122,13 @@ export default class BookCollectItem extends Component {
 				   //        this.onMove(evt)
 
 			    //      }}
+			   	
 			    
 				>
 			<Animated.View 	
+			 
 			    style={[styles.item,this.props.style,{marginLeft:this.state.marginLeft}]}>
-				<View 
+				<View
 					{...this._panResponder_touch.panHandlers}	
 					style={styles.item_text}>
 					<Text style={styles.item_title}>{data.list_name}</Text>
@@ -146,11 +150,9 @@ export default class BookCollectItem extends Component {
 							<Image  source={this.state.select?select_image:unselect_image}/>
 						</View>
 					</TouchableWithoutFeedback>:
-					<View></View>
+					<View style={styles.hide}></View>
 				}
-				
-			</Animated.View>
-			<TouchableOpacity
+				<TouchableOpacity
 				onPress={()=>{
 					this.props.onDelete(this.props.data.list_name);
 				}}
@@ -159,6 +161,8 @@ export default class BookCollectItem extends Component {
 				<Image  
 				    style={styles.delete} source={require("../../res/images/icon_clear.png")}/>
 			</TouchableOpacity>
+			</Animated.View>
+			
 		</View>
 	}
 }
@@ -168,6 +172,9 @@ const styles = StyleSheet.create({
 		width:WIDTH+86,
 		flexDirection:"row",
 		alignItems:"center"
+	},
+	hide:{
+		// display:"none"
 	},
 	item:{
 		width:INNERWIDTH,
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
 	},
 	item_text:{
 		paddingLeft:8,
-		width:360,
+		width:352*WIDTH/375,
 		height:64,
 		paddingTop:12
 	},
@@ -203,12 +210,14 @@ const styles = StyleSheet.create({
 		height:64,
 		width:60,
 		alignItems:"center",
-		justifyContent:"center"
+		justifyContent:"center",
 	},
 	delete_container:{
-		marginLeft:8
+		marginLeft:8,
+		backgroundColor:"rgb(242,246,250)"
 	},
 	delete: {
 		marginLeft:INNERWIDTH*0.12-8,
+		backgroundColor:"rgb(242,246,250)"
 	}
 });

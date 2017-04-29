@@ -33,8 +33,8 @@ export default class SettingItem extends Component  {
 			}
 		}
 	}
-	onMove(ev) {
-		
+	onMove(evt,ev) {
+		alert(evt.nativeEvent.locationX);
 		if(ev.dx<0) {
 			this.setState({backgroundColor:"white"})
 			this.setState({round_border:styles.round_border});
@@ -81,19 +81,19 @@ export default class SettingItem extends Component  {
             onMoveShouldSetPanResponder: (evt, gestureState) => true,
             onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
- 				 	this.onPress(gestureState)
+ 				 	this.onMove(evt,gestureState)
               },
 			  
            
         })
 	}
 	render() {
-		return <View style={styles.container}>
+		return <View style={[styles.container,this.props.style]}>
 			<TextPingFang style={styles.font}>{this.props.text}</TextPingFang>
-			<View style={[styles.button_container,{backgroundColor:this.state.backgroundColor},this.state.container_border]}>
-				<View style={styles.button}>
+			<View  style={[styles.button_container,{backgroundColor:this.state.backgroundColor},this.state.container_border]}>
+				<View style={styles.button} {...this._panResponder_touch.panHandlers} >
 					<Animated.View  
-						{...this._panResponder_move.panHandlers}
+						
 					style={[styles.button_inner_round,{marginLeft:this.state.marginLeft},this.state.round_border]}>
 					</Animated.View>	
 					{

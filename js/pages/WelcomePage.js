@@ -27,8 +27,8 @@ export default class WelcomePage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			account:"",
-			password:""
+			account:"1308200047",
+			password:"123456"
 		}
 	}
 	// componentDidMount() {
