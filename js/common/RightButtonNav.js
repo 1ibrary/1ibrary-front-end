@@ -33,7 +33,9 @@ export default class RightButtonNav extends Component {
 const styles = StyleSheet.create({
 	rightButton:{
 		position:"absolute",
-		right:16
+		right:0,
+		width:56,
+		alignItems:"center"
 	},
 	rightButton_font:{
 		color:"#73C0FF",

@@ -34,7 +34,27 @@ export default class SettingItem extends Component  {
 		}
 	}
 	onMove(evt,ev) {
-		alert(evt.nativeEvent.locationX);
+		if(ev.dx==0) {
+			if(evt.nativeEvent.locationX>30) {
+				this.setState({backgroundColor:"#44DB5E"})
+				this.setState({container_border:{}});
+				this.setState({round_border:{}});
+				Animated.timing(this.state.marginLeft,{
+		    		toValue:21.5,
+		    		 duration: 200, // 动画时间
+            	    // easing: Easing.linear
+		    	}).start()
+			} else {
+				this.setState({backgroundColor:"white"})
+				this.setState({round_border:styles.round_border});
+				this.setState({container_border:styles.container_border});
+		    	Animated.timing(this.state.marginLeft,{
+		    		toValue:0,
+		    		 duration: 200, // 动画时间
+            	    // easing: Easing.linear
+		    	}).start()
+			}
+		}
 		if(ev.dx<0) {
 			this.setState({backgroundColor:"white"})
 			this.setState({round_border:styles.round_border});
@@ -86,14 +106,29 @@ export default class SettingItem extends Component  {
 			  
            
         })
+		 this._panResponder_touch_2 = PanResponder.create({
+      // Ask to be the responder:
+            onStartShouldSetPanResponder: (evt, gestureState) => false,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+            onMoveShouldSetPanResponder: (evt, gestureState) => false,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
+       //      onPanResponderRelease: (evt, gestureState) => {
+ 				 	// this.onMove(evt,gestureState)
+       //        },
+			  
+           
+        })
 	}
 	render() {
 		return <View style={[styles.container,this.props.style]}>
 			<TextPingFang style={styles.font}>{this.props.text}</TextPingFang>
-			<View  style={[styles.button_container,{backgroundColor:this.state.backgroundColor},this.state.container_border]}>
-				<View style={styles.button} {...this._panResponder_touch.panHandlers} >
+			<View   style={[styles.button_container,{backgroundColor:this.state.backgroundColor},this.state.container_border]}>
+				<View {...this._panResponder_touch.panHandlers}  style={styles.button} >
 					<Animated.View  
-						
+					{...this._panResponder_touch_2.panHandlers}
+					onPress={()=>{
+						return;
+					}}
 					style={[styles.button_inner_round,{marginLeft:this.state.marginLeft},this.state.round_border]}>
 					</Animated.View>	
 					{

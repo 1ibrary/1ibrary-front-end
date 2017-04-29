@@ -70,7 +70,7 @@ export default class BookCollectPage extends Component{
 		});
 	}
 	rightOnPress() {
-		if(this.props.title==="我的书单") {
+		if(this.props.title==="我的书单"||this.state.choosed.length==0) {
 			this.props.navigator.pop();
 			return ;
 		}
