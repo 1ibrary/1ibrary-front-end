@@ -27,7 +27,7 @@ export default class BookCollectItem extends Component {
 		this.state = {
 			select:false,
 			marginLeft:new Animated.Value(8),
-			change:this.marginLeft==8?true:false
+			// change:this.marginLeft==8?true:false
 		}
 	}
 	onMove(ev) {
@@ -52,10 +52,10 @@ export default class BookCollectItem extends Component {
 			this.onMove(ges);
 			return ;
 		}
-		data = this.props.data
-		if(this.state.change) {
-			return;
-		}
+		// data = this.props.data
+		// if(this.state.change) {
+		// 	return;
+		// }
 		// alert(data)
 		this.props.navigator.push({
 			component:BookCollectListPage,
@@ -63,7 +63,7 @@ export default class BookCollectItem extends Component {
 				title:this.props.title,
 				user:this.props.user,
 				timestamp:this.props.timestamp,
-				book_list:this.props.data.book_list
+				// book_list:this.props.data.book_list
 			}
 		});
 	}

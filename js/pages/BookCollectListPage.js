@@ -28,60 +28,61 @@ export default class BookListPage extends Component {
 		}
 	}
 	componentDidMount() {
-		// AsyncStorage.getItem("book_list",(error,array)=>{
-		// 	if(error) {
-		// 		console.log(error)
-		// 	} else {
-		// 		if(array) {
-		// 			array = JSON.parse(array);
-		// 		} else {
-		// 			array = [];
-		// 		}
-				
-		// 		array.some((d)=>{
-		// 			if(d.list_name&&d.list_name===this.props.title) {
-		// 				let book_list = d.book_list;
-		// 				this.setState({book_list:book_list});
-		// 				// alert(JSON.stringify(books))
-		// 				// alert(this.props.title)
-		// 				return d.list_name===this.props.title
-		// 			}
-		// 		});
-		// 	}
-		// })
-		if(this.props.book_list.length>0) {
-			// alert(this.props.book_list);
-			let book_list = this.props.book_list.toString().trim().split(",");
-			book_list.map((item,i)=>{
-				if(!item.trim()) {
-					book_list.splice(i,1);
+		AsyncStorage.getItem("book_list",(error,array)=>{
+			if(error) {
+				console.log(error)
+			} else {
+				if(array) {
+					array = JSON.parse(array);
+				} else {
+					array = [];
 				}
-			});
+				array.some((d)=>{
+					if(d.list_name&&d.list_name===this.props.title) {
+						let book_list = d.book_list;
+						// alert(JSON.stringify(books))
+						// alert(this.props.title)
+						if(book_list.length>0) {
+			// alert(this.props.book_list);
+							book_list = book_list.toString().trim().split(",");
+							book_list.map((item,i)=>{
+								if(!item.trim()) {
+									book_list.splice(i,1);
+								}
+							});
+							if(book_list.length<=0) {
+								this.setState({book_list:[]});
+								return ;
+							}
+							HttpUtils.post(URL,{
+								book_list:book_list,
+								uid:this.props.user.uid,
+								token:this.props.user.token,
+								timestamp:this.props.timestamp
+							}).then((result)=>{
+								if(result.msg==="请求成功") {
+									this.setState({book_list:result.data?result.data:[]});
+				// alert(JSON.stringify(result.data));
+							} else {
+								Alert.alert("网络请求出错啦",result.msg);
+							}
+							}).catch((error)=>{
+								console.log(error);
+							})
+						}
+						return d.list_name===this.props.title
+					}
+				});
+			}
+		})
+		
 		// 	alert(JSON.stringify({
 		// 		book_list:book_list,
 		// 		uid:this.props.user.uid,
 		// 		token:this.props.user.token,
 		// 		timestamp:this.props.timestamp
 		// }))
-			if(book_list.length<=0) {
-				return ;
-			}
-			HttpUtils.post(URL,{
-				book_list:book_list,
-				uid:this.props.user.uid,
-				token:this.props.user.token,
-				timestamp:this.props.timestamp
-		}).then((result)=>{
-			if(result.msg==="请求成功") {
-				this.setState({book_list:result.data?result.data:[]});
-				// alert(JSON.stringify(result.data));
-			} else {
-				Alert.alert("网络请求出错啦",result.msg);
-			}
-		}).catch((error)=>{
-			console.log(error);
-		})
-		}
+			
 		
 	}
 	onDelete(item) {

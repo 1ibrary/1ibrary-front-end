@@ -50,7 +50,7 @@ export default class BookItem2 extends Component {
             onMoveShouldSetPanResponder: (evt, gestureState) => true,
             onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
- 				 	this.onPress(evt,gestureState)
+ 				 	this.onMove(evt,gestureState)
               },
 			  
            
