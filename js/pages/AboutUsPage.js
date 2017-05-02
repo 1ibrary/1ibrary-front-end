@@ -48,7 +48,7 @@ export default class AboutUsPage extends Component {
 					</TouchableOpacity>
                 </View>
 			</View>
-			<Text style={styles.version}>Verison1.1</Text>
+			<Text style={styles.version}>Verison1.0.2</Text>
 		</View>
 	}
 }

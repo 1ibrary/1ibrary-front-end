@@ -182,7 +182,8 @@ export default class BookInfoPage extends Component {
 const styles = StyleSheet.create({
 	container: {
 		height:Dimensions.get("window").height,
-		alignItems:"center"
+		alignItems:"center",
+		backgroundColor:"white"
 	},
 	outline_container:{
 		// alignItems:"center",
@@ -240,7 +241,8 @@ const styles = StyleSheet.create({
 		marginTop:-4
 	},
 	scroll_view: {
-		flex:1
+		flex:1,
+		paddingBottom:50
 	},
 	book_c_p_container:{
 		marginTop:26,
