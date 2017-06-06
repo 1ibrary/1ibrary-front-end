@@ -15,10 +15,10 @@ export default class HttpUtils {
     return new Promise((resolve, reject) => {
       // alert(JSON.stringify(data))
       fetch(url, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded"
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: this.changeData(data)
       })
@@ -33,16 +33,16 @@ export default class HttpUtils {
   }
   static changeData(obj) {
     var prop,
-      str = ""
+      str = ''
     var i = 0
     for (prop in obj) {
       if (!prop) {
         return
       }
       if (i == 0) {
-        str += prop + "=" + obj[prop]
+        str += prop + '=' + obj[prop]
       } else {
-        str += "&" + prop + "=" + obj[prop]
+        str += '&' + prop + '=' + obj[prop]
       }
       i++
     }
