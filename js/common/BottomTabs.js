@@ -1,25 +1,25 @@
-import React, { Component } from "react"
-import { View, Text, StyleSheet, Image } from "react-native"
-import TabNavigator from "react-native-tab-navigator"
+import React, { Component } from 'react'
+import { View, Text, StyleSheet, Image } from 'react-native'
+import TabNavigator from 'react-native-tab-navigator'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
   page1: {
     flex: 1,
-    backgroundColor: "yellow"
+    backgroundColor: 'yellow'
   },
   page2: {
     flex: 1,
-    backgroundColor: "blue"
+    backgroundColor: 'blue'
   },
   image: {
-    tintColor: "#929292"
+    tintColor: '#929292'
   },
   active: {
-    tintColor: "#607D8B"
+    tintColor: '#607D8B'
   }
 })
 
@@ -32,7 +32,7 @@ export default class BottomTabs extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedTab: "home"
+      selectedTab: 'home'
     }
   }
 
@@ -41,44 +41,44 @@ export default class BottomTabs extends Component {
       <View style={styles.container}>
         <TabNavigator>
           <TabNavigator.Item
-            selected={this.state.selectedTab === "home"}
+            selected={this.state.selectedTab === 'home'}
             title="首页"
             renderIcon={() =>
               <Image
                 style={styles.image}
-                source={require("../../res/images/Home.png")}
+                source={require('../../res/images/Home.png')}
               />}
             renderSelectedIcon={() =>
-              <Image source={require("../../res/images/Home1.png")} />}
-            onPress={() => this.setState({ selectedTab: "home" })}
+              <Image source={require('../../res/images/Home1.png')} />}
+            onPress={() => this.setState({ selectedTab: 'home' })}
           >
             {this.props.page1}
           </TabNavigator.Item>
           <TabNavigator.Item
-            selected={this.state.selectedTab === "message"}
+            selected={this.state.selectedTab === 'message'}
             title="通知"
             renderIcon={() =>
               <Image
                 style={styles.image}
-                source={require("../../res/images/message.png")}
+                source={require('../../res/images/message.png')}
               />}
             renderSelectedIcon={() =>
-              <Image source={require("../../res/images/message1.png")} />}
-            onPress={() => this.setState({ selectedTab: "message" })}
+              <Image source={require('../../res/images/message1.png')} />}
+            onPress={() => this.setState({ selectedTab: 'message' })}
           >
             {this.props.page2}
           </TabNavigator.Item>
           <TabNavigator.Item
-            selected={this.state.selectedTab === "profile"}
+            selected={this.state.selectedTab === 'profile'}
             title="我的"
             renderIcon={() =>
               <Image
                 style={styles.image}
-                source={require("../../res/images/profile.png")}
+                source={require('../../res/images/profile.png')}
               />}
             renderSelectedIcon={() =>
-              <Image source={require("../../res/images/profile1.png")} />}
-            onPress={() => this.setState({ selectedTab: "profile" })}
+              <Image source={require('../../res/images/profile1.png')} />}
+            onPress={() => this.setState({ selectedTab: 'profile' })}
           >
             {this.props.page3}
           </TabNavigator.Item>

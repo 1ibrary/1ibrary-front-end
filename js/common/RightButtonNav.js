@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native"
-import CommonNav from "../common/CommonNav"
+import React, { Component } from 'react'
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import CommonNav from '../common/CommonNav'
 
 export default class RightButtonNav extends Component {
   constructor(props) {
@@ -29,14 +29,14 @@ export default class RightButtonNav extends Component {
 
 const styles = StyleSheet.create({
   rightButton: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
     width: 56,
-    alignItems: "center"
+    alignItems: 'center'
   },
   rightButton_font: {
-    color: "#73C0FF",
+    color: '#73C0FF',
     fontSize: 17,
-    fontWeight: "500"
+    fontWeight: '500'
   }
 })

@@ -1,9 +1,9 @@
-import React, { Component } from "React"
-import { View, StyleSheet, Text, Navigator } from "react-native"
-import HomePage from "./HomePage"
-import BookCollectListPage from "./BookCollectListPage"
-import WelcomePage from "./WelcomePage"
-import SplashScreen from "react-native-splash-screen"
+import React, { Component } from 'React'
+import { View, StyleSheet, Text, Navigator } from 'react-native'
+import HomePage from './HomePage'
+import BookCollectListPage from './BookCollectListPage'
+import WelcomePage from './WelcomePage'
+import SplashScreen from 'react-native-splash-screen'
 
 function setup() {
   // 进行一些初始化配置

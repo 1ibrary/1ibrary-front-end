@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -9,12 +9,12 @@ import {
   ListView,
   Dimensions,
   RefreshControl
-} from "react-native"
-import BookItem1 from "./BookItem1"
-import HttpUtils from "../../HttpUtils"
+} from 'react-native'
+import BookItem1 from './BookItem1'
+import HttpUtils from '../../HttpUtils'
 
-const URL = "https://mie-mie.tech/books/show_books"
-const HEIGHT = Dimensions.get("window").height
+const URL = 'https://mie-mie.tech/books/show_books'
+const HEIGHT = Dimensions.get('window').height
 
 export default class BookList extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default class BookList extends Component {
     })
       .then(result => {
         // alert(JSON.stringify(result));
-        if (result.msg === "请求成功") {
+        if (result.msg === '请求成功') {
           this.setState({ books: result.data }, () => {
             this.setState({
               dataSource: this.state.dataSource.cloneWithRows(this.state.books),
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   booklist: {
     flex: 1,
     // marginTop:10/667*HEIGHT,
-    width: Dimensions.get("window").width - 16,
+    width: Dimensions.get('window').width - 16,
     // height:HEIGHT
     paddingBottom: 44 / 568 * HEIGHT
   },

@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -9,22 +9,22 @@ import {
   ListView,
   Dimensions,
   ScrollView
-} from "react-native"
+} from 'react-native'
 // import ShareNav from "../common/ShareNav";
-import BottomTabs from "../common/BottomTabs"
-import SearchNav from "../common/SearchNav"
-import BookList from "../common/BookList"
-import SearchPage from "./SearchPage"
-import SearchResultPage from "./SearchResultPage"
-import SearchNav_Welcome from "../common/SearchNav_Welcome"
-import BookInfoPage from "./BookInfoPage"
-import BookCollectPage from "./BookCollectPage"
-import BookCollectAddPage from "./BookCollectAddPage"
-import MessagePage from "./MessagePage"
-import ProfilePage from "./ProfilePage"
+import BottomTabs from '../common/BottomTabs'
+import SearchNav from '../common/SearchNav'
+import BookList from '../common/BookList'
+import SearchPage from './SearchPage'
+import SearchResultPage from './SearchResultPage'
+import SearchNav_Welcome from '../common/SearchNav_Welcome'
+import BookInfoPage from './BookInfoPage'
+import BookCollectPage from './BookCollectPage'
+import BookCollectAddPage from './BookCollectAddPage'
+import MessagePage from './MessagePage'
+import ProfilePage from './ProfilePage'
 // import HttpUtils from "../../HttpUtils"
 
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get('window').height
 
 export default class WelcomePage extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ export default class WelcomePage extends Component {
             {this.state.show === 1
               ? <View style={styles.list}>
                   <SearchNav_Welcome
-                    placeholder={"搜索"}
+                    placeholder={'搜索'}
                     onFocus={() => {
                       this.setState({ show: 2 })
                     }}
@@ -87,15 +87,15 @@ export default class WelcomePage extends Component {
 const styles = StyleSheet.create({
   container: {
     // flex:1,
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "rgb(242,246,250)",
-    alignItems: "center",
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: 'rgb(242,246,250)',
+    alignItems: 'center',
     height: HEIGHT
   },
   top: {
     height: 28,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginTop: -28,
     width: 375
   },
@@ -105,6 +105,6 @@ const styles = StyleSheet.create({
   },
   search_result_bar: {
     // paddingTop:28,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   }
 })

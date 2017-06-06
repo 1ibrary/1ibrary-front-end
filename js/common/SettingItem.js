@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -12,19 +12,19 @@ import {
   Easing,
   AsyncStorage,
   PanResponder
-} from "react-native"
-import TextPingFang from "./TextPingFang"
+} from 'react-native'
+import TextPingFang from './TextPingFang'
 
-const WIDTH = Dimensions.get("window").width
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get('window').height
 
 export default class SettingItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
       marginLeft: new Animated.Value(21.5),
-      backgroundColor: "#44DB5E",
+      backgroundColor: '#44DB5E',
       round_border: {},
       container_border: {}
     }
@@ -32,7 +32,7 @@ export default class SettingItem extends Component {
   onMove(evt, ev) {
     if (ev.dx == 0) {
       if (evt.nativeEvent.locationX > 30) {
-        this.setState({ backgroundColor: "#44DB5E" })
+        this.setState({ backgroundColor: '#44DB5E' })
         this.setState({ container_border: {} })
         this.setState({ round_border: {} })
         Animated.timing(this.state.marginLeft, {
@@ -41,7 +41,7 @@ export default class SettingItem extends Component {
           // easing: Easing.linear
         }).start()
       } else {
-        this.setState({ backgroundColor: "white" })
+        this.setState({ backgroundColor: 'white' })
         this.setState({ round_border: styles.round_border })
         this.setState({ container_border: styles.container_border })
         Animated.timing(this.state.marginLeft, {
@@ -52,7 +52,7 @@ export default class SettingItem extends Component {
       }
     }
     if (ev.dx < 0) {
-      this.setState({ backgroundColor: "white" })
+      this.setState({ backgroundColor: 'white' })
       this.setState({ round_border: styles.round_border })
       this.setState({ container_border: styles.container_border })
       Animated.timing(this.state.marginLeft, {
@@ -61,7 +61,7 @@ export default class SettingItem extends Component {
         // easing: Easing.linear
       }).start()
     } else if (ev.dx > 0) {
-      this.setState({ backgroundColor: "#44DB5E" })
+      this.setState({ backgroundColor: '#44DB5E' })
       this.setState({ container_border: {} })
       this.setState({ round_border: {} })
       Animated.timing(this.state.marginLeft, {
@@ -148,12 +148,12 @@ const styles = StyleSheet.create({
     width: INNERWIDTH,
     height: 44,
     borderRadius: 8,
-    backgroundColor: "white",
-    flexDirection: "row",
-    alignItems: "center"
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   font: {
-    color: "#666666",
+    color: '#666666',
     fontSize: 14,
     marginLeft: 16,
     marginTop: 12
@@ -162,20 +162,20 @@ const styles = StyleSheet.create({
     width: 51,
     height: 31,
     borderRadius: 15.5,
-    position: "absolute",
+    position: 'absolute',
     top: 6,
     right: 6,
-    overflow: "hidden"
+    overflow: 'hidden'
   },
   container_border: {
     borderWidth: 1.5,
-    borderColor: "rgb(230,230,230)"
+    borderColor: 'rgb(230,230,230)'
   },
   button: {
     width: 51,
     height: 31,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: 15.5
     // overflow:"hidden",
     // backgroundColor:"white",
@@ -193,9 +193,9 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginTop: 0,
-    shadowColor: "gray",
+    shadowColor: 'gray',
     shadowOffset: { h: 3, w: 0 },
     shadowRadius: 3,
     shadowOpacity: 0.6
@@ -203,9 +203,9 @@ const styles = StyleSheet.create({
   round_border: {
     borderWidth: 1,
     marginTop: -3,
-    borderColor: "rgb(230,230,230)",
+    borderColor: 'rgb(230,230,230)',
 
-    shadowColor: "gray",
+    shadowColor: 'gray',
     shadowOffset: { h: 2, w: 0 },
     shadowRadius: 2,
     shadowOpacity: 0.6

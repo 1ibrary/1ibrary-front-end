@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react"
+import React, { Component, PropTypes } from 'react'
 import {
   View,
   Text,
@@ -7,13 +7,13 @@ import {
   StatusBar,
   TouchableOpacity,
   Dimensions
-} from "react-native"
-const WIDTH = Dimensions.get("window").width
+} from 'react-native'
+const WIDTH = Dimensions.get('window').width
 const NAVBAR_HEIGHT = 44
 const STATUS_BAR_HEIGHT = 20
 const StatusBarShape = {
   backgroundColor: PropTypes.string,
-  barStyle: PropTypes.oneOf(["default", "light-content", "dark-content"]),
+  barStyle: PropTypes.oneOf(['default', 'light-content', 'dark-content']),
   hidden: PropTypes.bool
 }
 
@@ -36,7 +36,7 @@ export default class Navigator extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: "",
+      title: '',
       hide: false
     }
   }
@@ -69,22 +69,22 @@ export default class Navigator extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   navBar: {
     // justifyContent: "center",
-    alignItems: "center",
+    alignItems: 'center',
     height: NAVBAR_HEIGHT,
-    backgroundColor: "white",
-    flexDirection: "row",
+    backgroundColor: 'white',
+    flexDirection: 'row',
     width: WIDTH,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   titleViewContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: WIDTH - 100
     // position:"absolute",
     // left:20,
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 17,
-    color: "black",
-    alignItems: "center"
+    color: 'black',
+    alignItems: 'center'
   },
   statusBar: {
     height: STATUS_BAR_HEIGHT

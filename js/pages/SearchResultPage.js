@@ -1,15 +1,15 @@
-import React, { Component } from "react"
-import { View, StyleSheet, StatusBar, Dimensions, Text } from "react-native"
+import React, { Component } from 'react'
+import { View, StyleSheet, StatusBar, Dimensions, Text } from 'react-native'
 import ScrollableTabView, {
   ScrollableTabBar,
   DefaultTabBar
-} from "react-native-scrollable-tab-view"
-import BookList from "../common/BookList"
-import BookItem1 from "../common/BookItem1"
-import HttpUtils from "../../HttpUtils"
+} from 'react-native-scrollable-tab-view'
+import BookList from '../common/BookList'
+import BookItem1 from '../common/BookItem1'
+import HttpUtils from '../../HttpUtils'
 
-const URL = "https://mie-mie.tech/books/search_book"
-const WIDTH = Dimensions.get("window").width
+const URL = 'https://mie-mie.tech/books/search_book'
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
 
 export default class SearchResultPage extends Component {
@@ -30,7 +30,7 @@ export default class SearchResultPage extends Component {
       type: 0
     }).then(response => {
       // alert(response.msg);
-      if (response.msg === "请求成功") {
+      if (response.msg === '请求成功') {
         this.setState({ data0: response.data })
       }
     })
@@ -44,7 +44,7 @@ export default class SearchResultPage extends Component {
       type: index
     }).then(response => {
       // alert(response.msg);
-      if (response.msg === "请求成功") {
+      if (response.msg === '请求成功') {
         if (index == 1) {
           this.setState({ data1: response.data })
         } else {
@@ -75,13 +75,13 @@ export default class SearchResultPage extends Component {
               }}
               style={styles.scrollable}
             />}
-          tabBarInactiveTextColor={"#CDD8E2"}
-          tabBarActiveTextColor={"#73C0FF"}
+          tabBarInactiveTextColor={'#CDD8E2'}
+          tabBarActiveTextColor={'#73C0FF'}
           tabBarUnderlineStyle={styles.active_tag}
           tabBarTextStyle={{
             fontSize: 14,
 
-            fontFamily: "PingFang SC"
+            fontFamily: 'PingFang SC'
           }}
           onChangeTab={o => {
             this.onChangeTab(o.i)
@@ -149,25 +149,25 @@ export default class SearchResultPage extends Component {
 
 styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     // marginTop:8,
-    backgroundColor: "rgb(242,246,250)"
+    backgroundColor: 'rgb(242,246,250)'
     // backgroundColor:""
   },
   page_container: {
     // alignItems:"center",
-    backgroundColor: "rgb(242,246,250)",
+    backgroundColor: 'rgb(242,246,250)',
     width: 375,
     paddingLeft: 16,
     marginTop: 12
   },
   scrollable_tab_view: {
     marginLeft: 0,
-    width: Dimensions.get("window").width,
-    alignItems: "center"
+    width: Dimensions.get('window').width,
+    alignItems: 'center'
   },
   active_tag: {
-    backgroundColor: "#73C0FF",
+    backgroundColor: '#73C0FF',
     width: 70 * WIDTH / 375,
     marginLeft: 30 * WIDTH / 375,
     height: 4,
@@ -177,25 +177,25 @@ styles = StyleSheet.create({
     height: 44,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginLeft: 8,
-    width: Dimensions.get("window").width,
-    alignItems: "center"
+    width: Dimensions.get('window').width,
+    alignItems: 'center'
     // paddingLeft:92
     // color:"red",
   },
   booklist: {
-    backgroundColor: "rgb(242,246,250)"
+    backgroundColor: 'rgb(242,246,250)'
   },
   item: {
     marginBottom: 8
   },
   remind: {
     width: INNERWIDTH,
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 20
   },
   remind_font: {
-    color: "#73C0FF"
+    color: '#73C0FF'
   }
 })

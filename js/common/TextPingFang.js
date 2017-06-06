@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import { StyleSheet, Text } from "react-native"
+import React, { Component } from 'react'
+import { StyleSheet, Text } from 'react-native'
 
 export default class TextPingFang extends Component {
   render() {
@@ -13,6 +13,6 @@ export default class TextPingFang extends Component {
 
 const styles = StyleSheet.create({
   font: {
-    fontFamily: "PingFang SC"
+    fontFamily: 'PingFang SC'
   }
 })

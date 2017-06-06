@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Image,
   Dimensions
-} from "react-native"
-import CommonNav from "../common/CommonNav"
-import TextPingFang from "../common/TextPingFang"
+} from 'react-native'
+import CommonNav from '../common/CommonNav'
+import TextPingFang from '../common/TextPingFang'
 
-const WIDTH = Dimensions.get("window").width
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get('window').height
 
 export default class MessageInfoPage extends Component {
   constructor(props) {
@@ -22,11 +22,11 @@ export default class MessageInfoPage extends Component {
   }
   static defaultProps = {
     data: {
-      title: "美洲小宇宙",
-      rent: "2017/4/2",
-      return_time: "2017/5/2"
+      title: '美洲小宇宙',
+      rent: '2017/4/2',
+      return_time: '2017/5/2'
     },
-    title: "归还书籍"
+    title: '归还书籍'
   }
   render() {
     return (
@@ -40,7 +40,7 @@ export default class MessageInfoPage extends Component {
         <View style={styles.item}>
           <Image
             style={styles.book_image}
-            source={require("../../res/images/book.png")}
+            source={require('../../res/images/book.png')}
           />
           <View style={styles.info}>
             <TextPingFang style={styles.info_title}>
@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
   container: {
     width: WIDTH,
     height: HEIGHT,
-    backgroundColor: "rgb(242,246,250)",
-    alignItems: "center"
+    backgroundColor: 'rgb(242,246,250)',
+    alignItems: 'center'
   },
   nav_container: {
     width: WIDTH,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
   book_image: {
     height: 111,
@@ -77,10 +77,10 @@ const styles = StyleSheet.create({
   item: {
     width: INNERWIDTH,
     height: 160,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 8,
     marginTop: 8 / 667 * HEIGHT,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   book_image: {
     marginLeft: 12,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   info_rent: {
     fontSize: 14,
-    color: "#666666",
+    color: '#666666',
     marginTop: 8
   }
 })

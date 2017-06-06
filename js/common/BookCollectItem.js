@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -12,13 +12,13 @@ import {
   Easing,
   AsyncStorage,
   PanResponder
-} from "react-native"
-import BookCollectListPage from "../pages/BookCollectListPage"
-import HttpUtils from "../../HttpUtils"
-const WIDTH = Dimensions.get("window").width
-const HEIGHT = Dimensions.get("window").height
+} from 'react-native'
+import BookCollectListPage from '../pages/BookCollectListPage'
+import HttpUtils from '../../HttpUtils'
+const WIDTH = Dimensions.get('window').width
+const HEIGHT = Dimensions.get('window').height
 const INNERWIDTH = WIDTH - 16
-const URL_BOOKS = "https://mie-mie.tech/lists/show_detail"
+const URL_BOOKS = 'https://mie-mie.tech/lists/show_detail'
 
 export default class BookCollectItem extends Component {
   constructor(props) {
@@ -107,8 +107,8 @@ export default class BookCollectItem extends Component {
     data: {}
   }
   render() {
-    let select_image = require("../../res/images/select.png")
-    let unselect_image = require("../../res/images/unselect.png")
+    let select_image = require('../../res/images/select.png')
+    let unselect_image = require('../../res/images/unselect.png')
     let data = this.props.data
     return (
       <View
@@ -135,7 +135,7 @@ export default class BookCollectItem extends Component {
             <Text style={styles.item_title}>{data.list_name}</Text>
             <Text style={styles.item_des}>{data.list_content}</Text>
           </View>
-          {this.props.big_title === "加入书单"
+          {this.props.big_title === '加入书单'
             ? <TouchableWithoutFeedback
                 // {...this._panResponder_touch_2.panHandlers}
                 onPress={() => {
@@ -161,7 +161,7 @@ export default class BookCollectItem extends Component {
           >
             <Image
               style={styles.delete}
-              source={require("../../res/images/icon_clear.png")}
+              source={require('../../res/images/icon_clear.png')}
             />
           </TouchableOpacity>
         </Animated.View>
@@ -174,28 +174,28 @@ export default class BookCollectItem extends Component {
 const styles = StyleSheet.create({
   container: {
     width: WIDTH + 86,
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   hide: {
     // display:"none"
   },
   item: {
     width: INNERWIDTH,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 8,
     // marginTop:20,
     // marginLeft:8,
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
     height: 64,
     marginBottom: 8,
     marginLeft: -86
   },
   item_title: {
     fontSize: 17,
-    fontFamily: "PingFang SC",
-    color: "#666666"
+    fontFamily: 'PingFang SC',
+    color: '#666666'
   },
   item_text: {
     paddingLeft: 8,
@@ -204,24 +204,24 @@ const styles = StyleSheet.create({
     paddingTop: 12
   },
   item_des: {
-    fontFamily: "PingFang SC",
+    fontFamily: 'PingFang SC',
     fontSize: 12,
-    color: "#999999"
+    color: '#999999'
   },
   select: {
-    position: "absolute",
+    position: 'absolute',
     right: 5,
     height: 64,
     width: 60,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   delete_container: {
     marginLeft: 8,
-    backgroundColor: "rgb(242,246,250)"
+    backgroundColor: 'rgb(242,246,250)'
   },
   delete: {
     marginLeft: INNERWIDTH * 0.12 - 8,
-    backgroundColor: "rgb(242,246,250)"
+    backgroundColor: 'rgb(242,246,250)'
   }
 })

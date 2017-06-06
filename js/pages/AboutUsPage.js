@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -9,14 +9,14 @@ import {
   ScrollView,
   Dimensions,
   WebView
-} from "react-native"
-import CommonNav from "../common/CommonNav"
-import TextPingFang from "../common/TextPingFang"
-import AboutUsWebPage from "./AboutUsWebPage"
+} from 'react-native'
+import CommonNav from '../common/CommonNav'
+import TextPingFang from '../common/TextPingFang'
+import AboutUsWebPage from './AboutUsWebPage'
 
-const WIDTH = Dimensions.get("window").width
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get('window').height
 
 export default class AboutUsPage extends Component {
   render() {
@@ -24,10 +24,10 @@ export default class AboutUsPage extends Component {
       <View style={styles.container}>
         <Image
           style={styles.bg}
-          source={require("../../res/images/about_bg.png")}
+          source={require('../../res/images/about_bg.png')}
         >
           <CommonNav
-            title={"关于我们"}
+            title={'关于我们'}
             navigator={this.props.navigator}
             navStyle={styles.opacity0}
             navBarStyle={styles.opacity0}
@@ -35,7 +35,7 @@ export default class AboutUsPage extends Component {
         </Image>
         <Image
           style={styles.logo}
-          source={require("../../res/images/about_logo.png")}
+          source={require('../../res/images/about_logo.png')}
         />
         <View style={styles.text}>
           <Text style={styles.slogan}>ONE</Text>
@@ -70,57 +70,57 @@ const styles = StyleSheet.create({
   container: {
     width: WIDTH,
     height: HEIGHT,
-    alignItems: "center"
+    alignItems: 'center'
   },
   bg: {
     width: WIDTH
   },
   opacity0: {
-    backgroundColor: "rgba(0,0,0,0)"
+    backgroundColor: 'rgba(0,0,0,0)'
   },
   logo: {
     marginTop: -126
   },
   text: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 18 * HEIGHT / 667
   },
   name: {
-    color: "#666666",
+    color: '#666666',
     fontSize: 24
   },
   slogan: {
     fontSize: 64,
-    color: "rgb(250,250,250)"
+    color: 'rgb(250,250,250)'
   },
   border: {
     width: 2,
     height: 74 / 667 * HEIGHT,
-    backgroundColor: "#999999",
+    backgroundColor: '#999999',
     marginTop: -74 / 667 * HEIGHT
   },
   names: {
     marginTop: 32 * HEIGHT / 667,
-    alignItems: "center"
+    alignItems: 'center'
   },
   name: {
-    color: "#999999",
+    color: '#999999',
     fontSize: 14,
     marginBottom: 4 / 667
   },
   version: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 5,
-    color: "#999999",
+    color: '#999999',
     fontSize: 14
   },
   contact: {
     width: INNERWIDTH,
     height: 44 * HEIGHT / 667,
     marginTop: 20 * HEIGHT / 667,
-    alignItems: "center"
+    alignItems: 'center'
   },
   contact_font: {
-    textDecorationLine: "underline"
+    textDecorationLine: 'underline'
   }
 })

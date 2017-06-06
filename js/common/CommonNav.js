@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -6,15 +6,15 @@ import {
   Navigator,
   TouchableOpacity,
   Image
-} from "react-native"
-import NavigationBar from "./NavigationBar"
+} from 'react-native'
+import NavigationBar from './NavigationBar'
 
 export default class CommonNav extends Component {
   constructor(props) {
     super(props)
   }
   static defaultProps = {
-    title: "图书详情",
+    title: '图书详情',
     rightButton: <View />
   }
   render() {
@@ -32,7 +32,7 @@ export default class CommonNav extends Component {
               }}
               style={styles.container}
             >
-              <Image source={require("../../res/images/BackArrow.png")} />
+              <Image source={require('../../res/images/BackArrow.png')} />
 
             </TouchableOpacity>
           }
@@ -45,10 +45,10 @@ export default class CommonNav extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    position: 'absolute',
     width: 44,
     height: 24,
-    alignItems: "center",
+    alignItems: 'center',
     left: 0
     // top:-20
   }

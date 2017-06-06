@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -12,12 +12,12 @@ import {
   Easing,
   AsyncStorage,
   PanResponder
-} from "react-native"
-import BookItem1 from "./BookItem1"
-import Round from "./Round"
-import BookInfoPage from "../pages/BookInfoPage"
-import HttpUtils from "../../HttpUtils"
-const WIDTH = Dimensions.get("window").width
+} from 'react-native'
+import BookItem1 from './BookItem1'
+import Round from './Round'
+import BookInfoPage from '../pages/BookInfoPage'
+import HttpUtils from '../../HttpUtils'
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
 
 export default class BookItem2 extends Component {
@@ -101,8 +101,8 @@ export default class BookItem2 extends Component {
                 </Text>
                 <Text style={styles.item_grade}>
                   {this.props.item.book_rate !== 0
-                    ? this.props.item.book_rate + " 分"
-                    : "暂无评分"}
+                    ? this.props.item.book_rate + ' 分'
+                    : '暂无评分'}
                 </Text>
               </View>
               <View style={styles.round}>
@@ -120,7 +120,7 @@ export default class BookItem2 extends Component {
         >
           <Image
             style={styles.delete}
-            source={require("../../res/images/icon_clear.png")}
+            source={require('../../res/images/icon_clear.png')}
           />
         </TouchableOpacity>
       </View>
@@ -131,8 +131,8 @@ export default class BookItem2 extends Component {
 const styles = StyleSheet.create({
   container: {
     width: WIDTH + 86,
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   delete_container: {
     marginLeft: 8
@@ -147,15 +147,15 @@ const styles = StyleSheet.create({
   },
   item: {
     borderBottomWidth: 1,
-    borderBottomColor: "rgb(230,230,234)",
+    borderBottomColor: 'rgb(230,230,234)',
     // paddingTop:20,
     paddingHorizontal: 12,
-    backgroundColor: "white",
-    width: Dimensions.get("window").width - 16,
+    backgroundColor: 'white',
+    width: Dimensions.get('window').width - 16,
     height: 160,
     borderRadius: 8,
     marginBottom: 8,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   information: {
     marginLeft: 16,
@@ -163,31 +163,31 @@ const styles = StyleSheet.create({
   },
   item_title: {
     fontSize: 17,
-    color: "#494949",
-    fontFamily: "PingFang SC",
-    fontWeight: "500"
+    color: '#494949',
+    fontFamily: 'PingFang SC',
+    fontWeight: '500'
   },
   item_author: {
     fontSize: 14,
-    color: "#666666",
-    fontFamily: "PingFang SC",
+    color: '#666666',
+    fontFamily: 'PingFang SC',
     marginVertical: 8
   },
   item_publish: {
     fontSize: 14,
-    color: "#666666",
-    fontFamily: "PingFang SC"
+    color: '#666666',
+    fontFamily: 'PingFang SC'
   },
   item_grade: {
-    fontFamily: "PingFang SC",
-    fontWeight: "500",
-    color: "#FFB173",
+    fontFamily: 'PingFang SC',
+    fontWeight: '500',
+    color: '#FFB173',
     fontSize: 17,
     marginTop: 14,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   round: {
-    position: "absolute",
+    position: 'absolute',
     top: 62,
     right: 12
   }

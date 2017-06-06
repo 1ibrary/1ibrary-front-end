@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -8,10 +8,10 @@ import {
   Image,
   ListView,
   Dimensions
-} from "react-native"
-import TextPingFang from "./TextPingFang"
-import RentInfoPage from "../pages/RentInfoPage"
-const WIDTH = Dimensions.get("window").width
+} from 'react-native'
+import TextPingFang from './TextPingFang'
+import RentInfoPage from '../pages/RentInfoPage'
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
 
 export default class MessageItem extends Component {
@@ -24,7 +24,7 @@ export default class MessageItem extends Component {
   static defaultProps = {
     data: {
       kind: 1,
-      title: "平凡的世界"
+      title: '平凡的世界'
     }
   }
   onPress() {
@@ -33,19 +33,19 @@ export default class MessageItem extends Component {
       component: RentInfoPage,
       params: {
         data: {
-          rent: "2017/4/2",
-          return_time: "2017/5/2",
-          title: "美洲小宇宙"
+          rent: '2017/4/2',
+          return_time: '2017/5/2',
+          title: '美洲小宇宙'
         }
       }
     })
   }
   render() {
-    let subscribe = require("../../res/images/icon_subscribe.png")
-    let return_book = require("../../res/images/icon_return.png")
+    let subscribe = require('../../res/images/icon_subscribe.png')
+    let return_book = require('../../res/images/icon_return.png')
     let dot = <View style={styles.dot} />
-    let subscribe_c = "有人归还啦，赶紧去借阅吧～"
-    let return_c = "还有3天到期，记得还书呀～"
+    let subscribe_c = '有人归还啦，赶紧去借阅吧～'
+    let return_c = '还有3天到期，记得还书呀～'
     return (
       <TouchableOpacity onPress={() => this.onPress()}>
         <View style={styles.item_container}>
@@ -71,12 +71,12 @@ export default class MessageItem extends Component {
 const styles = StyleSheet.create({
   item_container: {
     width: INNERWIDTH,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     height: 88,
     borderRadius: 8,
     marginLeft: 8,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 8
   },
   item_image: {
@@ -90,15 +90,15 @@ const styles = StyleSheet.create({
   },
   item_info_content: {
     fontSize: 12,
-    color: "#666666",
+    color: '#666666',
     marginLeft: 8
   },
   dot: {
     height: 12,
     width: 12,
     borderRadius: 6,
-    backgroundColor: "#FF7373",
-    position: "absolute",
+    backgroundColor: '#FF7373',
+    position: 'absolute',
     top: 8,
     right: 8
   }

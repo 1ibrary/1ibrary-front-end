@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -11,24 +11,24 @@ import {
   TextInput,
   Alert,
   AsyncStorage
-} from "react-native"
+} from 'react-native'
 // import CommonNav from "../common/CommonNav";
-import TextPingFang from "../common/TextPingFang"
-import HttpUtils from "../../HttpUtils"
-import HomePage from "./HomePage"
+import TextPingFang from '../common/TextPingFang'
+import HttpUtils from '../../HttpUtils'
+import HomePage from './HomePage'
 // import SplashScreen from 'react-native-splash-screen';
 
-const WIDTH = Dimensions.get("window").width
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get("window").height
-const URL = "https://mie-mie.tech/users/login"
+const HEIGHT = Dimensions.get('window').height
+const URL = 'https://mie-mie.tech/users/login'
 
 export default class WelcomePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      account: "",
-      password: ""
+      account: '',
+      password: ''
     }
   }
   // componentDidMount() {
@@ -41,11 +41,11 @@ export default class WelcomePage extends Component {
     // 	    user_password:this.state.password
     //     }))
     if (!this.state.account.trim()) {
-      Alert.alert("小提示", "请输入学号哦~")
+      Alert.alert('小提示', '请输入学号哦~')
       return
     }
     if (!this.state.password.trim()) {
-      Alert.alert("小提示", "请输入密码哦~")
+      Alert.alert('小提示', '请输入密码哦~')
       return
     }
     HttpUtils.post(URL, {
@@ -54,16 +54,16 @@ export default class WelcomePage extends Component {
     })
       .then(response => {
         // alert("哈哈")
-        if (response.msg === "请求成功") {
+        if (response.msg === '请求成功') {
           // alert(JSON.stringify(response.data));
           AsyncStorage.setItem(
-            "user_info",
+            'user_info',
             JSON.stringify(response.data),
             error => {
               if (error) {
                 console.log(error)
               } else {
-                AsyncStorage.getItem("books_data", (error, array) => {
+                AsyncStorage.getItem('books_data', (error, array) => {
                   if (error) {
                     console.log(error)
                   } else {
@@ -83,7 +83,7 @@ export default class WelcomePage extends Component {
             }
           )
         } else {
-          Alert.alert("网络请求出错啦", response.msg)
+          Alert.alert('网络请求出错啦', response.msg)
         }
         // alert(response.msg);
       })
@@ -97,11 +97,11 @@ export default class WelcomePage extends Component {
       <View style={styles.container}>
         <Image
           style={styles.bg}
-          source={require("../../res/images/welcome_bg.png")}
+          source={require('../../res/images/welcome_bg.png')}
         >
           <Image
             style={styles.logo}
-            source={require("../../res/images/welcome_logo.png")}
+            source={require('../../res/images/welcome_logo.png')}
           />
           <View style={styles.text}>
             <TextPingFang style={styles.title}>一图</TextPingFang>
@@ -109,16 +109,16 @@ export default class WelcomePage extends Component {
           </View>
           <View style={styles.form}>
             <TextInput
-              placeholder={"请输入您的学号"}
-              placeholderTextColor={"white"}
+              placeholder={'请输入您的学号'}
+              placeholderTextColor={'white'}
               style={styles.textinput}
               onChangeText={text => {
                 this.setState({ account: text })
               }}
             />
             <TextInput
-              placeholder={"请输入密码"}
-              placeholderTextColor={"white"}
+              placeholder={'请输入密码'}
+              placeholderTextColor={'white'}
               style={styles.textinput}
               password={true}
               onChangeText={text => {
@@ -145,13 +145,13 @@ export default class WelcomePage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#73C0FF",
+    backgroundColor: '#73C0FF',
     width: WIDTH,
     height: HEIGHT,
-    alignItems: "center"
+    alignItems: 'center'
   },
   bg: {
-    alignItems: "center",
+    alignItems: 'center',
     width: WIDTH,
     height: HEIGHT
   },
@@ -159,53 +159,53 @@ const styles = StyleSheet.create({
     marginTop: 60 * HEIGHT / 667
   },
   text: {
-    alignItems: "center"
+    alignItems: 'center'
   },
   title: {
-    backgroundColor: "rgba(0,0,0,0)",
-    color: "white",
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: 'white',
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: '600',
     height: 33 / 667 * HEIGHT,
     marginTop: HEIGHT * 0.0419
   },
   e_title: {
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: 'rgba(0,0,0,0)',
     fontSize: 12,
-    color: "white"
+    color: 'white'
   },
   form: {
     marginTop: HEIGHT * 0.0479,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
     // width:240
   },
   textinput: {
     height: 44 / 667 * HEIGHT,
     width: 240 / 375 * WIDTH,
-    color: "white",
-    backgroundColor: "rgb(139,203,255)",
+    color: 'white',
+    backgroundColor: 'rgb(139,203,255)',
     borderRadius: 22 / 667 * HEIGHT,
     marginBottom: 14 / 667 * HEIGHT,
     fontSize: 14,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingLeft: 10 / 375 * WIDTH,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   remind: {
     fontSize: 10,
-    color: "white",
+    color: 'white',
     // width:160,
     marginTop: HEIGHT * 0.037,
-    backgroundColor: "rgba(0,0,0,0)"
+    backgroundColor: 'rgba(0,0,0,0)'
   },
   online: {
-    position: "absolute",
+    position: 'absolute',
     bottom: HEIGHT * 0.115,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 150 / 375 * WIDTH,
     height: 44 / 667 * HEIGHT,
     borderRadius: 22 / 667 * HEIGHT

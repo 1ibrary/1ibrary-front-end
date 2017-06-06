@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -8,21 +8,21 @@ import {
   Image,
   Dimensions,
   AsyncStorage
-} from "react-native"
-import TextPingFang from "../common/TextPingFang"
-import BookCollectPage from "./BookCollectPage"
-import RentInfoPage from "./RentInfoPage"
-import FeedBackPage from "./FeedBackPage"
-import AboutUsPage from "./AboutUsPage"
-import SettingPage from "./SettingPage"
+} from 'react-native'
+import TextPingFang from '../common/TextPingFang'
+import BookCollectPage from './BookCollectPage'
+import RentInfoPage from './RentInfoPage'
+import FeedBackPage from './FeedBackPage'
+import AboutUsPage from './AboutUsPage'
+import SettingPage from './SettingPage'
 
-const WIDTH = Dimensions.get("window").width
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get("window").height
+const HEIGHT = Dimensions.get('window').height
 
 export default class ProfilePage extends Component {
   onLists() {
-    AsyncStorage.getItem("book_list", (error, array) => {
+    AsyncStorage.getItem('book_list', (error, array) => {
       let lists
       array = JSON.parse(array)
       if (array) {
@@ -34,7 +34,7 @@ export default class ProfilePage extends Component {
         component: BookCollectPage,
         params: {
           lists: lists,
-          title: "我的书单",
+          title: '我的书单',
           user: this.props.user,
           timestamp: this.props.timestamp
         }
@@ -45,7 +45,7 @@ export default class ProfilePage extends Component {
     this.props.navigator.push({
       component: RentInfoPage,
       params: {
-        title: "借阅历史"
+        title: '借阅历史'
       }
     })
   }
@@ -61,26 +61,26 @@ export default class ProfilePage extends Component {
     })
   }
   render() {
-    let booklist = require("../../res/images/icon_booklist.png")
-    let history = require("../../res/images/icon_history.png")
-    let setting = require("../../res/images/icon_setting.png")
+    let booklist = require('../../res/images/icon_booklist.png')
+    let history = require('../../res/images/icon_history.png')
+    let setting = require('../../res/images/icon_setting.png')
     // let apps = require("../../res/images/icon_apps.png")
-    let feedback = require("../../res/images/icon_feedback.png")
-    let aboutus = require("../../res/images/icon_aboutus.png")
+    let feedback = require('../../res/images/icon_feedback.png')
+    let aboutus = require('../../res/images/icon_aboutus.png')
     let images = [booklist, history, setting, feedback, aboutus, images]
-    let texts = ["我的书单", "借阅历史", "设置", "意见反馈", "关于我们"]
-    let male_pic = require("../../res/images/avatar.png")
-    let fm_pic = require("../../res/images/avatar2.png")
+    let texts = ['我的书单', '借阅历史', '设置', '意见反馈', '关于我们']
+    let male_pic = require('../../res/images/avatar.png')
+    let fm_pic = require('../../res/images/avatar2.png')
     return (
       <View style={styles.container}>
         <View style={styles.info_container}>
           <Image
             style={styles.avatar}
-            source={require("../../res/images/avatar_bg.png")}
+            source={require('../../res/images/avatar_bg.png')}
           >
             <Image
               style={styles.avatar_round}
-              source={require("../../res/images/avatar_round.png")}
+              source={require('../../res/images/avatar_round.png')}
             >
               <Image
                 style={this.props.user.user_sex ? { marginTop: -6 } : {}}
@@ -102,18 +102,18 @@ export default class ProfilePage extends Component {
                 onPress={() => {
                   let text = d
                   switch (text) {
-                    case "我的书单":
+                    case '我的书单':
                       this.onJump(BookCollectPage, {
-                        title: "我的书单",
+                        title: '我的书单',
                         user: this.props.user,
                         timestamp: this.props.timestamp
                       })
                       break
-                    case "借阅历史":
+                    case '借阅历史':
                       this.onHistory()
                       break
-                    case "设置":
-                      this.onJump(SettingPage, { title: "设置" })
+                    case '设置':
+                      this.onJump(SettingPage, { title: '设置' })
                       break
                   }
                 }}
@@ -123,7 +123,7 @@ export default class ProfilePage extends Component {
                 <TextPingFang style={styles.item_font}>{d}</TextPingFang>
                 <Image
                   style={styles.item_arrow}
-                  source={require("../../res/images/right_arrow.png")}
+                  source={require('../../res/images/right_arrow.png')}
                 />
               </TouchableOpacity>
             )
@@ -137,14 +137,14 @@ export default class ProfilePage extends Component {
               <TouchableOpacity
                 onPress={() => {
                   switch (d) {
-                    case "意见反馈":
+                    case '意见反馈':
                       this.onJump(FeedBackPage, {
                         user: this.props.user,
                         timestamp: this.props.timestamp,
                         navigator: this.props.navigator
                       })
                       break
-                    case "关于我们":
+                    case '关于我们':
                       this.onAboutUs()
                   }
                 }}
@@ -155,7 +155,7 @@ export default class ProfilePage extends Component {
                 <TextPingFang style={styles.item_font}>{d}</TextPingFang>
                 <Image
                   style={styles.item_arrow}
-                  source={require("../../res/images/right_arrow.png")}
+                  source={require('../../res/images/right_arrow.png')}
                 />
               </TouchableOpacity>
             )
@@ -169,38 +169,38 @@ export default class ProfilePage extends Component {
 const styles = StyleSheet.create({
   container: {
     height: HEIGHT,
-    alignItems: "center"
+    alignItems: 'center'
   },
   info_container: {
-    alignItems: "center",
+    alignItems: 'center',
     width: INNERWIDTH
   },
   avatar: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 52,
     width: INNERWIDTH
   },
   avatar_round: {
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   item: {
     width: WIDTH - 30 / 375 * WIDTH,
-    flexDirection: "row",
+    flexDirection: 'row',
     marginLeft: 30 / 375 * WIDTH,
-    alignItems: "center",
+    alignItems: 'center',
     height: 56 / 667 * HEIGHT
   },
   item_font: {
     fontSize: 14,
-    fontWeight: "500",
-    color: "#666666",
+    fontWeight: '500',
+    color: '#666666',
     marginLeft: 16,
     width: 56
   },
   item_arrow: {
-    position: "absolute",
+    position: 'absolute',
     right: 30 / 375 * WIDTH
   },
   items1: {
@@ -210,10 +210,10 @@ const styles = StyleSheet.create({
     marginTop: 40
   },
   avatar_font: {
-    color: "#666666",
+    color: '#666666',
     fontSize: 17,
-    backgroundColor: "rgba(0,0,0,0)",
+    backgroundColor: 'rgba(0,0,0,0)',
     marginTop: 15,
-    fontWeight: "600"
+    fontWeight: '600'
   }
 })

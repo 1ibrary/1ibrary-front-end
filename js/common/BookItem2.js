@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -12,9 +12,9 @@ import {
   Easing,
   AsyncStorage,
   PanResponder
-} from "react-native"
-import BookItem1 from "./BookItem1"
-const WIDTH = Dimensions.get("window").width
+} from 'react-native'
+import BookItem1 from './BookItem1'
+const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
 
 export default class BookItem2 extends Component {
@@ -93,7 +93,7 @@ export default class BookItem2 extends Component {
         >
           <Image
             style={styles.delete}
-            source={require("../../res/images/icon_clear.png")}
+            source={require('../../res/images/icon_clear.png')}
           />
         </TouchableOpacity>
       </View>
@@ -104,8 +104,8 @@ export default class BookItem2 extends Component {
 const styles = StyleSheet.create({
   container: {
     width: WIDTH + 86,
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   delete_container: {
     marginLeft: 8

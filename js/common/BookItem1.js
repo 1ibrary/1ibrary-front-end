@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -8,10 +8,10 @@ import {
   Image,
   ListView,
   Dimensions
-} from "react-native"
-import Round from "./Round"
-import BookInfoPage from "../pages/BookInfoPage"
-import HttpUtils from "../../HttpUtils"
+} from 'react-native'
+import Round from './Round'
+import BookInfoPage from '../pages/BookInfoPage'
+import HttpUtils from '../../HttpUtils'
 
 // const URL = "https://mie-mie.tech/books/show_detail";
 
@@ -22,13 +22,13 @@ export default class BookItem extends Component {
   static defaultProps = {
     data: {
       grade: 9.3,
-      title: "设计心理学4:未来设计",
+      title: '设计心理学4:未来设计',
       num: 5,
-      author: "唐纳德诺曼",
-      publish: "中信出版社",
+      author: '唐纳德诺曼',
+      publish: '中信出版社',
       time: 2015,
       picture:
-        "https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg"
+        'https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg'
     }
   }
   onPress() {
@@ -66,8 +66,8 @@ export default class BookItem extends Component {
             </Text>
             <Text style={styles.item_grade}>
               {this.props.data.book_rate !== 0
-                ? this.props.data.book_rate + " 分"
-                : "暂无评分"}
+                ? this.props.data.book_rate + ' 分'
+                : '暂无评分'}
             </Text>
           </View>
           <View style={styles.round}>
@@ -87,15 +87,15 @@ const styles = StyleSheet.create({
   },
   item: {
     borderBottomWidth: 1,
-    borderBottomColor: "rgb(230,230,234)",
+    borderBottomColor: 'rgb(230,230,234)',
     // paddingTop:20,
     paddingHorizontal: 12,
-    backgroundColor: "white",
-    width: Dimensions.get("window").width - 16,
+    backgroundColor: 'white',
+    width: Dimensions.get('window').width - 16,
     height: 160,
     borderRadius: 8,
     marginBottom: 8,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   information: {
     marginLeft: 16,
@@ -103,31 +103,31 @@ const styles = StyleSheet.create({
   },
   item_title: {
     fontSize: 17,
-    color: "#494949",
-    fontFamily: "PingFang SC",
-    fontWeight: "500"
+    color: '#494949',
+    fontFamily: 'PingFang SC',
+    fontWeight: '500'
   },
   item_author: {
     fontSize: 14,
-    color: "#666666",
-    fontFamily: "PingFang SC",
+    color: '#666666',
+    fontFamily: 'PingFang SC',
     marginVertical: 8
   },
   item_publish: {
     fontSize: 14,
-    color: "#666666",
-    fontFamily: "PingFang SC"
+    color: '#666666',
+    fontFamily: 'PingFang SC'
   },
   item_grade: {
-    fontFamily: "PingFang SC",
-    fontWeight: "500",
-    color: "#FFB173",
+    fontFamily: 'PingFang SC',
+    fontWeight: '500',
+    color: '#FFB173',
     fontSize: 17,
     marginTop: 14,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   round: {
-    position: "absolute",
+    position: 'absolute',
     top: 62,
     right: 12
   }
