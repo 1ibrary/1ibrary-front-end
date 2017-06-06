@@ -1,4 +1,4 @@
-import { AppRegistry } from "react-native"
-import setup from "./js/pages/setup"
+import { AppRegistry } from 'react-native'
+import setup from './js/pages/setup'
 
-AppRegistry.registerComponent("oneLibrary", () => setup)
+AppRegistry.registerComponent('oneLibrary', () => setup)
