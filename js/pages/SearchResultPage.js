@@ -4,8 +4,8 @@ import ScrollableTabView, {
   ScrollableTabBar,
   DefaultTabBar
 } from 'react-native-scrollable-tab-view'
-import BookList from '../common/BookList'
-import BookItem1 from '../common/BookItem1'
+import BookList from '../components/BookList'
+import BookItem1 from '../components/BookItem1'
 import HttpUtils from '../../HttpUtils'
 
 const URL = 'https://mie-mie.tech/books/search_book'

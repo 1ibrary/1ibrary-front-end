@@ -10,13 +10,13 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native'
-// import ShareNav from "../common/ShareNav";
-import BottomTabs from '../common/BottomTabs'
-import SearchNav from '../common/SearchNav'
-import BookList from '../common/BookList'
+// import ShareNav from "../components/ShareNav";
+import BottomTabs from '../components/BottomTabs'
+import SearchNav from '../components/SearchNav'
+import BookList from '../components/BookList'
 import SearchPage from './SearchPage'
 import SearchResultPage from './SearchResultPage'
-import SearchNav_Welcome from '../common/SearchNav_Welcome'
+import SearchNav_Welcome from '../components/SearchNav_Welcome'
 import BookInfoPage from './BookInfoPage'
 import BookCollectPage from './BookCollectPage'
 import BookCollectAddPage from './BookCollectAddPage'

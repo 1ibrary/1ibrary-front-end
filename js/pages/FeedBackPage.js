@@ -8,7 +8,7 @@ import {
   AsyncStorage,
   Alert
 } from 'react-native'
-import RightButtonNav from '../common/RightButtonNav'
+import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../../HttpUtils'
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height

@@ -10,8 +10,8 @@ import {
   Dimensions,
   WebView
 } from 'react-native'
-import CommonNav from '../common/CommonNav'
-import TextPingFang from '../common/TextPingFang'
+import CommonNav from '../components/CommonNav'
+import TextPingFang from '../components/TextPingFang'
 import AboutUsWebPage from './AboutUsWebPage'
 
 const WIDTH = Dimensions.get('window').width

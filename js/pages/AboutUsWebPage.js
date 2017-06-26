@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Dimensions, Text, View, WebView } from 'react-native'
-import CommonNav from '../common/CommonNav'
+import CommonNav from '../components/CommonNav'
 
 const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16

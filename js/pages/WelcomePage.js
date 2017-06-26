@@ -13,7 +13,7 @@ import {
   AsyncStorage
 } from 'react-native'
 // import CommonNav from "../common/CommonNav";
-import TextPingFang from '../common/TextPingFang'
+import TextPingFang from '../components/TextPingFang'
 import HttpUtils from '../../HttpUtils'
 import HomePage from './HomePage'
 // import SplashScreen from 'react-native-splash-screen';

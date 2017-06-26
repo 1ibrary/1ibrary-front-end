@@ -11,9 +11,9 @@ import {
   Dimensions,
   AsyncStorage
 } from 'react-native'
-import CommonNav from '../common/CommonNav'
+import CommonNav from '../components/CommonNav'
 import HttpUtils from '../../HttpUtils'
-import Round from '../common/Round'
+import Round from '../components/Round'
 import BookCollectPage from './BookCollectPage'
 const ALLWIDTH = Dimensions.get('window').width
 const INNERWIDTH = ALLWIDTH - 16

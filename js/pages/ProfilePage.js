@@ -9,7 +9,7 @@ import {
   Dimensions,
   AsyncStorage
 } from 'react-native'
-import TextPingFang from '../common/TextPingFang'
+import TextPingFang from '../components/TextPingFang'
 import BookCollectPage from './BookCollectPage'
 import RentInfoPage from './RentInfoPage'
 import FeedBackPage from './FeedBackPage'

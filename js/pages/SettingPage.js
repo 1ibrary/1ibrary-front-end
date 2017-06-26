@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native'
-import BookItem1 from '../common/BookItem1'
-import CommonNav from '../common/CommonNav'
-import TextPingFang from '../common/TextPingFang'
-import SettingItem from '../common/SettingItem'
+import BookItem1 from '../components/BookItem1'
+import CommonNav from '../components/CommonNav'
+import TextPingFang from '../components/TextPingFang'
+import SettingItem from '../components/SettingItem'
 import WelcomePage from './WelcomePage'
 
 const WIDTH = Dimensions.get('window').width

@@ -11,8 +11,8 @@ import {
   ScrollView,
   Alert
 } from 'react-native'
-import RightButtonNav from '../common/RightButtonNav'
-import BookCollectItem from '../common/BookCollectItem'
+import RightButtonNav from '../components/RightButtonNav'
+import BookCollectItem from '../components/BookCollectItem'
 import BookCollectAddPage from './BookCollectAddPage'
 import HttpUtils from '../../HttpUtils'
 const INNERWIDTH = Dimensions.get('window').width - 16

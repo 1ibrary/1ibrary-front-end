@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import CommonNav from '../common/CommonNav'
+import CommonNav from './/CommonNav'
 
 export default class RightButtonNav extends Component {
   constructor(props) {

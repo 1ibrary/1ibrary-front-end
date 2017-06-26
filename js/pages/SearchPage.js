@@ -10,8 +10,8 @@ import {
   AsyncStorage,
   Dimensions
 } from 'react-native'
-import SearchNav from '../common/SearchNav'
-import BookList from '../common/BookList'
+import SearchNav from '../components/SearchNav'
+import BookList from '../components/BookList'
 import SearchResultPage from './SearchResultPage'
 import HttpUtils from '../../HttpUtils'
 

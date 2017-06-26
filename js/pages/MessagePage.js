@@ -9,8 +9,8 @@ import {
   ScrollView,
   Dimensions
 } from 'react-native'
-import NavigationBar from '../common/NavigationBar'
-import MessageItem from '../common/MessageItem'
+import NavigationBar from '../components/NavigationBar'
+import MessageItem from '../components/MessageItem'
 const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
 const HEIGHT = Dimensions.get('window').height

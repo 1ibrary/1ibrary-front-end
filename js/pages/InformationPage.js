@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native'
-import CommonNav from '../common/CommonNav'
+import CommonNav from '../components/CommonNav'
 
 export default class WelcomePage extends Component {
   render() {
