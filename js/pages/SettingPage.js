@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native'
-import BookItem1 from '../components/BookItem1'
+import BookItem1 from '../components/Book'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
 import SettingItem from '../components/SettingItem'

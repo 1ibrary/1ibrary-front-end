@@ -9,11 +9,12 @@ import {
   Alert
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
-import HttpUtils from '../../HttpUtils'
+import HttpUtils from '../network/HttpUtils'
+import {USERS} from "../network/Urls"
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 const INNERWIDTH = WIDTH - 16
-const URL = 'https://mie-mie.tech/users/feedback'
+const URL = USERS.feedback
 
 export default class FeedBackPage extends Component {
   constructor(props) {

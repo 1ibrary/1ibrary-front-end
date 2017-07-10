@@ -26,7 +26,7 @@ import ProfilePage from './ProfilePage'
 
 const HEIGHT = Dimensions.get('window').height
 
-export default class WelcomePage extends Component {
+export default class HomePage extends Component {
   constructor(props) {
     super(props)
     this.state = {

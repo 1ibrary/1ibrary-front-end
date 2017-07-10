@@ -11,9 +11,7 @@ import {
 } from 'react-native'
 import Round from './Round'
 import BookInfoPage from '../pages/BookInfoPage'
-import HttpUtils from '../../HttpUtils'
-
-// const URL = "https://mie-mie.tech/books/show_detail";
+import HttpUtils from '../network/HttpUtils'
 
 export default class BookItem extends Component {
   constructor(props) {

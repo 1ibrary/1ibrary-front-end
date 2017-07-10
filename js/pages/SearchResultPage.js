@@ -4,13 +4,13 @@ import ScrollableTabView, {
   ScrollableTabBar,
   DefaultTabBar
 } from 'react-native-scrollable-tab-view'
+import {BOOKS} from "../network/Urls"
 import BookList from '../components/BookList'
-import BookItem1 from '../components/BookItem1'
-import HttpUtils from '../../HttpUtils'
+import BookItem1 from '../components/Book'
+import HttpUtils from '../network/HttpUtils'
+import {WIDTH, INNERWIDTH} from "../common/styles"
 
-const URL = 'https://mie-mie.tech/books/search_book'
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
+const URL = BOOKS.search_book
 
 export default class SearchResultPage extends Component {
   constructor(props) {

@@ -12,13 +12,14 @@ import {
   AsyncStorage
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
-import HttpUtils from '../../HttpUtils'
+import HttpUtils from '../network/HttpUtils'
 import Round from '../components/Round'
 import BookCollectPage from './BookCollectPage'
+import {BOOKS} from "../network/Urls"
 const ALLWIDTH = Dimensions.get('window').width
 const INNERWIDTH = ALLWIDTH - 16
 
-const URL = 'https://mie-mie.tech/books/show_detail'
+const URL = BOOKS.show_detail
 
 export default class BookInfoPage extends Component {
   constructor(props) {

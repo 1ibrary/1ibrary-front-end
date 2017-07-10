@@ -9,16 +9,16 @@ import {
   Alert,
   AsyncStorage
 } from 'react-native'
-import BookItem1 from '../components/BookItem1'
-import BookItem2 from '../components/BookItem2'
-import BookItem3 from '../components/BookItem3'
+import BookItem1 from '../components/Book'
+import BookItem2 from '../components/BookCollect'
 import CommonNav from '../components/CommonNav'
-import HttpUtils from '../../HttpUtils'
+import HttpUtils from '../network/HttpUtils'
+import {LISTS} from "../network/Urls"
 const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
 const HEIGHT = Dimensions.get('window').height
-const URL = 'https://mie-mie.tech/lists/show_detail'
-const URL_RM_BOOK = 'https://mie-mie.tech/lists/update_list'
+const URL = LISTS.show_detail
+const URL_RM_BOOK = LISTS.update_list
 
 export default class BookListPage extends Component {
   constructor(props) {

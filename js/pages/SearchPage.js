@@ -13,7 +13,7 @@ import {
 import SearchNav from '../components/SearchNav'
 import BookList from '../components/BookList'
 import SearchResultPage from './SearchResultPage'
-import HttpUtils from '../../HttpUtils'
+import HttpUtils from '../network/HttpUtils'
 
 const MAX_LENGTH = 6
 const WIDTH = Dimensions.get('window').width

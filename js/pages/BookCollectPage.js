@@ -12,14 +12,15 @@ import {
   Alert
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
-import BookCollectItem from '../components/BookCollectItem'
+import BookCollectItem from '../components/BookCollectTitle'
 import BookCollectAddPage from './BookCollectAddPage'
-import HttpUtils from '../../HttpUtils'
+import HttpUtils from '../network/HttpUtils'
+import {LISTS} from "../network/Urls"
 const INNERWIDTH = Dimensions.get('window').width - 16
 const HEIGHT = Dimensions.get('window').height
-const URL = 'https://mie-mie.tech/lists/show_list'
-const URL_ADD_BOOK = 'https://mie-mie.tech/lists/collect_book'
-const URL_RM_LIST = 'https://mie-mie.tech/lists/remove_list'
+const URL = LISTS.show_list
+const URL_ADD_BOOK = LISTS.collect_book
+const URL_RM_LIST = LISTS.remove_list
 
 export default class BookCollectPage extends Component {
   constructor(props) {

@@ -13,10 +13,10 @@ import {
   AsyncStorage,
   PanResponder
 } from 'react-native'
-import BookItem1 from './BookItem1'
+import BookItem1 from './Book'
 import Round from './Round'
 import BookInfoPage from '../pages/BookInfoPage'
-import HttpUtils from '../../HttpUtils'
+import HttpUtils from '../network/HttpUtils'
 const WIDTH = Dimensions.get('window').width
 const INNERWIDTH = WIDTH - 16
 

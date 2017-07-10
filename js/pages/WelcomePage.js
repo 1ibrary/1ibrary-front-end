@@ -7,28 +7,27 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  Dimensions,
   TextInput,
   Alert,
   AsyncStorage
 } from 'react-native'
 // import CommonNav from "../common/CommonNav";
 import TextPingFang from '../components/TextPingFang'
-import HttpUtils from '../../HttpUtils'
+import HttpUtils from '../network/HttpUtils'
+import {USERS} from '../network/Urls'
 import HomePage from './HomePage'
+import {WIDTH,  HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
 // import SplashScreen from 'react-native-splash-screen';
 
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
-const URL = 'https://mie-mie.tech/users/login'
+
+const URL = USERS.login
 
 export default class WelcomePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      account: '',
-      password: ''
+      account: '1308200047',
+      password: '123456'
     }
   }
   // componentDidMount() {
@@ -36,61 +35,53 @@ export default class WelcomePage extends Component {
   //        SplashScreen.hide();
   //    }
   onSubmit() {
-    // alert(HttpUtils.changeData({
-    // 	    user_account:this.state.account,
-    // 	    user_password:this.state.password
-    //     }))
-    if (!this.state.account.trim()) {
-      Alert.alert('小提示', '请输入学号哦~')
-      return
-    }
-    if (!this.state.password.trim()) {
-      Alert.alert('小提示', '请输入密码哦~')
-      return
-    }
-    HttpUtils.post(URL, {
-      user_account: this.state.account.trim(),
-      user_password: this.state.password.trim()
-    })
-      .then(response => {
-        // alert("哈哈")
-        if (response.msg === '请求成功') {
-          // alert(JSON.stringify(response.data));
-          AsyncStorage.setItem(
-            'user_info',
-            JSON.stringify(response.data),
-            error => {
-              if (error) {
-                console.log(error)
-              } else {
-                AsyncStorage.getItem('books_data', (error, array) => {
-                  if (error) {
-                    console.log(error)
-                  } else {
-                    let user = response.data
-                    // alert(JSON.stringify(response.timestamp));
-                    this.props.navigator.push({
-                      component: HomePage,
-                      params: {
-                        user: user,
-                        books_data: JSON.parse(array),
-                        timestamp: response.data.timestamp
-                      }
-                    })
-                  }
-                })
+      if (!this.state.account.trim()) {
+          Alert.alert('小提示', '请输入学号哦~')
+          return
+      }
+      if (!this.state.password.trim()) {
+          Alert.alert('小提示', '请输入密码哦~')
+          return
+      }
+      HttpUtils.post(URL, {
+        user_account: this.state.account.trim(),
+        user_password: this.state.password.trim()
+      })
+        .then(response => {
+          if (response.msg === '请求成功') {
+            AsyncStorage.setItem(
+              'user_info',
+              JSON.stringify(response.data),
+              error => {
+                if (error) {
+                  console.log(error)
+                } else {
+                  AsyncStorage.getItem('books_data', (error, array) => {
+                    if (error) {
+                      console.log(error)
+                    } else {
+                      let user = response.data
+                      this.props.navigator.push({
+                        component: HomePage,
+                        params: {
+                          user: user,
+                          books_data: JSON.parse(array),
+                          timestamp: response.data.timestamp
+                        }
+                      })
+                    }
+                  })
+                }
               }
-            }
-          )
-        } else {
-          Alert.alert('网络请求出错啦', response.msg)
-        }
-        // alert(response.msg);
-      })
-      .catch(error => {
-        // alert("错了")
-        console.log(error)
-      })
+            )
+          } else {
+            Alert.alert('网络请求出错啦', response.msg)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
   }
   render() {
     return (
@@ -156,7 +147,7 @@ const styles = StyleSheet.create({
     height: HEIGHT
   },
   logo: {
-    marginTop: 60 * HEIGHT / 667
+    marginTop: getResponsiveHeight(60)
   },
   text: {
     alignItems: 'center'
@@ -166,7 +157,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: '600',
-    height: 33 / 667 * HEIGHT,
+    height: getResponsiveHeight(33),
     marginTop: HEIGHT * 0.0419
   },
   e_title: {
@@ -181,16 +172,16 @@ const styles = StyleSheet.create({
     // width:240
   },
   textinput: {
-    height: 44 / 667 * HEIGHT,
-    width: 240 / 375 * WIDTH,
+    height: getResponsiveHeight(44),
+    width: getResponsiveWidth(240),
     color: 'white',
     backgroundColor: 'rgb(139,203,255)',
-    borderRadius: 22 / 667 * HEIGHT,
-    marginBottom: 14 / 667 * HEIGHT,
+    borderRadius: getResponsiveHeight(22),
+    marginBottom: getResponsiveHeight(14),
     fontSize: 14,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 10 / 375 * WIDTH,
+    paddingLeft: getResponsiveWidth(10),
     flexDirection: 'row'
   },
   remind: {
@@ -206,9 +197,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 150 / 375 * WIDTH,
-    height: 44 / 667 * HEIGHT,
-    borderRadius: 22 / 667 * HEIGHT
+    width: getResponsiveWidth(150),
+    height: getResponsiveHeight(44),
+    borderRadius: getResponsiveHeight(22)
   },
   online_font: {
     fontSize: 14

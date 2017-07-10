@@ -14,11 +14,9 @@ import {
   PanResponder
 } from 'react-native'
 import BookCollectListPage from '../pages/BookCollectListPage'
-import HttpUtils from '../../HttpUtils'
-const WIDTH = Dimensions.get('window').width
-const HEIGHT = Dimensions.get('window').height
-const INNERWIDTH = WIDTH - 16
-const URL_BOOKS = 'https://mie-mie.tech/lists/show_detail'
+import {BOOKS} from "../network/Urls"
+import {WIDTH, INNERWIDTH, HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
+const URL_BOOKS = BOOKS.show_detail
 
 export default class BookCollectItem extends Component {
   constructor(props) {
@@ -199,7 +197,7 @@ const styles = StyleSheet.create({
   },
   item_text: {
     paddingLeft: 8,
-    width: 352 * WIDTH / 375,
+    width: getResponsiveWidth(352),
     height: 64,
     paddingTop: 12
   },

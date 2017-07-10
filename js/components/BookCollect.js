@@ -13,9 +13,9 @@ import {
   AsyncStorage,
   PanResponder
 } from 'react-native'
-import BookItem1 from './BookItem1'
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
+import BookItem1 from './Book'
+import {WIDTH, INNERWIDTH} from '../common/styles'
+
 
 export default class BookItem2 extends Component {
   constructor(props) {

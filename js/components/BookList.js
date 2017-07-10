@@ -10,11 +10,12 @@ import {
   Dimensions,
   RefreshControl
 } from 'react-native'
-import BookItem1 from './BookItem1'
-import HttpUtils from '../../HttpUtils'
+import BookItem1 from './Book'
+import HttpUtils from '../network/HttpUtils'
+import {HEIGHT} from '../common/styles'
+import {BOOKS} from "../network/Urls"
 
-const URL = 'https://mie-mie.tech/books/show_books'
-const HEIGHT = Dimensions.get('window').height
+const URL = BOOKS.show_books
 
 export default class BookList extends Component {
   constructor(props) {

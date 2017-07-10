@@ -9,13 +9,12 @@ import {
   Alert
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
-import HttpUtils from '../../HttpUtils'
-const WIDTH = Dimensions.get('window').width
-const HEIGHT = Dimensions.get('window').height
-const INNERWIDTH = WIDTH - 16
+import HttpUtils from '../network/HttpUtils'
+import {LISTS} from "../network/Urls"
+import {WIDTH, INNERWIDTH,HEIGHT} from "../common/styles"
 
-const URL = 'https://mie-mie.tech/lists/create_list' // 缓存前先请求showxs
-const URL_SHOW = 'https://mie-mie.tech/lists/show_list'
+const URL = LISTS.create_list // 缓存前先请求showxs
+const URL_SHOW = LISTS.show_list
 
 export default class BookCollectAddPage extends Component {
   constructor(props) {

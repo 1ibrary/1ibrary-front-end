@@ -3,6 +3,7 @@ import { Dimensions, StyleSheet} from "react-native"
 
 export const WIDTH = Dimensions.get("window").width
 export const HEIGHT = Dimensions.get("window").height
+export const INNERWIDTH = WIDTH - 16
 
 const iPhone6Width = 375
 const iPhone6Height = 667
