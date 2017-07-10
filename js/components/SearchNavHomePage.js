@@ -10,25 +10,15 @@ import {
   AsyncStorage,
   Dimensions
 } from 'react-native'
-import NavigationBar from './NavigationBar'
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import {INNERWIDTH, HEIGHT,getResponsiveHeight,getResponsiveWidth} from "../common/styles"
 
-export default class SearchNav extends Component {
+export default class SearchNavHomePage extends Component {
   constructor(props) {
     super(props)
     // this.state = {
 
     // }
   }
-  // static defaultStyles = {
-  // 	scan: {
-  // 		position:"absolute",
-  // 		left:337,
-  // 		top:31
-  // 	}
-  // }
   static defaultProps = {
     // icon:(
     // 	<TouchableOpacity>
@@ -38,16 +28,6 @@ export default class SearchNav extends Component {
     // value:""
     onChangeText: text => {}
   }
-  // onSave(text) {
-  // 	AsyncStorage.setItem(text,text,(error)=>{
-  // 		// if(!error) {
-  // 		// 	alert("保存成功!");
-  // 		// } else {
-  // 		// 	alert("保存失败！")
-  // 		// }
-  // 	});
-  // 	AsyncStorage.getAllKeys((error,keys)=>{alert(keys)});
-  // }
   render() {
     return (
       <View style={styles.container}>
@@ -88,12 +68,10 @@ export default class SearchNav extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // flex:1,
-    // flexDirection:"",
     alignItems: 'center',
-    height: 44 / 667 * HEIGHT,
+    height: getResponsiveHeight(44),
     width: INNERWIDTH,
-    marginTop: 36 * HEIGHT / 667,
+    marginTop: getResponsiveHeight(36),
     backgroundColor: 'rgb(242,246,250)'
   },
   show: {
@@ -103,11 +81,10 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   image_search: {
-    // backgroundColor:"#F3F3F3",
     borderRadius: 0,
     position: 'absolute',
-    left: 76 / 360 * INNERWIDTH,
-    top: 16 * HEIGHT / 667,
+    left: getResponsiveWidth(76),
+    top: getResponsiveHeight(16),
     zIndex: 2
   },
   close: {
@@ -116,14 +93,10 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: INNERWIDTH,
-    height: 44 * HEIGHT / 667,
-    paddingLeft: 92 / 360 * INNERWIDTH,
+    height: getResponsiveHeight(44),
+    paddingLeft: getResponsiveWidth(92),
     backgroundColor: 'white',
     borderRadius: 8,
-    // marginTop:28/667*HEIGHT,
-    // position:"absolute",
-    // left:16,
-    // top:25,
     flexDirection: 'row',
     alignItems: 'center',
     fontSize: 14

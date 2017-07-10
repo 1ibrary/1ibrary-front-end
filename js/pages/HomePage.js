@@ -10,21 +10,14 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native'
-// import ShareNav from "../components/ShareNav";
 import BottomTabs from '../components/BottomTabs'
-import SearchNav from '../components/SearchNav'
 import BookList from '../components/BookList'
 import SearchPage from './SearchPage'
-import SearchResultPage from './SearchResultPage'
-import SearchNav_Welcome from '../components/SearchNav_Welcome'
-import BookInfoPage from './BookInfoPage'
-import BookCollectPage from './BookCollectPage'
-import BookCollectAddPage from './BookCollectAddPage'
+import SearchNav_Welcome from '../components/SearchNavHomePage'
 import MessagePage from './MessagePage'
 import ProfilePage from './ProfilePage'
-// import HttpUtils from "../../HttpUtils"
+import {HEIGHT,getResponsiveHeight} from '../common/styles'
 
-const HEIGHT = Dimensions.get('window').height
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -32,13 +25,8 @@ export default class HomePage extends Component {
     this.state = {
       show: 1
     }
-    // alert(JSON.stringify(this.props.user));
   }
 
-  // loadData() {
-  // 	let url = "";
-  // 	this.dataR
-  // }
   render() {
     return (
       <BottomTabs
@@ -101,10 +89,9 @@ const styles = StyleSheet.create({
   },
   booklist: {
     // 一半的输入框高度加上maginBottom
-    paddingTop: 10 / 667 * HEIGHT
+    paddingTop: getResponsiveHeight(10)
   },
   search_result_bar: {
-    // paddingTop:28,
     backgroundColor: 'white'
   }
 })

@@ -10,7 +10,8 @@ export const LISTS = {
     show_list: HOST + "lists/show_list",
     show_detail: HOST + "lists/show_detail",
     collect_book: HOST + "lists/collect_book",
-    update_list: HOST + "lists/update_list"
+    update_list: HOST + "lists/update_list",
+    remove_list: HOST + "lists/remove_list"
 }
 
 export const BOOKS = {

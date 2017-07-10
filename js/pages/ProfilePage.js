@@ -15,10 +15,7 @@ import RentInfoPage from './RentInfoPage'
 import FeedBackPage from './FeedBackPage'
 import AboutUsPage from './AboutUsPage'
 import SettingPage from './SettingPage'
-
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
 
 export default class ProfilePage extends Component {
   onLists() {
@@ -186,11 +183,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   item: {
-    width: WIDTH - 30 / 375 * WIDTH,
+    width: WIDTH - getResponsiveWidth(30),
     flexDirection: 'row',
-    marginLeft: 30 / 375 * WIDTH,
+    marginLeft: getResponsiveWidth(30),
     alignItems: 'center',
-    height: 56 / 667 * HEIGHT
+    height: getResponsiveHeight(56)
   },
   item_font: {
     fontSize: 14,
@@ -201,7 +198,7 @@ const styles = StyleSheet.create({
   },
   item_arrow: {
     position: 'absolute',
-    right: 30 / 375 * WIDTH
+    right: getResponsiveWidth(30)
   },
   items1: {
     marginTop: 24

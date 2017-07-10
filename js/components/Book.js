@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 import Round from './Round'
 import BookInfoPage from '../pages/BookInfoPage'
-import HttpUtils from '../network/HttpUtils'
+import {WIDTH,INNERWIDTH} from "../common/styles"
 
-export default class BookItem extends Component {
+export default class Book extends Component {
   constructor(props) {
     super(props)
   }
@@ -86,10 +86,9 @@ const styles = StyleSheet.create({
   item: {
     borderBottomWidth: 1,
     borderBottomColor: 'rgb(230,230,234)',
-    // paddingTop:20,
     paddingHorizontal: 12,
     backgroundColor: 'white',
-    width: Dimensions.get('window').width - 16,
+    width: INNERWIDTH,
     height: 160,
     borderRadius: 8,
     marginBottom: 8,

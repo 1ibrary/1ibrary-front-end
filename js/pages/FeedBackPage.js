@@ -11,9 +11,8 @@ import {
 import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
 import {USERS} from "../network/Urls"
-const WIDTH = Dimensions.get('window').width
-const HEIGHT = Dimensions.get('window').height
-const INNERWIDTH = WIDTH - 16
+import {WIDTH, INNERWIDTH,HEIGHT} from '../common/styles'
+
 const URL = USERS.feedback
 
 export default class FeedBackPage extends Component {

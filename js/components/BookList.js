@@ -10,7 +10,7 @@ import {
   Dimensions,
   RefreshControl
 } from 'react-native'
-import BookItem1 from './Book'
+import Book from './Book'
 import HttpUtils from '../network/HttpUtils'
 import {HEIGHT} from '../common/styles'
 import {BOOKS} from "../network/Urls"
@@ -94,7 +94,7 @@ export default class BookList extends Component {
   }
   renderRow(data) {
     return (
-      <BookItem1
+      <Book
         timestamp={this.props.timestamp}
         user={this.props.user}
         navigator={this.props.navigator}
@@ -130,14 +130,10 @@ export default class BookList extends Component {
 const styles = StyleSheet.create({
   booklist: {
     flex: 1,
-    // marginTop:10/667*HEIGHT,
     width: Dimensions.get('window').width - 16,
-    // height:HEIGHT
     paddingBottom: 44 / 568 * HEIGHT
   },
   list: {
     height: HEIGHT
-
-    // flex:1
   }
 })

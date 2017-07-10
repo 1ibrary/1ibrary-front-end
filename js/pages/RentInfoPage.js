@@ -10,10 +10,7 @@ import {
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
-
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
 
 export default class MessageInfoPage extends Component {
   constructor(props) {
@@ -79,7 +76,7 @@ const styles = StyleSheet.create({
     height: 160,
     backgroundColor: 'white',
     borderRadius: 8,
-    marginTop: 8 / 667 * HEIGHT,
+    marginTop: getResponsiveHeight(8),
     flexDirection: 'row'
   },
   book_image: {

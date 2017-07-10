@@ -18,17 +18,15 @@ import {BOOKS} from "../network/Urls"
 import {WIDTH, INNERWIDTH, HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
 const URL_BOOKS = BOOKS.show_detail
 
-export default class BookCollectItem extends Component {
+export default class BookCollectTitle extends Component {
   constructor(props) {
     super(props)
     this.state = {
       select: false,
       marginLeft: new Animated.Value(8)
-      // change:this.marginLeft==8?true:false
     }
   }
   onMove(ev) {
-    // this.setState({style:{marginLeft:-86}})
     if (ev.dx < 0) {
       Animated.timing(this.state.marginLeft, {
         toValue: -86,
@@ -49,29 +47,16 @@ export default class BookCollectItem extends Component {
       this.onMove(ges)
       return
     }
-    // data = this.props.data
-    // if(this.state.change) {
-    // 	return;
-    // }
-    // alert(data)
     this.props.navigator.push({
       component: BookCollectListPage,
       params: {
         title: this.props.title,
         user: this.props.user,
         timestamp: this.props.timestamp
-        // book_list:this.props.data.book_list
       }
     })
   }
   componentWillMount() {
-    // this._gestureHandler = {
-    // 	onStartShouldSetResponder: () => true,
-    // 	onMoveShouldSetResponder:()=>true,
-    // 	// onResponderRelease:()=>{
-    // 	// 	alert("你停止了滑动")
-    // 	// }
-    // }
     this._panResponder_move = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -111,13 +96,6 @@ export default class BookCollectItem extends Component {
     return (
       <View
         style={styles.container}
-        // onStartShouldSetResponderCapture={()=>{
-        // 	return this.state.change
-        // }}
-        // onPanResponderMove={(evt)=>{
-        //        this.onMove(evt)
-
-        //      }}
       >
         <Animated.View
           style={[
@@ -150,7 +128,7 @@ export default class BookCollectItem extends Component {
                   />
                 </View>
               </TouchableWithoutFeedback>
-            : <View style={styles.hide} />}
+            : <View/>}
           <TouchableOpacity
             onPress={() => {
               this.props.onDelete(this.props.data.list_name)
@@ -175,15 +153,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  hide: {
-    // display:"none"
-  },
   item: {
     width: INNERWIDTH,
     backgroundColor: 'white',
     borderRadius: 8,
-    // marginTop:20,
-    // marginLeft:8,
     alignItems: 'center',
     flexDirection: 'row',
     height: 64,

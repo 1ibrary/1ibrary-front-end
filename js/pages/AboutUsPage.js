@@ -13,10 +13,7 @@ import {
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
 import AboutUsWebPage from './AboutUsWebPage'
-
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
 
 export default class AboutUsPage extends Component {
   render() {
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
   },
   text: {
     alignItems: 'center',
-    marginTop: 18 * HEIGHT / 667
+    marginTop: getResponsiveHeight(18)
   },
   name: {
     color: '#666666',
@@ -95,18 +92,18 @@ const styles = StyleSheet.create({
   },
   border: {
     width: 2,
-    height: 74 / 667 * HEIGHT,
+    height: getResponsiveHeight(74),
     backgroundColor: '#999999',
-    marginTop: -74 / 667 * HEIGHT
+    marginTop: getResponsiveHeight(-74)
   },
   names: {
-    marginTop: 32 * HEIGHT / 667,
+    marginTop: getResponsiveHeight(32),
     alignItems: 'center'
   },
   name: {
     color: '#999999',
     fontSize: 14,
-    marginBottom: 4 / 667
+    marginBottom: getResponsiveHeight(4)
   },
   version: {
     position: 'absolute',
@@ -116,8 +113,8 @@ const styles = StyleSheet.create({
   },
   contact: {
     width: INNERWIDTH,
-    height: 44 * HEIGHT / 667,
-    marginTop: 20 * HEIGHT / 667,
+    height: getResponsiveHeight(44),
+    marginTop: getResponsiveHeight(20),
     alignItems: 'center'
   },
   contact_font: {

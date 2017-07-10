@@ -13,11 +13,10 @@ import {
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
-import Round from '../components/Round'
 import BookCollectPage from './BookCollectPage'
+import Round from '../components/Round'
 import {BOOKS} from "../network/Urls"
-const ALLWIDTH = Dimensions.get('window').width
-const INNERWIDTH = ALLWIDTH - 16
+import {INNERWIDTH,WIDTH,HEIGHT} from '../common/styles'
 
 const URL = BOOKS.show_detail
 
@@ -256,12 +255,11 @@ export default class BookInfoPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: Dimensions.get('window').height,
+    height: HEIGHT,
     alignItems: 'center',
     backgroundColor: 'white'
   },
   outline_container: {
-    // alignItems:"center",
     width: INNERWIDTH,
     marginTop: 18,
     flexDirection: 'row'
@@ -352,7 +350,6 @@ const styles = StyleSheet.create({
   },
   book_position_round: {
     position: 'absolute',
-    // top:26,
     right: 12
   },
   book_places_container: {
@@ -404,7 +401,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
-    width: Dimensions.get('window').width * 0.4,
+    width: WIDTH * 0.4,
     backgroundColor: '#FFB173'
   },
   subscribe_disbaled: {
@@ -421,7 +418,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
-    width: Dimensions.get('window').width * 0.6,
+    width: WIDTH * 0.6,
     backgroundColor: '#73C0FF'
   },
   collect_font: {

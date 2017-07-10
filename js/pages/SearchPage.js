@@ -11,14 +11,10 @@ import {
   Dimensions
 } from 'react-native'
 import SearchNav from '../components/SearchNav'
-import BookList from '../components/BookList'
 import SearchResultPage from './SearchResultPage'
-import HttpUtils from '../network/HttpUtils'
+import {getResponsiveWidth,INNERWIDTH,HEIGHT,WIDTH} from "../common/styles"
 
 const MAX_LENGTH = 6
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
 
 export default class SearchPage extends Component {
   constructor(props) {
@@ -264,34 +260,26 @@ const styles = StyleSheet.create({
   result_container: {
     backgroundColor: 'white',
     alignItems: 'center',
-    width: Dimensions.get('window').width
+    width: WIDTH
   },
   all_container: {
-    // backgroundColor:"rgb(250,250,250)",
-    height: Dimensions.get('window').height,
+    height: HEIGHT,
     backgroundColor: 'rgb(242,246,250)',
     alignItems: 'center',
-    width: Dimensions.get('window').width - 16
+    width: INNERWIDTH
   },
   container: {
     marginTop: 8,
     alignItems: 'center',
-    height: Dimensions.get('window').height
-    // backgroundColor:"rgb(250,250,250)",
+    height: HEIGHT
   },
   tabs: {
-    width: Dimensions.get('window').width - 16
-
-    // backgroundColor:"rgb(250,250,250)",
+    width: INNERWIDTH
   },
   tab_container: {
-    // flexDirection:"row",
-    // flexWrap:"wrap",
-    // marginTop:8,
     borderRadius: 8,
-    // height:176,
     backgroundColor: 'white',
-    width: Dimensions.get('window').width - 16,
+    width: INNERWIDTH,
     paddingLeft: 24,
     overflow: 'hidden'
   },
@@ -304,8 +292,6 @@ const styles = StyleSheet.create({
   tab_item: {
     justifyContent: 'center',
     backgroundColor: 'white',
-    // marginRight:12,
-    // marginBottom:12,
     height: 44,
     width: 336,
     borderBottomWidth: 1,
@@ -319,13 +305,12 @@ const styles = StyleSheet.create({
   },
   history: {
     marginTop: 34,
-    width: Dimensions.get('window').width - 16
+    width: INNERWIDTH
   },
   history_container: {
     borderRadius: 8,
-    width: Dimensions.get('window').width - 16,
+    width: INNERWIDTH,
     backgroundColor: 'white',
-    // height:264,
     overflow: 'hidden'
   },
   history_title: {
@@ -347,28 +332,21 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'gray',
     fontWeight: '200',
-    // marginLeft:12,
     width: 200
   },
   history_delete: {
-    // width:18,
-    // height:18,
     marginLeft: 120
   },
   close: {
     fontSize: 17,
     color: '#FF7373',
     alignItems: 'center'
-
-    // marginTop:30
-    // flexDirection:"row"
   },
   close_container: {
     height: 28,
     width: 44,
     justifyContent: 'center',
     flexDirection: 'row'
-    // paddingLeft:8*WIDTH/375,
   },
 
   information: {
@@ -376,22 +354,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(255,255,255)',
     alignItems: 'center',
     width: 344,
-    // flexDirection:"row",
     marginLeft: 16
-    // height:Dimensions.get('window').height-64,
   },
   information_item: {
     height: 40,
     paddingLeft: 16,
-    // paddingRight:18,
-    width: 344,
+    width: getResponsiveWidth(344),
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'rgb(230,230,230)'
   }
-  // search_image: {
-  // 	// width:22.3,
-  // 	// height:21.93
-  // },
 })

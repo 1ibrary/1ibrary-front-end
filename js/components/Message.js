@@ -11,10 +11,10 @@ import {
 } from 'react-native'
 import TextPingFang from './TextPingFang'
 import RentInfoPage from '../pages/RentInfoPage'
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
+import {INNERWIDTH} from "../common/styles"
 
-export default class MessageItem extends Component {
+
+export default class Message extends Component {
   constructor(props) {
     super(props)
     this.state = {

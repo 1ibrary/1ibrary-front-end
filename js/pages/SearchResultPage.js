@@ -8,7 +8,7 @@ import {BOOKS} from "../network/Urls"
 import BookList from '../components/BookList'
 import BookItem1 from '../components/Book'
 import HttpUtils from '../network/HttpUtils'
-import {WIDTH, INNERWIDTH} from "../common/styles"
+import {WIDTH, INNERWIDTH,getResponsiveHeight, getResponsiveWidth} from "../common/styles"
 
 const URL = BOOKS.search_book
 
@@ -150,12 +150,9 @@ export default class SearchResultPage extends Component {
 styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    // marginTop:8,
     backgroundColor: 'rgb(242,246,250)'
-    // backgroundColor:""
   },
   page_container: {
-    // alignItems:"center",
     backgroundColor: 'rgb(242,246,250)',
     width: 375,
     paddingLeft: 16,
@@ -163,13 +160,13 @@ styles = StyleSheet.create({
   },
   scrollable_tab_view: {
     marginLeft: 0,
-    width: Dimensions.get('window').width,
+    width: WIDTH,
     alignItems: 'center'
   },
   active_tag: {
     backgroundColor: '#73C0FF',
-    width: 70 * WIDTH / 375,
-    marginLeft: 30 * WIDTH / 375,
+    width: getResponsiveWidth(70),
+    marginLeft: getResponsiveWidth(30),
     height: 4,
     borderRadius: 4
   },
@@ -179,10 +176,8 @@ styles = StyleSheet.create({
     borderBottomRightRadius: 16,
     backgroundColor: 'white',
     marginLeft: 8,
-    width: Dimensions.get('window').width,
+    width: WIDTH,
     alignItems: 'center'
-    // paddingLeft:92
-    // color:"red",
   },
   booklist: {
     backgroundColor: 'rgb(242,246,250)'

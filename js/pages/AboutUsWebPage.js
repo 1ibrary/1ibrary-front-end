@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Dimensions, Text, View, WebView } from 'react-native'
 import CommonNav from '../components/CommonNav'
-
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import {WIDTH,HEIGHT} from '../common/styles'
 
 export default class App extends Component {
   //渲染

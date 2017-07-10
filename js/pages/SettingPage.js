@@ -14,9 +14,7 @@ import TextPingFang from '../components/TextPingFang'
 import SettingItem from '../components/SettingItem'
 import WelcomePage from './WelcomePage'
 
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import {WIDTH,HEIGHT} from '../common/styles'
 
 export default class BookListPage extends Component {
   logout() {

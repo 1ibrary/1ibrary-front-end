@@ -9,14 +9,11 @@ import {
   Alert,
   AsyncStorage
 } from 'react-native'
-import BookItem1 from '../components/Book'
 import BookItem2 from '../components/BookCollect'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import {HEIGHT} from '../common/styles'
 const URL = LISTS.show_detail
 const URL_RM_BOOK = LISTS.update_list
 
@@ -217,7 +214,4 @@ const styles = StyleSheet.create({
   item_container: {
     marginTop: 8
   },
-  item: {
-    // marginLeft:8
-  }
 })

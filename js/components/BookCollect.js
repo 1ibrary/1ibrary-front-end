@@ -17,7 +17,7 @@ import BookItem1 from './Book'
 import {WIDTH, INNERWIDTH} from '../common/styles'
 
 
-export default class BookItem2 extends Component {
+export default class BookCollect extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -25,13 +25,6 @@ export default class BookItem2 extends Component {
     }
   }
   componentWillMount() {
-    // this._gestureHandler = {
-    // 	onStartShouldSetResponder: () => true,
-    // 	onMoveShouldSetResponder:()=>true,
-    // 	// onResponderRelease:()=>{
-    // 	// 	alert("你停止了滑动")
-    // 	// }
-    // }
     this._panResponder_move = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -58,13 +51,11 @@ export default class BookItem2 extends Component {
       Animated.timing(this.state.marginLeft, {
         toValue: -86,
         duration: 200 // 动画时间
-        // easing: Easing.linear
       }).start()
     } else if (ev.dx > 0) {
       Animated.timing(this.state.marginLeft, {
         toValue: 8,
         duration: 200 // 动画时间
-        // easing: Easing.linear
       }).start()
     }
   }

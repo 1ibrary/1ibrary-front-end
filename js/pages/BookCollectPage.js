@@ -16,8 +16,8 @@ import BookCollectItem from '../components/BookCollectTitle'
 import BookCollectAddPage from './BookCollectAddPage'
 import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
-const INNERWIDTH = Dimensions.get('window').width - 16
-const HEIGHT = Dimensions.get('window').height
+import {INNERWIDTH,HEIGHT} from '../common/styles'
+
 const URL = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
 const URL_RM_LIST = LISTS.remove_list
@@ -330,6 +330,5 @@ const styles = StyleSheet.create({
   },
   list: {
     marginTop: 20
-    // marginLeft:8
   }
 })

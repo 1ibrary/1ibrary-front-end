@@ -14,10 +14,8 @@ import {
   PanResponder
 } from 'react-native'
 import TextPingFang from './TextPingFang'
+import {WIDTH, INNERWIDTH} from "../common/styles"
 
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
 
 export default class SettingItem extends Component {
   constructor(props) {
@@ -72,13 +70,7 @@ export default class SettingItem extends Component {
     }
   }
   componentWillMount() {
-    // this._gestureHandler = {
-    // 	onStartShouldSetResponder: () => true,
-    // 	onMoveShouldSetResponder:()=>true,
-    // 	// onResponderRelease:()=>{
-    // 	// 	alert("你停止了滑动")
-    // 	// }
-    // }
+
     this._panResponder_move = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -177,18 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 15.5
-    // overflow:"hidden",
-    // backgroundColor:"white",
   },
-  // button_round: {
-  // 	width:28,
-  // 	height:31,
-  // 	borderRadius:15.5,
-  // 	backgroundColor:"#44DB5E",
-  // 	justifyContent:"center",
-  // 	alignItems:"center",
-  // 	// marginLeft:21.5,
-  // },
   button_inner_round: {
     width: 28,
     height: 28,

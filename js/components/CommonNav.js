@@ -50,25 +50,5 @@ const styles = StyleSheet.create({
     height: 24,
     alignItems: 'center',
     left: 0
-    // top:-20
   }
-  //    container2: {
-  // 	// alignSelf:"flex-start",
-  // 	// justifyContent:"center",
-  // 	position:"absolute",
-  // 	top:10
-  // 	// left:16,
-  // 	// top:-20
-  //    },
-  // image_icon1:{
-
-  // 	// position:"absolute",
-  // 	// left:16,
-  // 	// justifyContent: "center",
-  // 	// alignItems:"center",
-  // 	// // width:11.26,
-  // 	// // height:20.17,
-  // 	// marginRight:126,
-  // 	// marginLeft:16
-  // },
 })

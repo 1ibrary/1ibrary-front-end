@@ -10,10 +10,8 @@ import {
   Dimensions
 } from 'react-native'
 import NavigationBar from '../components/NavigationBar'
-import MessageItem from '../components/MessageItem'
-const WIDTH = Dimensions.get('window').width
-const INNERWIDTH = WIDTH - 16
-const HEIGHT = Dimensions.get('window').height
+import Message from '../components/Message'
+import {HEIGHT,getResponsiveHeight} from '../common/styles'
 
 export default class MessagePage extends Component {
   render() {
@@ -21,8 +19,8 @@ export default class MessagePage extends Component {
       <View style={styles.container}>
         <NavigationBar title={'通知'} />
         <ScrollView style={styles.item_container}>
-          <MessageItem navigator={this.props.navigator} />
-          <MessageItem
+          <Message navigator={this.props.navigator} />
+          <Message
             navigator={this.props.navigator}
             data={{ title: '小王子', kind: 2 }}
           />
@@ -38,6 +36,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(242,246,250)'
   },
   item_container: {
-    marginTop: 17 / 667 * HEIGHT
+    marginTop: getResponsiveHeight(17)
   }
 })
