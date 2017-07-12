@@ -221,3 +221,8 @@ by miemie
 
 by miemie
 
+### 17.07.11
+- router重构把聚合文件写了一下 成功
+- todo： 用router重构所有页面／用redux管理数据
+
+
