@@ -225,4 +225,12 @@ by miemie
 - router重构把聚合文件写了一下 成功
 - todo： 用router重构所有页面／用redux管理数据
 
+by miemie
+
+### 17.07.12
+- router重构继续进行
+- 对这个插件渐渐上手了，开心～～～啦啦啦啦
+
+by miemie
+
 

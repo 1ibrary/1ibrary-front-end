@@ -12,7 +12,7 @@ import BookItem1 from '../components/Book'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
 import SettingItem from '../components/SettingItem'
-import WelcomePage from './WelcomePage'
+import WelcomePage from './LoginPage'
 
 import {WIDTH,HEIGHT} from '../common/styles'
 

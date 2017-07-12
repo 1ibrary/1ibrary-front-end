@@ -13,6 +13,8 @@ import {
 import SearchNav from '../components/SearchNav'
 import SearchResultPage from './SearchResultPage'
 import {getResponsiveWidth,INNERWIDTH,HEIGHT,WIDTH} from "../common/styles"
+import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
+import {SCENE_INDEX,SCENE_SEARCH_REMOVE} from "../constants/scene"
 
 const MAX_LENGTH = 6
 
@@ -147,7 +149,7 @@ export default class SearchPage extends Component {
     }
     if (this.state.page === 1) {
       content = (
-        <View style={[styles.container, this.props.style]}>
+        <View style={styles.container}>
           <View style={styles.tabs}>
             <Text style={styles.tab_title}>热门搜索</Text>
             <View style={styles.tab_container}>
@@ -240,7 +242,7 @@ export default class SearchPage extends Component {
             <TouchableOpacity
               style={styles.close_container}
               onPress={() => {
-                this.props.onPressClose()
+                Actions.pop()
               }}
             >
               <Text style={styles.close}>取消</Text>
@@ -260,18 +262,19 @@ const styles = StyleSheet.create({
   result_container: {
     backgroundColor: 'white',
     alignItems: 'center',
-    width: WIDTH
+    width: WIDTH,
   },
   all_container: {
     height: HEIGHT,
     backgroundColor: 'rgb(242,246,250)',
     alignItems: 'center',
-    width: INNERWIDTH
+    width: WIDTH,
   },
   container: {
     marginTop: 8,
     alignItems: 'center',
-    height: HEIGHT
+    height: HEIGHT,
+    width:INNERWIDTH
   },
   tabs: {
     width: INNERWIDTH

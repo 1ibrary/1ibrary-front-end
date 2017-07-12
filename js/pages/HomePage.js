@@ -17,6 +17,9 @@ import SearchNav_Welcome from '../components/SearchNavHomePage'
 import MessagePage from './MessagePage'
 import ProfilePage from './ProfilePage'
 import {HEIGHT,getResponsiveHeight} from '../common/styles'
+import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
+import {SCENE_SEARCH} from "../constants/scene"
+
 
 
 export default class HomePage extends Component {
@@ -37,7 +40,7 @@ export default class HomePage extends Component {
                   <SearchNav_Welcome
                     placeholder={'搜索'}
                     onFocus={() => {
-                      this.setState({ show: 2 })
+                      Actions[SCENE_SEARCH]()
                     }}
                   />
                   <BookList

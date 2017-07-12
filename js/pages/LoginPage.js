@@ -16,6 +16,8 @@ import TextPingFang from '../components/TextPingFang'
 import HttpUtils from '../network/HttpUtils'
 import {USERS} from '../network/Urls'
 import HomePage from './HomePage'
+import {SCENE_INDEX} from "../constants/scene"
+import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {WIDTH,  HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
 // import SplashScreen from 'react-native-splash-screen';
 
@@ -61,14 +63,20 @@ export default class WelcomePage extends Component {
                       console.log(error)
                     } else {
                       let user = response.data
-                      this.props.navigator.push({
-                        component: HomePage,
-                        params: {
+                      let params =    {
                           user: user,
                           books_data: JSON.parse(array),
                           timestamp: response.data.timestamp
-                        }
-                      })
+                      }
+                      Actions[SCENE_INDEX]()
+                      // this.props.navigator.push({
+                      //   component: HomePage,
+                      //   params: {
+                      //     user: user,
+                      //     books_data: JSON.parse(array),
+                      //     timestamp: response.data.timestamp
+                      //   }
+                      // })
                     }
                   })
                 }
