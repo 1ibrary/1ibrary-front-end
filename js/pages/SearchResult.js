@@ -8,7 +8,8 @@ import {BOOKS} from "../network/Urls"
 import BookList from '../components/BookList'
 import BookItem1 from '../components/Book'
 import HttpUtils from '../network/HttpUtils'
-import {WIDTH, INNERWIDTH,getResponsiveHeight, getResponsiveWidth} from "../common/styles"
+import SearchNav from "../components/SearchNav"
+import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveHeight, getResponsiveWidth} from "../common/styles"
 
 const URL = BOOKS.search_book
 
@@ -23,10 +24,10 @@ export default class SearchResultPage extends Component {
   }
   componentDidMount() {
     HttpUtils.post(URL, {
-      uid: this.props.user.uid,
-      timestamp: this.props.timestamp,
-      token: this.props.user.token,
-      content: this.props.content,
+      uid: 1||this.props.user.uid ,
+      timestamp: 1||this.props.timestamp,
+      token: 1||this.props.user.token ,
+      content: 1||this.props.content,
       type: 0
     }).then(response => {
       // alert(response.msg);
@@ -37,10 +38,10 @@ export default class SearchResultPage extends Component {
   }
   onChangeTab(index) {
     HttpUtils.post(URL, {
-      uid: this.props.user.uid,
-      timestamp: this.props.timestamp,
-      token: this.props.user.token,
-      content: this.props.content,
+      uid: 1||this.props.user.uid,
+      timestamp: 1||this.props.timestamp,
+      token: 1||this.props.user.token,
+      content: 1||this.props.content,
       type: index
     }).then(response => {
       // alert(response.msg);
@@ -61,7 +62,10 @@ export default class SearchResultPage extends Component {
     )
     return (
       <View style={styles.container}>
-
+        <SearchNav
+            textInputColor={{backgroundColor:"#f9f9f9"}}
+            style={{backgroundColor:"white"}}
+            />
         <ScrollableTabView
           style={styles.scrollable_tab_view}
           renderTabBar={() =>

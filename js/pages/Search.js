@@ -14,7 +14,7 @@ import SearchNav from '../components/SearchNav'
 import SearchResultPage from './SearchResult'
 import {getResponsiveWidth,INNERWIDTH,HEIGHT,WIDTH} from "../common/styles"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
-import {SCENE_INDEX,SCENE_SEARCH_REMOVE} from "../constants/scene"
+import SearchRemind from "./SearchRemind"
 
 const MAX_LENGTH = 6
 
@@ -31,22 +31,11 @@ export default class SearchPage extends Component {
       information: ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治'],
       text: ''
     }
-    // AsyncStorage.removeItem("history");
     AsyncStorage.getItem('history', (error, array) => {
-      // alert(JSON.parse(array));
       if (JSON.parse(array)) {
         this.setState({ history: JSON.parse(array) })
       }
     })
-    // AsyncStorage.getAllKeys((error,keys)=>{
-    // 	if(!error) {
-    // 		keys.reverse();
-    // 		this.setState({history:keys});
-    // 		// alert(this.state.history);
-    // 	} else {
-    // 		// alert("获取失败！");
-    // 	}
-    // });
   }
   onSave(text) {
     AsyncStorage.getItem('history', (error, array) => {
@@ -56,7 +45,6 @@ export default class SearchPage extends Component {
       } else {
         array = [text]
       }
-      // alert(array);
       AsyncStorage.setItem('history', JSON.stringify(array), error => {
         if (error) {
           console.log(error)
@@ -75,7 +63,6 @@ export default class SearchPage extends Component {
       } else {
         return
       }
-      // alert(array);
       AsyncStorage.setItem('history', JSON.stringify(array), error => {
         if (error) {
           console.log(error)
@@ -95,58 +82,6 @@ export default class SearchPage extends Component {
   }
   render() {
     let content
-    if (this.state.page === 3) {
-      return (
-        <View style={styles.all_container}>
-          <View style={styles.result_container}>
-            <SearchNav
-              placeholder={'搜索书名，作者或出版社'}
-              defaultValue={this.state.defaultValue}
-              onSubmitEditing={event => {
-                // alert(event.nativeEvent.text);
-                this.onSubmitEditing(event.nativeEvent.text)
-              }}
-              icon={
-                <TouchableOpacity
-                  style={styles.close_container}
-                  onPress={() => {
-                    this.props.onPressClose()
-                  }}
-                >
-                  <Text style={styles.close}>取消</Text>
-                </TouchableOpacity>
-              }
-              textinputColor={{ backgroundColor: '#F9F9F9' }}
-              onFocus={() => {
-                this.setState({ page: 2 })
-              }}
-              onChangeText={text => {
-                this.onChangeText(text)
-              }}
-            />
-          </View>
-
-          <SearchResultPage
-            navigator={this.props.navigator}
-            user={this.props.user}
-            timestamp={this.props.timestamp}
-            content={this.state.text}
-            data={[
-              {
-                grade: '暂无评分',
-                title: '设计心理学4:未来设计',
-                num: 5,
-                author: '唐纳德诺曼',
-                publish: '中信出版社',
-                time: 2015,
-                picture:
-                  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491754581994&di=1db59cd5fa4e2820fb04022afb517d68&imgtype=0&src=http%3A%2F%2Ffdfs.xmcdn.com%2Fgroup18%2FM09%2F4E%2F71%2FwKgJJVeWMA3iSLL6AABg7zEQtSQ734.jpg'
-              }
-            ]}
-          />
-        </View>
-      )
-    }
     if (this.state.page === 1) {
       content = (
         <View style={styles.container}>

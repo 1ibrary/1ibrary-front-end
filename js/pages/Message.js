@@ -19,9 +19,8 @@ export default class MessagePage extends Component {
       <View style={styles.container}>
         <NavigationBar title={'通知'} />
         <ScrollView style={styles.item_container}>
-          <Message navigator={this.props.navigator} />
+          <Message/>
           <Message
-            navigator={this.props.navigator}
             data={{ title: '小王子', kind: 2 }}
           />
         </ScrollView>

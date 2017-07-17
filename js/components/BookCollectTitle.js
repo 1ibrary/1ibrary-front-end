@@ -16,6 +16,9 @@ import {
 import BookCollectListPage from '../pages/BookCollectList'
 import {BOOKS} from "../network/Urls"
 import {WIDTH, INNERWIDTH, HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
+import {Actions} from "react-native-router-flux"
+import {SCENE_BOOK_COLLECT_LIST} from "../constants/scene"
+
 const URL_BOOKS = BOOKS.show_detail
 
 export default class BookCollectTitle extends Component {
@@ -47,14 +50,12 @@ export default class BookCollectTitle extends Component {
       this.onMove(ges)
       return
     }
-    this.props.navigator.push({
-      component: BookCollectListPage,
-      params: {
+    let params = {
         title: this.props.title,
         user: this.props.user,
         timestamp: this.props.timestamp
-      }
-    })
+    }
+    Actions[SCENE_BOOK_COLLECT_LIST](params)
   }
   componentWillMount() {
     this._panResponder_move = PanResponder.create({

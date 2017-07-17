@@ -66,9 +66,9 @@ export default class WelcomePage extends Component {
                       let params =    {
                           user: user,
                           books_data: JSON.parse(array),
-                          timestamp: response.data.timestamp
+                          timestamp: response.data.timestamp,
                       }
-                      Actions[SCENE_INDEX]()
+                      Actions[SCENE_INDEX](params)
                       // this.props.navigator.push({
                       //   component: HomePage,
                       //   params: {

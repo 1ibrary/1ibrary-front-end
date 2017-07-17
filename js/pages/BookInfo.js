@@ -155,7 +155,7 @@ export default class BookInfoPage extends Component {
 
     return (
       <View style={styles.container}>
-        <CommonNav navigator={this.props.navigator} title={'图书详情'} />
+        <CommonNav title={'图书详情'} />
         <ScrollView style={styles.scroll_view}>
           <View style={styles.outline_container}>
             <View style={styles.outline_image_view}>

@@ -15,47 +15,13 @@ import RentInfoPage from './RentInfo'
 import FeedBackPage from './FeedBack'
 import AboutUsPage from './AboutUs'
 import SettingPage from './Setting'
+import {Actions} from "react-native-router-flux"
+import * as scenes from "../constants/scene"
 import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
 
 export default class ProfilePage extends Component {
-  onLists() {
-    AsyncStorage.getItem('book_list', (error, array) => {
-      let lists
-      array = JSON.parse(array)
-      if (array) {
-        lists = array
-      } else {
-        lists = []
-      }
-      this.props.navigator.push({
-        component: BookCollectPage,
-        params: {
-          lists: lists,
-          title: '我的书单',
-          user: this.props.user,
-          timestamp: this.props.timestamp
-        }
-      })
-    })
-  }
-  onHistory() {
-    this.props.navigator.push({
-      component: RentInfoPage,
-      params: {
-        title: '借阅历史'
-      }
-    })
-  }
-  onAboutUs() {
-    this.props.navigator.push({
-      component: AboutUsPage
-    })
-  }
   onJump(page, params) {
-    this.props.navigator.push({
-      component: page,
-      params: params
-    })
+    Actions[page](params)
   }
   render() {
     let booklist = require('../../res/images/icon_booklist.png')
@@ -98,19 +64,27 @@ export default class ProfilePage extends Component {
                 key={i}
                 onPress={() => {
                   let text = d
+                  let pramas
                   switch (text) {
                     case '我的书单':
-                      this.onJump(BookCollectPage, {
-                        title: '我的书单',
-                        user: this.props.user,
-                        timestamp: this.props.timestamp
-                      })
+                      params = {
+                          title: '我的书单',
+                          user: this.props.user,
+                          timestamp: this.props.timestamp
+                      }
+                      this.onJump(scenes.SCENE_BOOK_COLLECT, params)
                       break
                     case '借阅历史':
-                      this.onHistory()
+                      params = {
+                          title: '借阅历史'
+                      }
+                      this.onJump(scenes.SCENE_MESSAGE,params)
                       break
                     case '设置':
-                      this.onJump(SettingPage, { title: '设置' })
+                      params = {
+                        title: '借阅历史'
+                      }
+                      this.onJump(scenes.SCENE_SETTING, params)
                       break
                   }
                 }}
@@ -133,16 +107,18 @@ export default class ProfilePage extends Component {
             return (
               <TouchableOpacity
                 onPress={() => {
+                  let params
                   switch (d) {
                     case '意见反馈':
-                      this.onJump(FeedBackPage, {
+                      params = {
                         user: this.props.user,
                         timestamp: this.props.timestamp,
                         navigator: this.props.navigator
-                      })
+                      }
+                      this.onJump(scenes.SCENE_FEEDBACK,params)
                       break
                     case '关于我们':
-                      this.onAboutUs()
+                      this.onJump(scenes.SCENE_ABOUTUS,{})
                   }
                 }}
                 key={i}

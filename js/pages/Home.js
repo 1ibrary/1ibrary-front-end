@@ -40,7 +40,11 @@ export default class HomePage extends Component {
                   <SearchNav_Welcome
                     placeholder={'搜索'}
                     onFocus={() => {
-                      Actions[SCENE_SEARCH]()
+                      let params =    {
+                            user: this.props.user,
+                            timestamp: this.props.timestamp,
+                        }
+                      Actions[SCENE_SEARCH](params)
                     }}
                   />
                   <BookList
@@ -49,6 +53,7 @@ export default class HomePage extends Component {
                     data={this.props.books_data ? this.props.books_data : []}
                     user={this.props.user ? this.props.user : {}}
                     navigator={this.props.navigator}
+                    token={this.props.token}
                   />
                 </View>
               : <SearchPage

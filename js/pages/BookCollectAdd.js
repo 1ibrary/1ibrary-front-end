@@ -55,9 +55,11 @@ export default class BookCollectAddPage extends Component {
             return true
           }
         })
+
         if (flag) {
           return
         }
+
       }
 
       HttpUtils.post(URL, {
@@ -68,9 +70,10 @@ export default class BookCollectAddPage extends Component {
         token: this.props.user.token
       })
         .then(response => {
+          alert("请求发出了")
           if (response.msg === '请求成功') {
-            // alert("成功");
-            // alert(array);
+            alert("成功");
+            alert(array);
             HttpUtils.post(URL_SHOW, {
               token: this.props.user.token,
               uid: this.props.user.uid,
@@ -78,14 +81,17 @@ export default class BookCollectAddPage extends Component {
             })
               .then(result => {
                 if (result.msg === '请求成功') {
+                  alert("请求查看")
                   let lists = result.data
                   AsyncStorage.setItem(
                     'book_list',
                     JSON.stringify(lists),
                     error => {
                       if (error) {
+                        alert("存储失败")
                         console.log(error)
                       } else {
+                        alert(this.props)
                         this.props.onCallBack()
                         Actions.pop()
                       }
@@ -94,6 +100,7 @@ export default class BookCollectAddPage extends Component {
                 }
               })
               .catch(error => {
+                alert(error)
                 console.log(error)
               })
           } else {
@@ -102,6 +109,7 @@ export default class BookCollectAddPage extends Component {
         })
         .catch(error => {
           console.log(error)
+          alert(error)
         })
     })
   }

@@ -12,6 +12,7 @@ import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
 import {USERS} from "../network/Urls"
 import {WIDTH, INNERWIDTH,HEIGHT} from '../common/styles'
+import {Actions} from "react-native-router-flux"
 
 const URL = USERS.feedback
 
@@ -42,7 +43,7 @@ export default class FeedBackPage extends Component {
       // alert(response.msg);
       if (response.msg === '请求成功') {
         // alert("已经提交啦～");
-        this.props.navigator.pop()
+        Actions.pop()
       }
     })
   }

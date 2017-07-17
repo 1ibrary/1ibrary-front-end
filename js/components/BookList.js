@@ -12,8 +12,9 @@ import {
 } from 'react-native'
 import Book from './Book'
 import HttpUtils from '../network/HttpUtils'
-import {HEIGHT} from '../common/styles'
+import {HEIGHT,INNERWIDTH, getResponsiveHeight} from '../common/styles'
 import {BOOKS} from "../network/Urls"
+
 
 const URL = BOOKS.show_books
 
@@ -130,8 +131,8 @@ export default class BookList extends Component {
 const styles = StyleSheet.create({
   booklist: {
     flex: 1,
-    width: Dimensions.get('window').width - 16,
-    paddingBottom: 44 / 568 * HEIGHT
+    width: INNERWIDTH,
+    paddingBottom: getResponsiveHeight(44)
   },
   list: {
     height: HEIGHT
