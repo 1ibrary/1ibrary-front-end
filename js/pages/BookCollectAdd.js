@@ -12,6 +12,7 @@ import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
 import {WIDTH, INNERWIDTH,HEIGHT} from "../common/styles"
+import {Actions} from "react-native-router-flux"
 
 const URL = LISTS.create_list // 缓存前先请求showxs
 const URL_SHOW = LISTS.show_list
@@ -49,7 +50,7 @@ export default class BookCollectAddPage extends Component {
         flag = array.some(d => {
           if (d.list_name === item.list_name) {
             Alert.alert('小提示', '你已经创建过同名书单啦！')
-            this.props.navigator.pop()
+            Actions.pop()
             flag = true
             return true
           }
@@ -86,7 +87,7 @@ export default class BookCollectAddPage extends Component {
                         console.log(error)
                       } else {
                         this.props.onCallBack()
-                        this.props.navigator.pop()
+                        Actions.pop()
                       }
                     }
                   )
@@ -112,7 +113,6 @@ export default class BookCollectAddPage extends Component {
           rightOnPress={() => {
             this.rightOnPress()
           }}
-          navigator={this.props.navigator}
         />
         <TextInput
           placeholder="书单标题"

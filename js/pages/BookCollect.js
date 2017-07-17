@@ -13,10 +13,12 @@ import {
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import BookCollectItem from '../components/BookCollectTitle'
-import BookCollectAddPage from './BookCollectAddPage'
+import BookCollectAddPage from './BookCollectAdd'
 import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
 import {INNERWIDTH,HEIGHT} from '../common/styles'
+import {Actions} from "react-native-router-flux"
+import {SCENE_BOOK_COLLECT_ADD} from "../constants/scene"
 
 const URL = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
@@ -88,7 +90,7 @@ export default class BookCollectPage extends Component {
   }
   rightOnPress() {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
-      this.props.navigator.pop()
+      Actions.pop()
       return
     }
     AsyncStorage.getItem('book_list', (error, array) => {
@@ -127,7 +129,7 @@ export default class BookCollectPage extends Component {
                 }
                 if (item == this.props.book.book_id) {
                   // alert(d.list_name+"书单已经收藏过这本书啦！");
-                  this.props.navigator.pop()
+                  Actions.pop()
                   return (flag = true)
                 }
               })
@@ -164,7 +166,7 @@ export default class BookCollectPage extends Component {
                                 if (error) {
                                   console.log(error)
                                 } else {
-                                  this.props.navigator.pop()
+                                  Actions.pop()
                                 }
                               }
                             )
@@ -256,19 +258,17 @@ export default class BookCollectPage extends Component {
         <TouchableOpacity
           style={styles.add}
           onPress={() => {
-            this.props.navigator.push({
-              component: BookCollectAddPage,
-              params: {
+            let params = {
                 onCallBack: () => {
-                  AsyncStorage.getItem('book_list', (error, array) => {
-                    array = JSON.parse(array)
-                    this.setState({ lists: array })
-                  })
+                    AsyncStorage.getItem('book_list', (error, array) => {
+                        array = JSON.parse(array)
+                        this.setState({ lists: array })
+                    })
                 },
                 user: this.props.user,
                 timestamp: this.props.timestamp
-              }
-            })
+            }
+            Actions[SCENE_BOOK_COLLECT_ADD](params)
           }}
         >
           <Image source={require('../../res/images/icon_add.png')} />

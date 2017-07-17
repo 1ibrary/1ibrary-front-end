@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
-import AboutUsWebPage from './AboutUsWebPage'
+import AboutUsWebPage from './AboutUsWeb'
 import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
 
 export default class AboutUsPage extends Component {

@@ -1,7 +1,10 @@
 import React, { Component } from 'React'
-import LoginPage from './LoginPage'
-import HomePage from "./HomePage"
-import SearchPage from "./SearchPage"
+import LoginPage from './Login'
+import HomePage from "./Home"
+import SearchPage from "./Search"
+import BookInfo from "./BookInfo"
+import BookCollect from "./BookCollect"
+import BookCollectAdd from "./BookCollectAdd"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import * as scenes from '../constants/scene'
 
@@ -33,6 +36,25 @@ export default class AppRouter extends Component {
                   hideNavBar
                   duration="0"
                   />
+              <Scene
+                  key={scenes.SCENE_BOOK_INFO}
+                  component = {BookInfo}
+                  type={ActionConst.PUSH}
+                  title="图书详情"
+                  hideNavBar
+              />
+              <Scene
+                  key={scenes.SCENE_BOOK_COLLECT}
+                  component = {BookCollect}
+                  title="收藏本书"
+                  hideNavBar
+              />
+              <Scene
+                  key={scenes.SCENE_BOOK_COLLECT_ADD}
+                  component = {BookCollectAdd}
+                  title="收藏本书"
+                  hideNavBar
+              />
           </Scene>
         </Router>
     )

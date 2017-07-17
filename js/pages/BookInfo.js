@@ -13,10 +13,12 @@ import {
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
-import BookCollectPage from './BookCollectPage'
+import BookCollectPage from './BookCollect'
 import Round from '../components/Round'
 import {BOOKS} from "../network/Urls"
 import {INNERWIDTH,WIDTH,HEIGHT} from '../common/styles'
+import {Actions} from "react-native-router-flux"
+import {SCENE_BOOK_COLLECT} from "../constants/scene"
 
 const URL = BOOKS.show_detail
 
@@ -87,16 +89,14 @@ export default class BookInfoPage extends Component {
       } else {
         lists = []
       }
-      this.props.navigator.push({
-        component: BookCollectPage,
-        params: {
+      let params = {
           lists: lists,
           title: '加入书单',
           book: this.props.data,
           user: this.props.user,
           timestamp: this.props.timestamp
-        }
-      })
+      }
+      Actions[SCENE_BOOK_COLLECT](params)
     })
   }
   changeNum(x) {

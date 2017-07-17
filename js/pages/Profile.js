@@ -10,11 +10,11 @@ import {
   AsyncStorage
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
-import BookCollectPage from './BookCollectPage'
-import RentInfoPage from './RentInfoPage'
-import FeedBackPage from './FeedBackPage'
-import AboutUsPage from './AboutUsPage'
-import SettingPage from './SettingPage'
+import BookCollectPage from './BookCollect'
+import RentInfoPage from './RentInfo'
+import FeedBackPage from './FeedBack'
+import AboutUsPage from './AboutUs'
+import SettingPage from './Setting'
 import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
 
 export default class ProfilePage extends Component {

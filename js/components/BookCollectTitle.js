@@ -13,7 +13,7 @@ import {
   AsyncStorage,
   PanResponder
 } from 'react-native'
-import BookCollectListPage from '../pages/BookCollectListPage'
+import BookCollectListPage from '../pages/BookCollectList'
 import {BOOKS} from "../network/Urls"
 import {WIDTH, INNERWIDTH, HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
 const URL_BOOKS = BOOKS.show_detail

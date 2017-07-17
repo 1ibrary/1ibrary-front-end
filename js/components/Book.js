@@ -10,8 +10,10 @@ import {
   Dimensions
 } from 'react-native'
 import Round from './Round'
-import BookInfoPage from '../pages/BookInfoPage'
-import {WIDTH,INNERWIDTH} from "../common/styles"
+import BookInfoPage from '../pages/BookInfo'
+import {INNERWIDTH} from "../common/styles"
+import {Actions} from 'react-native-router-flux'
+import {SCENE_BOOK_INFO} from "../constants/scene"
 
 export default class Book extends Component {
   constructor(props) {
@@ -30,14 +32,12 @@ export default class Book extends Component {
     }
   }
   onPress() {
-    this.props.navigator.push({
-      component: BookInfoPage,
-      params: {
+    let params = {
         data: this.props.data,
         user: this.props.user,
         timestamp: this.props.timestamp
-      }
-    })
+    }
+    Actions[SCENE_BOOK_INFO](params)
   }
   render() {
     // if(!this.props.data) {

@@ -12,10 +12,10 @@ import {
 } from 'react-native'
 import BottomTabs from '../components/BottomTabs'
 import BookList from '../components/BookList'
-import SearchPage from './SearchPage'
+import SearchPage from './Search'
 import SearchNav_Welcome from '../components/SearchNavHomePage'
-import MessagePage from './MessagePage'
-import ProfilePage from './ProfilePage'
+import MessagePage from './Message'
+import ProfilePage from './Profile'
 import {HEIGHT,getResponsiveHeight} from '../common/styles'
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {SCENE_SEARCH} from "../constants/scene"

@@ -8,6 +8,7 @@ import {
   Image
 } from 'react-native'
 import NavigationBar from './NavigationBar'
+import {Actions} from "react-native-router-flux"
 
 export default class CommonNav extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class CommonNav extends Component {
           leftButton={
             <TouchableOpacity
               onPress={() => {
-                this.props.navigator.pop()
+                Actions.pop()
               }}
               style={styles.container}
             >

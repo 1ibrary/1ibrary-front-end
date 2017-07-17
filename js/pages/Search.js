@@ -11,7 +11,7 @@ import {
   Dimensions
 } from 'react-native'
 import SearchNav from '../components/SearchNav'
-import SearchResultPage from './SearchResultPage'
+import SearchResultPage from './SearchResult'
 import {getResponsiveWidth,INNERWIDTH,HEIGHT,WIDTH} from "../common/styles"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {SCENE_INDEX,SCENE_SEARCH_REMOVE} from "../constants/scene"

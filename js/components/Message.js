@@ -10,7 +10,7 @@ import {
   Dimensions
 } from 'react-native'
 import TextPingFang from './TextPingFang'
-import RentInfoPage from '../pages/RentInfoPage'
+import RentInfoPage from '../pages/RentInfo'
 import {INNERWIDTH} from "../common/styles"
 
 
