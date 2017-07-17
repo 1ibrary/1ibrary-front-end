@@ -70,13 +70,6 @@ export default class SearchResultPage extends Component {
           style={styles.scrollable_tab_view}
           renderTabBar={() =>
             <DefaultTabBar
-              tabStyle={{
-                // alignItems:"center",
-                // justifyContent:"center",
-                // width:100
-                // width:50,
-                // marginLeft:30
-              }}
               style={styles.scrollable}
             />}
           tabBarInactiveTextColor={'#CDD8E2'}
@@ -154,32 +147,32 @@ export default class SearchResultPage extends Component {
 styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: 'rgb(242,246,250)'
+    backgroundColor: 'rgb(242,246,250)',
+    height:HEIGHT
   },
   page_container: {
     backgroundColor: 'rgb(242,246,250)',
-    width: 375,
-    paddingLeft: 16,
-    marginTop: 12
+    width: WIDTH,
+    paddingLeft: getResponsiveWidth(16),
+    marginTop: getResponsiveHeight(12),
   },
   scrollable_tab_view: {
     marginLeft: 0,
     width: WIDTH,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   active_tag: {
     backgroundColor: '#73C0FF',
-    width: getResponsiveWidth(70),
-    marginLeft: getResponsiveWidth(30),
-    height: 4,
-    borderRadius: 4
+    width: getResponsiveWidth(375-44)/3,
+    marginLeft: getResponsiveWidth(8),
+    height: getResponsiveHeight(4),
+    borderRadius: getResponsiveHeight(4)
   },
   scrollable: {
     height: 44,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
     backgroundColor: 'white',
-    marginLeft: 8,
     width: WIDTH,
     alignItems: 'center'
   },

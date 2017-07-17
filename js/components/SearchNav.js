@@ -9,7 +9,7 @@ import {
     PropTypes,
     AsyncStorage,
 } from 'react-native'
-import {WIDTH, INNERWIDTH, getResponsiveWidth,getResponsiveHeight} from "../common/styles"
+import {WIDTH, INNERWIDTH,HEIGHT, getResponsiveWidth,getResponsiveHeight} from "../common/styles"
 const history = 'history'
 
 export default class SearchNav extends Component {
@@ -69,10 +69,11 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: 36,
-        marginTop: 28,
+        height: getResponsiveHeight(36),
+        paddingTop: getResponsiveHeight(28),
         width: WIDTH,
-        paddingLeft: getResponsiveWidth(8)
+        paddingLeft: getResponsiveWidth(8),
+        height:64
     },
     show: {
         display: 'flex'
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         position: 'absolute',
         left:getResponsiveWidth(16),
-        top: getResponsiveHeight(8),
+        top: getResponsiveHeight(36),
         zIndex: 2
     },
     textInput: {
@@ -92,19 +93,19 @@ const styles = StyleSheet.create({
         height: getResponsiveHeight(28),
         paddingLeft: getResponsiveWidth(30),
         backgroundColor: 'white',
-        borderRadius: 8,
+        borderRadius: getResponsiveHeight(8),
         flexDirection: 'row',
         alignItems: 'center',
         fontSize: 14
     },
     close_container: {
-        height: 28,
-        width: 44,
+        height:getResponsiveHeight(24),
+        width: getResponsiveWidth(44),
         justifyContent: 'center',
         flexDirection: 'row'
     },
     close: {
-        fontSize: 17,
+        fontSize: getResponsiveWidth(17),
         color: '#FF7373',
         alignItems: 'center'
     },
