@@ -77,7 +77,6 @@ export default class SearchResultPage extends Component {
           tabBarUnderlineStyle={styles.active_tag}
           tabBarTextStyle={{
             fontSize: 14,
-
             fontFamily: 'PingFang SC'
           }}
           onChangeTab={o => {
@@ -153,8 +152,9 @@ styles = StyleSheet.create({
   page_container: {
     backgroundColor: 'rgb(242,246,250)',
     width: WIDTH,
-    paddingLeft: getResponsiveWidth(16),
-    marginTop: getResponsiveHeight(12),
+    // paddingLeft: getResponsiveWidth(16),
+    marginTop: getResponsiveHeight(13),
+    alignItems:"center"
   },
   scrollable_tab_view: {
     marginLeft: 0,
@@ -163,8 +163,8 @@ styles = StyleSheet.create({
   },
   active_tag: {
     backgroundColor: '#73C0FF',
-    width: getResponsiveWidth(375-44)/3,
-    marginLeft: getResponsiveWidth(8),
+    width: getResponsiveWidth(375-70)/3,
+    marginLeft: getResponsiveWidth(12),
     height: getResponsiveHeight(4),
     borderRadius: getResponsiveHeight(4)
   },

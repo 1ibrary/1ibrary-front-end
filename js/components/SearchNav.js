@@ -11,15 +11,15 @@ import {
 } from 'react-native'
 import {WIDTH, INNERWIDTH,HEIGHT, getResponsiveWidth,getResponsiveHeight} from "../common/styles"
 const history = 'history'
+import {Actions} from "react-native-router-flux"
 
 export default class SearchNav extends Component {
     constructor(props) {
         super(props)
-        // this.state = {
-
-        // }
+        this.state = {
+            history: []
+        }
     }
-
     static defaultProps = {
         onChangeText: text => {
         }

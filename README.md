@@ -244,3 +244,11 @@ by miemie
 
 by miemie
 
+### 17.07.18
+- 昨天立的flag今天基本实现了
+- bug：书单里面的书删不了也点不开
+待做：
+- 排除楼上bug 编写redux重构代码
+
+by miemie
+

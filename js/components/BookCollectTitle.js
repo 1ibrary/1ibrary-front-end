@@ -79,13 +79,6 @@ export default class BookCollectTitle extends Component {
         this.onPress(evt, gestureState)
       }
     })
-    this._panResponder_touch_2 = PanResponder.create({
-      // Ask to be the responder:
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true
-    })
   }
   static defaultProps = {
     data: {}
@@ -114,7 +107,6 @@ export default class BookCollectTitle extends Component {
           </View>
           {this.props.big_title === '加入书单'
             ? <TouchableWithoutFeedback
-                // {...this._panResponder_touch_2.panHandlers}
                 onPress={() => {
                   let data = this.props.data
                   // alert(data)

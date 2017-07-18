@@ -14,158 +14,122 @@ import SearchNav from '../components/SearchNav'
 import SearchResultPage from './SearchResult'
 import {getResponsiveWidth,INNERWIDTH,HEIGHT,WIDTH} from "../common/styles"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
-import SearchRemind from "./SearchRemind"
+import {SCENE_SEARCH_RESULT} from "../constants/scene"
+import SearchTags from "../components/SearchTags"
 
-const MAX_LENGTH = 6
+const MAX_LENGTH = 5
 
-export default class SearchPage extends Component {
+export default class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      history: [],
+      search_history: [],
       hot: ['人民的名义', '巨人的陨落', '时间简史', '平凡的世界'],
-      hot_num: 0,
-      history_num: 0,
       defaultValue: '',
       page: 1,
-      information: ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治'],
-      text: ''
+      reminder: ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治'],
+      text: '',
+      remind:false
     }
-    AsyncStorage.getItem('history', (error, array) => {
-      if (JSON.parse(array)) {
-        this.setState({ history: JSON.parse(array) })
-      }
-    })
   }
-  onSave(text) {
-    AsyncStorage.getItem('history', (error, array) => {
-      array = JSON.parse(array)
-      if (array) {
-        array = [...new Set([text, ...array])]
-      } else {
-        array = [text]
-      }
-      AsyncStorage.setItem('history', JSON.stringify(array), error => {
-        if (error) {
-          console.log(error)
-        }
+  componentDidMount() {
+      AsyncStorage.getItem('search_history', (error, array) => {
+          if (JSON.parse(array)) {
+              this.setState({search_history: JSON.parse(array) })
+          }
       })
-      this.setState({ history: array })
-      this.setState({ history_num: 0 })
-    })
   }
-  onPressDelete() {
-    AsyncStorage.getItem('history', (error, array) => {
+  onPressDelete(index) {
+    AsyncStorage.getItem('search_history', (error, array) => {
       array = JSON.parse(array)
       if (array) {
-        array.shift()
+        array.splice(index,1)
         array = [...new Set(array)]
       } else {
         return
       }
-      AsyncStorage.setItem('history', JSON.stringify(array), error => {
+      AsyncStorage.setItem('search_history', JSON.stringify(array), error => {
         if (error) {
           console.log(error)
         }
       })
-      this.setState({ history: array })
-      this.setState({ history_num: 0 })
+      this.setState({ search_history: array })
     })
   }
-  onSubmitEditing(text) {
-    this.onSave(text)
-    this.setState({ page: 3, text: text })
-  }
-  onChangeText(text) {
-    let data = ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治']
-    this.setState({ page: 2, information: data })
-  }
-  render() {
-    let content
-    if (this.state.page === 1) {
-      content = (
-        <View style={styles.container}>
-          <View style={styles.tabs}>
-            <Text style={styles.tab_title}>热门搜索</Text>
-            <View style={styles.tab_container}>
-              {this.state.hot.map((item, i) => {
-                return (
-                  <View key={i} style={styles.tab_item}>
-                    <Text
-                      style={styles.tab_font}
-                      onPress={() => {
-                        this.setState({ defaultValue: item, history_num: 0 })
-                      }}
-                    >
-                      {item}
-                    </Text>
-                  </View>
-                )
-              })}
-            </View>
-          </View>
-          <View style={styles.history}>
-            <Text style={styles.history_title}>搜索历史</Text>
-            <View style={styles.history_container}>
-
-              {this.state.history.map((item, i) => {
-                this.state.history_num++
-                if (this.state.history_num > MAX_LENGTH) {
-                  return
-                }
-                return (
-                  <View key={i} style={styles.history_item}>
-                    <Text
-                      onPress={() => {
-                        this.setState({ defaultValue: item, history_num: 0 })
-                      }}
-                      style={styles.history_font}
-                    >
-                      {item}
-                    </Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        this.onPressDelete()
-                      }}
-                    >
-                      <Image
-                        style={styles.history_delete}
-                        source={require('../../res/images/delete.png')}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                )
-              })}
-
-            </View>
-          </View>
-        </View>
-      )
-    } else if (this.state.page === 2) {
-      content = (
-        <View style={styles.tabs}>
-          <Text style={styles.tab_title}>搜索建议</Text>
-          <View style={styles.tab_container}>
-            {this.state.information.map((item, i) => {
-              return (
-                <View key={i} style={styles.tab_item}>
-                  <Text
-                    style={styles.tab_font}
-                    onPress={() => {
-                      this.setState({ defaultValue: item, history_num: 0 })
-                    }}
-                  >
-                    {item}
-                  </Text>
-                </View>
-              )
-            })}
-          </View>
-        </View>
-      )
+    onSubmitEditing(text) {
+        this.onSave(text)
+        let params = {
+          user:this.props.user,
+          timestamp:this.props.timestamp,
+          content:text
+        }
+        Actions[SCENE_SEARCH_RESULT](params)
     }
-    return (
-      <View style={styles.all_container}>
+    onChangeText(text) {
+        if(text=="") {
+          this.setState({remind:false})
+          return
+        }
+        this.setState({remind:true})
+        // this.setState({ page: 2, information: data })
+    }
+    onSave(text) {
+        AsyncStorage.getItem('search_history', (error, array) => {
+            array = JSON.parse(array)
+            if (array) {
+                array = [...new Set([text, ...array])]
+                if(array.length>MAX_LENGTH) {
+                  array = array.slice(0,5)
+                }
+
+            } else {
+                array = [text]
+            }
+            AsyncStorage.setItem('search_history', JSON.stringify(array), error => {
+                if (error) {
+                    console.log(error)
+                }
+            })
+            this.setState({ search_history: array })
+        })
+    }
+    changeDefaultValue(item) {
+        this.setState({defaultValue:item})
+    }
+  render() {
+    let reminder = <SearchTags
+        title="搜索提示"
+        data={this.state.reminder}
+    />
+    let tags = <View style={styles.container}>
+          <SearchTags
+              title={"热门搜索"}
+              data={this.state.hot}
+              onPress = {(item)=>{
+                  this.changeDefaultValue(item)
+              }}
+          />
+          <SearchTags
+              styles={styles.tags_top}
+              title={"搜索历史"}
+              onPressDelete={()=>{
+                  this.onPressDelete()
+              }}
+              cancel={true}
+              data={this.state.search_history}
+              onPress = {(item)=>{
+                  this.changeDefaultValue(item)
+              }}
+          />
+
+        </View>
+    let content
+    if(this.state.remind) {
+      content = reminder
+    } else {
+      content = tags
+    }
+    return <View style={styles.all_container}>
         <SearchNav
           placeholder={'搜索书名，作者或出版社'}
           defaultValue={this.state.defaultValue}
@@ -189,7 +153,6 @@ export default class SearchPage extends Component {
         />
         {content}
       </View>
-    )
   }
 }
 
@@ -211,23 +174,26 @@ const styles = StyleSheet.create({
     height: HEIGHT,
     width:INNERWIDTH
   },
-  tabs: {
+  tags_top:{
+    marginTop:34
+  },
+  tags: {
     width: INNERWIDTH
   },
-  tab_container: {
+  tag_container: {
     borderRadius: 8,
     backgroundColor: 'white',
     width: INNERWIDTH,
     paddingLeft: 24,
     overflow: 'hidden'
   },
-  tab_title: {
+  tag_title: {
     fontSize: 14,
     color: 'gray',
     fontWeight: '100',
     paddingBottom: 12
   },
-  tab_item: {
+  tag_item: {
     justifyContent: 'center',
     backgroundColor: 'white',
     height: 44,
@@ -235,29 +201,29 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'rgb(230,230,230)'
   },
-  tab_font: {
+  tag_font: {
     fontSize: 14,
     width: 300,
     color: 'gray',
     fontWeight: '400'
   },
-  history: {
+  search_history: {
     marginTop: 34,
     width: INNERWIDTH
   },
-  history_container: {
+  search_history_container: {
     borderRadius: 8,
     width: INNERWIDTH,
     backgroundColor: 'white',
     overflow: 'hidden'
   },
-  history_title: {
+  search_history_title: {
     marginBottom: 10,
     fontSize: 14,
     color: 'gray',
     fontWeight: '100'
   },
-  history_item: {
+  search_history_item: {
     height: 44,
     paddingLeft: 12,
     paddingRight: 18,
@@ -266,13 +232,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'rgb(230,230,230)'
   },
-  history_font: {
+  search_history_font: {
     fontSize: 12,
     color: 'gray',
     fontWeight: '200',
     width: 200
   },
-  history_delete: {
+  search_history_delete: {
     marginLeft: 120
   },
   close: {

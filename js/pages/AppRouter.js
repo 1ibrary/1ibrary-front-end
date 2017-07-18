@@ -9,6 +9,7 @@ import BookCollectList from "./BookCollectList"
 import RentInfo from "./RentInfo"
 import Setting from "./Setting"
 import FeedBack from "./FeedBack"
+import SearchResult from "./SearchResult"
 import AboutUs from "./AboutUs"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import * as scenes from '../constants/scene'
@@ -88,6 +89,12 @@ export default class AppRouter extends Component {
                   key={scenes.SCENE_ABOUTUS}
                   component = {AboutUs}
                   title="关于我们页面"
+                  hideNavBar
+              />
+              <Scene
+                  key={scenes.SCENE_SEARCH_RESULT}
+                  component = {SearchResult}
+                  title="搜索结果"
                   hideNavBar
               />
           </Scene>
