@@ -15,6 +15,7 @@ import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
 import {HEIGHT} from '../common/styles'
 const URL = LISTS.show_detail
+const URL_SHOW = LISTS.show_list
 const URL_RM_BOOK = LISTS.update_list
 
 export default class BookListPage extends Component {
@@ -24,65 +25,50 @@ export default class BookListPage extends Component {
       book_list: []
     }
   }
-  componentDidMount() {
-    AsyncStorage.getItem('book_list', (error, array) => {
-      if (error) {
-        console.log(error)
-      } else {
-        if (array) {
-          array = JSON.parse(array)
-        } else {
-          array = []
-        }
-        array.some(d => {
-          if (d.list_name && d.list_name === this.props.title) {
-            let book_list = d.book_list
-            // alert(JSON.stringify(books))
-            // alert(this.props.title)
-            if (book_list.length > 0) {
-              // alert(this.props.book_list);
-              book_list = book_list.toString().trim().split(',')
-              book_list.map((item, i) => {
-                if (!item.trim()) {
-                  book_list.splice(i, 1)
-                }
-              })
-              if (book_list.length <= 0) {
-                this.setState({ book_list: [] })
-                return
-              }
-              HttpUtils.post(URL, {
-                book_list: book_list,
-                uid: this.props.user.uid,
-                token: this.props.user.token,
-                timestamp: this.props.timestamp
-              })
-                .then(result => {
-                  if (result.msg === '请求成功') {
-                    this.setState({
-                      book_list: result.data ? result.data : []
-                    })
-                    // alert(JSON.stringify(result.data));
-                  } else {
-                    Alert.alert('网络请求出错啦', result.msg)
-                  }
-                })
-                .catch(error => {
-                  console.log(error)
-                })
-            }
-            return d.list_name === this.props.title
-          }
-        })
-      }
-    })
 
-    // 	alert(JSON.stringify({
-    // 		book_list:book_list,
-    // 		uid:this.props.user.uid,
-    // 		token:this.props.user.token,
-    // 		timestamp:this.props.timestamp
-    // }))
+  componentDidMount() {
+
+      HttpUtils.post(URL_SHOW, {
+          token: this.props.user.token,
+          uid: this.props.user.uid,
+          timestamp: this.props.timestamp
+      })
+          .then(result => {
+              // alert(result.msg);
+              if (result.msg === '请求成功') {
+                  let data = result.data
+                  data.some((item) => {
+                      if (item.list_name === this.props.title) {
+                          let params = {
+                              token: this.props.user.token,
+                              uid: this.props.user.uid,
+                              timestamp: this.props.timestamp,
+                              list_id:item.list_id
+                          }
+                          alert(JSON.stringify(params))
+                          HttpUtils.post(URL,params)
+                              .then(result => {
+                                  if (result.msg === '请求成功') {
+                                      this.setState({
+                                          book_list: result.data ? result.data : []
+                                      })
+                                      // alert(JSON.stringify(result.data));
+                                  } else {
+                                      Alert.alert('网络请求出错啦', result.msg)
+                                  }
+                              })
+                              .catch(error => {
+                                  console.log(error)
+                              })
+                      }
+                  })
+                      }
+                  })
+
+          .catch(error => {
+              console.log(error)
+          })
+
   }
   onDelete(item) {
     AsyncStorage.getItem('book_list', (error, array) => {
@@ -96,28 +82,24 @@ export default class BookListPage extends Component {
         }
         array.some(d => {
           if (d.list_name && d.list_name === this.props.title) {
+            alert("取出来的"+JSON.stringify(d.book_list))
             if (d.book_list === '[]') {
               d.book_list = []
             } else {
-              d.book_list = d.book_list.toString().trim().split(',')
-              if (!(d.book_list instanceof Array)) return
+              d.book_list = [...new Set(d.book_list.toString().trim().split(','))]
+              if (!(d.book_list instanceof Array)) return false
             }
-            // alert(d.book_list)
+            alert(d.book_list)
             d.book_list.some((item2, i) => {
+              alert(item2)
               // alert("item"+item2+"goal:"+item.book_id)
               if (!item2.trim()) {
                 d.book_list.splice(i, 1)
                 return
               }
+
               if (item2 == item.book_id) {
                 d.book_list.splice(i, 1)
-                // alert(JSON.stringify({
-                // 	list_id:d.list_id,
-                // 	uid:this.props.user.uid,
-                // 	token:this.props.user.token,
-                // 	timestamp:this.props.timestamp,
-                // 	book_list:d.book_list.join(",")
-                // }));
                 HttpUtils.post(URL_RM_BOOK, {
                   book_list: d.book_list.join(',').trim()
                     ? d.book_list.join(',')
@@ -128,8 +110,8 @@ export default class BookListPage extends Component {
                   timestamp: this.props.timestamp
                 })
                   .then(response => {
-                    if (response.msg === '请求成功') {
-                      if (d.book_list.length > 0) {
+                    alert(response.msg)
+                    if (response.msg == '请求成功') {
                         HttpUtils.post(URL, {
                           book_list: d.book_list.join(',')
                             ? d.book_list.join(',')
@@ -140,10 +122,8 @@ export default class BookListPage extends Component {
                         })
                           .then(result => {
                             if (result.msg === '请求成功') {
-                              this.setState({ book_list: [] }, () => {
-                                this.setState({ book_list: result.data })
-                              })
-                              // alert(JSON.st            ringify(result.data));
+                              alert(result.data)
+                              this.setState({ book_list: result.data})
                             } else {
                               Alert.alert('网络请求出错啦', response.msg)
                             }
@@ -151,9 +131,6 @@ export default class BookListPage extends Component {
                           .catch(error => {
                             console.log(error)
                           })
-                      } else {
-                        this.setState({ book_list: [] })
-                      }
                     } else {
                       Alert.alert('网络请求出错啦', response.msg)
                     }
@@ -161,12 +138,8 @@ export default class BookListPage extends Component {
                   .catch(error => {
                     console.log(error)
                   })
-
-                return true
               }
             })
-
-            return d.list_name === this.props.title
           }
         })
       }
@@ -187,13 +160,11 @@ export default class BookListPage extends Component {
         />
         <ScrollView style={styles.item_container}>
           {this.state.book_list.map((item, i) => {
-            // alert(item);
             return (
               <BookItem2
                 key={i}
                 item={item}
                 user={this.props.user}
-                navigator={this.props.navigator}
                 onDelete={(item, i) => {
                   this.onDelete(item)
                 }}

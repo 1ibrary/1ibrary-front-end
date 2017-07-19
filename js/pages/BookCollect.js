@@ -20,7 +20,7 @@ import {INNERWIDTH,HEIGHT} from '../common/styles'
 import {Actions} from "react-native-router-flux"
 import {SCENE_BOOK_COLLECT_ADD} from "../constants/scene"
 
-const URL = LISTS.show_list
+const URL_SHOW = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
 const URL_RM_LIST = LISTS.remove_list
 
@@ -69,8 +69,7 @@ export default class BookCollectPage extends Component {
     }
   }
   componentDidMount() {
-    // AsyncStorage.removeItem("book_list",(error,array)=>{})
-    HttpUtils.post(URL, {
+    HttpUtils.post(URL_SHOW, {
       token: this.props.user.token,
       uid: this.props.user.uid,
       timestamp: this.props.timestamp
@@ -88,10 +87,9 @@ export default class BookCollectPage extends Component {
         console.log(error)
       })
   }
-  rightOnPress() {
+  async rightOnPress() {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
       Actions.pop()
-      return
     }
     AsyncStorage.getItem('book_list', (error, array) => {
       if (error) {
@@ -102,86 +100,33 @@ export default class BookCollectPage extends Component {
         } else {
           array = []
         }
-        this.state.choosed.map(item => {
+        this.state.choosed.map((item,i) => {
           array.some(d => {
             if (d.list_name && d.list_name === item) {
-              if (d.book_list === '[]') {
-                d.book_list = []
-              } else {
-                d.book_list = d.book_list.toString().trim().split(',')
+              if (d.book_list&&d.book_list.trim&&d.book_list.trim()&&d.book_list!="[]") {
+                d.book_list = d.book_list.split(',')
               }
-
-              if (!d.book_list) {
-                d.book_list = []
-              }
-              if (!(d.book_list instanceof Array)) {
-                // alert(d.book_list);
-                return false
-              }
-
-              let book_list = d.book_list
-              // alert(JSON.stringify(d))
-              // alert(this.props.book)
-              let flag = false
-              d.book_list.some((item, i) => {
-                if (!item.trim()) {
-                  d.book_list.splice(i, 1)
-                }
-                if (item == this.props.book.book_id) {
-                  // alert(d.list_name+"书单已经收藏过这本书啦！");
-                  Actions.pop()
-                  return (flag = true)
-                }
-              })
-
-              // alert(d.book_list);
-              if (!flag) {
-                d.book_list = [...d.book_list, this.props.book.book_id]
-                HttpUtils.post(URL_ADD_BOOK, {
+              alert(d.book_list)
+              d.book_list = [...new Set([...d.book_list, this.props.book.book_id+"0"])]
+              let params = {
                   timestamp: this.props.timestamp,
                   uid: this.props.user.uid,
                   token: this.props.user.token,
                   list_id: d.list_id,
-                  book_list: d.book_list.join(',')
-                })
-                  .then(result => {
-                    // alert(result.msg);
-                    // alert(result.msg)
-                    if (result.msg == '请求成功') {
-                      HttpUtils.post(URL, {
-                        token: this.props.user.token,
-                        uid: this.props.user.uid,
-                        timestamp: this.props.timestamp
-                      })
-                        .then(result => {
-                          // alert(result.msg);
-                          if (result.msg === '请求成功') {
-                            let lists = result.data
-                            this.setState({ lists: lists })
-                            // alert(JSON.stringify(lists));
-                            AsyncStorage.setItem(
-                              'book_list',
-                              JSON.stringify(lists),
-                              error => {
-                                if (error) {
-                                  console.log(error)
-                                } else {
-                                  Actions.pop()
-                                }
-                              }
-                            )
-                          }
-                        })
-                        .catch(error => {
-                          console.log(error)
-                        })
+                  book_list: d.book_list&&d.book_list.join(",")
+              }
+              alert("参数中"+params.book_list)
+              HttpUtils.post(URL_ADD_BOOK, params)
+                .then(result => {
+                  if (result.msg == '请求成功') {
+                    if(i===this.state.choosed.length-1) {
+                        Actions.pop()
+                    }
                     }
                   })
-                  .catch(error => {
-                    console.log(error)
-                  })
-              }
-              return d.list_name === item.list_name
+                .catch(error => {
+                  console.log(error)
+                })
             }
           })
         })
@@ -227,6 +172,7 @@ export default class BookCollectPage extends Component {
                     if (error) {
                       console.log(error)
                     }
+                    return true
                   }
                 )
               } else {
@@ -238,7 +184,6 @@ export default class BookCollectPage extends Component {
             })
 
           // alert(this.state.lists)
-          return d.list_name === title
         })
       }
     })

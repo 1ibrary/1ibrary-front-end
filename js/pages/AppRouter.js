@@ -37,7 +37,6 @@ export default class AppRouter extends Component {
               <Scene
                   key={scenes.SCENE_SEARCH}
                   component = {SearchPage}
-                  type={ActionConst.PUSH}
                   title="搜索"
                   hideNavBar
                   duration="0"
@@ -45,7 +44,6 @@ export default class AppRouter extends Component {
               <Scene
                   key={scenes.SCENE_BOOK_INFO}
                   component = {BookInfo}
-                  type={ActionConst.PUSH}
                   title="图书详情"
                   hideNavBar
               />
