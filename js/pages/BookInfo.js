@@ -67,6 +67,7 @@ export default class BookInfoPage extends Component {
     }
   }
   componentDidMount() {
+    // AsyncStorage.clear(()=>{})
     HttpUtils.post(URL, {
       token: this.props.user.token,
       uid: this.props.user.uid,
@@ -81,23 +82,25 @@ export default class BookInfoPage extends Component {
       })
   }
   onNavigator() {
-    AsyncStorage.getItem('book_list', (error, array) => {
-      let lists
-      array = JSON.parse(array)
-      if (array) {
-        lists = array
-      } else {
-        lists = []
-      }
+    // AsyncStorage.getItem('book_list', (error, array) => {
+    //   let lists
+    //   // alert(array)
+    //   array = JSON.parse(array)
+    //   if (array) {
+    //     lists = array
+    //   } else {
+    //     lists = []
+    //   }
       let params = {
-          lists: lists,
+          // lists: lists,
           title: '加入书单',
           book: this.props.data,
           user: this.props.user,
           timestamp: this.props.timestamp
       }
+      // alert(JSON.stringify(params))
       Actions[SCENE_BOOK_COLLECT](params)
-    })
+    // })
   }
   changeNum(x) {
     if (x < 10) {

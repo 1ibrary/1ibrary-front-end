@@ -43,16 +43,14 @@ export default class BookListPage extends Component {
                               token: this.props.user.token,
                               uid: this.props.user.uid,
                               timestamp: this.props.timestamp,
-                              list_id:item.list_id
+                              book_list:item.book_list
                           }
-                          alert(JSON.stringify(params))
                           HttpUtils.post(URL,params)
                               .then(result => {
                                   if (result.msg === '请求成功') {
                                       this.setState({
                                           book_list: result.data ? result.data : []
                                       })
-                                      // alert(JSON.stringify(result.data));
                                   } else {
                                       Alert.alert('网络请求出错啦', result.msg)
                                   }
@@ -82,14 +80,12 @@ export default class BookListPage extends Component {
         }
         array.some(d => {
           if (d.list_name && d.list_name === this.props.title) {
-            alert("取出来的"+JSON.stringify(d.book_list))
             if (d.book_list === '[]') {
               d.book_list = []
             } else {
               d.book_list = [...new Set(d.book_list.toString().trim().split(','))]
               if (!(d.book_list instanceof Array)) return false
             }
-            alert(d.book_list)
             d.book_list.some((item2, i) => {
               alert(item2)
               // alert("item"+item2+"goal:"+item.book_id)
@@ -100,6 +96,7 @@ export default class BookListPage extends Component {
 
               if (item2 == item.book_id) {
                 d.book_list.splice(i, 1)
+                this.setState({ book_list: result.data})
                 HttpUtils.post(URL_RM_BOOK, {
                   book_list: d.book_list.join(',').trim()
                     ? d.book_list.join(',')
@@ -110,7 +107,6 @@ export default class BookListPage extends Component {
                   timestamp: this.props.timestamp
                 })
                   .then(response => {
-                    alert(response.msg)
                     if (response.msg == '请求成功') {
                         HttpUtils.post(URL, {
                           book_list: d.book_list.join(',')
@@ -123,7 +119,6 @@ export default class BookListPage extends Component {
                           .then(result => {
                             if (result.msg === '请求成功') {
                               alert(result.data)
-                              this.setState({ book_list: result.data})
                             } else {
                               Alert.alert('网络请求出错啦', response.msg)
                             }

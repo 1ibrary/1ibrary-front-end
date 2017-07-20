@@ -75,62 +75,55 @@ export default class BookCollectPage extends Component {
       timestamp: this.props.timestamp
     })
       .then(result => {
-        lists = result.data
+        let lists = result.data
+        // alert(lists)
         this.setState({ lists: lists })
-        AsyncStorage.setItem('book_list', JSON.stringify(lists), error => {
-          if (error) {
-            console.log(error)
-          }
-        })
       })
       .catch(error => {
         console.log(error)
       })
   }
-  async rightOnPress() {
+  rightOnPress() {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
       Actions.pop()
     }
-    AsyncStorage.getItem('book_list', (error, array) => {
-      if (error) {
-        console.log(error)
-      } else {
-        if (array) {
-          array = JSON.parse(array)
-        } else {
-          array = []
-        }
-        this.state.choosed.map((item,i) => {
-          array.some(d => {
-            if (d.list_name && d.list_name === item) {
-              if (d.book_list&&d.book_list.trim&&d.book_list.trim()&&d.book_list!="[]") {
-                d.book_list = d.book_list.split(',')
-              }
-              alert(d.book_list)
-              d.book_list = [...new Set([...d.book_list, this.props.book.book_id+"0"])]
-              let params = {
-                  timestamp: this.props.timestamp,
-                  uid: this.props.user.uid,
-                  token: this.props.user.token,
-                  list_id: d.list_id,
-                  book_list: d.book_list&&d.book_list.join(",")
-              }
-              alert("参数中"+params.book_list)
-              HttpUtils.post(URL_ADD_BOOK, params)
-                .then(result => {
-                  if (result.msg == '请求成功') {
-                    if(i===this.state.choosed.length-1) {
-                        Actions.pop()
-                    }
-                    }
-                  })
-                .catch(error => {
-                  console.log(error)
-                })
+    this.state.choosed.map((item,i)=>{
+      this.state.lists.some(d=>{
+        let book_list
+        // if(d.list_name===this.props.title) {
+            if (d.book_list&&d.book_list.trim&&d.book_list.trim()&&d.book_list!="[]") {
+              book_list = d.book_list
+              book_list = book_list.split(",")
+            } else {
+              book_list = []
             }
-          })
-        })
-      }
+            book_list = [...new Set([...book_list, this.props.book.book_id+""])]
+            let params = {
+                timestamp: this.props.timestamp,
+                uid: this.props.user.uid,
+                token: this.props.user.token,
+                list_id: d.list_id,
+                book_list: book_list&&book_list.join(",")
+            }
+            d.book_list = params.book_list
+            HttpUtils.post(URL_ADD_BOOK, params)
+              .then(result => {
+                if (result.msg == '请求成功') {
+                  if(i===this.state.choosed.length-1) {
+                      AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists), error => {
+                          if (error) {
+                              console.log(error)
+                          } else {
+                              Actions.pop()
+                          }
+                      })
+                  }
+                  }
+                })
+              .catch(error => {
+                console.log(error)
+              })
+      })
     })
   }
   onPressButton(select, item) {
