@@ -14,136 +14,74 @@ import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
 import {HEIGHT} from '../common/styles'
-const URL = LISTS.show_detail
-const URL_SHOW = LISTS.show_list
+const URL_SHOW = LISTS.show_detail
 const URL_RM_BOOK = LISTS.update_list
 
 export default class BookListPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      book_list: []
+          book_list:[],
+          book_id_list:""
     }
   }
 
   componentDidMount() {
+      if(this.state.book_id_list.length==0) {
+          this.getNewData(this.props.item.book_list)
+      } else {
+          this.getNewData(this.state.book_id_list)
+      }
 
-      HttpUtils.post(URL_SHOW, {
+  }
+  getNewData(book_id_list) {
+      // alert(book_id_list)
+      let params =  {
           token: this.props.user.token,
           uid: this.props.user.uid,
-          timestamp: this.props.timestamp
-      })
+          timestamp: this.props.timestamp,
+          book_list:book_id_list||"0"
+      }
+      // alert(JSON.stringify(params))
+      HttpUtils.post(URL_SHOW,params)
           .then(result => {
-              // alert(result.msg);
               if (result.msg === '请求成功') {
                   let data = result.data
-                  data.some((item) => {
-                      if (item.list_name === this.props.title) {
-                          let params = {
-                              token: this.props.user.token,
-                              uid: this.props.user.uid,
-                              timestamp: this.props.timestamp,
-                              book_list:item.book_list
-                          }
-                          HttpUtils.post(URL,params)
-                              .then(result => {
-                                  if (result.msg === '请求成功') {
-                                      this.setState({
-                                          book_list: result.data ? result.data : []
-                                      })
-                                  } else {
-                                      Alert.alert('网络请求出错啦', result.msg)
-                                  }
-                              })
-                              .catch(error => {
-                                  console.log(error)
-                              })
-                      }
-                  })
-                      }
-                  })
+                  this.setState({book_list:data,book_id_list:book_id_list})
+              }
+          })
 
           .catch(error => {
               console.log(error)
           })
-
   }
   onDelete(item) {
-    AsyncStorage.getItem('book_list', (error, array) => {
-      if (error) {
-        console.log(error)
-      } else {
-        if (array) {
-          array = JSON.parse(array)
-        } else {
-          array = []
-        }
-        array.some(d => {
-          if (d.list_name && d.list_name === this.props.title) {
-            if (d.book_list === '[]') {
-              d.book_list = []
-            } else {
-              d.book_list = [...new Set(d.book_list.toString().trim().split(','))]
-              if (!(d.book_list instanceof Array)) return false
+    this.state.book_list.map((book,i)=> {
+        if (book.book_id == item.book_id) {
+            let list = this.props.item
+            let book_id_list = this.state.book_id_list.split(",").slice(0)
+            let index = book_id_list.indexOf(book.book_id + "")
+            book_id_list.splice(index, 1)
+            // alert(book_list)
+            let params = {
+                book_list: book_id_list.join(",") || "0",
+                list_id: list.list_id,
+                uid: this.props.user.uid,
+                token: this.props.user.token,
+                timestamp: this.props.timestamp
             }
-            d.book_list.some((item2, i) => {
-              alert(item2)
-              // alert("item"+item2+"goal:"+item.book_id)
-              if (!item2.trim()) {
-                d.book_list.splice(i, 1)
-                return
-              }
+            // alert("remove"+JSON.stringify(params))
 
-              if (item2 == item.book_id) {
-                d.book_list.splice(i, 1)
-                this.setState({ book_list: result.data})
-                HttpUtils.post(URL_RM_BOOK, {
-                  book_list: d.book_list.join(',').trim()
-                    ? d.book_list.join(',')
-                    : '[]',
-                  list_id: d.list_id,
-                  uid: this.props.user.uid,
-                  token: this.props.user.token,
-                  timestamp: this.props.timestamp
-                })
-                  .then(response => {
-                    if (response.msg == '请求成功') {
-                        HttpUtils.post(URL, {
-                          book_list: d.book_list.join(',')
-                            ? d.book_list.join(',')
-                            : null,
-                          uid: this.props.user.uid,
-                          token: this.props.user.token,
-                          timestamp: this.props.timestamp
-                        })
-                          .then(result => {
-                            if (result.msg === '请求成功') {
-                              alert(result.data)
-                            } else {
-                              Alert.alert('网络请求出错啦', response.msg)
-                            }
-                          })
-                          .catch(error => {
-                            console.log(error)
-                          })
+
+            HttpUtils.post(URL_RM_BOOK, params)
+                .then(response => {
+                    if (response.msg == "请求成功") {
+                        this.getNewData(params.book_list)
                     } else {
-                      Alert.alert('网络请求出错啦', response.msg)
+                        Alert.alert("网络请求出问题啦", response.msg)
                     }
-                  })
-                  .catch(error => {
-                    console.log(error)
-                  })
-              }
-            })
-          }
-        })
-      }
-      AsyncStorage.setItem('book_list', JSON.stringify(array), error => {
-        if (error) {
-          console.log(error)
-        } else {
+                })
         }
-      })
     })
   }
   render() {
@@ -151,7 +89,7 @@ export default class BookListPage extends Component {
       <View style={styles.container}>
         <CommonNav
           navigator={this.props.navigator}
-          title={this.props.title ? this.props.title : '书单'}
+          title={this.props.item.list_name ? this.props.item.list_name: '书单'}
         />
         <ScrollView style={styles.item_container}>
           {this.state.book_list.map((item, i) => {

@@ -143,7 +143,6 @@ export default class BookCollectPage extends Component {
         array = JSON.parse(array)
         array.some((d, i) => {
           if (d.list_name === title) {
-            // array.splice(i,1)
             array.splice(i, 1)
           }
           HttpUtils.post(URL_RM_LIST, {
@@ -231,7 +230,7 @@ export default class BookCollectPage extends Component {
             // alert(item.book_list);
             return (
               <BookCollectItem
-                title={item.list_name}
+                item={item}
                 big_title={this.props.title}
                 navigator={this.props.navigator}
                 onPress={(select, data) => this.onPressButton(select, data)}
