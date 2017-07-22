@@ -90,37 +90,31 @@ export default class BookCollectPage extends Component {
     this.state.choosed.map((item,i)=>{
       this.state.lists.some((d)=>{
         let book_list
-        // if(d.list_name===this.props.title) {
-            if (d.book_list&&d.book_list.trim&&d.book_list.trim()&&d.book_list!="[]") {
-              book_list = d.book_list
-              book_list = book_list.split(",")
-            } else {
-              book_list = []
-            }
-            book_list = [...new Set([...book_list, this.props.book.book_id+""])]
-            let params = {
-                timestamp: this.props.timestamp,
-                uid: this.props.user.uid,
-                token: this.props.user.token,
-                list_id: d.list_id,
-                book_list: book_list&&book_list.join(",")
-            }
-            d.book_list = params.book_list
-            HttpUtils.post(URL_ADD_BOOK, params)
-              .then(result => {
-                if (result.msg == '请求成功') {
-                  if(i===this.state.choosed.length-1) {
-                      AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists), error => {
-                          if (error) {
-                              console.log(error)
-                          }
-                      })
-                  }
-                  }
-                })
-              .catch(error => {
-                console.log(error)
-              })
+        book_list = d.book_list&&d.book_list.split(",") || []
+        book_list = [...new Set([...book_list, this.props.book.book_id+""])]
+        let params = {
+            timestamp: this.props.timestamp,
+            uid: this.props.user.uid,
+            token: this.props.user.token,
+            list_id: d.list_id,
+            book_list: book_list&&book_list.join(",")
+        }
+        d.book_list = params.book_list
+        HttpUtils.post(URL_ADD_BOOK, params)
+          .then(result => {
+            if (result.msg == '请求成功') {
+              if(i===this.state.choosed.length-1) {
+                  AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists), error => {
+                      if (error) {
+                          console.log(error)
+                      }
+                  })
+              }
+              }
+            })
+          .catch(error => {
+            console.log(error)
+          })
       })
     if(i==this.state.choosed.length-1)  {
         Actions.pop()
