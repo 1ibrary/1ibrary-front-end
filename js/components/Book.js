@@ -11,9 +11,10 @@ import {
 } from 'react-native'
 import Round from './Round'
 import BookInfoPage from '../pages/BookInfo'
-import {INNERWIDTH} from "../common/styles"
+import {INNERWIDTH,getResponsiveWidth,getResponsiveHeight} from "../common/styles"
 import {Actions} from 'react-native-router-flux'
 import {SCENE_BOOK_INFO} from "../constants/scene"
+
 
 export default class Book extends Component {
   constructor(props) {
@@ -79,37 +80,39 @@ export default class Book extends Component {
 
 const styles = StyleSheet.create({
   image: {
-    height: 112,
-    width: 74,
-    marginTop: 20
+    height: getResponsiveHeight(112),
+    width: getResponsiveWidth(74),
+    // marginTop: 20
   },
   item: {
     borderBottomWidth: 1,
     borderBottomColor: 'rgb(230,230,234)',
-    paddingHorizontal: 12,
+    paddingHorizontal: getResponsiveWidth(12),
     backgroundColor: 'white',
     width: INNERWIDTH,
-    height: 160,
+    // height: 160
+    paddingBottom:getResponsiveHeight(30),
+    paddingTop:getResponsiveHeight(20),
     borderRadius: 8,
     marginBottom: 8,
     flexDirection: 'row'
   },
   information: {
-    marginLeft: 16,
-    marginTop: 16
+    marginLeft: getResponsiveWidth(16),
+    marginTop: getResponsiveHeight(-4)
   },
   item_title: {
     fontSize: 17,
     color: '#494949',
     fontFamily: 'PingFang SC',
     fontWeight: '500',
-    width,
+    width:getResponsiveWidth(206)
   },
   item_author: {
     fontSize: 14,
     color: '#666666',
     fontFamily: 'PingFang SC',
-    marginVertical: 8
+    marginVertical: getResponsiveHeight(8)
   },
   item_publish: {
     fontSize: 14,
@@ -121,12 +124,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#FFB173',
     fontSize: 17,
-    marginTop: 14,
+    marginTop: getResponsiveHeight(14),
     flexDirection: 'row'
   },
   round: {
     position: 'absolute',
-    top: 62,
-    right: 12
+    top: getResponsiveHeight(62),
+    right: getResponsiveWidth(12)
   }
 })
