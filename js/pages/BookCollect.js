@@ -88,7 +88,7 @@ export default class BookCollectPage extends Component {
       Actions.pop()
     }
     this.state.choosed.map((item,i)=>{
-      this.state.lists.some(d=>{
+      this.state.lists.some((d)=>{
         let book_list
         // if(d.list_name===this.props.title) {
             if (d.book_list&&d.book_list.trim&&d.book_list.trim()&&d.book_list!="[]") {
@@ -113,8 +113,6 @@ export default class BookCollectPage extends Component {
                       AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists), error => {
                           if (error) {
                               console.log(error)
-                          } else {
-                              Actions.pop()
                           }
                       })
                   }
@@ -124,6 +122,9 @@ export default class BookCollectPage extends Component {
                 console.log(error)
               })
       })
+    if(i==this.state.choosed.length-1)  {
+        Actions.pop()
+    }
     })
   }
   onPressButton(select, item) {

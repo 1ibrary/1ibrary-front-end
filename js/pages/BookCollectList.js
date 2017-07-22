@@ -95,7 +95,7 @@ export default class BookListPage extends Component {
           {this.state.book_list.map((item, i) => {
             return (
               <BookItem2
-                key={i}
+                key={item.book_id}
                 item={item}
                 user={this.props.user}
                 onDelete={(item, i) => {

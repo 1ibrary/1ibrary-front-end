@@ -34,7 +34,7 @@ export default class Search extends Component {
   }
   componentDidMount() {
       AsyncStorage.getItem('search_history', (error, array) => {
-          if (JSON.parse(array)) {
+          if (array&&JSON.parse(array)) {
               this.setState({search_history: JSON.parse(array) })
           }
       })

@@ -14,7 +14,7 @@ import {
   PanResponder
 } from 'react-native'
 import BookItem1 from './Book'
-import {WIDTH, INNERWIDTH} from '../common/styles'
+import {WIDTH, INNERWIDTH,getResponsiveWidth} from '../common/styles'
 
 
 export default class BookCollect extends Component {
@@ -94,7 +94,7 @@ export default class BookCollect extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: WIDTH + 86,
+    width: WIDTH + getResponsiveWidth(86),
     flexDirection: 'row',
     alignItems: 'center'
   },

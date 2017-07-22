@@ -24,6 +24,7 @@ export default class AppRouter extends Component {
                   component={LoginPage}
                   title="登录"
                   type={ActionConst.RESET}
+                  duration="0"
                   hideNavBar
               />
               <Scene

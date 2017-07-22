@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#494949',
     fontFamily: 'PingFang SC',
-    fontWeight: '500'
+    fontWeight: '500',
+    width,
   },
   item_author: {
     fontSize: 14,
