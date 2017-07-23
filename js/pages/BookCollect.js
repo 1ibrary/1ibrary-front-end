@@ -119,21 +119,21 @@ export default class BookCollectPage extends Component {
     this.setState({ choosed: choosed })
   }
   async onDelete(title) {
-    let array = await AsyncStorage.getItem('book_list') || "[]"
-    array = JSON.parse(array)
+    let array = this.state.lists
     array.some(async (d, i) => {
       if (d.list_name === title) {
         array.splice(i, 1)
       }
-      let result = HttpUtils.post(URL_RM_LIST, {
-        list_id: d.list_id,
-        uid: this.props.user.uid,
-        token: this.props.user.token,
-        timestamp: this.props.timestamp
-      })
+      let params = {
+          list_id: d.list_id,
+          uid: this.props.user.uid,
+          token: this.props.user.token,
+          timestamp: this.props.timestamp
+      }
+      let result = await HttpUtils.post(URL_RM_LIST, params)||{}
       if (result.msg === '请求成功') {
-          this.setState({lists: array})
-          Toast.success("您已成功删除书单",1)
+          await this.setState({lists: array})
+          Toast.success("删除书单成功!",1)
           await AsyncStorage.setItem(
               'book_list',
               JSON.stringify(array))

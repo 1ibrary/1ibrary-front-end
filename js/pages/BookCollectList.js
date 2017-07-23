@@ -65,7 +65,7 @@ export default class BookListPage extends Component {
             }
             let response = await HttpUtils.post(URL_RM_BOOK, params) || {}
             if (response.msg === "请求成功") {
-                Toast.success("您已成功删除本书",0.5)
+                Toast.success("删除图书成功!",0.5)
                 this.getNewData(params.book_list)
             } else {
                 Toast.offline(response.msg,1)
