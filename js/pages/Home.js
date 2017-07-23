@@ -29,6 +29,33 @@ export default class HomePage extends Component {
     }
   }
 
+  icons = {
+      home: {
+          default: <Image
+              style={styles.image}
+              source={require('../../res/images/Home.png')}
+          />,
+          selected:<Image source={require('../../res/images/Home1.png')} />
+      },
+      message: {
+          default:<Image
+              style={styles.image}
+              source={require('../../res/images/message.png')}
+          />,
+          selected:<Image
+              style={styles.image}
+              source={require('../../res/images/message.png')}
+          />
+      },
+      profile: {
+          default: <Image
+              style={styles.image}
+              source={require('../../res/images/profile.png')}
+          />,
+          selected:<Image source={require('../../res/images/profile1.png')} />
+      }
+  }
+
   render() {
     return (
     <View style={styles.tabs_container}>
@@ -36,13 +63,10 @@ export default class HomePage extends Component {
         <TabNavigator.Item
             selected={this.state.selectedTab === 'home'}
             title="首页"
-            renderIcon={() =>
-                <Image
-                    style={styles.image}
-                    source={require('../../res/images/Home.png')}
-                />}
-            renderSelectedIcon={() =>
-                <Image source={require('../../res/images/Home1.png')} />}
+            renderIcon={() => this.icons.home.default
+                }
+            renderSelectedIcon={() => this.icons.home.selected
+                }
             onPress={() => this.setState({ selectedTab: 'home' })}
         >
           <View style={styles.container}>
@@ -72,12 +96,11 @@ export default class HomePage extends Component {
             selected={this.state.selectedTab === 'message'}
             title="通知"
             renderIcon={() =>
-                <Image
-                    style={styles.image}
-                    source={require('../../res/images/message.png')}
-                />}
+                this.icons.message.default
+            }
             renderSelectedIcon={() =>
-                <Image source={require('../../res/images/message1.png')} />}
+                this.icons.message.selected
+            }
             onPress={() => this.setState({ selectedTab: 'message' })}
         >
           <MessagePage navigator={this.props.navigator} />
@@ -86,12 +109,11 @@ export default class HomePage extends Component {
             selected={this.state.selectedTab === 'profile'}
             title="我的"
             renderIcon={() =>
-                <Image
-                    style={styles.image}
-                    source={require('../../res/images/profile.png')}
-                />}
+                this.icons.profile.default
+            }
             renderSelectedIcon={() =>
-                <Image source={require('../../res/images/profile1.png')} />}
+                this.icons.profile.selected
+            }
             onPress={() => this.setState({ selectedTab: 'profile' })}
         >
           <ProfilePage
@@ -110,7 +132,6 @@ const styles = StyleSheet.create({
   container: {
     // flex:1,
     flexDirection: 'column',
-    alignItems: 'center',
     backgroundColor: 'rgb(242,246,250)',
     alignItems: 'center',
     height: HEIGHT

@@ -42,7 +42,7 @@ export default class BookListPage extends Component {
           token: this.props.user.token,
           uid: this.props.user.uid,
           timestamp: this.props.timestamp,
-          book_list:book_id_list||"0"
+          book_list:book_id_list||"[]"
       }
       HttpUtils.post(URL_SHOW,params)
           .then(result => {
@@ -64,7 +64,7 @@ export default class BookListPage extends Component {
             let index = book_id_list.indexOf(book.book_id + "")
             book_id_list.splice(index, 1)
             let params = {
-                book_list: book_id_list.join(",") || "0",
+                book_list: book_id_list.join(",") || "[]",
                 list_id: list.list_id,
                 uid: this.props.user.uid,
                 token: this.props.user.token,

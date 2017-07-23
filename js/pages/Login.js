@@ -30,6 +30,30 @@ export default class WelcomePage extends Component {
       password: '123456'
     }
   }
+  async componentDidMount() {
+      let user_info = await AsyncStorage.getItem("user_info")||"{}"
+      if(user_info.user_account&&user_info.user_password) {
+        let params = {
+            user_account: user_info.user_account,
+            user_password: user_info.user_password
+        }
+        Http.post(URL,params)
+            .then((response)=>{
+                if (response.msg === '请求成功') {
+                    let user = response.data
+                    let params = {
+                        user: user,
+                        books_data: JSON.parse(array),
+                        timestamp: response.data.timestamp,
+                    }
+                    Actions[SCENE_INDEX](params)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+      }
+  }
   onSubmit() {
       if (!this.state.account.trim()) {
           Toast.offline("请输入学号噢～",1)
@@ -39,13 +63,15 @@ export default class WelcomePage extends Component {
           Toast.offline("请输入密码噢～",1)
           return
       }
-      HttpUtils.post(URL, {
-        user_account: this.state.account.trim(),
-        user_password: this.state.password.trim()
-      })
+      let params = {
+          user_account: this.state.account.trim(),
+          user_password: this.state.password.trim()
+      }
+      HttpUtils.post(URL,params)
         .then(response => {
           if (response.msg === '请求成功') {
             Toast.success("登录成功！",1)
+            let user_info = [...response.data,...params]
             AsyncStorage.setItem(
               'user_info',
               JSON.stringify(response.data),
