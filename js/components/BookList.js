@@ -35,51 +35,43 @@ export default class BookList extends Component {
   componentDidMount() {
     this.onLoad()
   }
-  onLoad() {
-    HttpUtils.post(URL, {
-      uid: this.props.user.uid,
-      token: this.props.user.token,
-      timestamp: this.props.timestamp,
-      page: 1
-    })
-      .then(result => {
-        if (result.msg === '请求成功') {
-          this.setState({ books: result.data }, () => {
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.state.books),
-              page: 1
-            })
-          })
-          this.setState({ isLoading: false })
-        }
+  async onLoad() {
+    let params = {
+        uid: this.props.user.uid,
+        token: this.props.user.token,
+        timestamp: this.props.timestamp,
+        page: 1
+    }
+    let result = await HttpUtils.post(URL, params)
+    if (result.msg === '请求成功') {
+      this.setState({ books: result.data }, () => {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.state.books),
+          page: 1
+        })
       })
-      .catch(error => {
-        console.log(error)
-      })
+      this.setState({ isLoading: false })
+    }
   }
-  onEndReached() {
-    HttpUtils.post(URL, {
-      uid: this.props.user.uid,
-      token: this.props.user.token,
-      timestamp: new Date().getTime(),
-      page: this.state.page + 1
-    })
-      .then(result => {
-        this.setState(
-          {
-            books: [...this.state.books, ...result.data]
-          },
-          () => {
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.state.books),
-              page: this.state.page + 1
-            })
-          }
-        )
-      })
-      .catch(error => {
-        console.log(error)
-      })
+  async onEndReached() {
+    let params = {
+        uid: this.props.user.uid,
+        token: this.props.user.token,
+        timestamp: new Date().getTime(),
+        page: this.state.page + 1
+    }
+    let result = await HttpUtils.post(URL, params)
+    this.setState(
+      {
+        books: [...this.state.books, ...result.data]
+      },
+      () => {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.state.books),
+          page: this.state.page + 1
+        })
+      }
+    )
   }
   renderRow(data) {
     return (
@@ -93,7 +85,7 @@ export default class BookList extends Component {
   }
   render() {
     return (
-      <View style={[styles.booklist, this.props.style]}>
+      <View style={[styles.book_list, this.props.style]}>
         <ListView
           style={styles.list}
           onEndReached={() => {
@@ -117,7 +109,7 @@ export default class BookList extends Component {
 }
 
 const styles = StyleSheet.create({
-  booklist: {
+  book_list: {
     flex: 1,
     width: INNERWIDTH,
     paddingBottom: getResponsiveHeight(44)

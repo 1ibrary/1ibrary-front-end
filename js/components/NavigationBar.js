@@ -29,7 +29,6 @@ export default class Navigator extends Component {
   }
   static defaultProps = {
     statusBar: {
-      // barStyle:"light-content",
       hidden: false
     }
   }

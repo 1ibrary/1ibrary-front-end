@@ -6,7 +6,6 @@ import {
   Image,
   Dimensions,
   ScrollView,
-  AsyncStorage,
   Alert
 } from 'react-native'
 import BookItem2 from '../components/BookCollect'
@@ -37,27 +36,21 @@ export default class BookListPage extends Component {
       }
 
   }
-  getNewData(book_id_list) {
+  async getNewData(book_id_list) {
       let params =  {
           token: this.props.user.token,
           uid: this.props.user.uid,
           timestamp: this.props.timestamp,
           book_list:book_id_list||"[]"
       }
-      HttpUtils.post(URL_SHOW,params)
-          .then(result => {
-              if (result.msg === '请求成功') {
-                  let data = result.data
-                  this.setState({book_list:data,book_id_list:book_id_list})
-              }
-          })
-
-          .catch(error => {
-              console.log(error)
-          })
+      let result = await HttpUtils.post(URL_SHOW,params)
+      if (result.msg === '请求成功') {
+          let data = result.data
+          this.setState({book_list:data,book_id_list:book_id_list})
+      }
   }
-  onDelete(item) {
-    this.state.book_list.map((book,i)=> {
+  async onDelete(item) {
+    this.state.book_list.map(async (book,i)=> {
         if (book.book_id == item.book_id) {
             let list = this.props.item
             let book_id_list = this.state.book_id_list.split(",").slice(0)
@@ -70,21 +63,17 @@ export default class BookListPage extends Component {
                 token: this.props.user.token,
                 timestamp: this.props.timestamp
             }
-
-
-            HttpUtils.post(URL_RM_BOOK, params)
-                .then(response => {
-                    if (response.msg == "请求成功") {
-                        Toast.success("您已成功删除本书",0.5)
-                        this.getNewData(params.book_list)
-                    } else {
-                        Toast.offline(response.msg,1)
-                    }
-                })
+            let response = await HttpUtils.post(URL_RM_BOOK, params)
+            if (response.msg == "请求成功") {
+                Toast.success("您已成功删除本书",0.5)
+                this.getNewData(params.book_list)
+            } else {
+                Toast.offline(response.msg,1)
+            }
         }
     })
   }
-  async onConfirm(item) {
+  onConfirm(item) {
       Alert.alert("确认删除","您真的要删除这本书吗?",
           [{text:"确认",onPress:this.onDelete.bind(this,item)},{text:"取消"}])
   }

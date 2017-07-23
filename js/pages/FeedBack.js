@@ -5,7 +5,6 @@ import {
   TextInput,
   StyleSheet,
   Dimensions,
-  AsyncStorage,
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
@@ -25,7 +24,7 @@ export default class FeedBackPage extends Component {
       content: ''
     }
   }
-  onPost() {
+  async onPost() {
     if (!this.state.contact.trim()) {
       Toast.info("请输入您的联系方式哦~",1)
       return
@@ -34,17 +33,17 @@ export default class FeedBackPage extends Component {
       Toast.info("请输入您的反馈内容哦~",1)
       return
     }
-    HttpUtils.post(URL, {
-      token: this.props.user.token,
-      content: this.state.content,
-      contact: this.state.contact,
-      uid: this.props.user.uid,
-      timestamp: this.props.timestamp
-    }).then(response => {
-      if (response.msg === '请求成功') {
-        Actions.pop()
-      }
-    })
+    let params = {
+        token: this.props.user.token,
+        content: this.state.content,
+        contact: this.state.contact,
+        uid: this.props.user.uid,
+        timestamp: this.props.timestamp
+    }
+    let response = await HttpUtils.post(URL, params)
+    if (response.msg === '请求成功') {
+      Actions.pop()
+    }
   }
   render() {
     return (

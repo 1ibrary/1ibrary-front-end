@@ -25,7 +25,7 @@ export default class BookCollectAddPage extends Component {
       list_content: ''
     }
   }
-  rightOnPress() {
+  async rightOnPress() {
     if (!this.state.list_name.trim()) {
       Toast.info("请输入书单的名字噢!",1)
       return
@@ -34,76 +34,53 @@ export default class BookCollectAddPage extends Component {
       Toast.info("请输入书单的描述内容噢!",1)
       return
     }
-    AsyncStorage.getItem('book_list', (error, array) => {
-      if (array) {
-        array = JSON.parse(array)
-      } else {
-        array = []
-      }
-      let item = {
-        list_name: this.state.list_name,
-        list_content: this.state.list_content
-      }
-      let flag = false
-      if (array && array.length > 0) {
-        flag = array.some(d => {
+    let array = await AsyncStorage.getItem('book_list') || "[]"
+    array = JSON.parse(array)
+    let item = {
+      list_name: this.state.list_name,
+      list_content: this.state.list_content
+    }
+    let flag = false
+    if (array && array.length > 0) {
+      flag = array.some(d => {
           if (d.list_name === item.list_name) {
-            Toast.info("你已经创建过同名书单啦！",1)
-            Actions.pop()
-            flag = true
-            return true
+              Toast.info("你已经创建过同名书单啦！",1)
+              Actions.pop()
+              flag = true
+              return true
           }
-        })
-
-        if (flag) {
-          return
-        }
-
-      }
-
-      HttpUtils.post(URL, {
-        list_name: this.state.list_name,
-        uid: this.props.user.uid,
-        list_content: this.state.list_content,
-        timestamp: this.props.timestamp,
-        token: this.props.user.token
       })
-        .then(response => {
-          if (response.msg === '请求成功') {
-            Toast.success("创建书单成功！",1)
-            HttpUtils.post(URL_SHOW, {
+      if (flag) {
+          return
+      }
+    }
+    let params = {
+      list_name: this.state.list_name,
+      uid: this.props.user.uid,
+      list_content: this.state.list_content,
+      timestamp: this.props.timestamp,
+      token: this.props.user.token
+    }
+    let response = await HttpUtils.post(URL, params)
+      if (response.msg === '请求成功') {
+          Toast.success("创建书单成功！",1)
+          let params = {
               token: this.props.user.token,
               uid: this.props.user.uid,
               timestamp: this.props.timestamp
-            })
-              .then(result => {
-                if (result.msg === '请求成功') {
-                  let lists = result.data
-                  AsyncStorage.setItem(
-                    'book_list',
-                    JSON.stringify(lists),
-                    error => {
-                      if (error) {
-                        console.log(error)
-                      } else {
-                        this.props.onCallBack()
-                        Actions.pop()
-                      }
-                    }
-                  )
-                }
-              })
-              .catch(error => {
-                console.log(error)
-              })
-          } else {
-            Toast.offline(response.msg,1)
           }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    })
+          let result = await HttpUtils.post(URL_SHOW, params)
+                  if (result.msg === '请求成功') {
+                      let lists = result.data
+                      await AsyncStorage.setItem(
+                          'book_list',
+                          JSON.stringify(lists))
+                      this.props.onCallBack()
+                      Actions.pop()
+                  }
+      } else {
+          Toast.offline(response.msg,1)
+      }
   }
   render() {
     return (

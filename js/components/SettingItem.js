@@ -97,9 +97,6 @@ export default class SettingItem extends Component {
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
       onMoveShouldSetPanResponder: (evt, gestureState) => false,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => false
-      //      onPanResponderRelease: (evt, gestureState) => {
-      // this.onMove(evt,gestureState)
-      //        },
     })
   }
   render() {
@@ -125,9 +122,6 @@ export default class SettingItem extends Component {
                 this.state.round_border
               ]}
             />
-            {
-              // <View style={styles.button_right}></View>
-            }
           </View>
         </View>
       </View>

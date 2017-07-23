@@ -69,26 +69,21 @@ export default class BookCollectPage extends Component {
       book_subscribe: true
     }
   }
-  componentDidMount() {
-    HttpUtils.post(URL_SHOW, {
-      token: this.props.user.token,
-      uid: this.props.user.uid,
-      timestamp: this.props.timestamp
+  async componentDidMount() {
+    let result = await HttpUtils.post(URL_SHOW, {
+        token: this.props.user.token,
+        uid: this.props.user.uid,
+        timestamp: this.props.timestamp
     })
-      .then(result => {
-        let lists = result.data
-        this.setState({ lists: lists })
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    let lists = result.data || []
+    this.setState({ lists: lists })
   }
   rightOnPress() {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
       Actions.pop()
     }
     this.state.choosed.map((item,i)=>{
-      this.state.lists.some((d)=>{
+      this.state.lists.some(async (d)=>{
         let book_list
         book_list = d.book_list&&d.book_list.split(",") || []
         book_list = [...new Set([...book_list, this.props.book.book_id+""])]
@@ -100,21 +95,12 @@ export default class BookCollectPage extends Component {
             book_list: book_list&&book_list.join(",")
         }
         d.book_list = params.book_list
-        HttpUtils.post(URL_ADD_BOOK, params)
-          .then(result => {
-            if (result.msg == '请求成功') {
-              if(i===this.state.choosed.length-1) {
-                  AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists), error => {
-                      if (error) {
-                          console.log(error)
-                      }
-                  })
-              }
-              }
-            })
-          .catch(error => {
-            console.log(error)
-          })
+        let result = HttpUtils.post(URL_ADD_BOOK, params)
+        if (result.msg == '请求成功') {
+          if(i===this.state.choosed.length-1) {
+              await AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists))
+          }
+        }
       })
     if(i==this.state.choosed.length-1)  {
         Actions.pop()
@@ -131,44 +117,27 @@ export default class BookCollectPage extends Component {
     this.setState({ choosed: choosed })
   }
   onDelete(title) {
-    AsyncStorage.getItem('book_list', (error, array) => {
-      if (error) {
-        console.log('错误:' + error)
+    let array = await AsyncStorage.getItem('book_list') || "[]"
+    array = JSON.parse(array)
+    array.some(async (d, i) => {
+      if (d.list_name === title) {
+        array.splice(i, 1)
+      }
+      let result = HttpUtils.post(URL_RM_LIST, {
+        list_id: d.list_id,
+        uid: this.props.user.uid,
+        token: this.props.user.token,
+        timestamp: this.props.timestamp
+      })
+      if (result.msg === '请求成功') {
+          this.setState({lists: array})
+          Toast.success("您已成功删除书单",1)
+          await AsyncStorage.setItem(
+              'book_list',
+              JSON.stringify(array))
+          return true
       } else {
-        array = JSON.parse(array)
-        array.some((d, i) => {
-          if (d.list_name === title) {
-            array.splice(i, 1)
-          }
-          HttpUtils.post(URL_RM_LIST, {
-            list_id: d.list_id,
-            uid: this.props.user.uid,
-            token: this.props.user.token,
-            timestamp: this.props.timestamp
-          })
-            .then(result => {
-              if (result.msg === '请求成功') {
-                this.setState({lists: array})
-                Toast.success("您已成功删除书单",1)
-                AsyncStorage.setItem(
-                  'book_list',
-                  JSON.stringify(array),
-                  error => {
-                    if (error) {
-                      console.log(error)
-                    }
-                    return true
-                  }
-                )
-              } else {
-                Toast.offline(result.msg,1)
-              }
-            })
-            .catch(error => {
-              console.log(error)
-            })
-
-        })
+          Toast.offline(result.msg,1)
       }
     })
   }
@@ -191,11 +160,10 @@ export default class BookCollectPage extends Component {
           style={styles.add}
           onPress={() => {
             let params = {
-                onCallBack: () => {
-                    AsyncStorage.getItem('book_list', (error, array) => {
-                        array = JSON.parse(array)
-                        this.setState({ lists: array })
-                    })
+                onCallBack: async () => {
+                    let array = await AsyncStorage.getItem('book_list') || "[]"
+                    array = JSON.parse(array)
+                    this.setState({ lists: array })
                 },
                 user: this.props.user,
                 timestamp: this.props.timestamp

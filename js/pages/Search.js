@@ -32,127 +32,113 @@ export default class Search extends Component {
       remind:false
     }
   }
-  componentDidMount() {
-      AsyncStorage.getItem('search_history', (error, array) => {
-          if (array&&JSON.parse(array)) {
-              this.setState({search_history: JSON.parse(array) })
-          }
-      })
+  async componentDidMount() {
+      let array = await AsyncStorage.getItem('search_history') || "[]"
+      this.setState({search_history: JSON.parse(array)})
   }
-  onPressDelete(index) {
-    AsyncStorage.getItem('search_history', (error, array) => {
-      array = JSON.parse(array)
-      if (array) {
-        array.splice(index,1)
-        array = [...new Set(array)]
-      } else {
-        return
-      }
-      AsyncStorage.setItem('search_history', JSON.stringify(array), error => {
-        if (error) {
-          console.log(error)
-        }
-      })
-      this.setState({ search_history: array })
-    })
+  async onPressDelete(index) {
+    let array = await AsyncStorage.getItem('search_history') || "[]"
+    array = JSON.parse(array)
+    if(array.length==0||index>array.length-1) {
+      return
+    }
+    array.splice(index,1)
+    array = [...new Set(array)]
+    await  AsyncStorage.setItem('search_history', JSON.stringify(array))
+    this.setState({ search_history: array })
   }
-    onSubmitEditing(text) {
-        this.onSave(text)
-        let params = {
-          user:this.props.user,
-          timestamp:this.props.timestamp,
-          content:text
-        }
-        Actions[SCENE_SEARCH_RESULT](params)
+  onSubmitEditing(text) {
+    this.onSave(text)
+    let params = {
+      user:this.props.user,
+      timestamp:this.props.timestamp,
+      content:text
     }
-    onChangeText(text) {
-        if(text=="") {
-          this.setState({remind:false})
-          return
-        }
-        this.setState({remind:true})
-        // this.setState({ page: 2, information: data })
-    }
-    onSave(text) {
-        AsyncStorage.getItem('search_history', (error, array) => {
-            array = JSON.parse(array)
-            if (array) {
-                array = [...new Set([text, ...array])]
-                if(array.length>MAX_LENGTH) {
-                  array = array.slice(0,5)
-                }
+    Actions[SCENE_SEARCH_RESULT](params)
+  }
+   onChangeText(text) {
+       if(text=="") {
+         this.setState({remind:false})
+         return
+       }
+       this.setState({remind:true})
+       // this.setState({ page: 2, information: data })
+   }
+   async onSave(text) {
+       let array = await AsyncStorage.getItem('search_history') || "[]"
+       array = JSON.parse(array)
+       if (array.length!=0) {
+           array = [...new Set([text, ...array])]
+           if(array.length>MAX_LENGTH) {
+             array = array.slice(0,5)
+           }
 
-            } else {
-                array = [text]
-            }
-            AsyncStorage.setItem('search_history', JSON.stringify(array), error => {
-                if (error) {
-                    console.log(error)
-                }
-            })
-            this.setState({ search_history: array })
-        })
-    }
-    changeDefaultValue(item) {
-        this.setState({defaultValue:item})
-    }
-  render() {
-    let reminder = <SearchTags
-        title="搜索提示"
-        data={this.state.reminder}
-    />
-    let tags = <View style={styles.container}>
-          <SearchTags
-              title={"热门搜索"}
-              data={this.state.hot}
-              onPress = {(item)=>{
-                  this.changeDefaultValue(item)
-              }}
-          />
-          <SearchTags
-              styles={styles.tags_top}
-              title={"搜索历史"}
-              onPressDelete={()=>{
-                  this.onPressDelete()
-              }}
-              cancel={true}
-              data={this.state.search_history}
-              onPress = {(item)=>{
-                  this.changeDefaultValue(item)
-              }}
+       } else {
+           array = [text]
+       }
+       await AsyncStorage.setItem('search_history', JSON.stringify(array))
+       this.setState({ search_history: array })
+   }
+   changeDefaultValue(item) {
+       this.setState({defaultValue:item})
+   }
+   render() {
+     let reminder = <SearchTags
+         title="搜索提示"
+         data={this.state.reminder}
+     />
+     let tags = <View style={styles.container}>
+           <SearchTags
+               title={"热门搜索"}
+               data={this.state.hot}
+               onPress = {(item)=>{
+                   this.changeDefaultValue(item)
+               }}
+           />
+           <SearchTags
+               styles={styles.tags_top}
+               title={"搜索历史"}
+               onPressDelete={()=>{
+                   this.onPressDelete()
+               }}
+               cancel={true}
+               data={this.state.search_history}
+               onPress = {(item)=>{
+                   this.changeDefaultValue(item)
+               }}
           />
 
         </View>
-    let content
-    if(this.state.remind) {
-      content = reminder
-    } else {
-      content = tags
-    }
-    return <View style={styles.all_container}>
-        <SearchNav
-          placeholder={'搜索书名，作者或出版社'}
-          defaultValue={this.state.defaultValue}
-          onSubmitEditing={event => {
-            this.onSubmitEditing(event.nativeEvent.text)
-          }}
-          icon={
-            <TouchableOpacity
-              style={styles.close_container}
-              onPress={() => {
-                Actions.pop()
-              }}
-            >
-              <Text style={styles.close}>取消</Text>
-            </TouchableOpacity>
-          }
-          onChangeText={text => {
-            this.onChangeText(text)
-          }}
-        />
-        {content}
-      </View>
-  }
+     let content
+     if(this.state.remind) {
+       content = reminder
+     } else {
+       content = tags
+     }
+     return <View style={styles.all_container}>
+         <SearchNav
+           placeholder={'搜索书名，作者或出版社'}
+           defaultValue={this.state.defaultValue}
+           onSubmitEditing={event => {
+             this.onSubmitEditing(event.nativeEvent.text)
+           }}
+           icon={
+             <TouchableOpacity
+               style={styles.close_container}
+               onPress={() => {
+                 Actions.pop()
+               }}
+             >
+               <Text style={styles.close}>取消</Text>
+             </TouchableOpacity>
+           }
+           onChangeText={text => {
+             this.onChangeText(text)
+           }}
+         />
+         {content}
+       </View>
+   }
 }
 
 const styles = StyleSheet.create({

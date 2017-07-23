@@ -21,7 +21,7 @@ import {WIDTH,HEIGHT} from '../common/styles'
 export default class BookListPage extends Component {
   logout() {
     Actions[SCENE_LOGIN]()
-      AsyncStorage.clear()
+    AsyncStorage.clear()
   }
   render() {
     return (

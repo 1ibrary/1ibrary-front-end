@@ -10,11 +10,9 @@ import {
   TextInput,
   AsyncStorage
 } from 'react-native'
-// import CommonNav from "../common/CommonNav";
 import TextPingFang from '../components/TextPingFang'
 import HttpUtils from '../network/HttpUtils'
 import {USERS} from '../network/Urls'
-import HomePage from './Home'
 import {SCENE_INDEX} from "../constants/scene"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {WIDTH,  HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
@@ -37,24 +35,19 @@ export default class WelcomePage extends Component {
             user_account: user_info.user_account,
             user_password: user_info.user_password
         }
-        Http.post(URL,params)
-            .then((response)=>{
-                if (response.msg === '请求成功') {
-                    let user = response.data
-                    let params = {
-                        user: user,
-                        books_data: JSON.parse(array),
-                        timestamp: response.data.timestamp,
-                    }
-                    Actions[SCENE_INDEX](params)
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        let response = await HttpUtils.post(URL,params)
+        if (response.msg === '请求成功') {
+          let user = response.data
+          let params = {
+              user: user,
+              books_data: JSON.parse(array),
+              timestamp: response.data.timestamp,
+          }
+          Actions[SCENE_INDEX](params)
+        }
       }
   }
-  onSubmit() {
+  async onSubmit() {
       if (!this.state.account.trim()) {
           Toast.offline("请输入学号噢～",1)
           return
@@ -67,42 +60,24 @@ export default class WelcomePage extends Component {
           user_account: this.state.account.trim(),
           user_password: this.state.password.trim()
       }
-      HttpUtils.post(URL,params)
-        .then(response => {
-          if (response.msg === '请求成功') {
-            Toast.success("登录成功！",1)
-            let user_info = [...response.data,...params]
-            AsyncStorage.setItem(
-              'user_info',
-              JSON.stringify(response.data),
-              error => {
-                if (error) {
-                  console.log(error)
-                } else {
-                  AsyncStorage.getItem('books_data', (error, array) => {
-                    if (error) {
-                      console.log(error)
-                    } else {
-                      let user = response.data
-                      let params =    {
-                          user: user,
-                          books_data: JSON.parse(array),
-                          timestamp: response.data.timestamp,
-                      }
-                      Actions[SCENE_INDEX](params)
-                    }
-                  })
-                }
-              }
-            )
-          } else {
-            Toast.fail(response.msg,1)
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-
+      let response = await HttpUtils.post(URL,params)
+      if (response.msg === '请求成功') {
+        Toast.success("登录成功！",1)
+        let user_info = [...response.data,...params]
+        await AsyncStorage.setItem(
+          'user_info',
+          JSON.stringify(response.data))
+        let array = await AsyncStorage.getItem('books_data') || "[]"
+        let user = response.data
+        let params =    {
+            user: user,
+            books_data: JSON.parse(array),
+            timestamp: response.data.timestamp,
+      }
+      Actions[SCENE_INDEX](params)
+      } else {
+        Toast.fail(response.msg,1)
+      }
   }
   render() {
     return (

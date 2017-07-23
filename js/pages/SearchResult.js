@@ -22,35 +22,35 @@ export default class SearchResultPage extends Component {
       data2: []
     }
   }
-  componentDidMount() {
-    HttpUtils.post(URL, {
-      uid: 1||this.props.user.uid ,
-      timestamp: 1||this.props.timestamp,
-      token: 1||this.props.user.token ,
-      content: 1||this.props.content,
-      type: 0
-    }).then(response => {
+  async componentDidMount() {
+    let params = {
+        uid: 1||this.props.user.uid ,
+        timestamp: 1||this.props.timestamp,
+        token: 1||this.props.user.token ,
+        content: 1||this.props.content,
+        type: 0
+    }
+    let response = await HttpUtils.post(URL, params)
       if (response.msg === '请求成功') {
         this.setState({ data0: response.data })
       }
-    })
   }
-  onChangeTab(index) {
-    HttpUtils.post(URL, {
-      uid: 1||this.props.user.uid,
-      timestamp: 1||this.props.timestamp,
-      token: 1||this.props.user.token,
-      content: 1||this.props.content,
-      type: index
-    }).then(response => {
-      if (response.msg === '请求成功') {
-        if (index == 1) {
-          this.setState({ data1: response.data })
-        } else {
-          this.setState({ data2: response.data })
-        }
+  async onChangeTab(index) {
+    let params = {
+        uid: 1||this.props.user.uid,
+        timestamp: 1||this.props.timestamp,
+        token: 1||this.props.user.token,
+        content: 1||this.props.content,
+        type: index
+    }
+    let response = await HttpUtils.post(URL, params)
+    if (response.msg === '请求成功') {
+      if (index == 1) {
+        this.setState({ data1: response.data })
+      } else {
+        this.setState({ data2: response.data })
       }
-    })
+    }
   }
   render() {
     let none = (

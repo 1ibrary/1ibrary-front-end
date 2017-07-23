@@ -15,17 +15,8 @@ import {INNERWIDTH, HEIGHT,getResponsiveHeight,getResponsiveWidth} from "../comm
 export default class SearchNavHomePage extends Component {
   constructor(props) {
     super(props)
-    // this.state = {
-
-    // }
   }
   static defaultProps = {
-    // icon:(
-    // 	<TouchableOpacity>
-    //         <Image style={{position:"absolute",left:337,top:31}} source={require("../../res/images/scan.png")}/>
-    //        </TouchableOpacity>
-    //     ),
-    // value:""
     onChangeText: text => {}
   }
   render() {
@@ -36,11 +27,6 @@ export default class SearchNavHomePage extends Component {
           placeholder={'请输入你想要搜索的书籍'}
           placeholderTextColor={'rgb(165,165,165)'}
           defaultValue={this.props.defaultValue}
-          // onTextChange={
-          // 	()=>{
-
-          // 	}
-          // }
           onChangeText={text => {
             this.props.onChangeText(text)
           }}

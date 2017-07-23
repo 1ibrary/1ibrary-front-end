@@ -52,10 +52,9 @@ export default class HomePage extends Component {
               style={styles.image}
               source={require('../../res/images/profile.png')}
           />,
-          selected:<Image source={require('../../res/images/profile1.png')} />
+          selected:  <Image source={require('../../res/images/profile1.png')} />
       }
   }
-
   render() {
     return (
     <View style={styles.tabs_container}>

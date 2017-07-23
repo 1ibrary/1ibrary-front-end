@@ -26,7 +26,6 @@ export default class Round extends Component {
 
 const styles = StyleSheet.create({
   round_image: {
-    // tintColor:"#607D8B",
     alignItems: 'center',
     justifyContent: 'center',
     height: 36,

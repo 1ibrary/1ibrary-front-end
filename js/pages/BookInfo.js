@@ -9,7 +9,6 @@ import {
   TouchableHighlight,
   ScrollView,
   Dimensions,
-  AsyncStorage
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
@@ -68,20 +67,20 @@ export default class BookInfoPage extends Component {
       book_subscribe: true
     }
   }
-  componentDidMount() {
-    // AsyncStorage.clear(()=>{})
-    HttpUtils.post(URL, {
-      token: this.props.user.token,
-      uid: this.props.user.uid,
-      book_id: this.props.data.book_id,
-      timestamp: this.props.timestamp
-    })
-      .then(result => {
-        this.setState({ book_data: result.data })
-      })
-      .catch(error => {
-        console.log(error)
-      })
+  async componentDidMount() {
+    let params = {
+        token: this.props.user.token,
+        uid: this.props.user.uid,
+        book_id: this.props.data.book_id,
+        timestamp: this.props.timestamp
+    }
+    let result = await HttpUtils.post(URL, params)
+    if(result=="请求成功") {
+      this.setState({ book_data: result.data })
+    } else {
+      Toast.offline(result.msg,1)
+    }
+
   }
   onNavigator() {
       let params = {

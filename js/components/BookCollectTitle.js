@@ -13,13 +13,11 @@ import {
   AsyncStorage,
   PanResponder
 } from 'react-native'
-import BookCollectListPage from '../pages/BookCollectList'
 import {BOOKS} from "../network/Urls"
 import {WIDTH, INNERWIDTH, HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
 import {Actions} from "react-native-router-flux"
 import {SCENE_BOOK_COLLECT_LIST} from "../constants/scene"
 
-const URL_BOOKS = BOOKS.show_detail
 
 export default class BookCollectTitle extends Component {
   constructor(props) {
@@ -64,7 +62,6 @@ export default class BookCollectTitle extends Component {
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
-      // onMoveShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
       onPanResponderMove: (evt, gestureState) => {
         this.onPress(evt, gestureState)

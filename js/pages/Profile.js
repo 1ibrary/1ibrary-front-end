@@ -6,8 +6,6 @@ import {
   Navigator,
   TouchableOpacity,
   Image,
-  Dimensions,
-  AsyncStorage
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
 import BookCollectPage from './BookCollect'
@@ -82,7 +80,7 @@ export default class ProfilePage extends Component {
                       break
                     case '设置':
                       params = {
-                        title: '设置'
+                        title: '借阅历史'
                       }
                       this.onJump(scenes.SCENE_SETTING, params)
                       break
