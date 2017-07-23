@@ -35,7 +35,7 @@ export default class WelcomePage extends Component {
             user_account: user_info.user_account,
             user_password: user_info.user_password
         }
-        let response = await HttpUtils.post(URL,params)
+        let response = await HttpUtils.post(URL,params) || {}
         if (response.msg === '请求成功') {
           let user = response.data
           let params = {
@@ -60,21 +60,22 @@ export default class WelcomePage extends Component {
           user_account: this.state.account.trim(),
           user_password: this.state.password.trim()
       }
-      let response = await HttpUtils.post(URL,params)
+      let response = await HttpUtils.post(URL,params) || {}
       if (response.msg === '请求成功') {
         Toast.success("登录成功！",1)
-        let user_info = [...response.data,...params]
+        let user_info = {...response.data,...params}
         await AsyncStorage.setItem(
           'user_info',
-          JSON.stringify(response.data))
+          JSON.stringify(user_info),
+        )
         let array = await AsyncStorage.getItem('books_data') || "[]"
         let user = response.data
         let params =    {
             user: user,
             books_data: JSON.parse(array),
             timestamp: response.data.timestamp,
-      }
-      Actions[SCENE_INDEX](params)
+         }
+        Actions[SCENE_INDEX](params)
       } else {
         Toast.fail(response.msg,1)
       }

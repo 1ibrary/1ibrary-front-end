@@ -70,11 +70,12 @@ export default class BookCollectPage extends Component {
     }
   }
   async componentDidMount() {
-    let result = await HttpUtils.post(URL_SHOW, {
+    let params = {
         token: this.props.user.token,
         uid: this.props.user.uid,
         timestamp: this.props.timestamp
-    })
+    }
+    let result = await HttpUtils.post(URL_SHOW, params) || {}
     let lists = result.data || []
     this.setState({ lists: lists })
   }
@@ -96,13 +97,14 @@ export default class BookCollectPage extends Component {
         }
         d.book_list = params.book_list
         let result = HttpUtils.post(URL_ADD_BOOK, params)
-        if (result.msg == '请求成功') {
+        if (result.msg === '请求成功') {
           if(i===this.state.choosed.length-1) {
               await AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists))
           }
         }
       })
     if(i==this.state.choosed.length-1)  {
+        Toast.success("收藏成功！",1)
         Actions.pop()
     }
     })
@@ -116,7 +118,7 @@ export default class BookCollectPage extends Component {
     }
     this.setState({ choosed: choosed })
   }
-  onDelete(title) {
+  async onDelete(title) {
     let array = await AsyncStorage.getItem('book_list') || "[]"
     array = JSON.parse(array)
     array.some(async (d, i) => {

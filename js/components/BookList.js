@@ -42,7 +42,7 @@ export default class BookList extends Component {
         timestamp: this.props.timestamp,
         page: 1
     }
-    let result = await HttpUtils.post(URL, params)
+    let result = await HttpUtils.post(URL, params) || {}
     if (result.msg === '请求成功') {
       this.setState({ books: result.data }, () => {
         this.setState({
@@ -60,7 +60,7 @@ export default class BookList extends Component {
         timestamp: new Date().getTime(),
         page: this.state.page + 1
     }
-    let result = await HttpUtils.post(URL, params)
+    let result = await HttpUtils.post(URL, params) || {}
     this.setState(
       {
         books: [...this.state.books, ...result.data]

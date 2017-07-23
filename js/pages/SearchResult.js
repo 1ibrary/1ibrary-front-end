@@ -30,10 +30,10 @@ export default class SearchResultPage extends Component {
         content: 1||this.props.content,
         type: 0
     }
-    let response = await HttpUtils.post(URL, params)
-      if (response.msg === '请求成功') {
-        this.setState({ data0: response.data })
-      }
+    let response = await HttpUtils.post(URL, params) || {}
+    if (response.msg === '请求成功') {
+      this.setState({ data0: response.data })
+    }
   }
   async onChangeTab(index) {
     let params = {
@@ -43,7 +43,7 @@ export default class SearchResultPage extends Component {
         content: 1||this.props.content,
         type: index
     }
-    let response = await HttpUtils.post(URL, params)
+    let response = await HttpUtils.post(URL, params) || {}
     if (response.msg === '请求成功') {
       if (index == 1) {
         this.setState({ data1: response.data })

@@ -43,7 +43,7 @@ export default class BookListPage extends Component {
           timestamp: this.props.timestamp,
           book_list:book_id_list||"[]"
       }
-      let result = await HttpUtils.post(URL_SHOW,params)
+      let result = await HttpUtils.post(URL_SHOW,params) || {}
       if (result.msg === '请求成功') {
           let data = result.data
           this.setState({book_list:data,book_id_list:book_id_list})
@@ -63,8 +63,8 @@ export default class BookListPage extends Component {
                 token: this.props.user.token,
                 timestamp: this.props.timestamp
             }
-            let response = await HttpUtils.post(URL_RM_BOOK, params)
-            if (response.msg == "请求成功") {
+            let response = await HttpUtils.post(URL_RM_BOOK, params) || {}
+            if (response.msg === "请求成功") {
                 Toast.success("您已成功删除本书",0.5)
                 this.getNewData(params.book_list)
             } else {

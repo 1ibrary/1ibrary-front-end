@@ -40,7 +40,7 @@ export default class FeedBackPage extends Component {
         uid: this.props.user.uid,
         timestamp: this.props.timestamp
     }
-    let response = await HttpUtils.post(URL, params)
+    let response = await HttpUtils.post(URL, params) || {}
     if (response.msg === '请求成功') {
       Actions.pop()
     }

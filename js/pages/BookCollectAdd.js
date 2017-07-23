@@ -61,26 +61,26 @@ export default class BookCollectAddPage extends Component {
       timestamp: this.props.timestamp,
       token: this.props.user.token
     }
-    let response = await HttpUtils.post(URL, params)
-      if (response.msg === '请求成功') {
-          Toast.success("创建书单成功！",1)
-          let params = {
-              token: this.props.user.token,
-              uid: this.props.user.uid,
-              timestamp: this.props.timestamp
-          }
-          let result = await HttpUtils.post(URL_SHOW, params)
-                  if (result.msg === '请求成功') {
-                      let lists = result.data
-                      await AsyncStorage.setItem(
-                          'book_list',
-                          JSON.stringify(lists))
-                      this.props.onCallBack()
-                      Actions.pop()
-                  }
-      } else {
-          Toast.offline(response.msg,1)
+    let response = await HttpUtils.post(URL, params) || {}
+    if (response.msg === '请求成功') {
+      Toast.success("创建书单成功！",1)
+      let params = {
+          token: this.props.user.token,
+          uid: this.props.user.uid,
+          timestamp: this.props.timestamp
       }
+      let result = await HttpUtils.post(URL_SHOW, params) || {}
+      if (result.msg === '请求成功') {
+          let lists = result.data
+          await AsyncStorage.setItem(
+              'book_list',
+              JSON.stringify(lists))
+          this.props.onCallBack()
+          Actions.pop()
+      }
+    } else {
+      Toast.offline(response.msg,1)
+  }
   }
   render() {
     return (
