@@ -82,7 +82,7 @@ export default class ProfilePage extends Component {
                       break
                     case '设置':
                       params = {
-                        title: '借阅历史'
+                        title: '设置'
                       }
                       this.onJump(scenes.SCENE_SETTING, params)
                       break

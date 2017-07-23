@@ -24,7 +24,7 @@ export default class AppRouter extends Component {
                   component={LoginPage}
                   title="登录"
                   type={ActionConst.RESET}
-                  duration="0"
+                  duration={0}
                   hideNavBar
               />
               <Scene
@@ -33,14 +33,14 @@ export default class AppRouter extends Component {
                   title="首页"
                   type={ActionConst.REPLACE}
                   hideNavBar
-                  duration="0"
+                  duration={0}
                   />
               <Scene
                   key={scenes.SCENE_SEARCH}
                   component = {SearchPage}
                   title="搜索"
                   hideNavBar
-                  duration="0"
+                  duration={0}
                   />
               <Scene
                   key={scenes.SCENE_BOOK_INFO}

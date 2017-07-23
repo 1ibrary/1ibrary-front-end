@@ -6,14 +6,17 @@ import {
   Image,
   Dimensions,
   ScrollView,
-  Alert,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native'
 import BookItem2 from '../components/BookCollect'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
 import {HEIGHT} from '../common/styles'
+import Toast from "antd-mobile/lib/toast"
+
+
 const URL_SHOW = LISTS.show_detail
 const URL_RM_BOOK = LISTS.update_list
 
@@ -35,14 +38,12 @@ export default class BookListPage extends Component {
 
   }
   getNewData(book_id_list) {
-      // alert(book_id_list)
       let params =  {
           token: this.props.user.token,
           uid: this.props.user.uid,
           timestamp: this.props.timestamp,
           book_list:book_id_list||"0"
       }
-      // alert(JSON.stringify(params))
       HttpUtils.post(URL_SHOW,params)
           .then(result => {
               if (result.msg === '请求成功') {
@@ -62,7 +63,6 @@ export default class BookListPage extends Component {
             let book_id_list = this.state.book_id_list.split(",").slice(0)
             let index = book_id_list.indexOf(book.book_id + "")
             book_id_list.splice(index, 1)
-            // alert(book_list)
             let params = {
                 book_list: book_id_list.join(",") || "0",
                 list_id: list.list_id,
@@ -70,19 +70,23 @@ export default class BookListPage extends Component {
                 token: this.props.user.token,
                 timestamp: this.props.timestamp
             }
-            // alert("remove"+JSON.stringify(params))
 
 
             HttpUtils.post(URL_RM_BOOK, params)
                 .then(response => {
                     if (response.msg == "请求成功") {
+                        Toast.success("您已成功删除本书",0.5)
                         this.getNewData(params.book_list)
                     } else {
-                        Alert.alert("网络请求出问题啦", response.msg)
+                        Toast.offline(response.msg,1)
                     }
                 })
         }
     })
+  }
+  async onConfirm(item) {
+      Alert.alert("确认删除","您真的要删除这本书吗?",
+          [{text:"确认",onPress:this.onDelete.bind(this,item)},{text:"取消"}])
   }
   render() {
     return (
@@ -98,9 +102,7 @@ export default class BookListPage extends Component {
                 key={item.book_id}
                 item={item}
                 user={this.props.user}
-                onDelete={(item, i) => {
-                  this.onDelete(item)
-                }}
+                onDelete={this.onConfirm.bind(this,item)}
               />
             )
           })}

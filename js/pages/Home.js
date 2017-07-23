@@ -10,7 +10,6 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native'
-import BottomTabs from '../components/BottomTabs'
 import BookList from '../components/BookList'
 import SearchPage from './Search'
 import SearchNav_Welcome from '../components/SearchNavHomePage'
@@ -19,64 +18,91 @@ import ProfilePage from './Profile'
 import {HEIGHT,getResponsiveHeight} from '../common/styles'
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {SCENE_SEARCH} from "../constants/scene"
-
+import TabNavigator from 'react-native-tab-navigator'
 
 
 export default class HomePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      show: 1
+        selectedTab: 'home'
     }
   }
 
   render() {
     return (
-      <BottomTabs
-        page1={
-          <View style={styles.container}>
-            {this.state.show === 1
-              ? <View style={styles.list}>
-                  <SearchNav_Welcome
-                    placeholder={'搜索'}
-                    onFocus={() => {
-                      let params =    {
-                            user: this.props.user,
-                            timestamp: this.props.timestamp,
-                        }
-                      Actions[SCENE_SEARCH](params)
-                    }}
-                  />
-                  <BookList
-                    style={styles.booklist}
-                    timestamp={this.props.timestamp}
-                    data={this.props.books_data ? this.props.books_data : []}
-                    user={this.props.user ? this.props.user : {}}
-                    navigator={this.props.navigator}
-                    token={this.props.token}
-                  />
-                </View>
-              : <SearchPage
-                  navigator={this.props.navigator}
-                  timestamp={this.props.timestamp}
-                  user={this.props.user}
-                  onPressClose={() => {
-                    this.setState({ show: 1 })
-                  }}
+    <View style={styles.tabs_container}>
+      <TabNavigator>
+        <TabNavigator.Item
+            selected={this.state.selectedTab === 'home'}
+            title="首页"
+            renderIcon={() =>
+                <Image
+                    style={styles.image}
+                    source={require('../../res/images/Home.png')}
                 />}
+            renderSelectedIcon={() =>
+                <Image source={require('../../res/images/Home1.png')} />}
+            onPress={() => this.setState({ selectedTab: 'home' })}
+        >
+          <View style={styles.container}>
+            <View style={styles.list}>
+              <SearchNav_Welcome
+                  placeholder={'搜索'}
+                  onFocus={() => {
+                      let params =    {
+                          user: this.props.user,
+                          timestamp: this.props.timestamp,
+                      }
+                      Actions[SCENE_SEARCH](params)
+                  }}
+              />
+              <BookList
+                  style={styles.book_list}
+                  timestamp={this.props.timestamp}
+                  data={this.props.books_data ? this.props.books_data : []}
+                  user={this.props.user ? this.props.user : {}}
+                  navigator={this.props.navigator}
+                  token={this.props.token}
+              />
+            </View>
           </View>
-        }
-        page2={<MessagePage navigator={this.props.navigator} />}
-        page3={
+        </TabNavigator.Item>
+        <TabNavigator.Item
+            selected={this.state.selectedTab === 'message'}
+            title="通知"
+            renderIcon={() =>
+                <Image
+                    style={styles.image}
+                    source={require('../../res/images/message.png')}
+                />}
+            renderSelectedIcon={() =>
+                <Image source={require('../../res/images/message1.png')} />}
+            onPress={() => this.setState({ selectedTab: 'message' })}
+        >
+          <MessagePage navigator={this.props.navigator} />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+            selected={this.state.selectedTab === 'profile'}
+            title="我的"
+            renderIcon={() =>
+                <Image
+                    style={styles.image}
+                    source={require('../../res/images/profile.png')}
+                />}
+            renderSelectedIcon={() =>
+                <Image source={require('../../res/images/profile1.png')} />}
+            onPress={() => this.setState({ selectedTab: 'profile' })}
+        >
           <ProfilePage
-            timestamp={this.props.timestamp}
-            user={this.props.user ? this.props.user : {}}
-            navigator={this.props.navigator}
+              timestamp={this.props.timestamp}
+              user={this.props.user ? this.props.user : {}}
+              navigator={this.props.navigator}
           />
-        }
-      />
+        </TabNavigator.Item>
+      </TabNavigator>
+    </View>
     )
-    // return <BookCollectPage />
   }
 }
 
@@ -95,11 +121,29 @@ const styles = StyleSheet.create({
     marginTop: -28,
     width: 375
   },
-  booklist: {
+  book_list: {
     // 一半的输入框高度加上maginBottom
     paddingTop: getResponsiveHeight(10)
   },
   search_result_bar: {
     backgroundColor: 'white'
+  },
+  tabs_container: {
+      flex: 1,
+      backgroundColor: 'white'
+  },
+  page1: {
+      flex: 1,
+      backgroundColor: 'yellow'
+  },
+  page2: {
+      flex: 1,
+      backgroundColor: 'blue'
+  },
+  image: {
+      tintColor: '#929292'
+  },
+  active: {
+      tintColor: '#607D8B'
   }
 })

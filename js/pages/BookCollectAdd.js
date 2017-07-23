@@ -6,13 +6,13 @@ import {
   StyleSheet,
   Dimensions,
   AsyncStorage,
-  Alert
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
 import {LISTS} from "../network/Urls"
 import {WIDTH, INNERWIDTH,HEIGHT} from "../common/styles"
 import {Actions} from "react-native-router-flux"
+import Toast from "antd-mobile/lib/toast"
 
 const URL = LISTS.create_list // 缓存前先请求showxs
 const URL_SHOW = LISTS.show_list
@@ -27,15 +27,14 @@ export default class BookCollectAddPage extends Component {
   }
   rightOnPress() {
     if (!this.state.list_name.trim()) {
-      Alert.alert('小提示', '请输入书单的名字哦！')
+      Toast.info("请输入书单的名字噢!",1)
       return
     }
     if (!this.state.list_content.trim()) {
-      Alert.alert('小提示', '请输入书单的描述内容哦！')
+      Toast.info("请输入书单的描述内容噢!",1)
       return
     }
     AsyncStorage.getItem('book_list', (error, array) => {
-      // alert(array);
       if (array) {
         array = JSON.parse(array)
       } else {
@@ -49,7 +48,7 @@ export default class BookCollectAddPage extends Component {
       if (array && array.length > 0) {
         flag = array.some(d => {
           if (d.list_name === item.list_name) {
-            Alert.alert('小提示', '你已经创建过同名书单啦！')
+            Toast.info("你已经创建过同名书单啦！",1)
             Actions.pop()
             flag = true
             return true
@@ -70,10 +69,8 @@ export default class BookCollectAddPage extends Component {
         token: this.props.user.token
       })
         .then(response => {
-          alert("请求发出了")
           if (response.msg === '请求成功') {
-            alert("成功");
-            alert(array);
+            Toast.success("创建书单成功！",1)
             HttpUtils.post(URL_SHOW, {
               token: this.props.user.token,
               uid: this.props.user.uid,
@@ -81,17 +78,14 @@ export default class BookCollectAddPage extends Component {
             })
               .then(result => {
                 if (result.msg === '请求成功') {
-                  alert("请求查看")
                   let lists = result.data
                   AsyncStorage.setItem(
                     'book_list',
                     JSON.stringify(lists),
                     error => {
                       if (error) {
-                        alert("存储失败")
                         console.log(error)
                       } else {
-                        alert(this.props)
                         this.props.onCallBack()
                         Actions.pop()
                       }
@@ -100,16 +94,14 @@ export default class BookCollectAddPage extends Component {
                 }
               })
               .catch(error => {
-                alert(error)
                 console.log(error)
               })
           } else {
-            Alert.alert('网络请求出错啦', response.msg)
+            Toast.offline(response.msg,1)
           }
         })
         .catch(error => {
           console.log(error)
-          alert(error)
         })
     })
   }

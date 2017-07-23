@@ -19,6 +19,7 @@ import {LISTS} from "../network/Urls"
 import {INNERWIDTH,HEIGHT} from '../common/styles'
 import {Actions} from "react-native-router-flux"
 import {SCENE_BOOK_COLLECT_ADD} from "../constants/scene"
+import Toast from 'antd-mobile/lib/toast';
 
 const URL_SHOW = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
@@ -76,7 +77,6 @@ export default class BookCollectPage extends Component {
     })
       .then(result => {
         let lists = result.data
-        // alert(lists)
         this.setState({ lists: lists })
       })
       .catch(error => {
@@ -148,10 +148,8 @@ export default class BookCollectPage extends Component {
           })
             .then(result => {
               if (result.msg === '请求成功') {
-                this.setState({ lists: [] }, () => {
-                  this.setState({ lists: array })
-                  // alert(JSON.stringify(array));
-                })
+                this.setState({lists: array})
+                Toast.success("您已成功删除书单",1)
                 AsyncStorage.setItem(
                   'book_list',
                   JSON.stringify(array),
@@ -163,17 +161,20 @@ export default class BookCollectPage extends Component {
                   }
                 )
               } else {
-                Alert.alert('网络请求出错啦', result.msg)
+                Toast.offline(result.msg,1)
               }
             })
             .catch(error => {
               console.log(error)
             })
 
-          // alert(this.state.lists)
         })
       }
     })
+  }
+  onConfirm(title) {
+      Alert.alert("确认删除","您真的要删除这个书单吗?",
+          [{text:"确认",onPress:this.onDelete.bind(this,title)},{text:"取消"}])
   }
   render() {
     let lists = [
@@ -183,7 +184,6 @@ export default class BookCollectPage extends Component {
     return (
       <View style={styles.container}>
         <RightButtonNav
-          navigator={this.props.navigator}
           title={this.props.title}
           rightOnPress={() => this.rightOnPress()}
         />
@@ -205,24 +205,8 @@ export default class BookCollectPage extends Component {
         >
           <Image source={require('../../res/images/icon_add.png')} />
         </TouchableOpacity>
-        {
-          // <BookCollectList
-          //      data = {this.state.lists}
-          // 	 style={styles.list}
-          // 	 onPressButton={(select,data)=>{
-          // 	 	this.onPressButton(select,data)
-          // 	 }}
-          // 	 onDelete={(title)=>{
-          // 	 	this.onDelete(title)
-          // 	 }}
-          // 	/>
-        }
         <ScrollView style={styles.list}>
           {this.state.lists.map((item, i) => {
-            // if(item===null) {
-            // 	return;
-            // }
-            // alert(item.book_list);
             return (
               <BookCollectItem
                 item={item}
@@ -230,11 +214,11 @@ export default class BookCollectPage extends Component {
                 navigator={this.props.navigator}
                 onPress={(select, data) => this.onPressButton(select, data)}
                 onDelete={title => {
-                  this.onDelete(title)
+                  this.onConfirm(title)
                 }}
                 timestamp={this.props.timestamp}
                 user={this.props.user}
-                key={i}
+                key={item.list_id}
                 data={item}
               />
             )

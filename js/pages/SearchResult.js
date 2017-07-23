@@ -30,7 +30,6 @@ export default class SearchResultPage extends Component {
       content: 1||this.props.content,
       type: 0
     }).then(response => {
-      // alert(response.msg);
       if (response.msg === '请求成功') {
         this.setState({ data0: response.data })
       }
@@ -44,7 +43,6 @@ export default class SearchResultPage extends Component {
       content: 1||this.props.content,
       type: index
     }).then(response => {
-      // alert(response.msg);
       if (response.msg === '请求成功') {
         if (index == 1) {
           this.setState({ data1: response.data })

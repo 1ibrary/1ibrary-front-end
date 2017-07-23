@@ -8,7 +8,6 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Alert,
   AsyncStorage
 } from 'react-native'
 // import CommonNav from "../common/CommonNav";
@@ -19,8 +18,7 @@ import HomePage from './Home'
 import {SCENE_INDEX} from "../constants/scene"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {WIDTH,  HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
-// import SplashScreen from 'react-native-splash-screen';
-
+import Toast from 'antd-mobile/lib/toast';
 
 const URL = USERS.login
 
@@ -32,17 +30,13 @@ export default class WelcomePage extends Component {
       password: '123456'
     }
   }
-  // componentDidMount() {
-  //    	 // do anything while splash screen keeps, use await to wait for an async task.
-  //        SplashScreen.hide();
-  //    }
   onSubmit() {
       if (!this.state.account.trim()) {
-          Alert.alert('小提示', '请输入学号哦~')
+          Toast.offline("请输入学号噢～",1)
           return
       }
       if (!this.state.password.trim()) {
-          Alert.alert('小提示', '请输入密码哦~')
+          Toast.offline("请输入密码噢～",1)
           return
       }
       HttpUtils.post(URL, {
@@ -51,6 +45,7 @@ export default class WelcomePage extends Component {
       })
         .then(response => {
           if (response.msg === '请求成功') {
+            Toast.success("登录成功！",1)
             AsyncStorage.setItem(
               'user_info',
               JSON.stringify(response.data),
@@ -69,21 +64,13 @@ export default class WelcomePage extends Component {
                           timestamp: response.data.timestamp,
                       }
                       Actions[SCENE_INDEX](params)
-                      // this.props.navigator.push({
-                      //   component: HomePage,
-                      //   params: {
-                      //     user: user,
-                      //     books_data: JSON.parse(array),
-                      //     timestamp: response.data.timestamp
-                      //   }
-                      // })
                     }
                   })
                 }
               }
             )
           } else {
-            Alert.alert('网络请求出错啦', response.msg)
+            Toast.fail(response.msg,1)
           }
         })
         .catch(error => {

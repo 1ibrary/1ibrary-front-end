@@ -6,13 +6,14 @@ import {
   StyleSheet,
   Dimensions,
   AsyncStorage,
-  Alert
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
 import {USERS} from "../network/Urls"
 import {WIDTH, INNERWIDTH,HEIGHT} from '../common/styles'
 import {Actions} from "react-native-router-flux"
+import Toast from "antd-mobile/lib/toast"
+
 
 const URL = USERS.feedback
 
@@ -26,11 +27,11 @@ export default class FeedBackPage extends Component {
   }
   onPost() {
     if (!this.state.contact.trim()) {
-      Alert.alert('小提示', '请输入您的联系方式哦~')
+      Toast.info("请输入您的联系方式哦~",1)
       return
     }
     if (!this.state.content.trim()) {
-      Alert.alert('小提示', '请输入您的反馈内容哦~')
+      Toast.info("请输入您的反馈内容哦~",1)
       return
     }
     HttpUtils.post(URL, {
@@ -40,9 +41,7 @@ export default class FeedBackPage extends Component {
       uid: this.props.user.uid,
       timestamp: this.props.timestamp
     }).then(response => {
-      // alert(response.msg);
       if (response.msg === '请求成功') {
-        // alert("已经提交啦～");
         Actions.pop()
       }
     })

@@ -19,6 +19,7 @@ import {BOOKS} from "../network/Urls"
 import {INNERWIDTH,WIDTH,HEIGHT} from '../common/styles'
 import {Actions} from "react-native-router-flux"
 import {SCENE_BOOK_COLLECT} from "../constants/scene"
+import Toast from 'antd-mobile/lib/toast';
 
 const URL = BOOKS.show_detail
 
@@ -27,7 +28,8 @@ export default class BookInfoPage extends Component {
     super(props)
     this.state = {
       show_content: false,
-      book_data: { detail_data: [] }
+      book_data: { detail_data: [] },
+      is_subscribe:false
     }
   }
   static defaultProps = {
@@ -82,25 +84,13 @@ export default class BookInfoPage extends Component {
       })
   }
   onNavigator() {
-    // AsyncStorage.getItem('book_list', (error, array) => {
-    //   let lists
-    //   // alert(array)
-    //   array = JSON.parse(array)
-    //   if (array) {
-    //     lists = array
-    //   } else {
-    //     lists = []
-    //   }
       let params = {
-          // lists: lists,
           title: '加入书单',
           book: this.props.data,
           user: this.props.user,
           timestamp: this.props.timestamp
       }
-      // alert(JSON.stringify(params))
       Actions[SCENE_BOOK_COLLECT](params)
-    // })
   }
   changeNum(x) {
     if (x < 10) {
@@ -109,21 +99,33 @@ export default class BookInfoPage extends Component {
       return x
     }
   }
+  async subscribe() {
+    let res = ""
+    await this.setState({is_subscribe:!this.state.is_subscribe})
+    if(this.state.is_subscribe){
+      res = "您已成功订阅本书！"
+    } else {
+      res = "您已取消订阅！"
+    }
+    Toast.success(res,1)
+  }
   render() {
     let bottomBar = (
       <View style={styles.bottom_bar}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.subscribe.bind(this)}
+          >
           <View
             style={[
               styles.subscribe,
-              this.state.book_data.is_subscribe ? styles.subscribe_disbaled : {}
+              this.state.is_subscribe ? styles.subscribe_disbaled : {}
             ]}
           >
             <View>
               <Text
                 style={[
                   styles.subscribe_font,
-                  this.state.book_data.is_subscribe
+                  this.state.is_subscribe
                     ? styles.subscribe_font_disabled
                     : {}
                 ]}

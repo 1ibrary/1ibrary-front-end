@@ -134,7 +134,6 @@ export default class Search extends Component {
           placeholder={'搜索书名，作者或出版社'}
           defaultValue={this.state.defaultValue}
           onSubmitEditing={event => {
-            // alert(event.nativeEvent.text);
             this.onSubmitEditing(event.nativeEvent.text)
           }}
           icon={

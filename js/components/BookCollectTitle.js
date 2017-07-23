@@ -110,7 +110,6 @@ export default class BookCollectTitle extends Component {
             ? <TouchableWithoutFeedback
                 onPress={() => {
                   let data = this.props.data
-                  // alert(data)
                   this.props.onPress(!this.state.select, data)
                   this.setState({ select: !this.state.select })
                   return
