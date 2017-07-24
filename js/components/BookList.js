@@ -21,8 +21,6 @@ const URL = BOOKS.show_books
 export default class BookList extends Component {
   constructor(props) {
     super(props)
-
-    let data = this.props.books_data ? this.props.books_data : []
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
@@ -37,9 +35,6 @@ export default class BookList extends Component {
   }
   async onLoad() {
     let params = {
-        uid: this.props.user.uid,
-        token: this.props.user.token,
-        timestamp: this.props.timestamp,
         page: 1
     }
     let result = await HttpUtils.post(URL, params) || {}
@@ -47,29 +42,22 @@ export default class BookList extends Component {
       this.setState({ books: result.data }, () => {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(this.state.books),
-          page: 1
+          page: 1,
+          isLoading: false
         })
       })
-      this.setState({ isLoading: false })
     }
   }
   async onEndReached() {
     let params = {
-        uid: this.props.user.uid,
-        token: this.props.user.token,
-        timestamp: new Date().getTime(),
         page: this.state.page + 1
     }
     let result = await HttpUtils.post(URL, params) || {}
     this.setState(
       {
-        books: [...this.state.books, ...result.data]
-      },
-      () => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(this.state.books),
-          page: this.state.page + 1
-        })
+        books: [...this.state.books, ...result.data],
+        dataSource: this.state.dataSource.cloneWithRows(this.state.books),
+        page: this.state.page + 1
       }
     )
   }

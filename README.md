@@ -267,6 +267,8 @@ by miemie
 - 胖胖把4个bug变成了1个 棒棒～🍭🍭🍭
 - 明天开始使用redux进行数据管理的重构
 
+by miemie
+
 ### 17.07.23
 - 胖胖把1个bug变成了0个！ 🍭🍭🍭
 - 使用alert和toast对提醒的细节做了完善
@@ -274,3 +276,12 @@ by miemie
 - 添加自动登录
 - 把所有的异步都替换成了async/await的写法
 - 坐等code review 😄
+
+by miemie
+
+### 17.07.24
+- 按照胖胖的建议做了修改
+- bug：如果多次搜索 那么点击取消 将会无法直接回到首页 而是多次回弹到上次搜索结果
+- 等debug和code review呀～～
+
+by miemie

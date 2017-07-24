@@ -39,7 +39,7 @@ export default class SearchTags extends Component {
         return <View style={[styles.tags,this.props.styles]}>
             <Text style={styles.tag_title}>{this.props.title}</Text>
             <View style={styles.tag_container}>
-                {this.props.data&&this.props.data.map((item, i) => {
+                {this.props.data&&this.props.data.map&&this.props.data.map((item, i) => {
                     return (
                         <View key={i} style={styles.tag_item}>
                             <Text

@@ -1,3 +1,16 @@
+let defaultData = {
+  uid:"",
+  token:"",
+  timestamp:""
+}
+
+export function setDefaultData(data) {
+  defaultData = {
+      ...defaultData,
+      ...data
+  }
+}
+
 export default class HttpUtils {
   static get(url) {
     return new Promise((resolve, reject) => {
@@ -12,6 +25,7 @@ export default class HttpUtils {
     })
   }
   static post(url, data) {
+    data = {...defaultData,...data}
     return new Promise((resolve, reject) => {
       // alert(JSON.stringify(data))
       fetch(url, {

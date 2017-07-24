@@ -34,11 +34,8 @@ export default class FeedBackPage extends Component {
       return
     }
     let params = {
-        token: this.props.user.token,
         content: this.state.content,
         contact: this.state.contact,
-        uid: this.props.user.uid,
-        timestamp: this.props.timestamp
     }
     let response = await HttpUtils.post(URL, params) || {}
     if (response.msg === '请求成功') {

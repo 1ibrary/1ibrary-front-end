@@ -8,16 +8,12 @@
   },
   "dependencies": {
     "antd-mobile": "^1.5.0",
-    "install": "^0.10.1",
-    "npm": "^5.3.0",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
     "react-native-router-flux": "3.38.0",
     "react-native-scrollable-tab-view": "^0.7.4",
     "react-native-splash-screen": "^2.0.0",
-    "react-native-tab-navigator": "^0.3.3",
-    "sweetalert-react": "^0.4.10",
-    "sweetalert2": "^6.6.6"
+    "react-native-tab-navigator": "^0.3.3"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

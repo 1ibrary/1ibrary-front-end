@@ -11,7 +11,7 @@ import {
   AsyncStorage
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
-import HttpUtils from '../network/HttpUtils'
+import HttpUtils, {setDefaultData} from '../network/HttpUtils'
 import {USERS} from '../network/Urls'
 import {SCENE_INDEX} from "../constants/scene"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
@@ -37,10 +37,10 @@ export default class WelcomePage extends Component {
         }
         let response = await HttpUtils.post(URL,params) || {}
         if (response.msg === '请求成功') {
-          let user = response.data
+          let data = response.data
+          setDefaultData({uid:data.uid,token:data.token,timestamp:data.timestamp})
           let params = {
-              user: user,
-              books_data: JSON.parse(array),
+              user: data,
               timestamp: response.data.timestamp,
           }
           Actions[SCENE_INDEX](params)
@@ -63,16 +63,15 @@ export default class WelcomePage extends Component {
       let response = await HttpUtils.post(URL,params) || {}
       if (response.msg === '请求成功') {
         Toast.success("登录成功！",1)
+        let data = response.data
+        setDefaultData({uid:data.uid,token:data.token,timestamp:data.timestamp})
         let user_info = {...response.data,...params}
         await AsyncStorage.setItem(
           'user_info',
-          JSON.stringify(user_info),
+          JSON.stringify(user_info)
         )
-        let array = await AsyncStorage.getItem('books_data') || "[]"
-        let user = response.data
         let params =    {
-            user: user,
-            books_data: JSON.parse(array),
+            user: data,
             timestamp: response.data.timestamp,
          }
         Actions[SCENE_INDEX](params)

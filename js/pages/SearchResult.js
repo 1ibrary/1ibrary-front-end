@@ -9,6 +9,8 @@ import BookList from '../components/BookList'
 import BookItem1 from '../components/Book'
 import HttpUtils from '../network/HttpUtils'
 import SearchNav from "../components/SearchNav"
+import {Actions} from "react-native-router-flux"
+import {SCENE_SEARCH} from "../constants/scene"
 import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveHeight, getResponsiveWidth} from "../common/styles"
 
 const URL = BOOKS.search_book
@@ -63,6 +65,13 @@ export default class SearchResultPage extends Component {
         <SearchNav
             textInputColor={{backgroundColor:"#f9f9f9"}}
             style={{backgroundColor:"white"}}
+            onFocus={() => {
+                let params =    {
+                    user: this.props.user,
+                    timestamp: this.props.timestamp,
+                }
+                Actions[SCENE_SEARCH](params)
+            }}
             />
         <ScrollableTabView
           style={styles.scrollable_tab_view}

@@ -69,10 +69,7 @@ export default class BookInfoPage extends Component {
   }
   async componentDidMount() {
     let params = {
-        token: this.props.user.token,
-        uid: this.props.user.uid,
         book_id: this.props.data.book_id,
-        timestamp: this.props.timestamp
     }
     let result = await (HttpUtils.post(URL, params) || {})
     if(result.msg==="请求成功") {
@@ -100,12 +97,9 @@ export default class BookInfoPage extends Component {
   }
   async subscribe() {
     let res = ""
-    await this.setState({is_subscribe:!this.state.is_subscribe})
-    if(this.state.is_subscribe){
-      res = "您已成功订阅本书！"
-    } else {
-      res = "您已取消订阅！"
-    }
+    this.setState({is_subscribe:!this.state.is_subscribe},()=>{
+      res = this.state.is_subscribe?"您已成功订阅本书！":"您已取消订阅！"
+    })
     Toast.success(res,1)
   }
   render() {

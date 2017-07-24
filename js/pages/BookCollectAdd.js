@@ -13,6 +13,7 @@ import {LISTS} from "../network/Urls"
 import {WIDTH, INNERWIDTH,HEIGHT} from "../common/styles"
 import {Actions} from "react-native-router-flux"
 import Toast from "antd-mobile/lib/toast"
+import {getArray} from "../common/storage"
 
 const URL = LISTS.create_list // 缓存前先请求showxs
 const URL_SHOW = LISTS.show_list
@@ -34,8 +35,7 @@ export default class BookCollectAddPage extends Component {
       Toast.info("请输入书单的描述内容噢!",1)
       return
     }
-    let array = await AsyncStorage.getItem('book_list') || "[]"
-    array = JSON.parse(array)
+    let array = await getArray("book_list")
     let item = {
       list_name: this.state.list_name,
       list_content: this.state.list_content
@@ -56,10 +56,7 @@ export default class BookCollectAddPage extends Component {
     }
     let params = {
       list_name: this.state.list_name,
-      uid: this.props.user.uid,
       list_content: this.state.list_content,
-      timestamp: this.props.timestamp,
-      token: this.props.user.token
     }
     let response = await HttpUtils.post(URL, params) || {}
     if (response.msg === '请求成功') {

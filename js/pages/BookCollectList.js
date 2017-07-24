@@ -38,9 +38,6 @@ export default class BookListPage extends Component {
   }
   async getNewData(book_id_list) {
       let params =  {
-          token: this.props.user.token,
-          uid: this.props.user.uid,
-          timestamp: this.props.timestamp,
           book_list:book_id_list||"[]"
       }
       let result = await HttpUtils.post(URL_SHOW,params) || {}
@@ -50,7 +47,7 @@ export default class BookListPage extends Component {
       }
   }
   async onDelete(item) {
-    this.state.book_list.map(async (book,i)=> {
+    this.state.book_list.some(async (book,i)=> {
         if (book.book_id == item.book_id) {
             let list = this.props.item
             let book_id_list = this.state.book_id_list.split(",").slice(0)
@@ -59,9 +56,6 @@ export default class BookListPage extends Component {
             let params = {
                 book_list: book_id_list.join(",") || "[]",
                 list_id: list.list_id,
-                uid: this.props.user.uid,
-                token: this.props.user.token,
-                timestamp: this.props.timestamp
             }
             let response = await HttpUtils.post(URL_RM_BOOK, params) || {}
             if (response.msg === "请求成功") {
@@ -70,6 +64,7 @@ export default class BookListPage extends Component {
             } else {
                 Toast.offline(response.msg,1)
             }
+            return true
         }
     })
   }

@@ -20,6 +20,7 @@ import {INNERWIDTH,HEIGHT} from '../common/styles'
 import {Actions} from "react-native-router-flux"
 import {SCENE_BOOK_COLLECT_ADD} from "../constants/scene"
 import Toast from 'antd-mobile/lib/toast';
+import {getArray} from "../common/storage"
 
 const URL_SHOW = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
@@ -70,14 +71,9 @@ export default class BookCollectPage extends Component {
     }
   }
   async componentDidMount() {
-    let params = {
-        token: this.props.user.token,
-        uid: this.props.user.uid,
-        timestamp: this.props.timestamp
-    }
-    let result = await HttpUtils.post(URL_SHOW, params) || {}
+    let result = await HttpUtils.post(URL_SHOW) || {}
     let lists = result.data || []
-    this.setState({ lists: lists })
+    this.setState({ lists})
   }
   rightOnPress() {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
@@ -89,9 +85,6 @@ export default class BookCollectPage extends Component {
         book_list = d.book_list&&d.book_list.split(",") || []
         book_list = [...new Set([...book_list, this.props.book.book_id+""])]
         let params = {
-            timestamp: this.props.timestamp,
-            uid: this.props.user.uid,
-            token: this.props.user.token,
             list_id: d.list_id,
             book_list: book_list&&book_list.join(",")
         }
@@ -126,9 +119,6 @@ export default class BookCollectPage extends Component {
       }
       let params = {
           list_id: d.list_id,
-          uid: this.props.user.uid,
-          token: this.props.user.token,
-          timestamp: this.props.timestamp
       }
       let result = await HttpUtils.post(URL_RM_LIST, params)||{}
       if (result.msg === '请求成功') {
@@ -163,8 +153,7 @@ export default class BookCollectPage extends Component {
           onPress={() => {
             let params = {
                 onCallBack: async () => {
-                    let array = await AsyncStorage.getItem('book_list') || "[]"
-                    array = JSON.parse(array)
+                    let array = await getArray("book_list")
                     this.setState({ lists: array })
                 },
                 user: this.props.user,

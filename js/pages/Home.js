@@ -83,7 +83,6 @@ export default class HomePage extends Component {
               <BookList
                   style={styles.book_list}
                   timestamp={this.props.timestamp}
-                  data={this.props.books_data ? this.props.books_data : []}
                   user={this.props.user ? this.props.user : {}}
                   navigator={this.props.navigator}
                   token={this.props.token}
