@@ -68,12 +68,10 @@ export default class SearchNav extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'center',
-        height: getResponsiveHeight(36),
+        height: getResponsiveHeight(64),
         paddingTop: getResponsiveHeight(28),
         width: WIDTH,
         paddingLeft: getResponsiveWidth(8),
-        height:64
     },
     show: {
         display: 'flex'
@@ -82,7 +80,6 @@ const styles = StyleSheet.create({
         display: 'none'
     },
     image_search: {
-        borderRadius: 0,
         position: 'absolute',
         left:getResponsiveWidth(16),
         top: getResponsiveHeight(36),
@@ -92,20 +89,21 @@ const styles = StyleSheet.create({
         width: getResponsiveWidth(316),
         height: getResponsiveHeight(28),
         paddingLeft: getResponsiveWidth(30),
-        backgroundColor: 'white',
+        backgroundColor: "white",
         borderRadius: getResponsiveHeight(8),
         flexDirection: 'row',
         alignItems: 'center',
         fontSize: 14
     },
     close_container: {
-        height:getResponsiveHeight(24),
+        height:getResponsiveHeight(28),
         width: getResponsiveWidth(44),
-        justifyContent: 'center',
-        flexDirection: 'row'
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent:"center",
     },
     close: {
-        fontSize: getResponsiveWidth(17),
+        fontSize: getResponsiveHeight(17),
         color: '#FF7373',
         alignItems: 'center'
     },

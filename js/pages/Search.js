@@ -16,7 +16,7 @@ import {getResponsiveWidth,INNERWIDTH,HEIGHT,WIDTH} from "../common/styles"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {SCENE_SEARCH_RESULT} from "../constants/scene"
 import SearchTags from "../components/SearchTags"
-import {getArray} from "../common/storage"
+import Storage from "../common/storage"
 
 const MAX_LENGTH = 5
 
@@ -34,17 +34,17 @@ export default class Search extends Component {
     }
   }
   async componentDidMount() {
-      let array = await getArray("search_history")
+      let array = await Storage.get("search_history",[])
       this.setState({search_history: array})
   }
   async onPressDelete(index) {
-    let array = await getArray("search_history")
+    let array = await Storage.get("search_history",[])
     if(array.length==0||index>array.length-1) {
       return
     }
     array.splice(index,1)
     array = [...new Set(array)]
-    await  AsyncStorage.setItem('search_history', JSON.stringify(array))
+    await Storage.set("search_history",array)
     this.setState({ search_history: array })
   }
   onSubmitEditing(text) {
@@ -63,7 +63,7 @@ export default class Search extends Component {
        // this.setState({ page: 2, information: data })
    }
    async onSave(text) {
-       let array = await getArray("search_history")
+       let array = await Storage.get("search_history",[])
        if (array.length!=0) {
            array = [...new Set([text, ...array])]
            if(array.length>MAX_LENGTH) {
@@ -73,7 +73,7 @@ export default class Search extends Component {
        } else {
            array = [text]
        }
-       await AsyncStorage.setItem('search_history', JSON.stringify(array))
+       await Storage.set("search_history",array)
        this.setState({ search_history: array })
    }
    changeDefaultValue(item) {

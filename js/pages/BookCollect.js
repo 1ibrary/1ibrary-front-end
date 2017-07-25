@@ -20,7 +20,7 @@ import {INNERWIDTH,HEIGHT} from '../common/styles'
 import {Actions} from "react-native-router-flux"
 import {SCENE_BOOK_COLLECT_ADD} from "../constants/scene"
 import Toast from 'antd-mobile/lib/toast';
-import {getArray} from "../common/storage"
+import Storage from "../common/storage"
 
 const URL_SHOW = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
@@ -92,7 +92,7 @@ export default class BookCollectPage extends Component {
         let result = HttpUtils.post(URL_ADD_BOOK, params)
         if (result.msg === '请求成功') {
           if(i===this.state.choosed.length-1) {
-              await AsyncStorage.setItem('book_list',JSON.stringify(this.state.lists))
+              await Storage.set("book_list",this.state.lists)
           }
         }
       })
@@ -124,9 +124,7 @@ export default class BookCollectPage extends Component {
       if (result.msg === '请求成功') {
           await this.setState({lists: array})
           Toast.success("删除书单成功!",1)
-          await AsyncStorage.setItem(
-              'book_list',
-              JSON.stringify(array))
+          await Storage.set("book_list",array)
           return true
       } else {
           Toast.offline(result.msg,1)
@@ -153,7 +151,7 @@ export default class BookCollectPage extends Component {
           onPress={() => {
             let params = {
                 onCallBack: async () => {
-                    let array = await getArray("book_list")
+                    let array = await Storage.get("book_list",[])
                     this.setState({ lists: array })
                 },
             }

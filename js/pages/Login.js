@@ -17,7 +17,7 @@ import {SCENE_INDEX} from "../constants/scene"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {WIDTH,  HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
 import Toast from 'antd-mobile/lib/toast';
-import {getObject} from "../common/storage"
+import Storage from "../common/storage"
 
 const URL = USERS.login
 
@@ -30,7 +30,7 @@ export default class WelcomePage extends Component {
     }
   }
   async componentDidMount() {
-      let user_info = await getObject("user_info")
+      let user_info = await Storage.get("user_info",{})
       if(user_info.user_account&&user_info.user_password) {
         let params = {
             user_account: user_info.user_account,
@@ -66,10 +66,7 @@ export default class WelcomePage extends Component {
         let data = response.data
         setDefaultData({uid:data.uid,token:data.token,timestamp:data.timestamp})
         let user_info = {...response.data,...params}
-        await AsyncStorage.setItem(
-          'user_info',
-          JSON.stringify(user_info)
-        )
+        await Storage.set("user_info",user_info)
         let params =    {
             user: data,
          }
