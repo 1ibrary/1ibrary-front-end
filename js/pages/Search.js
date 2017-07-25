@@ -119,16 +119,6 @@ export default class Search extends Component {
            onSubmitEditing={event => {
              this.onSubmitEditing(event.nativeEvent.text)
            }}
-           icon={
-             <TouchableOpacity
-               style={styles.close_container}
-               onPress={() => {
-                 Actions.pop()
-               }}
-             >
-               <Text style={styles.close}>取消</Text>
-             </TouchableOpacity>
-           }
            onChangeText={text => {
              this.onChangeText(text)
            }}
@@ -222,17 +212,6 @@ const styles = StyleSheet.create({
   },
   search_history_delete: {
     marginLeft: 120
-  },
-  close: {
-    fontSize: 17,
-    color: '#FF7373',
-    alignItems: 'center'
-  },
-  close_container: {
-    height: 28,
-    width: 44,
-    justifyContent: 'center',
-    flexDirection: 'row'
   },
 
   information: {

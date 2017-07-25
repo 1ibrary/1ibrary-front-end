@@ -73,12 +73,6 @@ const styles = StyleSheet.create({
         width: WIDTH,
         paddingLeft: getResponsiveWidth(8),
     },
-    show: {
-        display: 'flex'
-    },
-    hide: {
-        display: 'none'
-    },
     image_search: {
         position: 'absolute',
         left:getResponsiveWidth(16),
