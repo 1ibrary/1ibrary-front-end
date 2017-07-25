@@ -285,3 +285,11 @@ by miemie
 - 等debug和code review呀～～
 
 by miemie
+
+### 17.07.25
+- 根据code review结果做修改
+待做:
+- 等开源的AsyncStorage 对本地存储做进一步的封装
+- redux 管理数据
+
+by miemie

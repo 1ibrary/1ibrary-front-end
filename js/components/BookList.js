@@ -64,9 +64,6 @@ export default class BookList extends Component {
   renderRow(data) {
     return (
       <Book
-        timestamp={this.props.timestamp}
-        user={this.props.user}
-        navigator={this.props.navigator}
         data={data}
       />
     )

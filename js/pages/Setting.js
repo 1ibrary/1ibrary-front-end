@@ -26,7 +26,7 @@ export default class BookListPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <CommonNav navigator={this.props.navigator} title={this.props.title} />
+        <CommonNav title={this.props.title} />
         <View style={styles.items_container}>
           <SettingItem style={styles.item} text={'接受订阅图书消息'} />
           <SettingItem style={styles.item} text={'接受还书提醒'} />

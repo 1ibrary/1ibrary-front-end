@@ -61,12 +61,7 @@ export default class BookCollectAddPage extends Component {
     let response = await HttpUtils.post(URL, params) || {}
     if (response.msg === '请求成功') {
       Toast.success("创建书单成功！",1)
-      let params = {
-          token: this.props.user.token,
-          uid: this.props.user.uid,
-          timestamp: this.props.timestamp
-      }
-      let result = await HttpUtils.post(URL_SHOW, params) || {}
+      let result = await HttpUtils.post(URL_SHOW) || {}
       if (result.msg === '请求成功') {
           let lists = result.data
           await AsyncStorage.setItem(

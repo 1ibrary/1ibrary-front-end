@@ -35,15 +35,10 @@ export default class Book extends Component {
   onPress() {
     let params = {
         data: this.props.data,
-        user: this.props.user,
-        timestamp: this.props.timestamp
     }
     Actions[SCENE_BOOK_INFO](params)
   }
   render() {
-    // if(!this.props.data) {
-    // 	return ;
-    // }
     return (
       <TouchableOpacity
         onPress={() => {

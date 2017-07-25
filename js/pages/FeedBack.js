@@ -50,7 +50,6 @@ export default class FeedBackPage extends Component {
           rightOnPress={() => {
             this.onPost()
           }}
-          navigator={this.props.navigator}
         />
         <TextInput
           placeholder={'请输入您的邮箱或者电话'}

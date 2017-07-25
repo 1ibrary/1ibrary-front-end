@@ -73,19 +73,11 @@ export default class HomePage extends Component {
               <SearchNav_Welcome
                   placeholder={'搜索'}
                   onFocus={() => {
-                      let params =    {
-                          user: this.props.user,
-                          timestamp: this.props.timestamp,
-                      }
-                      Actions[SCENE_SEARCH](params)
+                      Actions[SCENE_SEARCH]()
                   }}
               />
               <BookList
                   style={styles.book_list}
-                  timestamp={this.props.timestamp}
-                  user={this.props.user ? this.props.user : {}}
-                  navigator={this.props.navigator}
-                  token={this.props.token}
               />
             </View>
           </View>
@@ -101,7 +93,7 @@ export default class HomePage extends Component {
             }
             onPress={() => this.setState({ selectedTab: 'message' })}
         >
-          <MessagePage navigator={this.props.navigator} />
+          <MessagePage/>
         </TabNavigator.Item>
         <TabNavigator.Item
             selected={this.state.selectedTab === 'profile'}
@@ -115,9 +107,7 @@ export default class HomePage extends Component {
             onPress={() => this.setState({ selectedTab: 'profile' })}
         >
           <ProfilePage
-              timestamp={this.props.timestamp}
               user={this.props.user ? this.props.user : {}}
-              navigator={this.props.navigator}
           />
         </TabNavigator.Item>
       </TabNavigator>

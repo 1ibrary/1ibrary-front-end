@@ -83,8 +83,6 @@ export default class BookInfoPage extends Component {
       let params = {
           title: '加入书单',
           book: this.props.data,
-          user: this.props.user,
-          timestamp: this.props.timestamp
       }
       Actions[SCENE_BOOK_COLLECT](params)
   }
@@ -96,11 +94,11 @@ export default class BookInfoPage extends Component {
     }
   }
   async subscribe() {
-    let res = ""
+    let message = ""
     this.setState({is_subscribe:!this.state.is_subscribe},()=>{
-      res = this.state.is_subscribe?"您已成功订阅本书！":"您已取消订阅！"
+      message = this.state.is_subscribe?"您已成功订阅本书！":"您已取消订阅！"
     })
-    Toast.success(res,1)
+    Toast.success(message,1)
   }
   render() {
     let bottomBar = (
@@ -209,10 +207,6 @@ export default class BookInfoPage extends Component {
             </View>
           </View>
           <View style={[styles.book_places_container, styles.scroll_view]}>
-            {
-              // 	this.props.data.detail_data.map({
-              // })
-            }
             <View style={styles.book_places_cap}>
               <Text style={styles.book_places_cap_number}>序号</Text>
               <Text style={styles.book_places_cap_place}>馆藏地点</Text>

@@ -41,7 +41,6 @@ export default class WelcomePage extends Component {
           setDefaultData({uid:data.uid,token:data.token,timestamp:data.timestamp})
           let params = {
               user: data,
-              timestamp: response.data.timestamp,
           }
           Actions[SCENE_INDEX](params)
         }
@@ -72,7 +71,6 @@ export default class WelcomePage extends Component {
         )
         let params =    {
             user: data,
-            timestamp: response.data.timestamp,
          }
         Actions[SCENE_INDEX](params)
       } else {

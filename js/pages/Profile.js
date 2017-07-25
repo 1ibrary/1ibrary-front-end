@@ -67,8 +67,6 @@ export default class ProfilePage extends Component {
                     case '我的书单':
                       params = {
                           title: '我的书单',
-                          user: this.props.user,
-                          timestamp: this.props.timestamp
                       }
                       this.onJump(scenes.SCENE_BOOK_COLLECT, params)
                       break
@@ -108,12 +106,7 @@ export default class ProfilePage extends Component {
                   let params
                   switch (d) {
                     case '意见反馈':
-                      params = {
-                        user: this.props.user,
-                        timestamp: this.props.timestamp,
-                        navigator: this.props.navigator
-                      }
-                      this.onJump(scenes.SCENE_FEEDBACK,params)
+                      this.onJump(scenes.SCENE_FEEDBACK,{})
                       break
                     case '关于我们':
                       this.onJump(scenes.SCENE_ABOUTUS,{})

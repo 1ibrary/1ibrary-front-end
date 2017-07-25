@@ -11,6 +11,7 @@ import Setting from "./Setting"
 import FeedBack from "./FeedBack"
 import SearchResult from "./SearchResult"
 import AboutUs from "./AboutUs"
+import AboutUsWeb from "./AboutUsWeb"
 import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import * as scenes from '../constants/scene'
 
@@ -87,7 +88,7 @@ export default class AppRouter extends Component {
               <Scene
                   key={scenes.SCENE_ABOUTUS}
                   component = {AboutUs}
-                  title="关于我们页面"
+                  title="关于我们"
                   hideNavBar
               />
               <Scene
@@ -95,6 +96,12 @@ export default class AppRouter extends Component {
                   component = {SearchResult}
                   type={ActionConst.REPLACE}
                   title="搜索结果"
+                  hideNavBar
+              />
+              <Scene
+                  key={scenes.SCENE_ABOUTUS_WEB}
+                  component = {AboutUsWeb}
+                  title="关于我们页面"
                   hideNavBar
               />
           </Scene>

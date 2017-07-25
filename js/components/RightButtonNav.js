@@ -13,7 +13,6 @@ export default class RightButtonNav extends Component {
     return (
       <CommonNav
         title={this.props.title}
-        navigator={this.props.navigator}
         rightButton={
           <TouchableOpacity
             onPress={() => this.props.rightOnPress()}

@@ -76,7 +76,6 @@ export default class BookListPage extends Component {
     return (
       <View style={styles.container}>
         <CommonNav
-          navigator={this.props.navigator}
           title={this.props.item.list_name ? this.props.item.list_name: '书单'}
         />
         <ScrollView style={styles.item_container}>
@@ -85,7 +84,6 @@ export default class BookListPage extends Component {
               <BookItem2
                 key={item.book_id}
                 item={item}
-                user={this.props.user}
                 onDelete={this.onConfirm.bind(this,item)}
               />
             )

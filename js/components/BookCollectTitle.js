@@ -50,8 +50,6 @@ export default class BookCollectTitle extends Component {
     }
     let params = {
         title: this.props.title,
-        user: this.props.user,
-        timestamp: this.props.timestamp,
         item:this.props.item
     }
     Actions[SCENE_BOOK_COLLECT_LIST](params)

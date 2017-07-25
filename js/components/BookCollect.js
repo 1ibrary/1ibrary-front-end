@@ -70,8 +70,6 @@ export default class BookCollect extends Component {
           ]}
         >
           <BookItem1
-            user={this.props.user}
-            timestamp={this.props.timestamp}
             data={this.props.item}
           />
 

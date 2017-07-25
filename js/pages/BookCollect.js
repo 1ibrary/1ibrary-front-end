@@ -156,8 +156,6 @@ export default class BookCollectPage extends Component {
                     let array = await getArray("book_list")
                     this.setState({ lists: array })
                 },
-                user: this.props.user,
-                timestamp: this.props.timestamp
             }
             Actions[SCENE_BOOK_COLLECT_ADD](params)
           }}
@@ -170,13 +168,10 @@ export default class BookCollectPage extends Component {
               <BookCollectItem
                 item={item}
                 big_title={this.props.title}
-                navigator={this.props.navigator}
                 onPress={(select, data) => this.onPressButton(select, data)}
                 onDelete={title => {
                   this.onConfirm(title)
                 }}
-                timestamp={this.props.timestamp}
-                user={this.props.user}
                 key={item.list_id}
                 data={item}
               />

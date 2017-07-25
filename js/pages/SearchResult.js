@@ -26,9 +26,6 @@ export default class SearchResultPage extends Component {
   }
   async componentDidMount() {
     let params = {
-        uid: 1||this.props.user.uid ,
-        timestamp: 1||this.props.timestamp,
-        token: 1||this.props.user.token ,
         content: 1||this.props.content,
         type: 0
     }
@@ -39,10 +36,7 @@ export default class SearchResultPage extends Component {
   }
   async onChangeTab(index) {
     let params = {
-        uid: 1||this.props.user.uid,
-        timestamp: 1||this.props.timestamp,
-        token: 1||this.props.user.token,
-        content: 1||this.props.content,
+        content:this.props.content,
         type: index
     }
     let response = await HttpUtils.post(URL, params) || {}
@@ -66,11 +60,7 @@ export default class SearchResultPage extends Component {
             textInputColor={{backgroundColor:"#f9f9f9"}}
             style={{backgroundColor:"white"}}
             onFocus={() => {
-                let params =    {
-                    user: this.props.user,
-                    timestamp: this.props.timestamp,
-                }
-                Actions[SCENE_SEARCH](params)
+                Actions[SCENE_SEARCH]()
             }}
             />
         <ScrollableTabView
@@ -100,9 +90,6 @@ export default class SearchResultPage extends Component {
                         key={i}
                         data={item}
                         style={styles.item}
-                        navigator={this.props.navigator}
-                        user={this.props.user}
-                        timestamp={this.props.timestamp}
                       />
                     )
                   })}
@@ -118,9 +105,6 @@ export default class SearchResultPage extends Component {
                         key={i}
                         data={item}
                         style={styles.item}
-                        user={this.props.user}
-                        timestamp={this.props.timestamp}
-                        navigator={this.props.navigator}
                       />
                     )
                   })}
@@ -136,9 +120,6 @@ export default class SearchResultPage extends Component {
                         key={i}
                         data={item}
                         style={styles.item}
-                        navigator={this.props.navigator}
-                        user={this.props.user}
-                        timestamp={this.props.timestamp}
                       />
                     )
                   })}

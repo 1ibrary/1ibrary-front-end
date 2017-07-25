@@ -50,8 +50,6 @@ export default class Search extends Component {
   onSubmitEditing(text) {
     this.onSave(text)
     let params = {
-      user:this.props.user,
-      timestamp:this.props.timestamp,
       content:text
     }
     Actions[SCENE_SEARCH_RESULT](params)
