@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         borderRadius: getResponsiveHeight(8),
         flexDirection: 'row',
         alignItems: 'center',
-        fontSize: getResponsiveHeight(14)
+        fontSize: 14
     },
     close_container: {
         height:getResponsiveHeight(28),
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
     },
     close: {
-        fontSize: getResponsiveHeight(17),
+        fontSize: 17,
         color: '#FF7373',
     },
 
