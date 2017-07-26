@@ -21,6 +21,9 @@ export default class SearchNav extends Component {
         }
     }
     componentDidMount() {
+        if(this.props.type=="result") {
+            return
+        }
         this.refs.textInput.focus()
     }
     static defaultProps = {

@@ -85,6 +85,9 @@ export default class Search extends Component {
      let reminder = <SearchTags
          title="搜索提示"
          data={this.state.reminder}
+         onPress = {(item)=>{
+             this.changeDefaultValue(item)
+         }}
      />
      let tags = <View style={styles.container}>
            <SearchTags

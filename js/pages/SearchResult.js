@@ -26,7 +26,7 @@ export default class SearchResultPage extends Component {
   }
   async componentDidMount() {
     let params = {
-        content: 1||this.props.content,
+        content: this.props.content,
         type: 0
     }
     let response = await HttpUtils.post(URL, params) || {}
@@ -57,6 +57,7 @@ export default class SearchResultPage extends Component {
     return (
       <View style={styles.container}>
         <SearchNav
+            type={"result"}
             textInputColor={{backgroundColor:"#f9f9f9"}}
             style={{backgroundColor:"white"}}
             onFocus={() => {

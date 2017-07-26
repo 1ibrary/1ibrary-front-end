@@ -27,47 +27,43 @@ export default class HttpUtils {
         })
     })
   }
-  static post(url, data) {
-    data = {...defaultData,...data}
-    // alert(JSON.stringify(data)+url)
-    return axios.post(url,data)
-        .then(response=>response.data)
-
-    // return new Promise((resolve, reject) => {
-    //   // alert(JSON.stringify(data))
-    //   fetch(url, {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: data
-    //   })
-    //     .then(response => response.json())
-    //     .then(result => {
-    //       resolve(result)
-    //     })
-    //     .catch(error => {
-    //       reject(error)
-    //     })
-    // })
-  }
-  // static changeData(obj) {
-  //   var prop,
-  //     str = ''
-  //   var i = 0
-  //   for (prop in obj) {
-  //     if (!prop) {
-  //       return
-  //     }
-  //     if (i == 0) {
-  //       str += prop + '=' + obj[prop]
-  //     } else {
-  //       str += '&' + prop + '=' + obj[prop]
-  //     }
-  //     i++
-  //   }
-  //   // alert(str);
-  //   return str
-  // }
+    static post(url, data) {
+        data = {...defaultData,...data}
+        return new Promise((resolve, reject) => {
+            // alert(JSON.stringify(data))
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: this.changeData(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    resolve(result)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
+    }
+    static changeData(obj) {
+        var prop,
+            str = ''
+        var i = 0
+        for (prop in obj) {
+            if (!prop) {
+                return
+            }
+            if (i == 0) {
+                str += prop + '=' + obj[prop]
+            } else {
+                str += '&' + prop + '=' + obj[prop]
+            }
+            i++
+        }
+        // alert(str);
+        return str
+    }
 }

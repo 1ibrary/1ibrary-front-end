@@ -94,8 +94,8 @@ export default class AppRouter extends Component {
               <Scene
                   key={scenes.SCENE_SEARCH_RESULT}
                   component = {SearchResult}
-                  type={ActionConst.REPLACE}
                   title="搜索结果"
+                  type={ActionConst.REPLACE}
                   hideNavBar
               />
               <Scene

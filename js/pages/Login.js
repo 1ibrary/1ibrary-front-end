@@ -26,8 +26,8 @@ export default class WelcomePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      account: '1308200047',
-      password: '123456',
+      account: '',
+      password: '',
       schools:["南昌大学","广州大学"],
       choosed_id:0,
       school_id:-1,
@@ -37,11 +37,14 @@ export default class WelcomePage extends Component {
   }
   async componentDidMount() {
       let user_info = await Storage.get("user_info",{})
-      if(user_info.account&&user_info.password&&user_info.school_id) {
+      if(user_info.account&&user_info.password) {
         let params = {
-            account: user_info.account,
-            password: user_info.password,
-            school_id:user_info.school_id
+            user_account: user_info.account,
+            user_password: user_info.password,
+        }
+        // forbide gd
+        if(params.school_id==1) {
+          Toast.fail("请重新登录",1)
         }
         let response = await HttpUtils.post(URL,params) || {}
         if (response.msg === '请求成功'||response.msg==='登陆成功') {
@@ -68,9 +71,13 @@ export default class WelcomePage extends Component {
           return
       }
       let params = {
-          account: this.state.account.trim(),
-          password: this.state.password.trim(),
-          school_id: this.state.school_id
+          user_account: this.state.account.trim(),
+          user_password: this.state.password.trim(),
+      }
+      // forbid gd
+      if(params.school_id==1) {
+        Toast.fail("请输入正确的密码",1)
+        return
       }
       let response = await HttpUtils.post(URL,params) || {}
       if (response.msg === '请求成功'||response.msg==='登陆成功') {
