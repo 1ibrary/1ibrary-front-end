@@ -26,15 +26,21 @@ export default class WelcomePage extends Component {
     super(props)
     this.state = {
       account: '1308200047',
-      password: '123456'
+      password: '123456',
+      schools:["南昌大学","广州大学"],
+      choosed_id:0,
+      school_id:-1,
+      choose_info:"请选择您的学校",
+      show_modal:false
     }
   }
   async componentDidMount() {
       let user_info = await Storage.get("user_info",{})
-      if(user_info.user_account&&user_info.user_password) {
+      if(user_info.account&&user_info.password&&user_info.school_id) {
         let params = {
-            user_account: user_info.user_account,
-            user_password: user_info.user_password
+            account: user_info.account,
+            password: user_info.password,
+            school_id:user_info.school_id
         }
         let response = await HttpUtils.post(URL,params) || {}
         if (response.msg === '请求成功') {
@@ -48,6 +54,10 @@ export default class WelcomePage extends Component {
       }
   }
   async onSubmit() {
+      if(this.state.school_id==-1) {
+          Toast.offline("请选择你的学校噢～",1)
+          return
+      }
       if (!this.state.account.trim()) {
           Toast.offline("请输入学号噢～",1)
           return
@@ -57,9 +67,11 @@ export default class WelcomePage extends Component {
           return
       }
       let params = {
-          user_account: this.state.account.trim(),
-          user_password: this.state.password.trim()
+          account: this.state.account.trim(),
+          password: this.state.password.trim(),
+          school_id: this.state.school_id
       }
+      alert(JSON.stringify(params))
       let response = await HttpUtils.post(URL,params) || {}
       if (response.msg === '请求成功') {
         Toast.success("登录成功！",1)
@@ -75,7 +87,51 @@ export default class WelcomePage extends Component {
         Toast.fail(response.msg,1)
       }
   }
+  show() {
+    this.setState({show_modal:true})
+  }
+  choose_sc(id) {
+    this.setState({choosed_id:id})
+  }
+  cancel() {
+    this.setState({show_modal:false})
+  }
+  confirm() {
+    this.setState({school_id:this.state.choosed_id},()=>{
+      this.setState({choose_info:this.state.schools[this.state.school_id]},()=>{
+        this.cancel()
+      })
+    })
+  }
   render() {
+    let arrow = require("../../res/images/Shape.png")
+    let modal = <View style={styles.modal}>
+      <View style={styles.modal_content}>
+          {
+              this.state.schools.map((item, id) => {
+                  return <TouchableOpacity
+                      key={id}
+                      onPress={this.choose_sc.bind(this,id)}
+                      style={styles.modal_content_item}>
+                    <View style={[styles.modal_round,this.state.choosed_id===id&&styles.active]}/>
+                    <Text style={styles.modal_content_font}>{item}</Text>
+                  </TouchableOpacity>
+              })
+          }
+      </View>
+      <View style={styles.modal_bottom}>
+        <TouchableOpacity
+            onPress={this.cancel.bind(this)}
+            style={[styles.modal_bottom_key,styles.right_border]}>
+          <Text style={styles.modal_key_font}>取消</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={this.confirm.bind(this)}
+            style={styles.modal_bottom_key}>
+          <Text style={styles.modal_key_font}>确认</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
     return (
       <View style={styles.container}>
         <Image
@@ -91,24 +147,31 @@ export default class WelcomePage extends Component {
             <TextPingFang style={styles.e_title}>1 Library</TextPingFang>
           </View>
           <View style={styles.form}>
+            <TouchableOpacity
+                onPress={this.show.bind(this)}
+                style={styles.textinput}
+            >
+              <Text style={styles.choose_font}>{this.state.choose_info}</Text>
+              <Image source={arrow}/>
+            </TouchableOpacity>
             <TextInput
               placeholder={'请输入您的学号'}
-              placeholderTextColor={'white'}
-              style={styles.textinput}
+              placeholderTextColor={'rgba(255,255,255,0.52)'}
+              style={[styles.textinput,styles.textinput_font]}
               onChangeText={text => {
                 this.setState({ account: text })
               }}
             />
             <TextInput
               placeholder={'请输入密码'}
-              placeholderTextColor={'white'}
-              style={styles.textinput}
+              placeholderTextColor={'rgba(255,255,255,0.52)'}
+              style={[styles.textinput,styles.textinput_font]}
               password={true}
               onChangeText={text => {
                 this.setState({ password: text })
               }}
             />
-            <Text style={styles.remind}>请使用数字广大的账号密码登录哦</Text>
+            <Text style={styles.remind}>请使用您的学号密码登录哦</Text>
 
           </View>
           <TouchableOpacity
@@ -120,6 +183,9 @@ export default class WelcomePage extends Component {
             <Text style={styles.online_font}>登录</Text>
           </TouchableOpacity>
         </Image>
+          {
+            this.state.show_modal&&modal
+          }
 
       </View>
     )
@@ -166,15 +232,20 @@ const styles = StyleSheet.create({
   textinput: {
     height: getResponsiveHeight(44),
     width: getResponsiveWidth(240),
-    color: 'white',
     backgroundColor: 'rgb(139,203,255)',
     borderRadius: getResponsiveHeight(22),
     marginBottom: getResponsiveHeight(14),
-    fontSize: 14,
     alignItems: 'center',
-    justifyContent: 'center',
     paddingLeft: getResponsiveWidth(10),
     flexDirection: 'row'
+  },
+  textinput_font:{
+      fontSize: 14,
+  },
+  choose_font:{
+    fontSize:14,
+    color:"white",
+    width:getResponsiveWidth(196)
   },
   remind: {
     fontSize: 10,
@@ -195,5 +266,56 @@ const styles = StyleSheet.create({
   },
   online_font: {
     fontSize: 14
+  },
+  modal:{
+    position:"absolute",
+    top:getResponsiveHeight(288),
+    width:getResponsiveWidth(328),
+    height:getResponsiveHeight(195),
+    backgroundColor:"white",
+    borderRadius:15
+  },
+  modal_content:{
+    height:getResponsiveHeight(151),
+    borderBottomWidth:1,
+    borderBottomColor:"#f0f0f0"
+  },
+  modal_content_item: {
+    marginTop:14,
+    flexDirection:"row",
+    paddingLeft:14,
+    alignItems:"center",
+    height:14
+  },
+  modal_content_font:{
+    fontSize:14
+  },
+  active:{
+      backgroundColor:"#4eafff"
+  },
+  modal_round:{
+    height:14,
+    width:14,
+    borderRadius:7,
+    borderWidth:2,
+    borderColor:"#4eafff",
+    marginRight:14
+  },
+  modal_bottom: {
+    flexDirection:"row"
+  },
+  right_border:{
+    borderRightWidth:1,
+    borderRightColor:"#f0f0f0",
+    height:getResponsiveHeight(44)
+  },
+  modal_bottom_key: {
+    width:getResponsiveWidth(164),
+    alignItems:"center",
+    justifyContent:"center",
+  },
+  modal_key_font: {
+    color:"#36a5ff",
+    fontSize:16
   }
 })

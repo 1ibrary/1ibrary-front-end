@@ -32,9 +32,9 @@ export default class HttpUtils {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
-        body: this.changeData(data)
+        body: data
       })
         .then(response => response.json())
         .then(result => {
@@ -45,22 +45,22 @@ export default class HttpUtils {
         })
     })
   }
-  static changeData(obj) {
-    var prop,
-      str = ''
-    var i = 0
-    for (prop in obj) {
-      if (!prop) {
-        return
-      }
-      if (i == 0) {
-        str += prop + '=' + obj[prop]
-      } else {
-        str += '&' + prop + '=' + obj[prop]
-      }
-      i++
-    }
-    // alert(str);
-    return str
-  }
+  // static changeData(obj) {
+  //   var prop,
+  //     str = ''
+  //   var i = 0
+  //   for (prop in obj) {
+  //     if (!prop) {
+  //       return
+  //     }
+  //     if (i == 0) {
+  //       str += prop + '=' + obj[prop]
+  //     } else {
+  //       str += '&' + prop + '=' + obj[prop]
+  //     }
+  //     i++
+  //   }
+  //   // alert(str);
+  //   return str
+  // }
 }

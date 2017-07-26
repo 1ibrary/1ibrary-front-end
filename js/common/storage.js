@@ -11,6 +11,12 @@ export default class Storage {
         if(!result) {
             return defaultValue
         }
-        return JSON.parse(result)
+        try {
+            return JSON.parse(result)
+        } catch(error) {
+            console.log(error)
+            return defaulValue || undefined
+        }
+
     }
 }
