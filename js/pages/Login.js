@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
   },
   textinput_font:{
       fontSize: 14,
+      color:"white"
   },
   choose_font:{
     fontSize:14,
