@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 let defaultData = {
   uid:"",
   token:"",
@@ -28,8 +29,9 @@ export default class HttpUtils {
   }
   static post(url, data) {
     data = {...defaultData,...data}
-    alert(JSON.stringify(data)+url)
+    // alert(JSON.stringify(data)+url)
     return axios.post(url,data)
+        .then(response=>response.data)
 
     // return new Promise((resolve, reject) => {
     //   // alert(JSON.stringify(data))

@@ -44,7 +44,7 @@ export default class WelcomePage extends Component {
             school_id:user_info.school_id
         }
         let response = await HttpUtils.post(URL,params) || {}
-        if (response.msg === '请求成功') {
+        if (response.msg === '请求成功'||response.msg==='登陆成功') {
           let data = response.data
           setDefaultData({uid:data.uid,token:data.token,timestamp:data.timestamp})
           let params = {
@@ -73,7 +73,7 @@ export default class WelcomePage extends Component {
           school_id: this.state.school_id
       }
       let response = await HttpUtils.post(URL,params) || {}
-      if (response.msg === '请求成功') {
+      if (response.msg === '请求成功'||response.msg==='登陆成功') {
         Toast.success("登录成功！",1)
         let data = response.data
         setDefaultData({uid:data.uid,token:data.token,timestamp:data.timestamp})
