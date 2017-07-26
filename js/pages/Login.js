@@ -71,7 +71,6 @@ export default class WelcomePage extends Component {
           password: this.state.password.trim(),
           school_id: this.state.school_id
       }
-      alert(JSON.stringify(params))
       let response = await HttpUtils.post(URL,params) || {}
       if (response.msg === '请求成功') {
         Toast.success("登录成功！",1)
@@ -87,25 +86,25 @@ export default class WelcomePage extends Component {
         Toast.fail(response.msg,1)
       }
   }
-  show() {
+  show_modal() {
     this.setState({show_modal:true})
   }
   choose_sc(id) {
     this.setState({choosed_id:id})
   }
-  cancel() {
+  hide_modal() {
     this.setState({show_modal:false})
   }
   confirm() {
     this.setState({school_id:this.state.choosed_id},()=>{
       this.setState({choose_info:this.state.schools[this.state.school_id]},()=>{
-        this.cancel()
+        this.hide_modal()
       })
     })
   }
   render() {
     let arrow = require("../../res/images/Shape.png")
-    let modal = <View style={styles.modal}>
+    let modal = (<View style={styles.modal}>
       <View style={styles.modal_content}>
           {
               this.state.schools.map((item, id) => {
@@ -131,7 +130,7 @@ export default class WelcomePage extends Component {
           <Text style={styles.modal_key_font}>确认</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View>)
     return (
       <View style={styles.container}>
         <Image
@@ -148,7 +147,7 @@ export default class WelcomePage extends Component {
           </View>
           <View style={styles.form}>
             <TouchableOpacity
-                onPress={this.show.bind(this)}
+                onPress={this.show_modal.bind(this)}
                 style={styles.textinput}
             >
               <Text style={styles.choose_font}>{this.state.choose_info}</Text>
@@ -224,7 +223,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   form: {
-    marginTop: HEIGHT * 0.0479,
+    marginTop: getResponsiveHeight(18),
     alignItems: 'center',
     justifyContent: 'center'
     // width:240
@@ -251,7 +250,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: 'white',
     // width:160,
-    marginTop: HEIGHT * 0.037,
+    marginTop: getResponsiveHeight(25),
     backgroundColor: 'rgba(0,0,0,0)'
   },
   online: {

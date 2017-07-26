@@ -1,3 +1,5 @@
+import axios from "axios"
+
 let defaultData = {
   uid:"",
   token:"",
@@ -26,24 +28,27 @@ export default class HttpUtils {
   }
   static post(url, data) {
     data = {...defaultData,...data}
-    return new Promise((resolve, reject) => {
-      // alert(JSON.stringify(data))
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: data
-      })
-        .then(response => response.json())
-        .then(result => {
-          resolve(result)
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+    alert(JSON.stringify(data)+url)
+    return axios.post(url,data)
+
+    // return new Promise((resolve, reject) => {
+    //   // alert(JSON.stringify(data))
+    //   fetch(url, {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: data
+    //   })
+    //     .then(response => response.json())
+    //     .then(result => {
+    //       resolve(result)
+    //     })
+    //     .catch(error => {
+    //       reject(error)
+    //     })
+    // })
   }
   // static changeData(obj) {
   //   var prop,
