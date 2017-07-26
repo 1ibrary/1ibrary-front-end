@@ -291,3 +291,14 @@ by miemie
 - 等新的review~~~~
 
 by miemie
+
+### 17.07.26
+- 首页加入弹框
+- redux思前想后觉得不适合一图 不改
+- 加入了keyboardscrollview这个插件 但是网络请求发不出去所以测试不了
+- 让搜索提示页自动focus（Search页面） 单页测试没毛病 等网络请求修复
+
+ bug
+ - 网络请求 网络请求 网络请求
+
+ by miemie

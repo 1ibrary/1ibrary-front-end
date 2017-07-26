@@ -20,6 +20,9 @@ export default class SearchNav extends Component {
             history: []
         }
     }
+    componentDidMount() {
+        this.refs.textInput.focus()
+    }
     static defaultProps = {
         onChangeText: text => {
         }
@@ -29,6 +32,7 @@ export default class SearchNav extends Component {
         return (
             <View style={[styles.container, this.props.style]}>
                 <TextInput
+                    ref="textInput"
                     style={[styles.textInput, this.props.textInputColor]}
                     placeholder={this.props.placeholder}
                     placeholderColor={'rgb(165,165,165)'}

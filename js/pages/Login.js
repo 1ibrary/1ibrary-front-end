@@ -18,6 +18,7 @@ import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {WIDTH,  HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
 import Toast from 'antd-mobile/lib/toast';
 import Storage from "../common/storage"
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const URL = USERS.login
 
@@ -120,7 +121,7 @@ export default class WelcomePage extends Component {
       </View>
       <View style={styles.modal_bottom}>
         <TouchableOpacity
-            onPress={this.cancel.bind(this)}
+            onPress={this.hide_modal.bind(this)}
             style={[styles.modal_bottom_key,styles.right_border]}>
           <Text style={styles.modal_key_font}>取消</Text>
         </TouchableOpacity>
@@ -132,61 +133,64 @@ export default class WelcomePage extends Component {
       </View>
     </View>)
     return (
-      <View style={styles.container}>
-        <Image
-          style={styles.bg}
-          source={require('../../res/images/welcome_bg.png')}
-        >
+      <KeyboardAwareScrollView>
+        <View style={styles.container}>
           <Image
-            style={styles.logo}
-            source={require('../../res/images/welcome_logo.png')}
-          />
-          <View style={styles.text}>
-            <TextPingFang style={styles.title}>一图</TextPingFang>
-            <TextPingFang style={styles.e_title}>1 Library</TextPingFang>
-          </View>
-          <View style={styles.form}>
-            <TouchableOpacity
-                onPress={this.show_modal.bind(this)}
-                style={styles.textinput}
-            >
-              <Text style={styles.choose_font}>{this.state.choose_info}</Text>
-              <Image source={arrow}/>
-            </TouchableOpacity>
-            <TextInput
-              placeholder={'请输入您的学号'}
-              placeholderTextColor={'rgba(255,255,255,0.52)'}
-              style={[styles.textinput,styles.textinput_font]}
-              onChangeText={text => {
-                this.setState({ account: text })
-              }}
-            />
-            <TextInput
-              placeholder={'请输入密码'}
-              placeholderTextColor={'rgba(255,255,255,0.52)'}
-              style={[styles.textinput,styles.textinput_font]}
-              password={true}
-              onChangeText={text => {
-                this.setState({ password: text })
-              }}
-            />
-            <Text style={styles.remind}>请使用您的学号密码登录哦</Text>
-
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              this.onSubmit()
-            }}
-            style={styles.online}
+              style={styles.bg}
+              source={require('../../res/images/welcome_bg.png')}
           >
-            <Text style={styles.online_font}>登录</Text>
-          </TouchableOpacity>
-        </Image>
-          {
-            this.state.show_modal&&modal
-          }
+            <Image
+                style={styles.logo}
+                source={require('../../res/images/welcome_logo.png')}
+            />
+            <View style={styles.text}>
+              <TextPingFang style={styles.title}>一图</TextPingFang>
+              <TextPingFang style={styles.e_title}>1 Library</TextPingFang>
+            </View>
+            <View style={styles.form}>
+              <TouchableOpacity
+                  onPress={this.show_modal.bind(this)}
+                  style={styles.textinput}
+              >
+                <Text style={styles.choose_font}>{this.state.choose_info}</Text>
+                <Image source={arrow}/>
+              </TouchableOpacity>
+              <TextInput
+                  placeholder={'请输入您的学号'}
+                  placeholderTextColor={'rgba(255,255,255,0.52)'}
+                  style={[styles.textinput,styles.textinput_font]}
+                  onChangeText={text => {
+                      this.setState({ account: text })
+                  }}
+              />
+              <TextInput
+                  placeholder={'请输入密码'}
+                  placeholderTextColor={'rgba(255,255,255,0.52)'}
+                  style={[styles.textinput,styles.textinput_font]}
+                  password={true}
+                  onChangeText={text => {
+                      this.setState({ password: text })
+                  }}
+              />
+              <Text style={styles.remind}>请使用您的学号密码登录哦</Text>
 
-      </View>
+            </View>
+            <TouchableOpacity
+                onPress={() => {
+                    this.onSubmit()
+                }}
+                style={styles.online}
+            >
+              <Text style={styles.online_font}>登录</Text>
+            </TouchableOpacity>
+          </Image>
+            {
+                this.state.show_modal&&modal
+            }
+
+        </View>
+      </KeyboardAwareScrollView>
+
     )
   }
 }

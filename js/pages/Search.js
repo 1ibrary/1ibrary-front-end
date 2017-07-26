@@ -17,6 +17,8 @@ import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
 import {SCENE_SEARCH_RESULT} from "../constants/scene"
 import SearchTags from "../components/SearchTags"
 import Storage from "../common/storage"
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 const MAX_LENGTH = 5
 
@@ -112,19 +114,23 @@ export default class Search extends Component {
      } else {
        content = tags
      }
-     return (<View style={styles.all_container}>
-         <SearchNav
-           placeholder={'搜索书名，作者或出版社'}
-           defaultValue={this.state.defaultValue}
-           onSubmitEditing={event => {
-             this.onSubmitEditing(event.nativeEvent.text)
-           }}
-           onChangeText={text => {
-             this.onChangeText(text)
-           }}
-         />
-         {content}
-       </View>)
+     return (
+       <KeyboardAwareScrollView>
+         <View style={styles.all_container}>
+           <SearchNav
+               placeholder={'搜索书名，作者或出版社'}
+               defaultValue={this.state.defaultValue}
+               onSubmitEditing={event => {
+                   this.onSubmitEditing(event.nativeEvent.text)
+               }}
+               onChangeText={text => {
+                   this.onChangeText(text)
+               }}
+           />
+             {content}
+         </View>
+       </KeyboardAwareScrollView>
+     )
    }
 }
 

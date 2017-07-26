@@ -1,4 +1,4 @@
-const HOST = "http://120.27.137.151:8085/"
+const HOST = "http://120.27.137.151:8085"
 
 export const USERS = {
     login:HOST + "users/login",
