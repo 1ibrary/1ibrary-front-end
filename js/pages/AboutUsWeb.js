@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Dimensions, Text, View, WebView } from 'react-native'
 import CommonNav from '../components/CommonNav'
-import {WIDTH,HEIGHT} from '../common/styles'
+import { WIDTH, HEIGHT } from '../common/styles'
 
 export default class App extends Component {
   //渲染

@@ -8,7 +8,7 @@ import {
   Image
 } from 'react-native'
 import NavigationBar from './NavigationBar'
-import {Actions} from "react-native-router-flux"
+import { Actions } from 'react-native-router-flux'
 
 export default class CommonNav extends Component {
   constructor(props) {
@@ -34,7 +34,6 @@ export default class CommonNav extends Component {
               style={styles.container}
             >
               <Image source={require('../../res/images/BackArrow.png')} />
-
             </TouchableOpacity>
           }
           rightButton={this.props.rightButton}

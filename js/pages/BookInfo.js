@@ -8,17 +8,17 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ScrollView,
-  Dimensions,
+  Dimensions
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
 import BookCollectPage from './BookCollect'
 import Round from '../components/Round'
-import {BOOKS} from "../network/Urls"
-import {INNERWIDTH,WIDTH,HEIGHT} from '../common/styles'
-import {Actions} from "react-native-router-flux"
-import {SCENE_BOOK_COLLECT} from "../constants/scene"
-import Toast from 'antd-mobile/lib/toast';
+import { BOOKS } from '../network/Urls'
+import { INNERWIDTH, WIDTH, HEIGHT } from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import { SCENE_BOOK_COLLECT } from '../constants/scene'
+import Toast from 'antd-mobile/lib/toast'
 
 const URL = BOOKS.show_detail
 
@@ -28,7 +28,7 @@ export default class BookInfoPage extends Component {
     this.state = {
       show_content: false,
       book_data: { detail_data: [] },
-      is_subscribe:false
+      is_subscribe: false
     }
   }
   static defaultProps = {
@@ -69,22 +69,21 @@ export default class BookInfoPage extends Component {
   }
   async componentDidMount() {
     let params = {
-        book_id: this.props.data.book_id,
+      book_id: this.props.data.book_id
     }
     let result = await (HttpUtils.post(URL, params) || {})
-    if(result.msg==="请求成功") {
+    if (result.msg === '请求成功') {
       this.setState({ book_data: result.data })
     } else {
-      Toast.offline(result.msg,1)
+      Toast.offline(result.msg, 1)
     }
-
   }
   onNavigator() {
-      let params = {
-          title: '加入书单',
-          book: this.props.data,
-      }
-      Actions[SCENE_BOOK_COLLECT](params)
+    let params = {
+      title: '加入书单',
+      book: this.props.data
+    }
+    Actions[SCENE_BOOK_COLLECT](params)
   }
   changeNum(x) {
     if (x < 10) {
@@ -94,18 +93,16 @@ export default class BookInfoPage extends Component {
     }
   }
   async subscribe() {
-    let message = ""
-    this.setState({is_subscribe:!this.state.is_subscribe},()=>{
-      message = this.state.is_subscribe?"您已成功订阅本书！":"您已取消订阅！"
+    let message = ''
+    this.setState({ is_subscribe: !this.state.is_subscribe }, () => {
+      message = this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
     })
-    Toast.success(message,1)
+    Toast.success(message, 1)
   }
   render() {
     let bottomBar = (
       <View style={styles.bottom_bar}>
-        <TouchableOpacity
-          onPress={this.subscribe.bind(this)}
-          >
+        <TouchableOpacity onPress={this.subscribe.bind(this)}>
           <View
             style={[
               styles.subscribe,
@@ -116,9 +113,7 @@ export default class BookInfoPage extends Component {
               <Text
                 style={[
                   styles.subscribe_font,
-                  this.state.is_subscribe
-                    ? styles.subscribe_font_disabled
-                    : {}
+                  this.state.is_subscribe ? styles.subscribe_font_disabled : {}
                 ]}
               >
                 订阅
@@ -235,9 +230,7 @@ export default class BookInfoPage extends Component {
                 </View>
               )
             })}
-
           </View>
-
         </ScrollView>
         {bottomBar}
       </View>

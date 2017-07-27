@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 import TextPingFang from './TextPingFang'
 import RentInfoPage from '../pages/RentInfo'
-import {INNERWIDTH} from "../common/styles"
-import {Actions} from "react-native-router-flux"
-import {SCENE_MESSAGE} from "../constants/scene"
+import { INNERWIDTH } from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import { SCENE_MESSAGE } from '../constants/scene'
 
 export default class Message extends Component {
   constructor(props) {
@@ -31,11 +31,11 @@ export default class Message extends Component {
   onPress() {
     this.setState({ read: true })
     let params = {
-        data: {
-            rent: '2017/4/2',
-            return_time: '2017/5/2',
-            title: '美洲小宇宙'
-        }
+      data: {
+        rent: '2017/4/2',
+        return_time: '2017/5/2',
+        title: '美洲小宇宙'
+      }
     }
     Actions[SCENE_MESSAGE](params)
   }

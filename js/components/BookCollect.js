@@ -14,8 +14,7 @@ import {
   PanResponder
 } from 'react-native'
 import BookItem1 from './Book'
-import {WIDTH, INNERWIDTH,getResponsiveWidth} from '../common/styles'
-
+import { WIDTH, INNERWIDTH, getResponsiveWidth } from '../common/styles'
 
 export default class BookCollect extends Component {
   constructor(props) {
@@ -69,10 +68,7 @@ export default class BookCollect extends Component {
             { marginLeft: this.state.marginLeft }
           ]}
         >
-          <BookItem1
-            data={this.props.item}
-          />
-
+          <BookItem1 data={this.props.item} />
         </Animated.View>
         <TouchableOpacity
           onPress={() => {

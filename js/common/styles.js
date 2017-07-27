@@ -1,8 +1,8 @@
-import React from "react"
-import { Dimensions, StyleSheet} from "react-native"
+import React from 'react'
+import { Dimensions, StyleSheet } from 'react-native'
 
-export const WIDTH = Dimensions.get("window").width
-export const HEIGHT = Dimensions.get("window").height
+export const WIDTH = Dimensions.get('window').width
+export const HEIGHT = Dimensions.get('window').height
 export const INNERWIDTH = WIDTH - 16
 
 const iPhone6Width = 375
@@ -16,7 +16,7 @@ const iPhone6Height = 667
  * @returns {number}
  */
 export function getResponsiveHeight(height) {
-  return (height / iPhone6Height) * HEIGHT
+  return height / iPhone6Height * HEIGHT
 }
 
 /**
@@ -27,6 +27,5 @@ export function getResponsiveHeight(height) {
  * @returns
  */
 export function getResponsiveWidth(width) {
-  return (width / iPhone6Width) * WIDTH
+  return width / iPhone6Width * WIDTH
 }
-

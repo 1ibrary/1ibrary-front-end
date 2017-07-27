@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native'
-import {WIDTH} from "../common/styles"
+import { WIDTH } from '../common/styles'
 const NAVBAR_HEIGHT = 44
 const STATUS_BAR_HEIGHT = 20
 const StatusBarShape = {
@@ -47,7 +47,9 @@ export default class Navigator extends Component {
     )
     let titleView = this.props.titleView
       ? this.props.titleView
-      : <Text style={styles.title}>{this.props.title}</Text>
+      : <Text style={styles.title}>
+          {this.props.title}
+        </Text>
     let content = (
       <View style={[styles.navBar, this.props.navBarStyle]}>
         {this.props.leftButton}

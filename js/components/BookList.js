@@ -12,9 +12,8 @@ import {
 } from 'react-native'
 import Book from './Book'
 import HttpUtils from '../network/HttpUtils'
-import {HEIGHT,INNERWIDTH, getResponsiveHeight} from '../common/styles'
-import {BOOKS} from "../network/Urls"
-
+import { HEIGHT, INNERWIDTH, getResponsiveHeight } from '../common/styles'
+import { BOOKS } from '../network/Urls'
 
 const URL = BOOKS.show_books
 
@@ -35,9 +34,9 @@ export default class BookList extends Component {
   }
   async onLoad() {
     let params = {
-        page: 1
+      page: 1
     }
-    let result = await HttpUtils.post(URL, params) || {}
+    let result = (await HttpUtils.post(URL, params)) || {}
     if (result.msg === '请求成功') {
       this.setState({ books: result.data }, () => {
         this.setState({
@@ -50,23 +49,17 @@ export default class BookList extends Component {
   }
   async onEndReached() {
     let params = {
-        page: this.state.page + 1
+      page: this.state.page + 1
     }
-    let result = await HttpUtils.post(URL, params) || {}
-    this.setState(
-      {
-        books: [...this.state.books, ...result.data],
-        dataSource: this.state.dataSource.cloneWithRows(this.state.books),
-        page: this.state.page + 1
-      }
-    )
+    let result = (await HttpUtils.post(URL, params)) || {}
+    this.setState({
+      books: [...this.state.books, ...result.data],
+      dataSource: this.state.dataSource.cloneWithRows(this.state.books),
+      page: this.state.page + 1
+    })
   }
   renderRow(data) {
-    return (
-      <Book
-        data={data}
-      />
-    )
+    return <Book data={data} />
   }
   render() {
     return (

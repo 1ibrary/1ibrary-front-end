@@ -12,13 +12,12 @@ import {
 } from 'react-native'
 import SearchNav from '../components/SearchNav'
 import SearchResultPage from './SearchResult'
-import {getResponsiveWidth,INNERWIDTH,HEIGHT,WIDTH} from "../common/styles"
-import {Scene, Router, ActionConst,Actions} from 'react-native-router-flux'
-import {SCENE_SEARCH_RESULT} from "../constants/scene"
-import SearchTags from "../components/SearchTags"
-import Storage from "../common/storage"
+import { getResponsiveWidth, INNERWIDTH, HEIGHT, WIDTH } from '../common/styles'
+import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
+import { SCENE_SEARCH_RESULT } from '../constants/scene'
+import SearchTags from '../components/SearchTags'
+import Storage from '../common/storage'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 const MAX_LENGTH = 5
 
@@ -32,131 +31,133 @@ export default class Search extends Component {
       page: 1,
       reminder: ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治'],
       text: '',
-      remind:false
+      remind: false
     }
   }
   async componentDidMount() {
-      let array = await Storage.get("search_history",[])
-      this.setState({search_history: array})
+    let array = await Storage.get('search_history', [])
+    this.setState({ search_history: array })
   }
   async onPressDelete(index) {
-    let array = await Storage.get("search_history",[])
-    if(array.length==0||index>array.length-1) {
+    let array = await Storage.get('search_history', [])
+    if (array.length == 0 || index > array.length - 1) {
       return
     }
-    array.splice(index,1)
+    array.splice(index, 1)
     array = [...new Set(array)]
-    await Storage.set("search_history",array)
+    await Storage.set('search_history', array)
     this.setState({ search_history: array })
   }
   onSubmitEditing(text) {
     this.onSave(text)
     let params = {
-      content:text
+      content: text
     }
     Actions[SCENE_SEARCH_RESULT](params)
   }
-   onChangeText(text) {
-       if(text=="") {
-         this.setState({remind:false})
-         return
-       }
-       this.setState({remind:true})
-       // this.setState({ page: 2, information: data })
-   }
-   async onSave(text) {
-       let array = await Storage.get("search_history",[])
-       if (array.length!=0) {
-           array = [...new Set([text, ...array])]
-           if(array.length>MAX_LENGTH) {
-             array = array.slice(0,5)
-           }
-
-       } else {
-           array = [text]
-       }
-       await Storage.set("search_history",array)
-       this.setState({ search_history: array })
-   }
-   changeDefaultValue(item) {
-       this.setState({defaultValue:item})
-   }
-   render() {
-     let reminder = <SearchTags
-         title="搜索提示"
-         data={this.state.reminder}
-         onPress = {(item)=>{
-             this.changeDefaultValue(item)
-         }}
-     />
-     let tags = <View style={styles.container}>
-           <SearchTags
-               title={"热门搜索"}
-               data={this.state.hot}
-               onPress = {(item)=>{
-                   this.changeDefaultValue(item)
-               }}
-           />
-           <SearchTags
-               styles={styles.tags_top}
-               title={"搜索历史"}
-               onPressDelete={()=>{
-                   this.onPressDelete()
-               }}
-               cancel={true}
-               data={this.state.search_history}
-               onPress = {(item)=>{
-                   this.changeDefaultValue(item)
-               }}
+  onChangeText(text) {
+    if (text == '') {
+      this.setState({ remind: false })
+      return
+    }
+    this.setState({ remind: true })
+    // this.setState({ page: 2, information: data })
+  }
+  async onSave(text) {
+    let array = await Storage.get('search_history', [])
+    if (array.length != 0) {
+      array = [...new Set([text, ...array])]
+      if (array.length > MAX_LENGTH) {
+        array = array.slice(0, 5)
+      }
+    } else {
+      array = [text]
+    }
+    await Storage.set('search_history', array)
+    this.setState({ search_history: array })
+  }
+  changeDefaultValue(item) {
+    this.setState({ defaultValue: item })
+  }
+  render() {
+    let reminder = (
+      <SearchTags
+        title="搜索提示"
+        data={this.state.reminder}
+        onPress={item => {
+          this.changeDefaultValue(item)
+        }}
+      />
+    )
+    let tags = (
+      <View style={styles.container}>
+        <SearchTags
+          title={'热门搜索'}
+          data={this.state.hot}
+          onPress={item => {
+            this.changeDefaultValue(item)
+          }}
+        />
+        <SearchTags
+          styles={styles.tags_top}
+          title={'搜索历史'}
+          onPressDelete={() => {
+            this.onPressDelete()
+          }}
+          cancel={true}
+          data={this.state.search_history}
+          onPress={item => {
+            this.changeDefaultValue(item)
+          }}
+        />
+      </View>
+    )
+    let content
+    if (this.state.remind) {
+      content = reminder
+    } else {
+      content = tags
+    }
+    return (
+      <KeyboardAwareScrollView>
+        <View style={styles.all_container}>
+          <SearchNav
+            placeholder={'搜索书名，作者或出版社'}
+            defaultValue={this.state.defaultValue}
+            onSubmitEditing={event => {
+              this.onSubmitEditing(event.nativeEvent.text)
+            }}
+            onChangeText={text => {
+              this.onChangeText(text)
+            }}
           />
-
+          {content}
         </View>
-     let content
-     if(this.state.remind) {
-       content = reminder
-     } else {
-       content = tags
-     }
-     return (
-       <KeyboardAwareScrollView>
-         <View style={styles.all_container}>
-           <SearchNav
-               placeholder={'搜索书名，作者或出版社'}
-               defaultValue={this.state.defaultValue}
-               onSubmitEditing={event => {
-                   this.onSubmitEditing(event.nativeEvent.text)
-               }}
-               onChangeText={text => {
-                   this.onChangeText(text)
-               }}
-           />
-             {content}
-         </View>
-       </KeyboardAwareScrollView>
-     )
-   }
+      </KeyboardAwareScrollView>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   result_container: {
     backgroundColor: 'white',
     alignItems: 'center',
-    width: WIDTH,
+    width: WIDTH
   },
   all_container: {
     height: HEIGHT,
     backgroundColor: 'rgb(242,246,250)',
     alignItems: 'center',
-    width: WIDTH,
+    width: WIDTH
   },
   container: {
     marginTop: 8,
     alignItems: 'center',
     height: HEIGHT,
-    width:INNERWIDTH
+    width: INNERWIDTH
   },
-  tags_top:{
-    marginTop:34
+  tags_top: {
+    marginTop: 34
   },
   tags: {
     width: INNERWIDTH

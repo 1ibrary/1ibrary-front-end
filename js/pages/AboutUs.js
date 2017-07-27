@@ -13,9 +13,15 @@ import {
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
 import AboutUsWebPage from './AboutUsWeb'
-import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
-import {Actions} from "react-native-router-flux"
-import {SCENE_ABOUTUS_WEB} from "../constants/scene"
+import {
+  WIDTH,
+  INNERWIDTH,
+  HEIGHT,
+  getResponsiveWidth,
+  getResponsiveHeight
+} from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import { SCENE_ABOUTUS_WEB } from '../constants/scene'
 
 export default class AboutUsPage extends Component {
   render() {
@@ -49,9 +55,8 @@ export default class AboutUsPage extends Component {
             <TouchableOpacity
               style={styles.contact}
               onPress={() => {
-                  Actions[SCENE_ABOUTUS_WEB]()
-              }
-              }
+                Actions[SCENE_ABOUTUS_WEB]()
+              }}
             >
               <Text style={styles.contact_font}>联系我们</Text>
             </TouchableOpacity>

@@ -11,10 +11,13 @@ import {
 } from 'react-native'
 import Round from './Round'
 import BookInfoPage from '../pages/BookInfo'
-import {INNERWIDTH,getResponsiveWidth,getResponsiveHeight} from "../common/styles"
-import {Actions} from 'react-native-router-flux'
-import {SCENE_BOOK_INFO} from "../constants/scene"
-
+import {
+  INNERWIDTH,
+  getResponsiveWidth,
+  getResponsiveHeight
+} from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import { SCENE_BOOK_INFO } from '../constants/scene'
 
 export default class Book extends Component {
   constructor(props) {
@@ -34,7 +37,7 @@ export default class Book extends Component {
   }
   onPress() {
     let params = {
-        data: this.props.data,
+      data: this.props.data
     }
     Actions[SCENE_BOOK_INFO](params)
   }
@@ -51,7 +54,9 @@ export default class Book extends Component {
             source={{ uri: this.props.data.book_cover }}
           />
           <View style={styles.information}>
-            <Text style={styles.item_title}>{this.props.data.book_title}</Text>
+            <Text style={styles.item_title}>
+              {this.props.data.book_title}
+            </Text>
             <Text style={styles.item_author}>
               {this.props.data.book_author}
             </Text>
@@ -76,7 +81,7 @@ export default class Book extends Component {
 const styles = StyleSheet.create({
   image: {
     height: getResponsiveHeight(112),
-    width: getResponsiveWidth(74),
+    width: getResponsiveWidth(74)
     // marginTop: 20
   },
   item: {
@@ -86,8 +91,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: INNERWIDTH,
     // height: 160
-    paddingBottom:getResponsiveHeight(30),
-    paddingTop:getResponsiveHeight(20),
+    paddingBottom: getResponsiveHeight(30),
+    paddingTop: getResponsiveHeight(20),
     borderRadius: 8,
     marginBottom: 8,
     flexDirection: 'row'
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
     color: '#494949',
     fontFamily: 'PingFang SC',
     fontWeight: '500',
-    width:getResponsiveWidth(206)
+    width: getResponsiveWidth(206)
   },
   item_author: {
     fontSize: 14,

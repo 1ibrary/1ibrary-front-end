@@ -18,7 +18,9 @@ export default class Round extends Component {
         style={styles.round_image}
         source={this.props.data === 0 ? this.state.red : this.state.blue}
       >
-        <Text style={styles.round_num}>{this.props.data}</Text>
+        <Text style={styles.round_num}>
+          {this.props.data}
+        </Text>
       </Image>
     )
   }

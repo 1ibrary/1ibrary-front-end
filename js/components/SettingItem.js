@@ -14,8 +14,7 @@ import {
   PanResponder
 } from 'react-native'
 import TextPingFang from './TextPingFang'
-import {WIDTH, INNERWIDTH} from "../common/styles"
-
+import { WIDTH, INNERWIDTH } from '../common/styles'
 
 export default class SettingItem extends Component {
   constructor(props) {
@@ -70,7 +69,6 @@ export default class SettingItem extends Component {
     }
   }
   componentWillMount() {
-
     this._panResponder_move = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -102,7 +100,9 @@ export default class SettingItem extends Component {
   render() {
     return (
       <View style={[styles.container, this.props.style]}>
-        <TextPingFang style={styles.font}>{this.props.text}</TextPingFang>
+        <TextPingFang style={styles.font}>
+          {this.props.text}
+        </TextPingFang>
         <View
           style={[
             styles.button_container,

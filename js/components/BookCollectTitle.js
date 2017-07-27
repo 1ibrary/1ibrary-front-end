@@ -13,11 +13,16 @@ import {
   AsyncStorage,
   PanResponder
 } from 'react-native'
-import {BOOKS} from "../network/Urls"
-import {WIDTH, INNERWIDTH, HEIGHT, getResponsiveHeight, getResponsiveWidth} from '../common/styles'
-import {Actions} from "react-native-router-flux"
-import {SCENE_BOOK_COLLECT_LIST} from "../constants/scene"
-
+import { BOOKS } from '../network/Urls'
+import {
+  WIDTH,
+  INNERWIDTH,
+  HEIGHT,
+  getResponsiveHeight,
+  getResponsiveWidth
+} from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import { SCENE_BOOK_COLLECT_LIST } from '../constants/scene'
 
 export default class BookCollectTitle extends Component {
   constructor(props) {
@@ -49,8 +54,8 @@ export default class BookCollectTitle extends Component {
       return
     }
     let params = {
-        title: this.props.title,
-        item:this.props.item
+      title: this.props.title,
+      item: this.props.item
     }
     Actions[SCENE_BOOK_COLLECT_LIST](params)
   }
@@ -84,9 +89,7 @@ export default class BookCollectTitle extends Component {
     let unselect_image = require('../../res/images/unselect.png')
     let data = this.props.data
     return (
-      <View
-        style={styles.container}
-      >
+      <View style={styles.container}>
         <Animated.View
           style={[
             styles.item,
@@ -98,8 +101,12 @@ export default class BookCollectTitle extends Component {
             {...this._panResponder_touch.panHandlers}
             style={styles.item_text}
           >
-            <Text style={styles.item_title}>{data.list_name}</Text>
-            <Text style={styles.item_des}>{data.list_content}</Text>
+            <Text style={styles.item_title}>
+              {data.list_name}
+            </Text>
+            <Text style={styles.item_des}>
+              {data.list_content}
+            </Text>
           </View>
           {this.props.big_title === '加入书单'
             ? <TouchableWithoutFeedback
@@ -116,7 +123,7 @@ export default class BookCollectTitle extends Component {
                   />
                 </View>
               </TouchableWithoutFeedback>
-            : <View/>}
+            : <View />}
           <TouchableOpacity
             onPress={() => {
               this.props.onDelete(this.props.data.list_name)
@@ -129,7 +136,6 @@ export default class BookCollectTitle extends Component {
             />
           </TouchableOpacity>
         </Animated.View>
-
       </View>
     )
   }

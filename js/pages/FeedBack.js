@@ -1,18 +1,11 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Dimensions,
-} from 'react-native'
+import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
-import {USERS} from "../network/Urls"
-import {WIDTH, INNERWIDTH,HEIGHT} from '../common/styles'
-import {Actions} from "react-native-router-flux"
-import Toast from "antd-mobile/lib/toast"
-
+import { USERS } from '../network/Urls'
+import { WIDTH, INNERWIDTH, HEIGHT } from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import Toast from 'antd-mobile/lib/toast'
 
 const URL = USERS.feedback
 
@@ -26,18 +19,18 @@ export default class FeedBackPage extends Component {
   }
   async onPost() {
     if (!this.state.contact.trim()) {
-      Toast.info("请输入您的联系方式哦~",1)
+      Toast.info('请输入您的联系方式哦~', 1)
       return
     }
     if (!this.state.content.trim()) {
-      Toast.info("请输入您的反馈内容哦~",1)
+      Toast.info('请输入您的反馈内容哦~', 1)
       return
     }
     let params = {
-        content: this.state.content,
-        contact: this.state.contact,
+      content: this.state.content,
+      contact: this.state.contact
     }
-    let response = await HttpUtils.post(URL, params) || {}
+    let response = (await HttpUtils.post(URL, params)) || {}
     if (response.msg === '请求成功') {
       Actions.pop()
     }
@@ -68,7 +61,6 @@ export default class FeedBackPage extends Component {
             this.setState({ content: text })
           }}
         />
-
       </View>
     )
   }

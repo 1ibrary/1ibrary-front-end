@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import NavigationBar from '../components/NavigationBar'
 import Message from '../components/Message'
-import {HEIGHT,getResponsiveHeight} from '../common/styles'
+import { HEIGHT, getResponsiveHeight } from '../common/styles'
 
 export default class MessagePage extends Component {
   render() {
@@ -19,10 +19,8 @@ export default class MessagePage extends Component {
       <View style={styles.container}>
         <NavigationBar title={'通知'} />
         <ScrollView style={styles.item_container}>
-          <Message/>
-          <Message
-            data={{ title: '小王子', kind: 2 }}
-          />
+          <Message />
+          <Message data={{ title: '小王子', kind: 2 }} />
         </ScrollView>
       </View>
     )

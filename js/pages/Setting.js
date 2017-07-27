@@ -13,10 +13,10 @@ import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
 import SettingItem from '../components/SettingItem'
 import WelcomePage from './Login'
-import {Actions} from "react-native-router-flux"
-import {SCENE_LOGIN} from "../constants/scene"
+import { Actions } from 'react-native-router-flux'
+import { SCENE_LOGIN } from '../constants/scene'
 
-import {WIDTH,HEIGHT} from '../common/styles'
+import { WIDTH, HEIGHT } from '../common/styles'
 
 export default class BookListPage extends Component {
   logout() {
@@ -38,7 +38,6 @@ export default class BookListPage extends Component {
           style={styles.out}
         >
           <TextPingFang style={styles.out_font}>退出登录</TextPingFang>
-
         </TouchableOpacity>
       </View>
     )

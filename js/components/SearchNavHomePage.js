@@ -10,7 +10,12 @@ import {
   AsyncStorage,
   Dimensions
 } from 'react-native'
-import {INNERWIDTH, HEIGHT,getResponsiveHeight,getResponsiveWidth} from "../common/styles"
+import {
+  INNERWIDTH,
+  HEIGHT,
+  getResponsiveHeight,
+  getResponsiveWidth
+} from '../common/styles'
 
 export default class SearchNavHomePage extends Component {
   constructor(props) {

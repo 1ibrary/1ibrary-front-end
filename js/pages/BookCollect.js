@@ -15,12 +15,12 @@ import RightButtonNav from '../components/RightButtonNav'
 import BookCollectItem from '../components/BookCollectTitle'
 import BookCollectAddPage from './BookCollectAdd'
 import HttpUtils from '../network/HttpUtils'
-import {LISTS} from "../network/Urls"
-import {INNERWIDTH,HEIGHT} from '../common/styles'
-import {Actions} from "react-native-router-flux"
-import {SCENE_BOOK_COLLECT_ADD} from "../constants/scene"
-import Toast from 'antd-mobile/lib/toast';
-import Storage from "../common/storage"
+import { LISTS } from '../network/Urls'
+import { INNERWIDTH, HEIGHT } from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import { SCENE_BOOK_COLLECT_ADD } from '../constants/scene'
+import Toast from 'antd-mobile/lib/toast'
+import Storage from '../common/storage'
 
 const URL_SHOW = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
@@ -71,35 +71,35 @@ export default class BookCollectPage extends Component {
     }
   }
   async componentDidMount() {
-    let result = await HttpUtils.post(URL_SHOW) || {}
+    let result = (await HttpUtils.post(URL_SHOW)) || {}
     let lists = result.data || []
-    this.setState({ lists})
+    this.setState({ lists })
   }
   rightOnPress() {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
       Actions.pop()
     }
-    this.state.choosed.map((item,i)=>{
-      this.state.lists.some(async (d)=>{
+    this.state.choosed.map((item, i) => {
+      this.state.lists.some(async d => {
         let book_list
-        book_list = d.book_list&&d.book_list.split(",") || []
-        book_list = [...new Set([...book_list, this.props.book.book_id+""])]
+        book_list = (d.book_list && d.book_list.split(',')) || []
+        book_list = [...new Set([...book_list, this.props.book.book_id + ''])]
         let params = {
-            list_id: d.list_id,
-            book_list: book_list&&book_list.join(",")
+          list_id: d.list_id,
+          book_list: book_list && book_list.join(',')
         }
         d.book_list = params.book_list
         let result = HttpUtils.post(URL_ADD_BOOK, params)
         if (result.msg === '请求成功') {
-          if(i===this.state.choosed.length-1) {
-              await Storage.set("book_list",this.state.lists)
+          if (i === this.state.choosed.length - 1) {
+            await Storage.set('book_list', this.state.lists)
           }
         }
       })
-    if(i==this.state.choosed.length-1)  {
-        Toast.success("收藏成功！",1)
+      if (i == this.state.choosed.length - 1) {
+        Toast.success('收藏成功！', 1)
         Actions.pop()
-    }
+      }
     })
   }
   onPressButton(select, item) {
@@ -118,22 +118,24 @@ export default class BookCollectPage extends Component {
         array.splice(i, 1)
       }
       let params = {
-          list_id: d.list_id,
+        list_id: d.list_id
       }
-      let result = await HttpUtils.post(URL_RM_LIST, params)||{}
+      let result = (await HttpUtils.post(URL_RM_LIST, params)) || {}
       if (result.msg === '请求成功') {
-          await this.setState({lists: array})
-          Toast.success("删除书单成功!",1)
-          await Storage.set("book_list",array)
-          return true
+        await this.setState({ lists: array })
+        Toast.success('删除书单成功!', 1)
+        await Storage.set('book_list', array)
+        return true
       } else {
-          Toast.offline(result.msg,1)
+        Toast.offline(result.msg, 1)
       }
     })
   }
   onConfirm(title) {
-      Alert.alert("确认删除","您真的要删除这个书单吗?",
-          [{text:"确认",onPress:this.onDelete.bind(this,title)},{text:"取消"}])
+    Alert.alert('确认删除', '您真的要删除这个书单吗?', [
+      { text: '确认', onPress: this.onDelete.bind(this, title) },
+      { text: '取消' }
+    ])
   }
   render() {
     let lists = [
@@ -150,10 +152,10 @@ export default class BookCollectPage extends Component {
           style={styles.add}
           onPress={() => {
             let params = {
-                onCallBack: async () => {
-                    let array = await Storage.get("book_list",[])
-                    this.setState({ lists: array })
-                },
+              onCallBack: async () => {
+                let array = await Storage.get('book_list', [])
+                this.setState({ lists: array })
+              }
             }
             Actions[SCENE_BOOK_COLLECT_ADD](params)
           }}

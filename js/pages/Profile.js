@@ -5,7 +5,7 @@ import {
   Text,
   Navigator,
   TouchableOpacity,
-  Image,
+  Image
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
 import BookCollectPage from './BookCollect'
@@ -13,9 +13,15 @@ import RentInfoPage from './RentInfo'
 import FeedBackPage from './FeedBack'
 import AboutUsPage from './AboutUs'
 import SettingPage from './Setting'
-import {Actions} from "react-native-router-flux"
-import * as scenes from "../constants/scene"
-import {WIDTH, INNERWIDTH,HEIGHT,getResponsiveWidth,getResponsiveHeight} from '../common/styles'
+import { Actions } from 'react-native-router-flux'
+import * as scenes from '../constants/scene'
+import {
+  WIDTH,
+  INNERWIDTH,
+  HEIGHT,
+  getResponsiveWidth,
+  getResponsiveHeight
+} from '../common/styles'
 
 export default class ProfilePage extends Component {
   onJump(page, params) {
@@ -66,15 +72,15 @@ export default class ProfilePage extends Component {
                   switch (text) {
                     case '我的书单':
                       params = {
-                          title: '我的书单',
+                        title: '我的书单'
                       }
                       this.onJump(scenes.SCENE_BOOK_COLLECT, params)
                       break
                     case '借阅历史':
                       params = {
-                          title: '借阅历史'
+                        title: '借阅历史'
                       }
-                      this.onJump(scenes.SCENE_MESSAGE,params)
+                      this.onJump(scenes.SCENE_MESSAGE, params)
                       break
                     case '设置':
                       params = {
@@ -87,7 +93,9 @@ export default class ProfilePage extends Component {
                 style={styles.item}
               >
                 <Image source={images[i]} />
-                <TextPingFang style={styles.item_font}>{d}</TextPingFang>
+                <TextPingFang style={styles.item_font}>
+                  {d}
+                </TextPingFang>
                 <Image
                   style={styles.item_arrow}
                   source={require('../../res/images/right_arrow.png')}
@@ -95,7 +103,6 @@ export default class ProfilePage extends Component {
               </TouchableOpacity>
             )
           })}
-
         </View>
         <View style={styles.items2}>
           {texts.map((d, i) => {
@@ -106,17 +113,19 @@ export default class ProfilePage extends Component {
                   let params
                   switch (d) {
                     case '意见反馈':
-                      this.onJump(scenes.SCENE_FEEDBACK,{})
+                      this.onJump(scenes.SCENE_FEEDBACK, {})
                       break
                     case '关于我们':
-                      this.onJump(scenes.SCENE_ABOUTUS,{})
+                      this.onJump(scenes.SCENE_ABOUTUS, {})
                   }
                 }}
                 key={i}
                 style={styles.item}
               >
                 <Image source={images[i]} />
-                <TextPingFang style={styles.item_font}>{d}</TextPingFang>
+                <TextPingFang style={styles.item_font}>
+                  {d}
+                </TextPingFang>
                 <Image
                   style={styles.item_arrow}
                   source={require('../../res/images/right_arrow.png')}
