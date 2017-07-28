@@ -322,4 +322,15 @@ by miemie
 《鱼》- 陈绮贞
 
  by 繁易
+
+ ### 17.07.28
+
+ 咩咩的最后一次更新:
+
+ - BooCollect和BookCollectList那一片 啊。。。 就是提交post的时候 那个some很多余啊。。。。
+ - 然后点开收藏查看不了新图书是因为BookCollect页面的state没更新
+ - 然后删除图书之后从BookCollect进入BookCollectList的时候也不会更新删除内容 也是因为pop了BookCollectList之后BookCollect页面的state没有更新
+ - 然后记得翻聊天记录 看有没有我跟你反映过的并且还没解决的而我又忘记写进readme的东西
+
+ by miemei
  
