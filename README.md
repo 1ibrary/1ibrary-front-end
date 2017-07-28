@@ -332,5 +332,5 @@ by miemie
  - 然后删除图书之后从BookCollect进入BookCollectList的时候也不会更新删除内容 也是因为pop了BookCollectList之后BookCollect页面的state没有更新
  - 然后记得翻聊天记录 看有没有我跟你反映过的并且还没解决的而我又忘记写进readme的东西
 
- by miemei
+ by miemie
  
