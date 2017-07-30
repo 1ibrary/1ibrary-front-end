@@ -299,9 +299,9 @@ by miemie
 - 让搜索提示页自动focus（Search页面） 单页测试没毛病 等网络请求修复
 
  bug
- - 网络请求 网络请求 网络请求 fixed
- - 搜索框旁边的取消按钮对焦需要点两次(一次是使搜索框失去焦点 一次是对给取消键) fixed
- - 如果多次搜索 那么会弹出多个结果页 最后需要一层一层回退到首页 如何直接跳首页 并且把中间的释放掉呢 fixed
+ - [x] 网络请求 网络请求 网络请求
+ - [x] 搜索框旁边的取消按钮对焦需要点两次(一次是使搜索框失去焦点 一次是对给取消键) 
+ - [x] 如果多次搜索 那么会弹出多个结果页 最后需要一层一层回退到首页 如何直接跳首页 并且把中间的释放掉呢
 
  备注：为了上架 现在使用一图原有后端
 
@@ -327,11 +327,11 @@ by miemie
 
  咩咩的最后一次更新:
 
- - BooCollect和BookCollectList那一片 啊。。。 就是提交post的时候 那个some很多余啊。。。。 fixed
- - 然后点开收藏查看不了新图书是因为BookCollect页面的state没更新 fixed
- - 然后删除图书之后从BookCollect进入BookCollectList的时候也不会更新删除内容 也是因为pop了BookCollectList之后BookCollect页面的state没有更新 fixed
+ - [x] BooCollect和BookCollectList那一片 啊。。。 就是提交post的时候 那个some很多余啊。。。。
+ - [x] 然后点开收藏查看不了新图书是因为BookCollect页面的state没更新
+ - [x] 然后删除图书之后从BookCollect进入BookCollectList的时候也不会更新删除内容 也是因为pop了BookCollectList之后BookCollect页面的state没有更新
  - 然后记得翻聊天记录 看有没有我跟你反映过的并且还没解决的而我又忘记写进readme的东西
- - 下午七点钟补充： 自动登录用不了 我写在login页面的componentDidMount页里了 fixed
+ - [x] 下午七点钟补充： 自动登录用不了 我写在login页面的componentDidMount页里了
 
  by miemie
  
