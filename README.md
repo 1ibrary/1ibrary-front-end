@@ -352,3 +352,5 @@ Bugfix:
 
 Feature:
   - 自动登录
+
+By 繁易
