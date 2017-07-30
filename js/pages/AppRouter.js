@@ -109,3 +109,5 @@ export default class AppRouter extends Component {
     )
   }
 }
+
+console.disableYellowBox = true

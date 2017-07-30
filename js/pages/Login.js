@@ -72,8 +72,8 @@ export default class WelcomePage extends Component {
 
     const response = await HttpUtils.post(URL, params)
 
-    if (response.msg !== '请求成功' || response.msg !== '登陆成功') {
-      Toast.fail('登录失败，请检查账号或者密码是否正确', 1)
+    if (response.msg !== '请求成功' && response.msg !== '登陆成功') {
+      Toast.fail(response.msg || '登录失败，请检查账号或者密码是否正确', 1)
       return
     }
 
@@ -94,13 +94,13 @@ export default class WelcomePage extends Component {
       timestamp
     })
 
-    Actions[SCENE_INDEX]({ user: data })
+    Actions[SCENE_INDEX]({ user: response.data })
   }
 
   get validatePassed() {
 
     // forbid gd
-    if (params.school_id === 1) {
+    if (this.state.school_id === 1) {
       Toast.fail('请输入正确的密码', 1)
       return false
     }
