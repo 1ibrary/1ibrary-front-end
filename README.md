@@ -341,3 +341,4 @@ by miemie
 
 - 升级到 RN 最新版 0.46.4
 - 重构 HttpUtils，使用 Axios 与 qs 实现
+- 重构登录，抽象公用函数等

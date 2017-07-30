@@ -28,17 +28,15 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const URL = USERS.login
 
 export default class WelcomePage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      account: '',
-      password: '',
-      schools: ['南昌大学', '广州大学'],
-      choosed_id: 0,
-      school_id: -1,
-      choose_info: '请选择您的学校',
-      show_modal: false
-    }
+
+  state = {
+    account: '',
+    password: '',
+    schools: ['南昌大学', '广州大学'],
+    choosed_id: 0,
+    school_id: -1,
+    choose_info: '请选择您的学校',
+    show_modal: false
   }
 
   async componentDidMount() {
@@ -48,21 +46,41 @@ export default class WelcomePage extends Component {
       return
     }
 
-    let params = {
-      user_account: user_info.account,
-      user_password: user_info.password
-    }
-    // forbide gd
-    if (params.school_id == 1) {
-      Toast.fail('请重新登录', 1)
+    this.login(user_info.account, user_info.password)
+  }
+
+  onSubmit = async () => {
+
+    if (!this.validatePassed) {
+      return
     }
 
-    let response = (await HttpUtils.post(URL, params)) || {}
+    const {
+      account,
+      password
+    } = this.state
+
+    this.login(account, password)
+  }
+
+  login = async (user_account, user_password) => {
+
+    const params = {
+      user_account,
+      user_password
+    }
+
+    const response = await HttpUtils.post(URL, params)
 
     if (response.msg !== '请求成功' || response.msg !== '登陆成功') {
       Toast.fail('登录失败，请检查账号或者密码是否正确', 1)
       return
     }
+
+    await Storage.set('user_info', {
+      ...response.data,
+      ...params
+    })
 
     const {
       uid,
@@ -77,114 +95,63 @@ export default class WelcomePage extends Component {
     })
 
     Actions[SCENE_INDEX]({ user: data })
-
   }
-  async onSubmit() {
-    if (this.state.school_id == -1) {
-      Toast.offline('请选择你的学校噢～', 1)
-      return
-    }
-    if (!this.state.account.trim()) {
-      Toast.offline('请输入学号噢～', 1)
-      return
-    }
-    if (!this.state.password.trim()) {
-      Toast.offline('请输入密码噢～', 1)
-      return
-    }
-    let params = {
-      user_account: this.state.account.trim(),
-      user_password: this.state.password.trim()
-    }
+
+  get validatePassed() {
+
     // forbid gd
-    if (params.school_id == 1) {
+    if (params.school_id === 1) {
       Toast.fail('请输入正确的密码', 1)
-      return
+      return false
     }
-    let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.msg === '请求成功' || response.msg === '登陆成功') {
-      Toast.success('登录成功！', 1)
-      let data = response.data
-      setToken({
-        uid: data.uid,
-        token: data.token,
-        timestamp: data.timestamp
-      })
-      let user_info = { ...response.data, ...params }
-      await Storage.set('user_info', user_info)
-      let params = {
-        user: data
-      }
-      Actions[SCENE_INDEX](params)
-    } else {
-      Toast.fail(response.msg, 1)
+
+    if (this.state.school_id === -1) {
+      Toast.offline('请选择你的学校噢～', 1)
+      return false
     }
+
+    if (!this.state.account) {
+      Toast.offline('请输入学号噢～', 1)
+      return false
+    }
+
+    if (!this.state.password) {
+      Toast.offline('请输入密码噢～', 1)
+      return false
+    }
+
+    return true
   }
 
-  show_modal() {
+  show_modal = () => {
     this.setState({ show_modal: true })
   }
 
-  choose_sc(id) {
+  choose_sc = (id) => {
     this.setState({ choosed_id: id })
   }
 
-  hide_modal() {
+  hide_modal = () => {
     this.setState({ show_modal: false })
   }
 
-  confirm() {
-    this.setState({ school_id: this.state.choosed_id }, () => {
-      this.setState(
-        { choose_info: this.state.schools[this.state.school_id] },
-        () => {
-          this.hide_modal()
-        }
-      )
+  confirm = () => {
+
+    const selectedId = this.state.choosed_id
+
+    this.setState({
+      school_id: selectedId,
+      choose_info: this.state.schools[selectedId]
     })
+
+    this.hide_modal()
   }
 
   render() {
-    let arrow = require('../../res/images/Shape.png')
-    let modal = (
-      <View style={styles.modal}>
-        <View style={styles.modal_content}>
-          {this.state.schools.map((item, id) => {
-            return (
-              <TouchableOpacity
-                key={id}
-                onPress={this.choose_sc.bind(this, id)}
-                style={styles.modal_content_item}
-              >
-                <View
-                  style={[
-                    styles.modal_round,
-                    this.state.choosed_id === id && styles.active
-                  ]}
-                />
-                <Text style={styles.modal_content_font}>
-                  {item}
-                </Text>
-              </TouchableOpacity>
-            )
-          })}
-        </View>
-        <View style={styles.modal_bottom}>
-          <TouchableOpacity
-            onPress={this.hide_modal.bind(this)}
-            style={[styles.modal_bottom_key, styles.right_border]}
-          >
-            <Text style={styles.modal_key_font}>取消</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.confirm.bind(this)}
-            style={styles.modal_bottom_key}
-          >
-            <Text style={styles.modal_key_font}>确认</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
+
+    const arrow = require('../../res/images/Shape.png')
+    const Modal = this.renderModal()
+
     return (
       <KeyboardAwareScrollView>
         <View style={styles.container}>
@@ -238,9 +205,54 @@ export default class WelcomePage extends Component {
               <Text style={styles.online_font}>登录</Text>
             </TouchableOpacity>
           </Image>
-          {this.state.show_modal && modal}
+          {this.state.show_modal && Modal}
         </View>
       </KeyboardAwareScrollView>
+    )
+  }
+
+  renderModal = () => {
+    return (
+      <View style={styles.modal}>
+        <View style={styles.modal_content}>
+
+          {this.state.schools.map((item, id) => {
+            return (
+              <TouchableOpacity
+                key={id}
+                onPress={this.choose_sc.bind(this, id)}
+                style={styles.modal_content_item}
+              >
+                <View
+                  style={[
+                    styles.modal_round,
+                    this.state.choosed_id === id && styles.active
+                  ]}
+                />
+                <Text style={styles.modal_content_font}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            )
+          })}
+        </View>
+
+        <View style={styles.modal_bottom}>
+          <TouchableOpacity
+            onPress={this.hide_modal}
+            style={[styles.modal_bottom_key, styles.right_border]}
+          >
+            <Text style={styles.modal_key_font}>取消</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.confirm}
+            style={styles.modal_bottom_key}
+          >
+            <Text style={styles.modal_key_font}>确认</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
     )
   }
 }
