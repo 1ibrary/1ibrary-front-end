@@ -38,9 +38,9 @@ export default class BookCollectPage extends Component {
     book: {
       book_title: '美洲小宇宙',
       book_content:
-        '一本书带你深度探访中南美洲腹地，身未动，心已远。沿着旧地图，走不到新大陆，毕淑敏带你走出自助旅行新路线: “世界最美岛屿”加拉帕戈斯群岛，“热带雾林王冠上的宝石”哥斯达黎加蒙特维德雾林，古印第安人的太阳、月亮金字塔与亡灵大道，全球银饰之都塔斯科，切•格瓦拉故居……太多秘密，等你探索，太多奇迹，等你发现。',
+      '一本书带你深度探访中南美洲腹地，身未动，心已远。沿着旧地图，走不到新大陆，毕淑敏带你走出自助旅行新路线: “世界最美岛屿”加拉帕戈斯群岛，“热带雾林王冠上的宝石”哥斯达黎加蒙特维德雾林，古印第安人的太阳、月亮金字塔与亡灵大道，全球银饰之都塔斯科，切•格瓦拉故居……太多秘密，等你探索，太多奇迹，等你发现。',
       book_cover:
-        'https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg',
+      'https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg',
       book_key: 'TB47-05-/9',
       book_place: '中文文科库(418)',
       book_author: '毕淑敏',
@@ -70,38 +70,40 @@ export default class BookCollectPage extends Component {
       book_subscribe: true
     }
   }
+
   async componentDidMount() {
     let result = (await HttpUtils.post(URL_SHOW)) || {}
     let lists = result.data || []
     this.setState({ lists })
   }
-  rightOnPress() {
+
+  rightOnPress = async () => {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
       Actions.pop()
     }
-    this.state.choosed.map((item, i) => {
-      this.state.lists.some(async d => {
-        let book_list
-        book_list = (d.book_list && d.book_list.split(',')) || []
-        book_list = [...new Set([...book_list, this.props.book.book_id + ''])]
-        let params = {
-          list_id: d.list_id,
-          book_list: book_list && book_list.join(',')
-        }
-        d.book_list = params.book_list
-        let result = HttpUtils.post(URL_ADD_BOOK, params)
-        if (result.msg === '请求成功') {
-          if (i === this.state.choosed.length - 1) {
-            await Storage.set('book_list', this.state.lists)
-          }
-        }
-      })
-      if (i == this.state.choosed.length - 1) {
-        Toast.success('收藏成功！', 1)
-        Actions.pop()
-      }
-    })
+
+    const choosed = this.state.choosed[0]
+    let {
+      list_id,
+      book_list
+    } = this.state.lists.filter(list => list.list_name === choosed)[0]
+
+    book_list = book_list.split(',')
+    book_list.push(this.props.book.book_id + '')
+    book_list = [...new Set(book_list)]
+    book_list = book_list.join(',')
+
+    const params = {
+      list_id,
+      book_list: book_list
+    }
+
+    await HttpUtils.post(URL_ADD_BOOK, params)
+
+    Toast.success('收藏成功！', 1)
+    Actions.pop()
   }
+
   onPressButton(select, item) {
     let choosed = this.state.choosed
     if (select) {
@@ -111,6 +113,7 @@ export default class BookCollectPage extends Component {
     }
     this.setState({ choosed: choosed })
   }
+
   async onDelete(title) {
     let array = this.state.lists
     array.some(async (d, i) => {
@@ -131,12 +134,14 @@ export default class BookCollectPage extends Component {
       }
     })
   }
+
   onConfirm(title) {
     Alert.alert('确认删除', '您真的要删除这个书单吗?', [
       { text: '确认', onPress: this.onDelete.bind(this, title) },
       { text: '取消' }
     ])
   }
+
   render() {
     let lists = [
       { title: '专业书籍', des: '反正就是很专业的啦' },
