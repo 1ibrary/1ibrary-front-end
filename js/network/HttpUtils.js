@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 
 let defaultData = {
   uid: '',
@@ -6,7 +7,7 @@ let defaultData = {
   timestamp: ''
 }
 
-export function setDefaultData(data) {
+export function setToken(data) {
   defaultData = {
     ...defaultData,
     ...data
@@ -14,55 +15,24 @@ export function setDefaultData(data) {
 }
 
 export default class HttpUtils {
+
   static get(url) {
-    return new Promise((resolve, reject) => {
-      fetch(url)
-        .then(response => response.json())
-        .then(result => {
-          resolve(result)
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+    return axios.get(url).then(response => response.data)
   }
+
   static post(url, data) {
-    data = { ...defaultData, ...data }
-    return new Promise((resolve, reject) => {
-      // alert(JSON.stringify(data))
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: this.changeData(data)
-      })
-        .then(response => response.json())
-        .then(result => {
-          resolve(result)
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
-  }
-  static changeData(obj) {
-    var prop,
-      str = ''
-    var i = 0
-    for (prop in obj) {
-      if (!prop) {
-        return
-      }
-      if (i == 0) {
-        str += prop + '=' + obj[prop]
-      } else {
-        str += '&' + prop + '=' + obj[prop]
-      }
-      i++
+    data = {
+      ...defaultData,
+      ...data
     }
-    // alert(str);
-    return str
+
+    data = qs.stringify(data)
+
+    return axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then(response => response.data)
   }
 }

@@ -11,7 +11,7 @@ import {
   AsyncStorage
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
-import HttpUtils, { setDefaultData } from '../network/HttpUtils'
+import HttpUtils, { setToken } from '../network/HttpUtils'
 import { USERS } from '../network/Urls'
 import { SCENE_INDEX } from '../constants/scene'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
@@ -40,31 +40,44 @@ export default class WelcomePage extends Component {
       show_modal: false
     }
   }
+
   async componentDidMount() {
     let user_info = await Storage.get('user_info', {})
-    if (user_info.account && user_info.password) {
-      let params = {
-        user_account: user_info.account,
-        user_password: user_info.password
-      }
-      // forbide gd
-      if (params.school_id == 1) {
-        Toast.fail('请重新登录', 1)
-      }
-      let response = (await HttpUtils.post(URL, params)) || {}
-      if (response.msg === '请求成功' || response.msg === '登陆成功') {
-        let data = response.data
-        setDefaultData({
-          uid: data.uid,
-          token: data.token,
-          timestamp: data.timestamp
-        })
-        let params = {
-          user: data
-        }
-        Actions[SCENE_INDEX](params)
-      }
+
+    if (!user_info.account || !user_info.password) {
+      return
     }
+
+    let params = {
+      user_account: user_info.account,
+      user_password: user_info.password
+    }
+    // forbide gd
+    if (params.school_id == 1) {
+      Toast.fail('请重新登录', 1)
+    }
+
+    let response = (await HttpUtils.post(URL, params)) || {}
+
+    if (response.msg !== '请求成功' || response.msg !== '登陆成功') {
+      Toast.fail('登录失败，请检查账号或者密码是否正确', 1)
+      return
+    }
+
+    const {
+      uid,
+      token,
+      timestamp
+    } = response.data
+
+    setToken({
+      uid,
+      token,
+      timestamp
+    })
+
+    Actions[SCENE_INDEX]({ user: data })
+
   }
   async onSubmit() {
     if (this.state.school_id == -1) {
@@ -92,7 +105,7 @@ export default class WelcomePage extends Component {
     if (response.msg === '请求成功' || response.msg === '登陆成功') {
       Toast.success('登录成功！', 1)
       let data = response.data
-      setDefaultData({
+      setToken({
         uid: data.uid,
         token: data.token,
         timestamp: data.timestamp
@@ -107,15 +120,19 @@ export default class WelcomePage extends Component {
       Toast.fail(response.msg, 1)
     }
   }
+
   show_modal() {
     this.setState({ show_modal: true })
   }
+
   choose_sc(id) {
     this.setState({ choosed_id: id })
   }
+
   hide_modal() {
     this.setState({ show_modal: false })
   }
+
   confirm() {
     this.setState({ school_id: this.state.choosed_id }, () => {
       this.setState(
@@ -126,6 +143,7 @@ export default class WelcomePage extends Component {
       )
     })
   }
+
   render() {
     let arrow = require('../../res/images/Shape.png')
     let modal = (

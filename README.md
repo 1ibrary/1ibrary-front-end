@@ -335,3 +335,9 @@ by miemie
 
  by miemie
  
+### 17.07.30
+
+重构：
+
+- 升级到 RN 最新版 0.46.4
+- 重构 HttpUtils，使用 Axios 与 qs 实现
