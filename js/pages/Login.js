@@ -41,12 +41,11 @@ export default class WelcomePage extends Component {
 
   async componentDidMount() {
     let user_info = await Storage.get('user_info', {})
-
-    if (!user_info.account || !user_info.password) {
+    if (!user_info.user_account || !user_info.user_password) {
       return
     }
 
-    this.login(user_info.account, user_info.password)
+    this.login(user_info.user_account, user_info.user_password)
   }
 
   onSubmit = async () => {
