@@ -18,6 +18,7 @@ import {
 } from '../common/styles'
 const history = 'history'
 import { Actions } from 'react-native-router-flux'
+import { SCENE_INDEX } from '../constants/scene'
 
 export default class SearchNav extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class SearchNav extends Component {
     this.refs.textInput.focus()
   }
   static defaultProps = {
-    onChangeText: text => {}
+    onChangeText: text => { }
   }
 
   render() {
@@ -67,7 +68,7 @@ export default class SearchNav extends Component {
         <TouchableOpacity
           style={styles.close_container}
           onPress={() => {
-            Actions.pop()
+            Actions[SCENE_INDEX]({})
           }}
         >
           <Text style={styles.close}>取消</Text>
