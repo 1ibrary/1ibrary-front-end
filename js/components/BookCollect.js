@@ -23,6 +23,7 @@ export default class BookCollect extends Component {
       marginLeft: new Animated.Value(8)
     }
   }
+
   componentWillMount() {
     this._panResponder_move = PanResponder.create({
       // Ask to be the responder:
@@ -45,6 +46,7 @@ export default class BookCollect extends Component {
       }
     })
   }
+
   onMove(ev) {
     if (ev.dx < 0) {
       Animated.timing(this.state.marginLeft, {
@@ -58,7 +60,9 @@ export default class BookCollect extends Component {
       }).start()
     }
   }
+
   render() {
+
     return (
       <View {...this._panResponder_move.panHandlers} style={styles.container}>
         <Animated.View

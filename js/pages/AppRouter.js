@@ -54,6 +54,7 @@ export default class AppRouter extends Component {
             component={BookCollect}
             title="收藏本书"
             hideNavBar
+            duration={0}
           />
           <Scene
             key={scenes.SCENE_BOOK_COLLECT_ADD}

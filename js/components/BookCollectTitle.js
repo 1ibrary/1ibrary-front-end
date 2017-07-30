@@ -54,11 +54,13 @@ export default class BookCollectTitle extends Component {
       return
     }
     let params = {
-      title: this.props.title,
-      item: this.props.item
+      item: this.props.item,
+      title: this.props.title
     }
+
     Actions[SCENE_BOOK_COLLECT_LIST](params)
   }
+
   componentWillMount() {
     this._panResponder_move = PanResponder.create({
       // Ask to be the responder:
@@ -81,9 +83,11 @@ export default class BookCollectTitle extends Component {
       }
     })
   }
+
   static defaultProps = {
     data: {}
   }
+
   render() {
     let select_image = require('../../res/images/select.png')
     let unselect_image = require('../../res/images/unselect.png')
@@ -110,19 +114,19 @@ export default class BookCollectTitle extends Component {
           </View>
           {this.props.big_title === '加入书单'
             ? <TouchableWithoutFeedback
-                onPress={() => {
-                  let data = this.props.data
-                  this.props.onPress(!this.state.select, data)
-                  this.setState({ select: !this.state.select })
-                  return
-                }}
-              >
-                <View style={styles.select}>
-                  <Image
-                    source={this.state.select ? select_image : unselect_image}
-                  />
-                </View>
-              </TouchableWithoutFeedback>
+              onPress={() => {
+                let data = this.props.data
+                this.props.onPress(!this.state.select, data)
+                this.setState({ select: !this.state.select })
+                return
+              }}
+            >
+              <View style={styles.select}>
+                <Image
+                  source={this.state.select ? select_image : unselect_image}
+                />
+              </View>
+            </TouchableWithoutFeedback>
             : <View />}
           <TouchableOpacity
             onPress={() => {

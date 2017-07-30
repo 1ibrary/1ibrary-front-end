@@ -27,13 +27,14 @@ export default class BookListPage extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.state.book_id_list.length == 0) {
       this.getNewData(this.props.item.book_list)
     } else {
       this.getNewData(this.state.book_id_list)
     }
   }
+
   async getNewData(book_id_list) {
     let params = {
       book_list: book_id_list || '[]'
@@ -44,6 +45,7 @@ export default class BookListPage extends Component {
       this.setState({ book_list: data, book_id_list: book_id_list })
     }
   }
+
   async onDelete(item) {
     this.state.book_list.some(async (book, i) => {
       if (book.book_id == item.book_id) {
@@ -66,12 +68,14 @@ export default class BookListPage extends Component {
       }
     })
   }
+
   onConfirm(item) {
     Alert.alert('确认删除', '您真的要删除这本书吗?', [
       { text: '确认', onPress: this.onDelete.bind(this, item) },
       { text: '取消' }
     ])
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -82,7 +86,7 @@ export default class BookListPage extends Component {
           {this.state.book_list.map((item, i) => {
             return (
               <BookItem2
-                key={item.book_id}
+                key={i}
                 item={item}
                 onDelete={this.onConfirm.bind(this, item)}
               />
@@ -92,6 +96,7 @@ export default class BookListPage extends Component {
       </View>
     )
   }
+
 }
 
 const styles = StyleSheet.create({
