@@ -15,14 +15,11 @@ import { getResponsiveWidth, INNERWIDTH, HEIGHT, WIDTH } from '../common/styles'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 
 export default class SearchTags extends Component {
-  constructor(props) {
-    super(props)
-  }
   static defaultProps = {
     title: '搜索建议',
     data: ['测试', '测试']
   }
-  componentDidMount() {}
+  
   render() {
     let cancel = (
       <TouchableOpacity

@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import { View, ImageBackground, Text, StyleSheet } from 'react-native'
 
 export default class Round extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      blue: require('../../res/images/round_blue.png'),
-      red: require('../../res/images/round_red.png')
-    }
+
+  state = {
+    blue: require('../../res/images/round_blue.png'),
+    red: require('../../res/images/round_red.png')
   }
+
   static defaultProps = {
     data: 1
   }
+  
   render() {
     return (
       <ImageBackground
