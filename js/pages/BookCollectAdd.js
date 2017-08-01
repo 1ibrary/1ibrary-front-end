@@ -59,7 +59,7 @@ export default class BookCollectAddPage extends Component {
       list_content: this.state.list_content
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.msg === '请求成功') {
+    if (resopnse.status === 0) {
       Toast.success('创建书单成功！', 1)
       let result = (await HttpUtils.post(URL_SHOW)) || {}
       if (result.msg === '请求成功') {
