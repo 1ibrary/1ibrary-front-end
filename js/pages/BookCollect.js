@@ -82,23 +82,28 @@ export default class BookCollectPage extends Component {
       Actions.pop()
     }
 
-    const choosed = this.state.choosed[0]
-    let {
-      list_id,
-      book_list
-    } = this.state.lists.filter(list => list.list_name === choosed)[0]
+    const tasks = []
 
-    book_list = book_list.split(',')
-    book_list.push(this.props.book.book_id + '')
-    book_list = [...new Set(book_list)]
-    book_list = book_list.join(',')
+    this.state.choosed.forEach((choosed) => {
+      let {
+        list_id,
+        book_list
+      } = this.state.lists.filter(list => list.list_name === choosed)[0]
 
-    const params = {
-      list_id,
-      book_list: book_list
-    }
+      book_list = book_list.split(',')
+      book_list.push(this.props.book.book_id + '')
+      book_list = [...new Set(book_list)]
+      book_list = book_list.join(',')
 
-    await HttpUtils.post(URL_ADD_BOOK, params)
+      const params = {
+        list_id,
+        book_list: book_list
+      }
+
+      tasks.push(HttpUtils.post(URL_ADD_BOOK, params))
+    })
+
+    await Promise.all(tasks)
 
     Toast.success('收藏成功！', 1)
     Actions.pop()
