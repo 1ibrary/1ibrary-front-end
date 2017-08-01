@@ -1,25 +1,20 @@
-let HOST = 'https://1ibrary.group/'
-
-export const setHost = (host) => {
-  HOST = host
-}
-
 export const USERS = {
-  login: HOST + 'users/login',
-  feedback: HOST + 'users/feedback'
+  login: 'users/login',
+  feedback: 'users/feedback'
 }
 
 export const LISTS = {
-  create_list: HOST + 'lists/create_list',
-  show_list: HOST + 'lists/show_list',
-  show_detail: HOST + 'lists/show_detail',
-  collect_book: HOST + 'lists/collect_book',
-  update_list: HOST + 'lists/update_list',
-  remove_list: HOST + 'lists/remove_list'
+  create_list: 'users/create_list',
+  show_list: 'users/show_list',
+  show_detail: 'users/show_detail',
+  collect_book: 'users/collect_book',
+  update_list: 'users/update_list',
+  remove_list: 'users/remove_list'
 }
 
 export const BOOKS = {
-  show_detail: HOST + 'books/show_detail',
-  show_books: HOST + 'books/show_books',
-  search_book: HOST + 'books/search_book'
+  show_detail: 'books/show_detail',
+  hot_books: 'books/hot_books',
+  search_book: 'books/search_book',
+  hot_search: 'books/hot_search'
 }

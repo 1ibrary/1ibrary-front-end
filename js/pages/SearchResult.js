@@ -1,23 +1,14 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, StatusBar, Dimensions, Text } from 'react-native'
-import ScrollableTabView, {
-  ScrollableTabBar,
-  DefaultTabBar
-} from 'react-native-scrollable-tab-view'
-import { BOOKS } from '../network/Urls'
-import BookList from '../components/BookList'
-import BookItem1 from '../components/Book'
-import HttpUtils from '../network/HttpUtils'
-import SearchNav from '../components/SearchNav'
+import { Dimensions, StatusBar, StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from 'react-native-scrollable-tab-view'
+import { getResponsiveHeight, getResponsiveWidth, HEIGHT, INNERWIDTH, WIDTH } from '../common/styles'
+import BookItem1 from '../components/Book'
+import BookList from '../components/BookList'
+import SearchNav from '../components/SearchNav'
 import { SCENE_SEARCH } from '../constants/scene'
-import {
-  WIDTH,
-  INNERWIDTH,
-  HEIGHT,
-  getResponsiveHeight,
-  getResponsiveWidth
-} from '../common/styles'
+import HttpUtils from '../network/HttpUtils'
+import { BOOKS } from '../network/Urls'
 
 const URL = BOOKS.search_book
 
@@ -25,41 +16,40 @@ export default class SearchResultPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data0: [],
-      data1: [],
-      data2: []
+      bookName: [],
+      author: [],
+      publishingHouse: []
     }
   }
+
   async componentDidMount() {
     let params = {
       content: this.props.content,
       type: 0
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.msg === '请求成功') {
-      this.setState({ data0: response.data })
+    if (response.status === 0) {
+      this.setState({ bookName: response.data })
     }
   }
+
   async onChangeTab(index) {
     let params = {
       content: this.props.content,
       type: index
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.msg === '请求成功') {
+    if (response.status === 0) {
       if (index == 1) {
-        this.setState({ data1: response.data })
+        this.setState({ author: response.data })
       } else {
-        this.setState({ data2: response.data })
+        this.setState({ publishingHouse: response.data })
       }
     }
   }
+
   render() {
-    let none = (
-      <View style={styles.remind}>
-        <Text style={styles.remind_font}>暂无结果</Text>
-      </View>
-    )
+    
     return (
       <View style={styles.container}>
         <SearchNav
@@ -85,35 +75,43 @@ export default class SearchResultPage extends Component {
           }}
         >
           <View style={styles.page_container} tabLabel="书名">
-            <View style={styles.booklist}>
-              {this.state.data0.length === 0
-                ? none
-                : this.state.data0.map((item, i) => {
-                    return <BookItem1 key={i} data={item} style={styles.item} />
-                  })}
-            </View>
+            {this.renderList('bookName')}
           </View>
           <View style={styles.page_container} tabLabel="作者">
-            <View style={styles.booklist}>
-              {this.state.data1.length === 0
-                ? none
-                : this.state.data1.map((item, i) => {
-                    return <BookItem1 key={i} data={item} style={styles.item} />
-                  })}
-            </View>
+            {this.renderList('author')}
           </View>
           <View style={styles.page_container} tabLabel="出版社">
-            <View style={styles.booklist}>
-              {this.state.data2.length === 0
-                ? none
-                : this.state.data2.map((item, i) => {
-                    return <BookItem1 key={i} data={item} style={styles.item} />
-                  })}
-            </View>
+            {this.renderList('publishingHouse')}
           </View>
         </ScrollableTabView>
       </View>
     )
+  }
+
+  renderList = (listName) => {
+
+    const None = (
+      <View style={styles.remind}>
+        <Text style={styles.remind_font}>暂无结果</Text>
+      </View>
+    )
+
+    const list = this.state[listName]
+
+    if (list.length === 0) {
+      return None
+    }
+
+    return (
+      <ScrollView style={styles.booklist}>
+        {
+          list.map((item, i) => {
+            return <BookItem1 key={i} data={item} style={styles.item} />
+          })
+        }
+      </ScrollView>
+    )
+
   }
 }
 

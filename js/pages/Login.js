@@ -6,14 +6,15 @@ import {
   Navigator,
   TouchableOpacity,
   Image,
+  ImageBackground,
   ScrollView,
   TextInput,
   AsyncStorage
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
-import HttpUtils, { setToken } from '../network/HttpUtils'
+import HttpUtils, { setToken, setHost } from '../network/HttpUtils'
 import schools from '../network/schools'
-import { USERS, setHost } from '../network/Urls'
+import { USERS } from '../network/Urls'
 import { SCENE_INDEX } from '../constants/scene'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 import {
@@ -40,12 +41,14 @@ export default class WelcomePage extends Component {
   }
 
   async componentDidMount() {
-    let user_info = await Storage.get('user_info', {})
-    if (!user_info.user_account || !user_info.user_password) {
+    let user = await Storage.get('user', {})
+    if (!user.account || !user.password) {
       return
     }
+    
+    setHost(schools[user.school_id].host)
 
-    this.login(user_info.user_account, user_info.user_password)
+    this.login(user.account, user.password, user.school_id)
   }
 
   onSubmit = async () => {
@@ -59,25 +62,25 @@ export default class WelcomePage extends Component {
       password
     } = this.state
 
-    this.login(account, password)
+    this.login(account, password, this.state.school_id)
   }
 
-  login = async (user_account, user_password) => {
+  login = async (account, password, school_id) => {
 
     const params = {
-      user_account,
-      user_password
+      account,
+      password,
+      school_id
     }
 
     const response = await HttpUtils.post(URL, params)
 
-    if (response.msg !== '请求成功' && response.msg !== '登陆成功') {
+    if (response.status !== 0) {
       Toast.fail(response.msg || '登录失败，请检查账号或者密码是否正确', 1)
       return
     }
 
-    await Storage.set('user_info', {
-      ...response.data,
+    await Storage.set('user', {
       ...params
     })
 
@@ -157,7 +160,7 @@ export default class WelcomePage extends Component {
     return (
       <KeyboardAwareScrollView>
         <View style={styles.container}>
-          <Image
+          <ImageBackground
             style={styles.bg}
             source={require('../../res/images/welcome_bg.png')}
           >
@@ -206,7 +209,7 @@ export default class WelcomePage extends Component {
             >
               <Text style={styles.online_font}>登录</Text>
             </TouchableOpacity>
-          </Image>
+          </ImageBackground>
           {this.state.show_modal && Modal}
         </View>
       </KeyboardAwareScrollView>

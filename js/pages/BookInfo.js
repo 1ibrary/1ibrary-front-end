@@ -23,14 +23,13 @@ import Toast from 'antd-mobile/lib/toast'
 const URL = BOOKS.show_detail
 
 export default class BookInfoPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      show_content: false,
-      book_data: { detail_data: [] },
-      is_subscribe: false
-    }
+  
+  state = {
+    show_content: false,
+    book_data: { detail_data: [] },
+    is_subscribe: false
   }
+
   static defaultProps = {
     data: {
       book_title: '美洲小宇宙',
@@ -67,24 +66,28 @@ export default class BookInfoPage extends Component {
       book_subscribe: true
     }
   }
+
   async componentDidMount() {
     let params = {
-      book_id: this.props.data.book_id
+      book_id: this.props.data.book_id,
+      book_db_id: 666 // @TODO for test
     }
     let result = await (HttpUtils.post(URL, params) || {})
-    if (result.msg === '请求成功') {
+    if (result.status === 0) {
       this.setState({ book_data: result.data })
     } else {
       Toast.offline(result.msg, 1)
     }
   }
-  onNavigator() {
+
+  onNavigator = () => {
     let params = {
       title: '加入书单',
       book: this.props.data
     }
     Actions[SCENE_BOOK_COLLECT](params)
   }
+
   changeNum(x) {
     if (x < 10) {
       return '0' + x
@@ -92,45 +95,16 @@ export default class BookInfoPage extends Component {
       return x
     }
   }
-  async subscribe() {
-    let message = ''
-    this.setState({ is_subscribe: !this.state.is_subscribe }, () => {
-      message = this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
-    })
+
+  subscribe = async () => {
+    const message = !this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
+    this.setState({ is_subscribe: !this.state.is_subscribe })
     Toast.success(message, 1)
   }
+
   render() {
-    let bottomBar = (
-      <View style={styles.bottom_bar}>
-        <TouchableOpacity onPress={this.subscribe.bind(this)}>
-          <View
-            style={[
-              styles.subscribe,
-              this.state.is_subscribe ? styles.subscribe_disbaled : {}
-            ]}
-          >
-            <View>
-              <Text
-                style={[
-                  styles.subscribe_font,
-                  this.state.is_subscribe ? styles.subscribe_font_disabled : {}
-                ]}
-              >
-                订阅
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.collect}
-          onPress={() => {
-            this.onNavigator()
-          }}
-        >
-          <Text style={styles.collect_font}>收藏</Text>
-        </TouchableOpacity>
-      </View>
-    )
+    
+    let BottomBar = this.renderBottomBar()
 
     let content = (
       <View style={styles.book_content}>
@@ -193,6 +167,7 @@ export default class BookInfoPage extends Component {
                   索书号: {this.state.book_data.book_key}
                 </Text>
                 <Text style={styles.book_position_font}>
+                    {/* @TODO 南昌大学的缺少该参数  */}
                   馆藏地点: {this.state.book_data.book_place}
                 </Text>
               </View>
@@ -217,7 +192,9 @@ export default class BookInfoPage extends Component {
                       styles.book_place_item_num
                     ]}
                   >
-                    {this.changeNum(item.id)}
+                    {/* @TODO changeNum是什么  */}
+                    {/* {this.changeNum(item.id)} */}
+                    {item.detail_key}
                   </Text>
                   <Text
                     style={[
@@ -232,7 +209,39 @@ export default class BookInfoPage extends Component {
             })}
           </View>
         </ScrollView>
-        {bottomBar}
+        {BottomBar}
+      </View>
+    )
+  }
+
+  renderBottomBar = () => {
+
+    const {
+      is_subscribe
+    } = this.state
+
+    return (
+      <View style={styles.bottom_bar}>
+        <TouchableOpacity onPress={this.subscribe}>
+          <View style={[styles.subscribe, is_subscribe && styles.subscribe_disbaled ]} >
+            <View>
+              <Text
+                style={[
+                  styles.subscribe_font,
+                  is_subscribe && styles.subscribe_font_disabled
+                ]}
+              >
+                订阅
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.collect}
+          onPress={this.onNavigator}
+        >
+          <Text style={styles.collect_font}>收藏</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -372,10 +381,13 @@ const styles = StyleSheet.create({
   },
   book_place_item_num: {
     marginLeft: 34,
-    width: 40
+    flex: 2
+    // width: 40
   },
   book_place_item_place: {
-    marginLeft: 138
+    flex: 5,
+    textAlign: 'center'
+    // marginLeft: 138
   },
   bottom_bar: {
     flexDirection: 'row',
