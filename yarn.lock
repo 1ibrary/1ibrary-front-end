@@ -3478,9 +3478,9 @@ react-native-tabs@^1.0.9:
   version "1.0.9"
   resolved "https://registry.npmjs.org/react-native-tabs/-/react-native-tabs-1.0.9.tgz#75d3c35e8b5b6970869eab282372cb32e2a782cd"
 
-react-native@0.46.4:
-  version "0.46.4"
-  resolved "https://registry.npmjs.org/react-native/-/react-native-0.46.4.tgz#281bbcc165e5c36b4c8eaa868e6768543e811bcb"
+react-native@0.46.1:
+  version "0.46.1"
+  resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.46.1.tgz#a3f81e6d6c12adac088010ef341f27efa1e66d02"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"
