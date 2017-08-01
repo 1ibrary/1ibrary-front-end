@@ -32,7 +32,7 @@ export default class BookList extends Component {
     this.fetchHotBooks()
   }
 
-  async fetchHotBooks() {
+  fetchHotBooks = async () => {
     let params = {
       page: 1
     }
@@ -51,7 +51,7 @@ export default class BookList extends Component {
     })
   }
 
-  async onEndReached() {
+  onEndReached = async () => {
     let params = {
       page: this.state.page + 1
     }
@@ -72,18 +72,14 @@ export default class BookList extends Component {
       <View style={[styles.book_list, this.props.style]}>
         <ListView
           style={styles.list}
-          onEndReached={() => {
-            this.onEndReached()
-          }}
+          onEndReached={this.onEndReached}
           dataSource={this.state.dataSource}
           onEndReachedThreshold={0}
           renderRow={data => this.renderRow(data)}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isLoading}
-              onRefresh={() => {
-                this.onLoad()
-              }}
+              onRefresh={this.fetchHotBooks}
             />
           }
         />
