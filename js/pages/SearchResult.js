@@ -30,6 +30,7 @@ export default class SearchResultPage extends Component {
       data2: []
     }
   }
+
   async componentDidMount() {
     let params = {
       content: this.props.content,
@@ -40,6 +41,7 @@ export default class SearchResultPage extends Component {
       this.setState({ data0: response.data })
     }
   }
+
   async onChangeTab(index) {
     let params = {
       content: this.props.content,
@@ -54,12 +56,14 @@ export default class SearchResultPage extends Component {
       }
     }
   }
+
   render() {
     let none = (
       <View style={styles.remind}>
         <Text style={styles.remind_font}>暂无结果</Text>
       </View>
     )
+    
     return (
       <View style={styles.container}>
         <SearchNav
