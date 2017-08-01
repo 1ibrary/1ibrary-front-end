@@ -191,7 +191,9 @@ export default class BookInfoPage extends Component {
                       styles.book_place_item_num
                     ]}
                   >
-                    {this.changeNum(item.id)}
+                    {/* @TODO changeNum是什么  */}
+                    {/* {this.changeNum(item.id)} */}
+                    {item.detail_key}
                   </Text>
                   <Text
                     style={[
