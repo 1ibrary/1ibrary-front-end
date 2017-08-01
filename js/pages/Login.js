@@ -11,9 +11,9 @@ import {
   AsyncStorage
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
-import HttpUtils, { setToken } from '../network/HttpUtils'
+import HttpUtils, { setToken, setHost } from '../network/HttpUtils'
 import schools from '../network/schools'
-import { USERS, setHost } from '../network/Urls'
+import { USERS } from '../network/Urls'
 import { SCENE_INDEX } from '../constants/scene'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 import {
@@ -62,16 +62,17 @@ export default class WelcomePage extends Component {
     this.login(account, password)
   }
 
-  login = async (user_account, user_password) => {
+  login = async (account, password) => {
 
     const params = {
-      user_account,
-      user_password
+      account,
+      password,
+      school_id: this.state.school_id
     }
 
     const response = await HttpUtils.post(URL, params)
 
-    if (response.msg !== '请求成功' && response.msg !== '登陆成功') {
+    if (response.status !== 0) {
       Toast.fail(response.msg || '登录失败，请检查账号或者密码是否正确', 1)
       return
     }
