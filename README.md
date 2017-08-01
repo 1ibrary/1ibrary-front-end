@@ -334,4 +334,10 @@ by miemie
  - 下午七点钟补充： 自动登录用不了 我写在login页面的componentDidMount页里了
 
  by miemie
- 
+
+
+ ### 17.08.01
+
+ 祝你好运。一图。
+
+ by miemie
