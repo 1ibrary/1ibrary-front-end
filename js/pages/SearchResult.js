@@ -36,7 +36,7 @@ export default class SearchResultPage extends Component {
       type: 0
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (resopnse.status === 0) {
+    if (response.status === 0) {
       this.setState({ data0: response.data })
     }
   }
@@ -46,7 +46,7 @@ export default class SearchResultPage extends Component {
       type: index
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (resopnse.status === 0) {
+    if (response.status === 0) {
       if (index == 1) {
         this.setState({ data1: response.data })
       } else {

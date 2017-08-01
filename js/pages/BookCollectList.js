@@ -58,7 +58,7 @@ export default class BookListPage extends Component {
           list_id: list.list_id
         }
         let response = (await HttpUtils.post(URL_RM_BOOK, params)) || {}
-        if (resopnse.status === 0) {
+        if (response.status === 0) {
           Toast.success('删除图书成功!', 0.5)
           this.getNewData(params.book_list)
         } else {

@@ -31,7 +31,7 @@ export default class FeedBackPage extends Component {
       contact: this.state.contact
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (resopnse.status === 0) {
+    if (response.status === 0) {
       Actions.pop()
     }
   }
