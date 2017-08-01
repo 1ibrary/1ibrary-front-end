@@ -1,23 +1,14 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, StatusBar, Dimensions, Text } from 'react-native'
-import ScrollableTabView, {
-  ScrollableTabBar,
-  DefaultTabBar
-} from 'react-native-scrollable-tab-view'
-import { BOOKS } from '../network/Urls'
-import BookList from '../components/BookList'
-import BookItem1 from '../components/Book'
-import HttpUtils from '../network/HttpUtils'
-import SearchNav from '../components/SearchNav'
+import { Dimensions, StatusBar, StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from 'react-native-scrollable-tab-view'
+import { getResponsiveHeight, getResponsiveWidth, HEIGHT, INNERWIDTH, WIDTH } from '../common/styles'
+import BookItem1 from '../components/Book'
+import BookList from '../components/BookList'
+import SearchNav from '../components/SearchNav'
 import { SCENE_SEARCH } from '../constants/scene'
-import {
-  WIDTH,
-  INNERWIDTH,
-  HEIGHT,
-  getResponsiveHeight,
-  getResponsiveWidth
-} from '../common/styles'
+import HttpUtils from '../network/HttpUtils'
+import { BOOKS } from '../network/Urls'
 
 const URL = BOOKS.search_book
 
@@ -89,31 +80,31 @@ export default class SearchResultPage extends Component {
           }}
         >
           <View style={styles.page_container} tabLabel="书名">
-            <View style={styles.booklist}>
+            <ScrollView style={styles.booklist}>
               {this.state.data0.length === 0
                 ? none
                 : this.state.data0.map((item, i) => {
                     return <BookItem1 key={i} data={item} style={styles.item} />
                   })}
-            </View>
+            </ScrollView>
           </View>
           <View style={styles.page_container} tabLabel="作者">
-            <View style={styles.booklist}>
+            <ScrollView style={styles.booklist}>
               {this.state.data1.length === 0
                 ? none
                 : this.state.data1.map((item, i) => {
                     return <BookItem1 key={i} data={item} style={styles.item} />
                   })}
-            </View>
+            </ScrollView>
           </View>
           <View style={styles.page_container} tabLabel="出版社">
-            <View style={styles.booklist}>
+            <ScrollView style={styles.booklist}>
               {this.state.data2.length === 0
                 ? none
                 : this.state.data2.map((item, i) => {
                     return <BookItem1 key={i} data={item} style={styles.item} />
                   })}
-            </View>
+            </ScrollView>
           </View>
         </ScrollableTabView>
       </View>

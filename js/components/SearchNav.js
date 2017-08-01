@@ -51,6 +51,7 @@ export default class SearchNav extends Component {
           onFocus={this.onFocus}
           clearButtonMode={'while-editing'}
           onSubmitEditing={this.onSubmitEditing}
+          autoCapitalize="none"
         />
         <Image
           style={styles.image_search}
