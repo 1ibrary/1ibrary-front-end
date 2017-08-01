@@ -167,6 +167,7 @@ export default class BookInfoPage extends Component {
                   索书号: {this.state.book_data.book_key}
                 </Text>
                 <Text style={styles.book_position_font}>
+                    {/* @TODO 南昌大学的缺少该参数  */}
                   馆藏地点: {this.state.book_data.book_place}
                 </Text>
               </View>
