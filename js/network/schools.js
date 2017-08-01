@@ -1,7 +1,7 @@
 export default schools = [
   {
     name: '南昌大学',
-    host: 'https://api.lib.ncuos.com'
+    host: 'https://api.lib.ncuos.com/'
   },
   {
     name: '广州大学',
