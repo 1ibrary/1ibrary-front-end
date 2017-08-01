@@ -1,4 +1,8 @@
-const HOST = 'https://1ibrary.group/'
+let HOST = 'https://1ibrary.group/'
+
+export const setHost = (host) => {
+  HOST = host
+}
 
 export const USERS = {
   login: HOST + 'users/login',

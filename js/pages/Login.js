@@ -12,7 +12,8 @@ import {
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
 import HttpUtils, { setToken } from '../network/HttpUtils'
-import { USERS } from '../network/Urls'
+import schools from '../network/schools'
+import { USERS, setHost } from '../network/Urls'
 import { SCENE_INDEX } from '../constants/scene'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 import {
@@ -32,7 +33,6 @@ export default class WelcomePage extends Component {
   state = {
     account: '',
     password: '',
-    schools: ['南昌大学', '广州大学'],
     choosed_id: 0,
     school_id: -1,
     choose_info: '请选择您的学校',
@@ -137,12 +137,15 @@ export default class WelcomePage extends Component {
   confirm = () => {
 
     const selectedId = this.state.choosed_id
+    const selectedSchool = schools[selectedId]
 
     this.setState({
       school_id: selectedId,
-      choose_info: this.state.schools[selectedId]
+      choose_info: selectedSchool.name
     })
 
+    setHost(selectedSchool.host)
+    
     this.hide_modal()
   }
 
@@ -215,7 +218,7 @@ export default class WelcomePage extends Component {
       <View style={styles.modal}>
         <View style={styles.modal_content}>
 
-          {this.state.schools.map((item, id) => {
+          {schools.map((item, id) => {
             return (
               <TouchableOpacity
                 key={id}
@@ -229,7 +232,7 @@ export default class WelcomePage extends Component {
                   ]}
                 />
                 <Text style={styles.modal_content_font}>
-                  {item}
+                  {item.name}
                 </Text>
               </TouchableOpacity>
             )
