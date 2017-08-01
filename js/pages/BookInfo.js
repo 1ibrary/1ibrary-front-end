@@ -23,14 +23,13 @@ import Toast from 'antd-mobile/lib/toast'
 const URL = BOOKS.show_detail
 
 export default class BookInfoPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      show_content: false,
-      book_data: { detail_data: [] },
-      is_subscribe: false
-    }
+  
+  state = {
+    show_content: false,
+    book_data: { detail_data: [] },
+    is_subscribe: false
   }
+
   static defaultProps = {
     data: {
       book_title: '美洲小宇宙',
@@ -67,9 +66,11 @@ export default class BookInfoPage extends Component {
       book_subscribe: true
     }
   }
+
   async componentDidMount() {
     let params = {
-      book_id: this.props.data.book_id
+      book_id: this.props.data.book_id,
+      book_db_id: 666 // @TODO for test
     }
     let result = await (HttpUtils.post(URL, params) || {})
     if (result.status === 0) {
@@ -78,6 +79,7 @@ export default class BookInfoPage extends Component {
       Toast.offline(result.msg, 1)
     }
   }
+
   onNavigator() {
     let params = {
       title: '加入书单',
@@ -85,6 +87,7 @@ export default class BookInfoPage extends Component {
     }
     Actions[SCENE_BOOK_COLLECT](params)
   }
+
   changeNum(x) {
     if (x < 10) {
       return '0' + x
@@ -92,7 +95,8 @@ export default class BookInfoPage extends Component {
       return x
     }
   }
-  async subscribe() {
+
+  subscribe = async () => {
     let message = ''
     this.setState({ is_subscribe: !this.state.is_subscribe }, () => {
       message = this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
