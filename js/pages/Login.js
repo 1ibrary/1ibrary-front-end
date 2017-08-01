@@ -47,7 +47,7 @@ export default class WelcomePage extends Component {
     
     setHost(schools[user.school_id].host)
 
-    this.login(user.account, user.password)
+    this.login(user.account, user.password, user.school_id)
   }
 
   onSubmit = async () => {
@@ -61,15 +61,15 @@ export default class WelcomePage extends Component {
       password
     } = this.state
 
-    this.login(account, password)
+    this.login(account, password, this.state.school_id)
   }
 
-  login = async (account, password) => {
+  login = async (account, password, school_id) => {
 
     const params = {
       account,
       password,
-      school_id: this.state.school_id
+      school_id
     }
 
     const response = await HttpUtils.post(URL, params)
