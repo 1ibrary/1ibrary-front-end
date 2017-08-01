@@ -24,20 +24,24 @@ import {
 } from '../common/styles'
 
 export default class ProfilePage extends Component {
+
   onJump(page, params) {
     Actions[page](params)
   }
+
   render() {
-    let booklist = require('../../res/images/icon_booklist.png')
-    let history = require('../../res/images/icon_history.png')
-    let setting = require('../../res/images/icon_setting.png')
-    // let apps = require("../../res/images/icon_apps.png")
-    let feedback = require('../../res/images/icon_feedback.png')
-    let aboutus = require('../../res/images/icon_aboutus.png')
-    let images = [booklist, history, setting, feedback, aboutus, images]
-    let texts = ['我的书单', '借阅历史', '设置', '意见反馈', '关于我们']
-    let male_pic = require('../../res/images/avatar.png')
-    let fm_pic = require('../../res/images/avatar2.png')
+    const booklist = require('../../res/images/icon_booklist.png')
+    const history = require('../../res/images/icon_history.png')
+    const setting = require('../../res/images/icon_setting.png')
+    // const apps = require("../../res/images/icon_apps.png")
+    const feedback = require('../../res/images/icon_feedback.png')
+    const aboutus = require('../../res/images/icon_aboutus.png')
+    
+    const texts = ['我的书单', '借阅历史', '设置', '意见反馈', '关于我们']
+    const male_pic = require('../../res/images/avatar.png')
+    const fm_pic = require('../../res/images/avatar2.png')
+    const images = [booklist, history, setting, feedback, aboutus, images]
+
     return (
       <View style={styles.container}>
         <View style={styles.info_container}>
