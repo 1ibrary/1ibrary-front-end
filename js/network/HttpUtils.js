@@ -28,11 +28,7 @@ export default class HttpUtils {
 
     data = qs.stringify(data)
 
-    return axios.post(url, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
+    return axios.post(url, data)
       .then(response => response.data)
   }
 }
