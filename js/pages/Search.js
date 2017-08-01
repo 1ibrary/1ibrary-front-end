@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   ListView,
+  ScrollView,
   AsyncStorage,
   Dimensions
 } from 'react-native'
@@ -18,26 +19,34 @@ import { SCENE_SEARCH_RESULT } from '../constants/scene'
 import SearchTags from '../components/SearchTags'
 import Storage from '../common/storage'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import HttpUtils from '../network/HttpUtils'
+import { BOOKS } from '../network/Urls'
 
 const MAX_LENGTH = 5
 
 export default class Search extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      search_history: [],
-      hot: ['人民的名义', '巨人的陨落', '时间简史', '平凡的世界'],
-      defaultValue: '',
-      page: 1,
-      reminder: ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治'],
-      text: '',
-      remind: false
-    }
+
+  state = {
+    search_history: [],
+    hot: [],
+    defaultValue: '',
+    page: 1,
+    reminder: ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治'],
+    text: '',
+    remind: false
   }
+
   async componentDidMount() {
-    let array = await Storage.get('search_history', [])
+    const array = await Storage.get('search_history', [])
     this.setState({ search_history: array })
+    this.fetchHotSearch()
   }
+
+  fetchHotSearch = async () => {
+    const response = await HttpUtils.post(BOOKS.hot_search, {})
+    this.setState({ hot: response.data.slice(0, 5) })
+  }
+
   async onPressDelete(index) {
     let array = await Storage.get('search_history', [])
     if (array.length == 0 || index > array.length - 1) {
@@ -48,6 +57,7 @@ export default class Search extends Component {
     await Storage.set('search_history', array)
     this.setState({ search_history: array })
   }
+
   onSubmitEditing(text) {
     this.onSave(text)
     let params = {
@@ -55,6 +65,7 @@ export default class Search extends Component {
     }
     Actions[SCENE_SEARCH_RESULT](params)
   }
+
   onChangeText(text) {
     if (text == '') {
       this.setState({ remind: false })
@@ -63,6 +74,7 @@ export default class Search extends Component {
     this.setState({ remind: true })
     // this.setState({ page: 2, information: data })
   }
+
   async onSave(text) {
     let array = await Storage.get('search_history', [])
     if (array.length != 0) {
@@ -74,11 +86,12 @@ export default class Search extends Component {
       array = [text]
     }
     await Storage.set('search_history', array)
-    this.setState({ search_history: array })
   }
+
   changeDefaultValue(item) {
     this.setState({ defaultValue: item })
   }
+
   render() {
     let reminder = (
       <SearchTags
@@ -118,6 +131,7 @@ export default class Search extends Component {
     } else {
       content = tags
     }
+
     return (
       <KeyboardAwareScrollView>
         <View style={styles.all_container}>
