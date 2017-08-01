@@ -4,12 +4,12 @@ export const USERS = {
 }
 
 export const LISTS = {
-  create_list: 'lists/create_list',
-  show_list: 'lists/show_list',
-  show_detail: 'lists/show_detail',
-  collect_book: 'lists/collect_book',
-  update_list: 'lists/update_list',
-  remove_list: 'lists/remove_list'
+  create_list: 'users/create_list',
+  show_list: 'users/show_list',
+  show_detail: 'users/show_detail',
+  collect_book: 'users/collect_book',
+  update_list: 'users/update_list',
+  remove_list: 'users/remove_list'
 }
 
 export const BOOKS = {
