@@ -14,6 +14,6 @@ export const LISTS = {
 
 export const BOOKS = {
   show_detail: 'books/show_detail',
-  show_books: 'books/show_books',
+  hot_books: 'books/hot_books',
   search_book: 'books/search_book'
 }
