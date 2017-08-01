@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, Text, StyleSheet } from 'react-native'
+import { View, ImageBackground, Text, StyleSheet } from 'react-native'
 
 export default class Round extends Component {
   constructor(props) {
@@ -14,14 +14,14 @@ export default class Round extends Component {
   }
   render() {
     return (
-      <Image
+      <ImageBackground
         style={styles.round_image}
         source={this.props.data === 0 ? this.state.red : this.state.blue}
       >
         <Text style={styles.round_num}>
           {this.props.data}
         </Text>
-      </Image>
+      </ImageBackground>
     )
   }
 }

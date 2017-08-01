@@ -6,6 +6,7 @@ import {
   Navigator,
   TouchableOpacity,
   Image,
+  ImageBackground,
   ScrollView,
   TextInput,
   AsyncStorage
@@ -159,7 +160,7 @@ export default class WelcomePage extends Component {
     return (
       <KeyboardAwareScrollView>
         <View style={styles.container}>
-          <Image
+          <ImageBackground
             style={styles.bg}
             source={require('../../res/images/welcome_bg.png')}
           >
@@ -208,7 +209,7 @@ export default class WelcomePage extends Component {
             >
               <Text style={styles.online_font}>登录</Text>
             </TouchableOpacity>
-          </Image>
+          </ImageBackground>
           {this.state.show_modal && Modal}
         </View>
       </KeyboardAwareScrollView>

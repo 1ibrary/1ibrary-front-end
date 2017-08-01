@@ -72,7 +72,7 @@ export default class BookInfoPage extends Component {
       book_id: this.props.data.book_id
     }
     let result = await (HttpUtils.post(URL, params) || {})
-    if (result.msg === '请求成功') {
+    if (result.status === 0) {
       this.setState({ book_data: result.data })
     } else {
       Toast.offline(result.msg, 1)
