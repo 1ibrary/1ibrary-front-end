@@ -380,10 +380,13 @@ const styles = StyleSheet.create({
   },
   book_place_item_num: {
     marginLeft: 34,
-    width: 40
+    flex: 2
+    // width: 40
   },
   book_place_item_place: {
-    marginLeft: 138
+    flex: 5,
+    textAlign: 'center'
+    // marginLeft: 138
   },
   bottom_bar: {
     flexDirection: 'row',
