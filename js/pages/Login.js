@@ -40,12 +40,14 @@ export default class WelcomePage extends Component {
   }
 
   async componentDidMount() {
-    let user_info = await Storage.get('user_info', {})
-    if (!user_info.user_account || !user_info.user_password) {
+    let user = await Storage.get('user', {})
+    if (!user.account || !user.password) {
       return
     }
+    
+    setHost(schools[user.school_id].host)
 
-    this.login(user_info.user_account, user_info.user_password)
+    this.login(user.account, user.password)
   }
 
   onSubmit = async () => {
@@ -77,8 +79,7 @@ export default class WelcomePage extends Component {
       return
     }
 
-    await Storage.set('user_info', {
-      ...response.data,
+    await Storage.set('user', {
       ...params
     })
 
