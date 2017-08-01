@@ -80,7 +80,7 @@ export default class BookInfoPage extends Component {
     }
   }
 
-  onNavigator() {
+  onNavigator = () => {
     let params = {
       title: '加入书单',
       book: this.props.data
@@ -97,44 +97,14 @@ export default class BookInfoPage extends Component {
   }
 
   subscribe = async () => {
-    let message = ''
-    this.setState({ is_subscribe: !this.state.is_subscribe }, () => {
-      message = this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
-    })
+    const message = !this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
+    this.setState({ is_subscribe: !this.state.is_subscribe })
     Toast.success(message, 1)
   }
+
   render() {
-    let bottomBar = (
-      <View style={styles.bottom_bar}>
-        <TouchableOpacity onPress={this.subscribe.bind(this)}>
-          <View
-            style={[
-              styles.subscribe,
-              this.state.is_subscribe ? styles.subscribe_disbaled : {}
-            ]}
-          >
-            <View>
-              <Text
-                style={[
-                  styles.subscribe_font,
-                  this.state.is_subscribe ? styles.subscribe_font_disabled : {}
-                ]}
-              >
-                订阅
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.collect}
-          onPress={() => {
-            this.onNavigator()
-          }}
-        >
-          <Text style={styles.collect_font}>收藏</Text>
-        </TouchableOpacity>
-      </View>
-    )
+    
+    let BottomBar = this.renderBottomBar()
 
     let content = (
       <View style={styles.book_content}>
@@ -236,7 +206,39 @@ export default class BookInfoPage extends Component {
             })}
           </View>
         </ScrollView>
-        {bottomBar}
+        {BottomBar}
+      </View>
+    )
+  }
+
+  renderBottomBar = () => {
+
+    const {
+      is_subscribe
+    } = this.state
+
+    return (
+      <View style={styles.bottom_bar}>
+        <TouchableOpacity onPress={this.subscribe}>
+          <View style={[styles.subscribe, is_subscribe && styles.subscribe_disbaled ]} >
+            <View>
+              <Text
+                style={[
+                  styles.subscribe_font,
+                  is_subscribe && styles.subscribe_font_disabled
+                ]}
+              >
+                订阅
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.collect}
+          onPress={this.onNavigator}
+        >
+          <Text style={styles.collect_font}>收藏</Text>
+        </TouchableOpacity>
       </View>
     )
   }
