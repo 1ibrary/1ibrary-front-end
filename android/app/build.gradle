@@ -93,6 +93,15 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
+    signingConfigs {
+        release {
+            storeFile file("/Users/lxxyx/1ibrary.jks")
+            storePassword "1ibrary"
+            keyAlias "1ibrary"
+            keyPassword "1ibrary"
+        }
+    }
+
     defaultConfig {
         applicationId "com.onelibrary"
         minSdkVersion 16
@@ -115,6 +124,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
