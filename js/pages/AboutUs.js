@@ -5,7 +5,7 @@ import {
   Text,
   Navigator,
   TouchableOpacity,
-  ImageBackground,
+  Image,
   ScrollView,
   Dimensions,
   WebView
@@ -27,7 +27,7 @@ export default class AboutUsPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground
+        <Image
           style={styles.bg}
           source={require('../../res/images/about_bg.png')}
         >
@@ -36,7 +36,7 @@ export default class AboutUsPage extends Component {
             navStyle={styles.opacity0}
             navBarStyle={styles.opacity0}
           />
-        </ImageBackground>
+        </Image>
         <Image
           style={styles.logo}
           source={require('../../res/images/about_logo.png')}
