@@ -20,27 +20,14 @@ import { Actions } from 'react-native-router-flux'
 import { SCENE_BOOK_INFO } from '../constants/scene'
 
 export default class Book extends Component {
-  constructor(props) {
-    super(props)
-  }
-  static defaultProps = {
-    data: {
-      grade: 9.3,
-      title: '设计心理学4:未来设计',
-      num: 5,
-      author: '唐纳德诺曼',
-      publish: '中信出版社',
-      time: 2015,
-      picture:
-        'https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg'
-    }
-  }
+
   onPress() {
     let params = {
       data: this.props.data
     }
     Actions[SCENE_BOOK_INFO](params)
   }
+  
   render() {
     return (
       <TouchableOpacity
