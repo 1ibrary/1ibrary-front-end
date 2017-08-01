@@ -21,18 +21,19 @@ import { Actions } from 'react-native-router-flux'
 import { SCENE_INDEX } from '../constants/scene'
 
 export default class SearchNav extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      history: []
-    }
+  
+  state = {
+    history: []
   }
+
   componentDidMount() {
     if (this.props.type == 'result') {
       return
     }
+
     this.refs.textInput.focus()
   }
+
   static defaultProps = {
     onChangeText: text => { }
   }
@@ -46,20 +47,10 @@ export default class SearchNav extends Component {
           placeholder={this.props.placeholder}
           placeholderColor={'rgb(165,165,165)'}
           defaultValue={this.props.defaultValue}
-          onChangeText={text => {
-            this.props.onChangeText(text)
-          }}
-          onFocus={() => {
-            if (this.props.onFocus) {
-              this.props.onFocus()
-            }
-          }}
+          onChangeText={this.props.onChangeText}
+          onFocus={this.onFocus}
           clearButtonMode={'while-editing'}
-          onSubmitEditing={event => {
-            if (this.props.onSubmitEditing) {
-              this.props.onSubmitEditing(event)
-            }
-          }}
+          onSubmitEditing={this.onSubmitEditing}
         />
         <Image
           style={styles.image_search}
@@ -75,6 +66,14 @@ export default class SearchNav extends Component {
         </TouchableOpacity>
       </View>
     )
+  }
+
+  onFocus = () => {
+    this.props.onFocus && this.props.onFocus()
+  }
+
+  onSubmitEditing = (event) => {
+    this.props.onSubmitEditing && this.props.onSubmitEditing(event)
   }
 }
 
