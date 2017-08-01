@@ -25,8 +25,10 @@ import {
 
 export default class ProfilePage extends Component {
 
-  onJump(page, params) {
-    Actions[page](params)
+  onJump(page, title) {
+    Actions[page]({
+      title
+    })
   }
 
   render() {
@@ -72,25 +74,15 @@ export default class ProfilePage extends Component {
                 key={i}
                 onPress={() => {
                   let text = d
-                  let pramas
                   switch (text) {
                     case '我的书单':
-                      params = {
-                        title: '我的书单'
-                      }
-                      this.onJump(scenes.SCENE_BOOK_COLLECT, params)
+                      this.onJump(scenes.SCENE_BOOK_COLLECT, text)
                       break
                     case '借阅历史':
-                      params = {
-                        title: '借阅历史'
-                      }
-                      this.onJump(scenes.SCENE_MESSAGE, params)
+                      this.onJump(scenes.SCENE_MESSAGE, text)
                       break
                     case '设置':
-                      params = {
-                        title: '借阅历史'
-                      }
-                      this.onJump(scenes.SCENE_SETTING, params)
+                      this.onJump(scenes.SCENE_SETTING, text)
                       break
                   }
                 }}
