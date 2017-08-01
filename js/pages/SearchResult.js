@@ -16,9 +16,9 @@ export default class SearchResultPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data0: [],
-      data1: [],
-      data2: []
+      bookName: [],
+      author: [],
+      publishingHouse: []
     }
   }
 
@@ -29,7 +29,7 @@ export default class SearchResultPage extends Component {
     }
     let response = (await HttpUtils.post(URL, params)) || {}
     if (response.status === 0) {
-      this.setState({ data0: response.data })
+      this.setState({ bookName: response.data })
     }
   }
 
@@ -41,19 +41,14 @@ export default class SearchResultPage extends Component {
     let response = (await HttpUtils.post(URL, params)) || {}
     if (response.status === 0) {
       if (index == 1) {
-        this.setState({ data1: response.data })
+        this.setState({ author: response.data })
       } else {
-        this.setState({ data2: response.data })
+        this.setState({ publishingHouse: response.data })
       }
     }
   }
 
   render() {
-    let none = (
-      <View style={styles.remind}>
-        <Text style={styles.remind_font}>暂无结果</Text>
-      </View>
-    )
     
     return (
       <View style={styles.container}>
@@ -80,35 +75,43 @@ export default class SearchResultPage extends Component {
           }}
         >
           <View style={styles.page_container} tabLabel="书名">
-            <ScrollView style={styles.booklist}>
-              {this.state.data0.length === 0
-                ? none
-                : this.state.data0.map((item, i) => {
-                    return <BookItem1 key={i} data={item} style={styles.item} />
-                  })}
-            </ScrollView>
+            {this.renderList('bookName')}
           </View>
           <View style={styles.page_container} tabLabel="作者">
-            <ScrollView style={styles.booklist}>
-              {this.state.data1.length === 0
-                ? none
-                : this.state.data1.map((item, i) => {
-                    return <BookItem1 key={i} data={item} style={styles.item} />
-                  })}
-            </ScrollView>
+            {this.renderList('author')}
           </View>
           <View style={styles.page_container} tabLabel="出版社">
-            <ScrollView style={styles.booklist}>
-              {this.state.data2.length === 0
-                ? none
-                : this.state.data2.map((item, i) => {
-                    return <BookItem1 key={i} data={item} style={styles.item} />
-                  })}
-            </ScrollView>
+            {this.renderList('publishingHouse')}
           </View>
         </ScrollableTabView>
       </View>
     )
+  }
+
+  renderList = (listName) => {
+
+    const None = (
+      <View style={styles.remind}>
+        <Text style={styles.remind_font}>暂无结果</Text>
+      </View>
+    )
+
+    const list = this.state[listName]
+
+    if (list.length === 0) {
+      return None
+    }
+
+    return (
+      <ScrollView style={styles.booklist}>
+        {
+          list.map((item, i) => {
+            return <BookItem1 key={i} data={item} style={styles.item} />
+          })
+        }
+      </ScrollView>
+    )
+
   }
 }
 
