@@ -68,10 +68,12 @@ export default class BookInfoPage extends Component {
   }
 
   async componentDidMount() {
+    console.log(this.props)
     let params = {
       book_id: this.props.data.book_id,
-      book_db_id: 666 // @TODO for test
+      book_db_id: this.props.data.book_db_id
     }
+    console.log(params)
     let result = await (HttpUtils.post(URL, params) || {})
     if (result.status === 0) {
       this.setState({ book_data: result.data })

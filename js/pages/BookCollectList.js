@@ -29,15 +29,15 @@ export default class BookListPage extends Component {
 
   componentWillMount() {
     if (this.state.book_id_list.length == 0) {
-      this.getNewData(this.props.item.book_list)
+      this.getNewData(this.props.item.list_id)
     } else {
       this.getNewData(this.state.book_id_list)
     }
   }
 
-  async getNewData(book_id_list) {
+  async getNewData(list_id) {
     let params = {
-      book_list: book_id_list || '[]'
+      list_id: list_id || '[]'
     }
     let result = (await HttpUtils.post(URL_SHOW, params)) || {}
     if (result.msg === '请求成功') {

@@ -16,5 +16,6 @@ export const BOOKS = {
   show_detail: 'books/show_detail',
   hot_books: 'books/hot_books',
   search_book: 'books/search_book',
-  hot_search: 'books/hot_search'
+  hot_search: 'books/hot_search',
+  borrowed: 'users/borrowed'
 }
