@@ -19,7 +19,7 @@ export default class MessagePage extends Component {
       <View style={styles.container}>
         <NavigationBar title={'通知'} />
         <ScrollView style={styles.item_container}>
-          <Message />
+          {/* <Message /> */}
           <Message data={{ title: '小王子', kind: 2 }} />
         </ScrollView>
       </View>

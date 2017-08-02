@@ -16,18 +16,18 @@ import { Actions } from 'react-native-router-flux'
 import { SCENE_MESSAGE } from '../constants/scene'
 
 export default class Message extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      read: false
-    }
+
+  state = {
+    read: false
   }
+
   static defaultProps = {
     data: {
       kind: 1,
       title: '平凡的世界'
     }
   }
+
   onPress() {
     this.setState({ read: true })
     let params = {
@@ -39,12 +39,15 @@ export default class Message extends Component {
     }
     Actions[SCENE_MESSAGE](params)
   }
+
   render() {
+    
     let subscribe = require('../../res/images/icon_subscribe.png')
     let return_book = require('../../res/images/icon_return.png')
     let dot = <View style={styles.dot} />
     let subscribe_c = '有人归还啦，赶紧去借阅吧～'
     let return_c = '还有3天到期，记得还书呀～'
+
     return (
       <TouchableOpacity onPress={() => this.onPress()}>
         <View style={styles.item_container}>

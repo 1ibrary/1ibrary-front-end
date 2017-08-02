@@ -67,7 +67,7 @@ export default class Search extends Component {
   }
 
   onChangeText(text) {
-    if (text == '') {
+    if (text === '') {
       this.setState({ remind: false })
       return
     }

@@ -48,7 +48,7 @@ export default class HomePage extends Component {
       selected: (
         <Image
           style={styles.image}
-          source={require('../../res/images/message.png')}
+          source={require('../../res/images/message1.png')}
         />
       )
     },

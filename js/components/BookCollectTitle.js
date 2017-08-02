@@ -25,13 +25,12 @@ import { Actions } from 'react-native-router-flux'
 import { SCENE_BOOK_COLLECT_LIST } from '../constants/scene'
 
 export default class BookCollectTitle extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      select: false,
-      marginLeft: new Animated.Value(8)
-    }
+  
+  state = {
+    select: false,
+    marginLeft: new Animated.Value(8)
   }
+
   onMove(ev) {
     if (ev.dx < 0) {
       Animated.timing(this.state.marginLeft, {
@@ -82,10 +81,6 @@ export default class BookCollectTitle extends Component {
         this.onPress(evt, gestureState)
       }
     })
-  }
-
-  static defaultProps = {
-    data: {}
   }
 
   render() {

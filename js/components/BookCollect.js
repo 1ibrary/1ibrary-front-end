@@ -17,13 +17,11 @@ import BookItem1 from './Book'
 import { WIDTH, INNERWIDTH, getResponsiveWidth } from '../common/styles'
 
 export default class BookCollect extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      marginLeft: new Animated.Value(8)
-    }
-  }
 
+  state = {
+    marginLeft: new Animated.Value(8)
+  }
+  
   componentWillMount() {
     this._panResponder_move = PanResponder.create({
       // Ask to be the responder:

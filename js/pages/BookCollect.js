@@ -27,53 +27,15 @@ const URL_ADD_BOOK = LISTS.collect_book
 const URL_RM_LIST = LISTS.remove_list
 
 export default class BookCollectPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      lists: [],
-      choosed: []
-    }
-  }
-  static defaultProps = {
-    book: {
-      book_title: '美洲小宇宙',
-      book_content:
-      '一本书带你深度探访中南美洲腹地，身未动，心已远。沿着旧地图，走不到新大陆，毕淑敏带你走出自助旅行新路线: “世界最美岛屿”加拉帕戈斯群岛，“热带雾林王冠上的宝石”哥斯达黎加蒙特维德雾林，古印第安人的太阳、月亮金字塔与亡灵大道，全球银饰之都塔斯科，切•格瓦拉故居……太多秘密，等你探索，太多奇迹，等你发现。',
-      book_cover:
-      'https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg',
-      book_key: 'TB47-05-/9',
-      book_place: '中文文科库(418)',
-      book_author: '毕淑敏',
-      book_publish: '湖南文艺出版社',
-      book_rate: 9.3,
-      detail_data: [
-        {
-          detail_place: '中文文科库418',
-          detail_id: 11,
-          detail_key: 1,
-          detail_in: true
-        },
-        {
-          detail_place: '中文文科库418',
-          detail_id: 11,
-          detail_key: 2,
-          detail_in: true
-        },
-        {
-          detail_place: '中文文科库418',
-          detail_id: 11,
-          detail_key: 3,
-          detail_in: false
-        }
-      ],
-      book_last_number: 2,
-      book_subscribe: true
-    }
+
+  state = {
+    lists: [],
+    choosed: []
   }
 
   async componentDidMount() {
-    let result = (await HttpUtils.post(URL_SHOW)) || {}
-    let lists = result.data || []
+    const result = (await HttpUtils.post(URL_SHOW)) || {}
+    const lists = result.data || []
     this.setState({ lists })
   }
 
@@ -148,10 +110,6 @@ export default class BookCollectPage extends Component {
   }
 
   render() {
-    let lists = [
-      { title: '专业书籍', des: '反正就是很专业的啦' },
-      { title: '经典书籍', des: '反正就是很经典的啦' }
-    ]
     return (
       <View style={styles.container}>
         <RightButtonNav
