@@ -28,11 +28,7 @@ export default class BookListPage extends Component {
   }
 
   componentWillMount() {
-    if (this.state.book_id_list.length == 0) {
-      this.getNewData(this.props.item.list_id)
-    } else {
-      this.getNewData(this.state.book_id_list)
-    }
+    this.getNewData(this.props.item.list_id)
   }
 
   async getNewData(list_id) {
@@ -60,7 +56,7 @@ export default class BookListPage extends Component {
         let response = (await HttpUtils.post(URL_RM_BOOK, params)) || {}
         if (response.status === 0) {
           Toast.success('删除图书成功!', 0.5)
-          this.getNewData(params.book_list)
+          this.getNewData(params.list_id)
         } else {
           Toast.offline(response.msg, 1)
         }

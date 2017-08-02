@@ -48,18 +48,17 @@ export default class BookCollectPage extends Component {
 
     this.state.choosed.forEach((choosed) => {
       let {
-        list_id,
-        book_list
+        list_id
       } = this.state.lists.filter(list => list.list_name === choosed)[0]
 
-      book_list = book_list.split(',')
-      book_list.push(this.props.book.book_id + '')
-      book_list = [...new Set(book_list)]
-      book_list = book_list.join(',')
+      // book_list = book_list.split(',')
+      // book_list.push(this.props.book.book_id + '')
+      // book_list = [...new Set(book_list)]
+      // book_list = book_list.join(',')
 
       const params = {
         list_id,
-        book_list: book_list
+        // book_list: book_list
       }
 
       tasks.push(HttpUtils.post(URL_ADD_BOOK, params))
