@@ -6,6 +6,7 @@ import {
   Navigator,
   TouchableOpacity,
   Image,
+  ScrollView,
   Dimensions
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
@@ -17,47 +18,67 @@ import {
   getResponsiveWidth,
   getResponsiveHeight
 } from '../common/styles'
+import HttpUtils from '../network/HttpUtils'
+import { BOOKS } from '../network/Urls'
 
 export default class MessageInfoPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+
+  state = {
+    books: []
   }
-  static defaultProps = {
-    data: {
-      title: '美洲小宇宙',
-      rent: '2017/4/2',
-      return_time: '2017/5/2'
-    },
-    title: '归还书籍'
+
+  componentDidMount() {
+    this.fetchBorrowed()
   }
+
+  fetchBorrowed = async () => {
+    const response = await HttpUtils.post(BOOKS.borrowed, {})
+    this.setState({ books: response.books })
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.nav_container}>
           <CommonNav
-            title={this.props.title}
+            title="借阅历史"
             navigator={this.props.navigator}
           />
         </View>
-        <View style={styles.item}>
-          <Image
-            style={styles.book_image}
-            source={require('../../res/images/book.png')}
-          />
-          <View style={styles.info}>
-            <TextPingFang style={styles.info_title}>
-              {this.props.data.title}
-            </TextPingFang>
-            <TextPingFang style={styles.info_rent}>
-              借阅日期: {this.props.data.rent}
-            </TextPingFang>
-            <TextPingFang style={styles.info_rent}>
-              应还日期: {this.props.data.return_time}
-            </TextPingFang>
-          </View>
-        </View>
+        {
+          this.renderBooks()
+        }
       </View>
+    )
+  }
+
+  renderBooks = () => {
+    return (
+      <ScrollView>
+        {
+          this.state.books.map((book, i) => {
+            return (
+              <View style={styles.item} key={i}>
+                <Image
+                  style={styles.book_image}
+                  source={{ uri: book.book_cover }}
+                />
+                <View style={styles.info}>
+                  <Text style={styles.info_title} numberOfLines={3}>
+                    {book.book_title}
+                  </Text>
+                  <TextPingFang style={styles.info_rent}>
+                    借阅日期: {book.borrow_time}
+                  </TextPingFang>
+                  <TextPingFang style={styles.info_rent}>
+                    应还日期: {book.return_time}
+                  </TextPingFang>
+                </View>
+              </View>
+            )
+          })
+        }
+      </ScrollView>
     )
   }
 }
