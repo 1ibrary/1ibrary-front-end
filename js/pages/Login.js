@@ -74,7 +74,6 @@ export default class WelcomePage extends Component {
     }
 
     const response = await HttpUtils.post(URL, params)
-
     if (response.status !== 0) {
       Toast.fail(response.msg || '登录失败，请检查账号或者密码是否正确', 1)
       return
