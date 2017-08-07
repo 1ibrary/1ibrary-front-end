@@ -36,6 +36,11 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>api.lib.ncuos.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
