@@ -11,7 +11,7 @@
     "axios": "^0.16.2",
     "qs": "^6.5.0",
     "react": "16.0.0-alpha.12",
-    "react-native": "0.46.4",
+    "react-native": "0.47.1",
     "react-native-keyboard-aware-scroll-view": "^0.2.9",
     "react-native-router-flux": "3.38.0",
     "react-native-scrollable-tab-view": "^0.7.4",
