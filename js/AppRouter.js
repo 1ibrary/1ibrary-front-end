@@ -87,7 +87,7 @@ export default class AppRouter extends Component {
             hideNavBar
           />
           <Scene
-            key={scenes.SCENE_ABOUTUS}
+            key={scenes.SCENE_ABOUT_US}
             component={AboutUs}
             title="关于我们"
             hideNavBar
@@ -100,7 +100,7 @@ export default class AppRouter extends Component {
             hideNavBar
           />
           <Scene
-            key={scenes.SCENE_ABOUTUS_WEB}
+            key={scenes.SCENE_ABOUT_US_WEB}
             component={AboutUsWeb}
             title="关于我们页面"
             hideNavBar

@@ -107,7 +107,7 @@ export default class ProfilePage extends Component {
                       this.onJump(scenes.SCENE_FEEDBACK, {})
                       break
                     case '关于我们':
-                      this.onJump(scenes.SCENE_ABOUTUS, {})
+                      this.onJump(scenes.SCENE_ABOUT_US, {})
                   }
                 }}
                 key={i}
