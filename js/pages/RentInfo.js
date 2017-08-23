@@ -17,6 +17,7 @@ import {
 import HttpUtils from '../network/HttpUtils'
 import { BOOKS } from '../network/Urls'
 import Toast from 'antd-mobile/lib/toast'
+import fetchData from '../common/loading'
 
 export default class MessageInfoPage extends Component {
 
@@ -25,14 +26,7 @@ export default class MessageInfoPage extends Component {
   }
 
   async componentDidMount() {
-    Toast.loading('正在加载', 0)
-    try {
-      await this.fetchBorrowed()
-    } catch (e) {
-      Toast.fail('加载失败，请稍后重试', 1)
-      return
-    }
-    Toast.success('已加载最新数据', 1)
+    fetchData(this.fetchBorrowed)
   }
 
   fetchBorrowed = async () => {

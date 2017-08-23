@@ -11,6 +11,7 @@ import HttpUtils from '../network/HttpUtils'
 import { LISTS } from '../network/Urls'
 import { HEIGHT } from '../common/styles'
 import Toast from 'antd-mobile/lib/toast'
+import fetchData from '../common/loading'
 
 const URL_SHOW = LISTS.show_detail
 const URL_RM_BOOK = LISTS.update_list
@@ -22,16 +23,20 @@ export default class BookListPage extends Component {
     book_id_list: ''
   }
 
-  componentWillMount() {
-    this.getNewData(this.props.item.list_id)
+  componentDidMount() {
+    fetchData(this.fetchList.bind(this, this.props.item.list_id))
   }
 
-  async getNewData(list_id) {
-    let params = {
-      list_id: list_id || '[]'
+  fetchList = async (list_id) => {
+    const params = { list_id }
+    const response = await HttpUtils.post(URL_SHOW, params)
+
+    if (response.status !== 0) {
+      Toast.fail('获取数据异常', 1)
+      return
     }
-    let result = (await HttpUtils.post(URL_SHOW, params)) || {}
-    let data = result.data
+
+    const data = response.data
     this.setState({ book_list: data })
   }
 
@@ -49,7 +54,7 @@ export default class BookListPage extends Component {
         let response = (await HttpUtils.post(URL_RM_BOOK, params)) || {}
         if (response.status === 0) {
           Toast.success('删除图书成功!', 0.5)
-          this.getNewData(params.list_id)
+          this.fetchList(params.list_id)
         } else {
           Toast.offline(response.msg, 1)
         }
