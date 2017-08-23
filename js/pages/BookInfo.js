@@ -18,7 +18,7 @@ import Toast from 'antd-mobile/lib/toast'
 
 const URL = BOOKS.show_detail
 
-export default class BookInfoPage extends Component {
+export default class BookInfo extends Component {
   
   state = {
     show_content: false,

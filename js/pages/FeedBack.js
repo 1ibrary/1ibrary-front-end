@@ -9,14 +9,13 @@ import Toast from 'antd-mobile/lib/toast'
 
 const URL = USERS.feedback
 
-export default class FeedBackPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      contact: '',
-      content: ''
-    }
+export default class FeedBack extends Component {
+
+  state = {
+    contact: '',
+    content: ''
   }
+
   async onPost() {
     if (!this.state.contact.trim()) {
       Toast.info('请输入您的联系方式哦~', 1)
@@ -35,6 +34,7 @@ export default class FeedBackPage extends Component {
       Actions.pop()
     }
   }
+
   render() {
     return (
       <View style={styles.container}>

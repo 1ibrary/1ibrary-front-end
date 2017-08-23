@@ -17,49 +17,47 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { SCENE_ABOUT_US_WEB } from '../constants/scene'
 
-export default class AboutUsPage extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image
-          style={styles.bg}
-          source={require('../../res/images/about_bg.png')}
-        >
-          <CommonNav
-            title={'关于我们'}
-            navStyle={styles.opacity0}
-            navBarStyle={styles.opacity0}
-          />
-        </Image>
-        <Image
-          style={styles.logo}
-          source={require('../../res/images/about_logo.png')}
+export default function AboutUs () {
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.bg}
+        source={require('../../res/images/about_bg.png')}
+      >
+        <CommonNav
+          title={'关于我们'}
+          navStyle={styles.opacity0}
+          navBarStyle={styles.opacity0}
         />
-        <View style={styles.text}>
-          <Text style={styles.slogan}>ONE</Text>
-          <TextPingFang style={styles.name}>一图</TextPingFang>
-          <Text style={styles.slogan}>LIBRARY</Text>
-          <View style={styles.border} />
-        </View>
-        <View style={styles.names}>
-          <Text style={styles.name}>Back-End:Airing</Text>
-          <Text style={styles.name}>UI Design:Albert Leung</Text>
-          <Text style={styles.name}>IOS APP:YiFan Wang</Text>
-          <View>
-            <TouchableOpacity
-              style={styles.contact}
-              onPress={() => {
-                Actions[SCENE_ABOUT_US_WEB]()
-              }}
-            >
-              <Text style={styles.contact_font}>联系我们</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text style={styles.version}>Verison1.0.2</Text>
+      </Image>
+      <Image
+        style={styles.logo}
+        source={require('../../res/images/about_logo.png')}
+      />
+      <View style={styles.text}>
+        <Text style={styles.slogan}>ONE</Text>
+        <TextPingFang style={styles.name}>一图</TextPingFang>
+        <Text style={styles.slogan}>LIBRARY</Text>
+        <View style={styles.border} />
       </View>
-    )
-  }
+      <View style={styles.names}>
+        <Text style={styles.name}>Back-End:Airing</Text>
+        <Text style={styles.name}>UI Design:Albert Leung</Text>
+        <Text style={styles.name}>IOS APP:YiFan Wang</Text>
+        <View>
+          <TouchableOpacity
+            style={styles.contact}
+            onPress={() => {
+              Actions[SCENE_ABOUT_US_WEB]()
+            }}
+          >
+            <Text style={styles.contact_font}>联系我们</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <Text style={styles.version}>Verison1.0.2</Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
