@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  Image
 } from 'react-native'
 import BookList from '../components/BookList'
 import SearchNav_Welcome from '../components/SearchNavHomePage'

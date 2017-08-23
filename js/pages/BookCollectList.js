@@ -16,12 +16,10 @@ const URL_SHOW = LISTS.show_detail
 const URL_RM_BOOK = LISTS.update_list
 
 export default class BookListPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      book_list: [],
-      book_id_list: ''
-    }
+  
+  state = {
+    book_list: [],
+    book_id_list: ''
   }
 
   componentWillMount() {

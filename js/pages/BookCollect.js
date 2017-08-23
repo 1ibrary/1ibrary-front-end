@@ -31,6 +31,7 @@ export default class BookCollectPage extends Component {
   async componentDidMount() {
     const result = (await HttpUtils.post(URL_SHOW)) || {}
     const lists = result.data || []
+    console.log(this)
     this.setState({ lists })
   }
 
@@ -46,15 +47,13 @@ export default class BookCollectPage extends Component {
         list_id
       } = this.state.lists.filter(list => list.list_name === choosed)[0]
 
-      // book_list = book_list.split(',')
-      // book_list.push(this.props.book.book_id + '')
-      // book_list = [...new Set(book_list)]
-      // book_list = book_list.join(',')
-
       const params = {
         list_id,
-        // book_list: book_list
+        book_id: this.props.book.book_id,
+        book_db_id: 1
       }
+
+      console.log(URL_ADD_BOOK, params)
 
       tasks.push(HttpUtils.post(URL_ADD_BOOK, params))
     })
