@@ -14,7 +14,7 @@ import Toast from 'antd-mobile/lib/toast'
 import fetchData from '../common/loading'
 
 const URL_SHOW = LISTS.show_detail
-const URL_RM_BOOK = LISTS.update_list
+const URL_RM_BOOK = LISTS.remove_book
 
 export default class BookListPage extends Component {
   
@@ -24,6 +24,10 @@ export default class BookListPage extends Component {
   }
 
   componentDidMount() {
+    this.refreshList()
+  }
+
+  refreshList = () => {
     fetchData(this.fetchList.bind(this, this.props.item.list_id))
   }
 
@@ -40,27 +44,15 @@ export default class BookListPage extends Component {
     this.setState({ book_list: data })
   }
 
-  async onDelete(item) {
-    this.state.book_list.some(async (book, i) => {
-      if (book.book_id == item.book_id) {
-        let list = this.props.item
-        let book_id_list = this.state.book_id_list.split(',').slice(0)
-        let index = book_id_list.indexOf(book.book_id + '')
-        book_id_list.splice(index, 1)
-        let params = {
-          book_list: book_id_list.join(',') || '[]',
-          list_id: list.list_id
-        }
-        let response = (await HttpUtils.post(URL_RM_BOOK, params)) || {}
-        if (response.status === 0) {
-          Toast.success('删除图书成功!', 0.5)
-          this.fetchList(params.list_id)
-        } else {
-          Toast.offline(response.msg, 1)
-        }
-        return true
-      }
-    })
+  onDelete = (item) => {
+    fetchData(this.removeBook.bind(this, item.book_id), '删除图书成功', '删除图书失败')
+  }
+
+  removeBook = async (book_id) => {
+    const { list_id } = this.props.item
+
+    await HttpUtils.post(URL_RM_BOOK, { list_id, book_id })
+    await this.fetchList()
   }
 
   onConfirm(item) {
@@ -80,7 +72,7 @@ export default class BookListPage extends Component {
           {this.state.book_list.map((item, i) => {
             return (
               <BookCollect
-                key={i}
+                key={item.book_id}
                 item={item}
                 onDelete={this.onConfirm.bind(this, item)}
               />
