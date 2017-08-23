@@ -34,7 +34,7 @@ export default class ProfilePage extends Component {
     const feedback = require('../../res/images/icon_feedback.png')
     const aboutus = require('../../res/images/icon_aboutus.png')
     
-    const texts = ['我的书单', '借阅历史', '设置', '意见反馈', '关于我们']
+    const texts = ['我的书单', '借阅图书', '设置', '意见反馈', '关于我们']
     const male_pic = require('../../res/images/avatar.png')
     const fm_pic = require('../../res/images/avatar2.png')
     const images = [booklist, history, setting, feedback, aboutus, images]
@@ -73,7 +73,7 @@ export default class ProfilePage extends Component {
                     case '我的书单':
                       this.onJump(scenes.SCENE_BOOK_COLLECT, text)
                       break
-                    case '借阅历史':
+                    case '借阅图书':
                       this.onJump(scenes.SCENE_MESSAGE, text)
                       break
                     case '设置':

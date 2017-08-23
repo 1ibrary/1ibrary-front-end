@@ -4,12 +4,35 @@ import {
 } from 'react-native'
 import RNSplashScreen from 'react-native-splash-screen'
 import { Actions } from 'react-native-router-flux'
-import { SCENE_LOGIN } from './constants/scene'
+import { SCENE_INDEX, SCENE_LOGIN } from './constants/scene'
+import Storage from './common/storage'
+import { setHost } from './network/HttpUtils'
+import schools from './network/schools'
+import login from './network/login'
+import Toast from 'antd-mobile/lib/toast'
 
 class SplashScreen extends Component {
 
-  componentWillMount () {
-    Actions[SCENE_LOGIN]()
+  async componentWillMount () {
+
+    const user = await Storage.get('user', {})
+    if (!user.account || !user.password) {
+      Actions[SCENE_LOGIN]()
+      RNSplashScreen.hide()
+      return
+    }
+
+    setHost(schools[user.school_id].host)
+    console.log(user)
+    try {
+      const response = await login(user.account, user.password, user.school_id)
+      Actions[SCENE_INDEX]({ user: response.data })
+    } catch (e) {
+      console.log(e)
+      Toast.fail('自动登录失败', 3)
+      Actions[SCENE_LOGIN]()
+    }
+
     RNSplashScreen.hide()
   }
 
