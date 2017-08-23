@@ -21,6 +21,12 @@ export default class SearchNavHomePage extends Component {
   }
 
   render() {
+
+    const {
+      onFocus,
+      onSubmitEditing
+    } = this.props
+
     return (
       <View style={styles.container}>
         <TextInput
@@ -32,15 +38,11 @@ export default class SearchNavHomePage extends Component {
             this.props.onChangeText(text)
           }}
           onFocus={() => {
-            if (this.props.onFocus) {
-              this.props.onFocus()
-            }
+            onFocus && onFocus()
           }}
           clearButtonMode={'while-editing'}
           onSubmitEditing={event => {
-            if (this.props.onSubmitEditing) {
-              this.props.onSubmitEditing(event)
-            }
+            onSubmitEditing && onSubmitEditing(event)
           }}
         />
         <Image
