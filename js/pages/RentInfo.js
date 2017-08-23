@@ -39,7 +39,7 @@ export default class MessageInfoPage extends Component {
       <View style={styles.container}>
         <View style={styles.nav_container}>
           <CommonNav
-            title="借阅历史"
+            title="借阅图书"
             navigator={this.props.navigator}
           />
         </View>
