@@ -28,10 +28,11 @@ export default class BookListPage extends Component {
   }
 
   refreshList = () => {
-    fetchData(this.fetchList.bind(this, this.props.item.list_id))
+    fetchData(this.fetchList)
   }
 
-  fetchList = async (list_id) => {
+  fetchList = async () => {
+    const list_id = this.props.item.list_id
     const params = { list_id }
     const response = await HttpUtils.post(URL_SHOW, params)
 
