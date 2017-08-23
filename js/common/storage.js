@@ -4,6 +4,7 @@ export default class Storage {
   static async set(key, value) {
     await AsyncStorage.setItem(key, JSON.stringify(value))
   }
+
   static async get(key, defaultValue) {
     let result = await AsyncStorage.getItem(key)
     if (!result) {
@@ -13,7 +14,7 @@ export default class Storage {
       return JSON.parse(result)
     } catch (error) {
       console.log(error)
-      return defaulValue || undefined
+      return defaultValue || undefined
     }
   }
 }
