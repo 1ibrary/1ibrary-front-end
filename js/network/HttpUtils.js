@@ -37,7 +37,7 @@ export default class HttpUtils {
 
   static post(url, data) {
     url = HOST + url
-
+    
     data = {
       ...defaultData,
       ...data
