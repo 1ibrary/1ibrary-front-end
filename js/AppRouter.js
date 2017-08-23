@@ -14,12 +14,21 @@ import AboutUs from './pages/AboutUs'
 import AboutUsWeb from './pages/AboutUsWeb'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 import * as scenes from './constants/scene'
+import SplashScreen from './SplashScreen'
 
 export default class AppRouter extends Component {
   render() {
     return (
       <Router>
         <Scene key="root">
+          <Scene
+            key={scenes.SCENE_SPLASH_SCREEN}
+            component={SplashScreen}
+            initial
+            type={ActionConst.RESET}
+            duration={0}
+            hideNavBar
+          />
           <Scene
             key={scenes.SCENE_LOGIN}
             component={LoginPage}
@@ -109,24 +118,4 @@ export default class AppRouter extends Component {
       </Router>
     )
   }
-}
-
-console.disableYellowBox = true
-
-/**
- * RN-BUGS
- * 在Debug环境下console.dir有效，
- * 生产环境下console.dir为undefined。所以需要打个补丁
- * 以下补丁同理
- */
-if (!(console.dir instanceof Function)) {
-  console.dir = console.log
-}
-
-if (!(console.time instanceof Function)) {
-  console.time = console.log
-}
-
-if (!(console.timeEnd instanceof Function)) {
-  console.timeEnd = console.log
 }
