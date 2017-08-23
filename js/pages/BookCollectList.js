@@ -5,7 +5,7 @@ import {
   ScrollView,
   Alert
 } from 'react-native'
-import BookItem2 from '../components/BookCollect'
+import BookCollect from '../components/BookCollect'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
 import { LISTS } from '../network/Urls'
@@ -74,7 +74,7 @@ export default class BookListPage extends Component {
         <ScrollView style={styles.item_container}>
           {this.state.book_list.map((item, i) => {
             return (
-              <BookItem2
+              <BookCollect
                 key={i}
                 item={item}
                 onDelete={this.onConfirm.bind(this, item)}

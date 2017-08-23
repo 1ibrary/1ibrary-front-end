@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from 'react-native-scrollable-tab-view'
 import { getResponsiveHeight, getResponsiveWidth, HEIGHT, INNERWIDTH, WIDTH } from '../common/styles'
-import BookItem1 from '../components/Book'
+import Book from '../components/Book'
 import SearchNav from '../components/SearchNav'
 import { SCENE_SEARCH } from '../constants/scene'
 import HttpUtils from '../network/HttpUtils'
@@ -105,7 +105,7 @@ export default class SearchResultPage extends Component {
       <ScrollView style={styles.booklist}>
         {
           list.map((item, i) => {
-            return <BookItem1 key={i} data={item} style={styles.item} />
+            return <Book key={i} data={item} style={styles.item} />
           })
         }
       </ScrollView>
