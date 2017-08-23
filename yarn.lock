@@ -3620,9 +3620,9 @@ react-native-scrollable-tab-view@^0.7.2, react-native-scrollable-tab-view@^0.7.4
     react-static-container "^1.0.1"
     react-timer-mixin "^0.13.3"
 
-react-native-splash-screen@^2.0.0:
-  version "2.1.0"
-  resolved "http://registry.npm.taobao.org/react-native-splash-screen/download/react-native-splash-screen-2.1.0.tgz#4e0a5e4e8c32974fe7a3cdb4d9a226d06d9daf4f"
+react-native-splash-screen@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-splash-screen/download/react-native-splash-screen-3.0.0.tgz#44ac95f84b9bf58d800af1ab9ff52093fa3efcb9"
 
 react-native-swipeout@~2.1.1:
   version "2.1.5"

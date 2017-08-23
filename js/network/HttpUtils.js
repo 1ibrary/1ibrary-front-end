@@ -1,5 +1,4 @@
 import axios from 'axios'
-import qs from 'qs'
 
 let defaultData = {
   uid: '',
@@ -37,7 +36,7 @@ export default class HttpUtils {
 
   static post(url, data) {
     url = HOST + url
-
+    
     data = {
       ...defaultData,
       ...data

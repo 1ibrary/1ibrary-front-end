@@ -9,7 +9,8 @@ export const LISTS = {
   show_detail: 'users/show_detail',
   collect_book: 'users/collect_book',
   update_list: 'users/update_list',
-  remove_list: 'users/remove_list'
+  remove_list: 'users/remove_list',
+  remove_book: 'users/remove_book'
 }
 
 export const BOOKS = {

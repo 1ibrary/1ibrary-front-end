@@ -3,14 +3,10 @@ import {
   View,
   StyleSheet,
   Text,
-  Navigator,
   TouchableOpacity,
-  Image,
-  ListView,
-  Dimensions
+  Image
 } from 'react-native'
 import Round from './Round'
-import BookInfoPage from '../pages/BookInfo'
 import {
   INNERWIDTH,
   getResponsiveWidth,

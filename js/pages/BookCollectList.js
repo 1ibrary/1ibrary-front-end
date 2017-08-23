@@ -2,67 +2,58 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  Image,
-  Dimensions,
   ScrollView,
   Alert
 } from 'react-native'
-import BookItem2 from '../components/BookCollect'
+import BookCollect from '../components/BookCollect'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
 import { LISTS } from '../network/Urls'
 import { HEIGHT } from '../common/styles'
 import Toast from 'antd-mobile/lib/toast'
+import fetchData from '../common/loading'
 
 const URL_SHOW = LISTS.show_detail
-const URL_RM_BOOK = LISTS.update_list
+const URL_RM_BOOK = LISTS.remove_book
 
 export default class BookListPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      book_list: [],
-      book_id_list: ''
-    }
+  
+  state = {
+    book_list: [],
+    book_id_list: ''
   }
 
-  componentWillMount() {
-    this.getNewData(this.props.item.list_id)
+  componentDidMount() {
+    this.refreshList()
   }
 
-  async getNewData(list_id) {
-    let params = {
-      list_id: list_id || '[]'
-    }
-    let result = (await HttpUtils.post(URL_SHOW, params)) || {}
-    if (result.msg === '请求成功') {
-      let data = result.data
-      this.setState({ book_list: data, book_id_list: book_id_list })
-    }
+  refreshList = () => {
+    fetchData(this.fetchList)
   }
 
-  async onDelete(item) {
-    this.state.book_list.some(async (book, i) => {
-      if (book.book_id == item.book_id) {
-        let list = this.props.item
-        let book_id_list = this.state.book_id_list.split(',').slice(0)
-        let index = book_id_list.indexOf(book.book_id + '')
-        book_id_list.splice(index, 1)
-        let params = {
-          book_list: book_id_list.join(',') || '[]',
-          list_id: list.list_id
-        }
-        let response = (await HttpUtils.post(URL_RM_BOOK, params)) || {}
-        if (response.status === 0) {
-          Toast.success('删除图书成功!', 0.5)
-          this.getNewData(params.list_id)
-        } else {
-          Toast.offline(response.msg, 1)
-        }
-        return true
-      }
-    })
+  fetchList = async () => {
+    const list_id = this.props.item.list_id
+    const params = { list_id }
+    const response = await HttpUtils.post(URL_SHOW, params)
+
+    if (response.status !== 0) {
+      Toast.fail('获取数据异常', 1)
+      return
+    }
+
+    const data = response.data
+    this.setState({ book_list: data })
+  }
+
+  onDelete = (item) => {
+    fetchData(this.removeBook.bind(this, item.book_id), '删除图书成功', '删除图书失败')
+  }
+
+  removeBook = async (book_id) => {
+    const { list_id } = this.props.item
+
+    await HttpUtils.post(URL_RM_BOOK, { list_id, book_id })
+    await this.fetchList()
   }
 
   onConfirm(item) {
@@ -81,8 +72,8 @@ export default class BookListPage extends Component {
         <ScrollView style={styles.item_container}>
           {this.state.book_list.map((item, i) => {
             return (
-              <BookItem2
-                key={i}
+              <BookCollect
+                key={item.book_id}
                 item={item}
                 onDelete={this.onConfirm.bind(this, item)}
               />

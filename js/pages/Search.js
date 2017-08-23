@@ -2,19 +2,10 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  Navigator,
-  TouchableOpacity,
-  Image,
-  ListView,
-  ScrollView,
-  AsyncStorage,
-  Dimensions
 } from 'react-native'
 import SearchNav from '../components/SearchNav'
-import SearchResultPage from './SearchResult'
 import { getResponsiveWidth, INNERWIDTH, HEIGHT, WIDTH } from '../common/styles'
-import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import { SCENE_SEARCH_RESULT } from '../constants/scene'
 import SearchTags from '../components/SearchTags'
 import Storage from '../common/storage'

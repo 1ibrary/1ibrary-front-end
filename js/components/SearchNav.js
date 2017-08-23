@@ -6,13 +6,10 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  PropTypes,
-  AsyncStorage
+  PropTypes
 } from 'react-native'
 import {
   WIDTH,
-  INNERWIDTH,
-  HEIGHT,
   getResponsiveWidth,
   getResponsiveHeight
 } from '../common/styles'

@@ -2,18 +2,12 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   Image,
-  Dimensions,
   Animated,
-  Easing,
-  AsyncStorage,
   PanResponder
 } from 'react-native'
-import BookItem1 from './Book'
+import Book from './Book'
 import { WIDTH, INNERWIDTH, getResponsiveWidth } from '../common/styles'
 
 export default class BookCollect extends Component {
@@ -70,7 +64,7 @@ export default class BookCollect extends Component {
             { marginLeft: this.state.marginLeft }
           ]}
         >
-          <BookItem1 data={this.props.item} />
+          <Book data={this.props.item} />
         </Animated.View>
         <TouchableOpacity
           onPress={() => {

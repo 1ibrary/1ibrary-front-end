@@ -5,14 +5,9 @@ import {
   Text,
   Navigator,
   TouchableOpacity,
-  Image,
-  ListView,
-  AsyncStorage,
-  Dimensions
+  Image
 } from 'react-native'
-import SearchNav from '../components/SearchNav'
-import { getResponsiveWidth, INNERWIDTH, HEIGHT, WIDTH } from '../common/styles'
-import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
+import { INNERWIDTH} from '../common/styles'
 
 export default class SearchTags extends Component {
   static defaultProps = {

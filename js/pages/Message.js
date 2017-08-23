@@ -2,12 +2,7 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  Navigator,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Dimensions
+  ScrollView
 } from 'react-native'
 import NavigationBar from '../components/NavigationBar'
 import Message from '../components/Message'

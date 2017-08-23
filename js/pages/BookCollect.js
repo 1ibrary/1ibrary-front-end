@@ -1,19 +1,14 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   Image,
-  Dimensions,
-  TouchableHighlight,
-  AsyncStorage,
   ScrollView,
   Alert
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import BookCollectItem from '../components/BookCollectTitle'
-import BookCollectAddPage from './BookCollectAdd'
 import HttpUtils from '../network/HttpUtils'
 import { LISTS } from '../network/Urls'
 import { INNERWIDTH, HEIGHT } from '../common/styles'
@@ -51,23 +46,26 @@ export default class BookCollectPage extends Component {
         list_id
       } = this.state.lists.filter(list => list.list_name === choosed)[0]
 
-      // book_list = book_list.split(',')
-      // book_list.push(this.props.book.book_id + '')
-      // book_list = [...new Set(book_list)]
-      // book_list = book_list.join(',')
-
       const params = {
         list_id,
-        // book_list: book_list
+        book_id: this.props.book.book_id,
+        book_db_id: 1
       }
 
       tasks.push(HttpUtils.post(URL_ADD_BOOK, params))
     })
 
-    await Promise.all(tasks)
+    const responses = await Promise.all(tasks)
 
-    Toast.success('收藏成功！', 1)
-    Actions.pop()
+    const successed = responses.every(res => res.status === 0)
+
+    if (successed) {
+      Toast.success('收藏成功！', 1)
+      Actions.pop()
+      return 
+    }
+
+    Toast.success('收藏失败，请重试', 1)
   }
 
   onPressButton(select, item) {

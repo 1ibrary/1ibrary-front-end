@@ -16,7 +16,7 @@ import HttpUtils, { setToken, setHost } from '../network/HttpUtils'
 import schools from '../network/schools'
 import { USERS } from '../network/Urls'
 import { SCENE_INDEX } from '../constants/scene'
-import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import {
   WIDTH,
   HEIGHT,
@@ -26,6 +26,7 @@ import {
 import Toast from 'antd-mobile/lib/toast'
 import Storage from '../common/storage'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import login from '../network/login'
 
 const URL = USERS.login
 
@@ -40,17 +41,6 @@ export default class WelcomePage extends Component {
     show_modal: false
   }
 
-  async componentDidMount() {
-    let user = await Storage.get('user', {})
-    if (!user.account || !user.password) {
-      return
-    }
-    
-    setHost(schools[user.school_id].host)
-
-    this.login(user.account, user.password, user.school_id)
-  }
-
   onSubmit = async () => {
 
     if (!this.validatePassed) {
@@ -62,40 +52,13 @@ export default class WelcomePage extends Component {
       password
     } = this.state
 
-    this.login(account, password, this.state.school_id)
-  }
-
-  login = async (account, password, school_id) => {
-
-    const params = {
-      account,
-      password,
-      school_id
-    }
-
-    const response = await HttpUtils.post(URL, params)
-    if (response.status !== 0) {
-      Toast.fail(response.msg || '登录失败，请检查账号或者密码是否正确', 1)
+    try {
+      const response = await login(account, password, this.state.school_id)
+      Actions[SCENE_INDEX]({ user: response.data })
+    } catch (e) {
+      Toast.fail(e.message, 1)
       return
     }
-
-    await Storage.set('user', {
-      ...params
-    })
-
-    const {
-      uid,
-      token,
-      timestamp
-    } = response.data
-
-    setToken({
-      uid,
-      token,
-      timestamp
-    })
-
-    Actions[SCENE_INDEX]({ user: response.data })
   }
 
   get validatePassed() {

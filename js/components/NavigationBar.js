@@ -4,13 +4,12 @@ import {
   Text,
   Image,
   StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-  Dimensions
+  StatusBar
 } from 'react-native'
 import { WIDTH } from '../common/styles'
 const NAVBAR_HEIGHT = 44
 const STATUS_BAR_HEIGHT = 20
+
 const StatusBarShape = {
   backgroundColor: PropTypes.string,
   barStyle: PropTypes.oneOf(['default', 'light-content', 'dark-content']),
@@ -18,6 +17,7 @@ const StatusBarShape = {
 }
 
 export default class Navigator extends Component {
+
   static propTypes = {
     style: View.propTypes.style,
     title: PropTypes.string,
@@ -27,18 +27,18 @@ export default class Navigator extends Component {
     rightButton: PropTypes.element,
     statusBar: PropTypes.shape(StatusBarShape)
   }
+
   static defaultProps = {
     statusBar: {
       hidden: false
     }
   }
-  constructor(props) {
-    super(props)
-    this.state = {
-      title: '',
-      hide: false
-    }
+
+  state = {
+    title: '',
+    hide: false
   }
+
   render() {
     let status = (
       <View style={styles.statusBar}>

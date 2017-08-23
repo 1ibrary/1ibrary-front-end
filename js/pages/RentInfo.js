@@ -3,11 +3,8 @@ import {
   View,
   StyleSheet,
   Text,
-  Navigator,
-  TouchableOpacity,
   Image,
-  ScrollView,
-  Dimensions
+  ScrollView
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
@@ -15,11 +12,12 @@ import {
   WIDTH,
   INNERWIDTH,
   HEIGHT,
-  getResponsiveWidth,
   getResponsiveHeight
 } from '../common/styles'
 import HttpUtils from '../network/HttpUtils'
 import { BOOKS } from '../network/Urls'
+import Toast from 'antd-mobile/lib/toast'
+import fetchData from '../common/loading'
 
 export default class MessageInfoPage extends Component {
 
@@ -27,8 +25,8 @@ export default class MessageInfoPage extends Component {
     books: []
   }
 
-  componentDidMount() {
-    this.fetchBorrowed()
+  async componentDidMount() {
+    fetchData(this.fetchBorrowed)
   }
 
   fetchBorrowed = async () => {
@@ -41,7 +39,7 @@ export default class MessageInfoPage extends Component {
       <View style={styles.container}>
         <View style={styles.nav_container}>
           <CommonNav
-            title="借阅历史"
+            title="借阅图书"
             navigator={this.props.navigator}
           />
         </View>

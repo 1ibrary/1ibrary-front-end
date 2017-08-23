@@ -4,25 +4,21 @@ import {
   Text,
   Image,
   StyleSheet,
-  StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
-  ScrollView,
-  Dimensions
+  ScrollView
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
-import BookCollectPage from './BookCollect'
 import Round from '../components/Round'
 import { BOOKS } from '../network/Urls'
-import { INNERWIDTH, WIDTH, HEIGHT } from '../common/styles'
+import { INNERWIDTH, WIDTH, HEIGHT , getResponsiveWidth} from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_BOOK_COLLECT } from '../constants/scene'
 import Toast from 'antd-mobile/lib/toast'
 
 const URL = BOOKS.show_detail
 
-export default class BookInfoPage extends Component {
+export default class BookInfo extends Component {
   
   state = {
     show_content: false,
@@ -30,50 +26,14 @@ export default class BookInfoPage extends Component {
     is_subscribe: false
   }
 
-  static defaultProps = {
-    data: {
-      book_title: '美洲小宇宙',
-      book_content:
-      '一本书带你深度探访中南美洲腹地，身未动，心已远。沿着旧地图，走不到新大陆，毕淑敏带你走出自助旅行新路线: “世界最美岛屿”加拉帕戈斯群岛，“热带雾林王冠上的宝石”哥斯达黎加蒙特维德雾林，古印第安人的太阳、月亮金字塔与亡灵大道，全球银饰之都塔斯科，切•格瓦拉故居……太多秘密，等你探索，太多奇迹，等你发现。',
-      book_cover:
-      'https://imgsa.baidu.com/baike/c0%3Dbaike272%2C5%2C5%2C272%2C90/sign=b52bcf617f094b36cf9f13bfc2a517bc/9c16fdfaaf51f3de300988da9deef01f3b2979d0.jpg',
-      book_key: 'TB47-05-/9',
-      book_place: '中文文科库(418)',
-      book_author: '毕淑敏',
-      book_publish: '湖南文艺出版社',
-      book_rate: 9.3,
-      detail_data: [
-        {
-          detail_place: '中文文科库418',
-          detail_id: 11,
-          detail_key: 1,
-          detail_in: true
-        },
-        {
-          detail_place: '中文文科库418',
-          detail_id: 11,
-          detail_key: 2,
-          detail_in: true
-        },
-        {
-          detail_place: '中文文科库418',
-          detail_id: 11,
-          detail_key: 3,
-          detail_in: false
-        }
-      ],
-      book_last_number: 2,
-      book_subscribe: true
-    }
-  }
 
   async componentDidMount() {
-    console.log(this.props)
+
     let params = {
       book_id: this.props.data.book_id,
       book_db_id: this.props.data.book_db_id
     }
-    console.log(params)
+
     let result = await (HttpUtils.post(URL, params) || {})
     if (result.status === 0) {
       this.setState({ book_data: result.data })
@@ -115,6 +75,7 @@ export default class BookInfoPage extends Component {
         </Text>
       </View>
     )
+    
     let image_down = require('../../res/images/downArrow.png')
     let image_up = require('../../res/images/upArrow.png')
     let red_dot = require('../../res/images/red_dot.png')
@@ -169,7 +130,6 @@ export default class BookInfoPage extends Component {
                   索书号: {this.state.book_data.book_key}
                 </Text>
                 <Text style={styles.book_position_font}>
-                    {/* @TODO 南昌大学的缺少该参数  */}
                   馆藏地点: {this.state.book_data.book_place}
                 </Text>
               </View>
@@ -256,7 +216,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   outline_container: {
-    width: INNERWIDTH,
+    width: WIDTH,
+    paddingRight: 16,
     marginTop: 18,
     flexDirection: 'row'
   },
@@ -272,12 +233,14 @@ const styles = StyleSheet.create({
     marginLeft: 8
   },
   outline_text: {
-    marginLeft: 20
+    marginLeft: 20,
+    marginRight: 20
   },
   outline_title: {
     fontSize: 17,
     fontFamily: 'PingFang SC',
-    fontWeight: '500'
+    fontWeight: '500',
+    width: getResponsiveWidth(230)
   },
   outline_a_p: {
     marginTop: 8,

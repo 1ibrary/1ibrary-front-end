@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   TextInput,
-  StyleSheet,
-  Dimensions,
-  AsyncStorage
+  StyleSheet
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
@@ -19,13 +16,12 @@ const URL = LISTS.create_list // 缓存前先请求showxs
 const URL_SHOW = LISTS.show_list
 
 export default class BookCollectAddPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      list_name: '',
-      list_content: ''
-    }
+
+  state = {
+    list_name: '',
+    list_content: ''
   }
+
   async rightOnPress() {
     if (!this.state.list_name.trim()) {
       Toast.info('请输入书单的名字噢!', 1)
@@ -72,6 +68,7 @@ export default class BookCollectAddPage extends Component {
       Toast.offline(response.msg, 1)
     }
   }
+
   render() {
     return (
       <View style={styles.container}>

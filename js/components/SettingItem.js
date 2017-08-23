@@ -2,19 +2,11 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Image,
-  Dimensions,
   Animated,
-  Easing,
-  AsyncStorage,
   PanResponder
 } from 'react-native'
 import TextPingFang from './TextPingFang'
-import { WIDTH, INNERWIDTH } from '../common/styles'
+import { INNERWIDTH } from '../common/styles'
 
 export default class SettingItem extends Component {
   constructor(props) {

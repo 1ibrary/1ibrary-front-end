@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  Navigator,
-  TouchableOpacity,
-  Image,
   ListView,
   Dimensions,
   RefreshControl
