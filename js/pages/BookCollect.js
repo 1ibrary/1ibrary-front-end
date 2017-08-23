@@ -31,7 +31,6 @@ export default class BookCollectPage extends Component {
   async componentDidMount() {
     const result = (await HttpUtils.post(URL_SHOW)) || {}
     const lists = result.data || []
-    console.log(this)
     this.setState({ lists })
   }
 

@@ -31,10 +31,8 @@ export default class BookListPage extends Component {
       list_id: list_id || '[]'
     }
     let result = (await HttpUtils.post(URL_SHOW, params)) || {}
-    if (result.msg === '请求成功') {
-      let data = result.data
-      this.setState({ book_list: data, book_id_list: book_id_list })
-    }
+    let data = result.data
+    this.setState({ book_list: data })
   }
 
   async onDelete(item) {
