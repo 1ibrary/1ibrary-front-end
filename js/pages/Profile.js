@@ -8,11 +8,6 @@ import {
   Image
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
-import BookCollectPage from './BookCollect'
-import RentInfoPage from './RentInfo'
-import FeedBackPage from './FeedBack'
-import AboutUsPage from './AboutUs'
-import SettingPage from './Setting'
 import { Actions } from 'react-native-router-flux'
 import * as scenes from '../constants/scene'
 import {

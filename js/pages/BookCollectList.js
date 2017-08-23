@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  Image,
-  Dimensions,
   ScrollView,
   Alert
 } from 'react-native'

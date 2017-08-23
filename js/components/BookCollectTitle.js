@@ -3,22 +3,15 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   TouchableOpacity,
   Image,
-  Dimensions,
   Animated,
-  Easing,
-  AsyncStorage,
   PanResponder
 } from 'react-native'
-import { BOOKS } from '../network/Urls'
 import {
   WIDTH,
   INNERWIDTH,
-  HEIGHT,
-  getResponsiveHeight,
   getResponsiveWidth
 } from '../common/styles'
 import { Actions } from 'react-native-router-flux'

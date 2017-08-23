@@ -3,21 +3,15 @@ import {
   View,
   StyleSheet,
   Text,
-  Navigator,
   TouchableOpacity,
-  Image,
-  ScrollView,
-  Dimensions,
-  WebView
+  Image
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
-import AboutUsWebPage from './AboutUsWeb'
 import {
   WIDTH,
   INNERWIDTH,
   HEIGHT,
-  getResponsiveWidth,
   getResponsiveHeight
 } from '../common/styles'
 import { Actions } from 'react-native-router-flux'

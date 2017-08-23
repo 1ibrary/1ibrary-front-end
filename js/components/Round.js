@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, ImageBackground, Text, StyleSheet } from 'react-native'
+import { ImageBackground, Text, StyleSheet } from 'react-native'
 
 export default class Round extends Component {
 

@@ -1,22 +1,14 @@
 import React, { Component } from 'react'
 import {
   View,
-  StyleSheet,
-  Text,
-  Navigator,
-  TouchableOpacity,
-  Image,
-  ListView,
-  Dimensions,
-  ScrollView
+  StyleSheet
 } from 'react-native'
 import BookList from '../components/BookList'
-import SearchPage from './Search'
 import SearchNav_Welcome from '../components/SearchNavHomePage'
 import MessagePage from './Message'
 import ProfilePage from './Profile'
 import { HEIGHT, getResponsiveHeight } from '../common/styles'
-import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import { SCENE_SEARCH } from '../constants/scene'
 import TabNavigator from 'react-native-tab-navigator'
 

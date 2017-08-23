@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import HttpUtils from '../network/HttpUtils'
 import { USERS } from '../network/Urls'

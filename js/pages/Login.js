@@ -16,7 +16,7 @@ import HttpUtils, { setToken, setHost } from '../network/HttpUtils'
 import schools from '../network/schools'
 import { USERS } from '../network/Urls'
 import { SCENE_INDEX } from '../constants/scene'
-import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import {
   WIDTH,
   HEIGHT,

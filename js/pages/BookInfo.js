@@ -4,15 +4,11 @@ import {
   Text,
   Image,
   StyleSheet,
-  StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
-  ScrollView,
-  Dimensions
+  ScrollView
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
-import BookCollectPage from './BookCollect'
 import Round from '../components/Round'
 import { BOOKS } from '../network/Urls'
 import { INNERWIDTH, WIDTH, HEIGHT } from '../common/styles'

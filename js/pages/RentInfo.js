@@ -3,11 +3,8 @@ import {
   View,
   StyleSheet,
   Text,
-  Navigator,
-  TouchableOpacity,
   Image,
-  ScrollView,
-  Dimensions
+  ScrollView
 } from 'react-native'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
@@ -15,7 +12,6 @@ import {
   WIDTH,
   INNERWIDTH,
   HEIGHT,
-  getResponsiveWidth,
   getResponsiveHeight
 } from '../common/styles'
 import HttpUtils from '../network/HttpUtils'

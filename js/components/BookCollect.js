@@ -2,15 +2,9 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   Image,
-  Dimensions,
   Animated,
-  Easing,
-  AsyncStorage,
   PanResponder
 } from 'react-native'
 import BookItem1 from './Book'

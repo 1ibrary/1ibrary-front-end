@@ -5,25 +5,21 @@ import {
   StyleSheet,
   Image,
   TextInput,
-  TouchableOpacity,
-  PropTypes,
-  AsyncStorage,
-  Dimensions
+  PropTypes
 } from 'react-native'
+
 import {
   INNERWIDTH,
-  HEIGHT,
   getResponsiveHeight,
   getResponsiveWidth
 } from '../common/styles'
 
 export default class SearchNavHomePage extends Component {
-  constructor(props) {
-    super(props)
-  }
+
   static defaultProps = {
     onChangeText: text => {}
   }
+
   render() {
     return (
       <View style={styles.container}>

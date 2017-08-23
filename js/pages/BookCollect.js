@@ -1,19 +1,14 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   Image,
-  Dimensions,
-  TouchableHighlight,
-  AsyncStorage,
   ScrollView,
   Alert
 } from 'react-native'
 import RightButtonNav from '../components/RightButtonNav'
 import BookCollectItem from '../components/BookCollectTitle'
-import BookCollectAddPage from './BookCollectAdd'
 import HttpUtils from '../network/HttpUtils'
 import { LISTS } from '../network/Urls'
 import { INNERWIDTH, HEIGHT } from '../common/styles'

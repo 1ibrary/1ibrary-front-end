@@ -2,17 +2,12 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  Image,
-  Dimensions,
   TouchableOpacity,
   AsyncStorage
 } from 'react-native'
-import BookItem1 from '../components/Book'
 import CommonNav from '../components/CommonNav'
 import TextPingFang from '../components/TextPingFang'
 import SettingItem from '../components/SettingItem'
-import WelcomePage from './Login'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_LOGIN } from '../constants/scene'
 
