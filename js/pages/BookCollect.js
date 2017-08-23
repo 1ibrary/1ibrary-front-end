@@ -53,15 +53,20 @@ export default class BookCollectPage extends Component {
         book_db_id: 1
       }
 
-      console.log(URL_ADD_BOOK, params)
-
       tasks.push(HttpUtils.post(URL_ADD_BOOK, params))
     })
 
-    await Promise.all(tasks)
+    const responses = await Promise.all(tasks)
 
-    Toast.success('收藏成功！', 1)
-    Actions.pop()
+    const successed = responses.every(res => res.status === 0)
+
+    if (successed) {
+      Toast.success('收藏成功！', 1)
+      Actions.pop()
+      return 
+    }
+
+    Toast.success('收藏失败，请重试', 1)
   }
 
   onPressButton(select, item) {
