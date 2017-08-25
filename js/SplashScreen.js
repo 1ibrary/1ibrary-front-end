@@ -6,7 +6,7 @@ import RNSplashScreen from 'react-native-splash-screen'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_INDEX, SCENE_LOGIN } from './constants/scene'
 import Storage from './common/storage'
-import { setHost } from './network/HttpUtils'
+import { setApiBaseUrl } from './network/HttpUtils'
 import schools from './network/schools'
 import login from './network/login'
 import Toast from 'antd-mobile/lib/toast'
@@ -22,7 +22,7 @@ class SplashScreen extends Component {
       return
     }
 
-    setHost(schools[user.school_id].host)
+    setApiBaseUrl(schools[user.school_id].host)
 
     try {
       const response = await login(user.account, user.password, user.school_id)
