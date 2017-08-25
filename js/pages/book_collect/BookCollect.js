@@ -83,25 +83,24 @@ export default class BookCollectPage extends Component {
     this.setState({ choosed: choosed })
   }
 
-  async onDelete(title) {
-    let array = this.state.bookCollectList
-    array.some(async (d, i) => {
-      if (d.list_name === title) {
-        array.splice(i, 1)
-      }
-      let params = {
-        list_id: d.list_id
-      }
-      let result = (await HttpUtils.post(URL_RM_LIST, params)) || {}
-      if (result.msg === '请求成功') {
-        await this.setState({ bookCollectList: array })
-        Toast.success('删除书单成功!', 1)
-        await Storage.set('book_list', array)
-        return true
-      } else {
-        Toast.offline(result.msg, 1)
-      }
-    })
+  onDelete = async (title) => {
+    const {
+      bookCollectList
+    } = this.state
+
+    const list = bookCollectList.find(collect => collect.list_name === title)
+
+    const params = { list_id: list.list_id }
+
+    const result = (await HttpUtils.post(URL_RM_LIST, params)) || {}
+
+    if (result.status !== 0) {
+      Toast.offline(result.msg, 1)
+      return
+    }
+
+    await this.fetchBookCollects()
+    Toast.success('删除书单成功!', 1)
   }
 
   onConfirm = (title) => {
