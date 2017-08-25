@@ -28,7 +28,11 @@ export default class BookCollectPage extends Component {
     choosed: []
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchBookCollects()
+  }
+
+  fetchBookCollects = async () => {
     const result = (await HttpUtils.post(URL_SHOW)) || {}
     const lists = result.data || []
     this.setState({ lists })
@@ -69,7 +73,7 @@ export default class BookCollectPage extends Component {
     Toast.success('收藏失败，请重试', 1)
   }
 
-  onPressButton(select, item) {
+  onPressButton = (select, item) => {
     let choosed = this.state.choosed
     if (select) {
       choosed = [...new Set([...choosed, item.list_name])]
@@ -100,7 +104,7 @@ export default class BookCollectPage extends Component {
     })
   }
 
-  onConfirm(title) {
+  onConfirm = (title) => {
     Alert.alert('确认删除', '您真的要删除这个书单吗?', [
       { text: '确认', onPress: this.onDelete.bind(this, title) },
       { text: '取消' }
@@ -110,21 +114,10 @@ export default class BookCollectPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <RightButtonNav
-          title={this.props.title}
-          rightOnPress={() => this.rightOnPress()}
-        />
+        <RightButtonNav title={this.props.title} rightOnPress={this.rightOnPress} />
         <TouchableOpacity
           style={styles.add}
-          onPress={() => {
-            let params = {
-              onCallBack: async () => {
-                let array = await Storage.get('book_list', [])
-                this.setState({ lists: array })
-              }
-            }
-            Actions[SCENE_BOOK_COLLECT_ADD](params)
-          }}
+          onPress={this.onAdd}
         >
           <Image source={require('../../../res/images/icon_add.png')} />
         </TouchableOpacity>
@@ -134,10 +127,8 @@ export default class BookCollectPage extends Component {
               <BookCollectItem
                 item={item}
                 big_title={this.props.title}
-                onPress={(select, data) => this.onPressButton(select, data)}
-                onDelete={title => {
-                  this.onConfirm(title)
-                }}
+                onPress={this.onPressButton}
+                onDelete={this.onConfirm}
                 key={item.list_id}
                 data={item}
               />
@@ -147,6 +138,12 @@ export default class BookCollectPage extends Component {
       </View>
     )
   }
+
+  onAdd = () => {
+    let params = { onCallBack: this.fetchBookCollects }
+    Actions[SCENE_BOOK_COLLECT_ADD](params)
+  }
+
 }
 
 const styles = StyleSheet.create({

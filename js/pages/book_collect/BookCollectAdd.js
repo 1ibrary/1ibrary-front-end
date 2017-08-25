@@ -63,18 +63,14 @@ export default class BookCollectAddPage extends Component {
 
     let response = (await HttpUtils.post(URL, params)) || {}
 
-    if (response.status === 0) {
-      Toast.success('创建书单成功！', 1)
-      let result = (await HttpUtils.post(URL_SHOW)) || {}
-      if (result.msg === '请求成功') {
-        let lists = result.data
-        await Storage.set('book_list', lists)
-        this.props.onCallBack()
-        Actions.pop()
-      }
-    } else {
+    if (response.status !== 0) {
       Toast.offline(response.msg, 1)
+      return
     }
+
+    Toast.success('创建书单成功！', 1)
+    this.props.onCallBack()
+    Actions.pop()
   }
 
   render() {
