@@ -17,20 +17,14 @@ import { SCENE_BOOK_INFO } from '../constants/scene'
 
 export default class Book extends Component {
 
-  onPress() {
-    let params = {
-      data: this.props.data
-    }
+  onPress = () => {
+    let params = { data: this.props.data }
     Actions[SCENE_BOOK_INFO](params)
   }
   
   render() {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          this.onPress()
-        }}
-      >
+      <TouchableOpacity onPress={this.onPress}>
         <View style={[styles.item, this.props.style]}>
           <Image
             style={styles.image}

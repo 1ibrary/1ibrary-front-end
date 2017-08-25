@@ -47,9 +47,8 @@ export default class BookCollectPage extends Component {
     const tasks = []
 
     this.state.choosed.forEach((choosed) => {
-      let {
-        list_id
-      } = this.state.bookCollectList.filter(list => list.list_name === choosed)[0]
+      const { list_id } = this.state.bookCollectList
+                            .find(list => list.list_name === choosed)
 
       const params = {
         list_id,
@@ -62,12 +61,12 @@ export default class BookCollectPage extends Component {
 
     const responses = await Promise.all(tasks)
 
-    const successed = responses.every(res => res.status === 0)
+    const succeed = responses.every(res => res.status === 0)
 
-    if (successed) {
+    if (succeed) {
       Toast.success('收藏成功！', 1)
       Actions.pop()
-      return 
+      return
     }
 
     Toast.success('收藏失败，请重试', 1)
@@ -80,10 +79,11 @@ export default class BookCollectPage extends Component {
     } else {
       choosed.splice(choosed.indexOf(item.list_name), 1)
     }
-    this.setState({ choosed: choosed })
+    this.setState({ choosed })
   }
 
   onDelete = async (title) => {
+
     const {
       bookCollectList
     } = this.state
