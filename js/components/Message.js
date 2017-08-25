@@ -10,7 +10,7 @@ import {
   Dimensions
 } from 'react-native'
 import TextPingFang from './TextPingFang'
-import RentInfoPage from '../pages/RentInfo'
+import RentInfoPage from '../pages/profile/RentInfo'
 import { INNERWIDTH } from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_MESSAGE } from '../constants/scene'
@@ -28,7 +28,7 @@ export default class Message extends Component {
     }
   }
 
-  onPress() {
+  onPress = () => {
     this.setState({ read: true })
     let params = {
       data: {
@@ -49,7 +49,7 @@ export default class Message extends Component {
     let return_c = '还有3天到期，记得还书呀～'
 
     return (
-      <TouchableOpacity onPress={() => this.onPress()}>
+      <TouchableOpacity onPress={this.onPress}>
         <View style={styles.item_container}>
           <Image
             style={styles.item_image}

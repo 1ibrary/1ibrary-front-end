@@ -4,13 +4,13 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native'
-import RightButtonNav from '../components/RightButtonNav'
-import HttpUtils from '../network/HttpUtils'
-import { LISTS } from '../network/Urls'
-import { WIDTH, INNERWIDTH, HEIGHT } from '../common/styles'
+import RightButtonNav from '../../components/RightButtonNav'
+import HttpUtils from '../../network/HttpUtils'
+import { LISTS } from '../../network/Urls'
+import { WIDTH, INNERWIDTH, HEIGHT } from '../../common/styles'
 import { Actions } from 'react-native-router-flux'
 import Toast from 'antd-mobile/lib/toast'
-import Storage from '../common/storage'
+import Storage from '../../common/storage'
 
 const URL = LISTS.create_list // 缓存前先请求showxs
 const URL_SHOW = LISTS.show_list
@@ -22,51 +22,50 @@ export default class BookCollectAddPage extends Component {
     list_content: ''
   }
 
-  async rightOnPress() {
+  rightOnPress = async () => {
+
     if (!this.state.list_name.trim()) {
       Toast.info('请输入书单的名字噢!', 1)
       return
     }
+
     if (!this.state.list_content.trim()) {
       Toast.info('请输入书单的描述内容噢!', 1)
       return
     }
-    let array = await Storage.get('book_list', [])
-    let item = {
-      list_name: this.state.list_name,
-      list_content: this.state.list_content
+
+    const bookCollectList = this.props.bookCollectList
+    const {
+      list_name,
+      list_content
+    } = this.state
+
+    if (!Array.isArray(bookCollectList)) {
+      return
     }
-    let flag = false
-    if (array && array.length > 0) {
-      flag = array.some(d => {
-        if (d.list_name === item.list_name) {
-          Toast.info('你已经创建过同名书单啦！', 1)
-          Actions.pop()
-          flag = true
-          return true
-        }
-      })
-      if (flag) {
-        return
-      }
+
+    const exists = bookCollectList.some(collect => collect.list_name === list_name)
+
+    if (exists) {
+      Toast.info('你已经创建过同名书单啦！', 1)
+      return
     }
-    let params = {
-      list_name: this.state.list_name,
-      list_content: this.state.list_content
+
+    const params = {
+      list_name,
+      list_content
     }
+
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.status === 0) {
-      Toast.success('创建书单成功！', 1)
-      let result = (await HttpUtils.post(URL_SHOW)) || {}
-      if (result.msg === '请求成功') {
-        let lists = result.data
-        await Storage.set('book_list', lists)
-        this.props.onCallBack()
-        Actions.pop()
-      }
-    } else {
+
+    if (response.status !== 0) {
       Toast.offline(response.msg, 1)
+      return
     }
+
+    Toast.success('创建书单成功！', 1)
+    this.props.onCallBack()
+    Actions.pop()
   }
 
   render() {

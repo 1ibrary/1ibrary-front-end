@@ -2,23 +2,21 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from 'react-native-scrollable-tab-view'
-import { getResponsiveHeight, getResponsiveWidth, HEIGHT, INNERWIDTH, WIDTH } from '../common/styles'
-import Book from '../components/Book'
-import SearchNav from '../components/SearchNav'
-import { SCENE_SEARCH } from '../constants/scene'
-import HttpUtils from '../network/HttpUtils'
-import { BOOKS } from '../network/Urls'
+import { getResponsiveHeight, getResponsiveWidth, HEIGHT, INNERWIDTH, WIDTH } from '../../common/styles'
+import Book from '../../components/Book'
+import SearchNav from '../../components/SearchNav'
+import { SCENE_SEARCH } from '../../constants/scene'
+import HttpUtils from '../../network/HttpUtils'
+import { BOOKS } from '../../network/Urls'
 
 const URL = BOOKS.search_book
 
 export default class SearchResultPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      bookName: [],
-      author: [],
-      publishingHouse: []
-    }
+
+  state = {
+    bookName: [],
+    author: [],
+    publishingHouse: []
   }
 
   async componentDidMount() {
@@ -32,18 +30,22 @@ export default class SearchResultPage extends Component {
     }
   }
 
-  async onChangeTab(index) {
+  onChangeTab = async (index) => {
     let params = {
       content: this.props.content,
       type: index
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.status === 0) {
-      if (index == 1) {
-        this.setState({ author: response.data })
-      } else {
-        this.setState({ publishingHouse: response.data })
-      }
+
+    if (response.status !== 0) {
+      Toast.fail(response.msg, 1)
+      return
+    }
+
+    if (index == 1) {
+      this.setState({ author: response.data })
+    } else {
+      this.setState({ publishingHouse: response.data })
     }
   }
 

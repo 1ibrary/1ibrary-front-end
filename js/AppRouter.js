@@ -1,20 +1,20 @@
 import React, { Component } from 'React'
 import LoginPage from './pages/Login'
-import HomePage from './pages/Home'
-import SearchPage from './pages/Search'
+import SearchPage from './pages/search/Search'
 import BookInfo from './pages/BookInfo'
-import BookCollect from './pages/BookCollect'
-import BookCollectAdd from './pages/BookCollectAdd'
-import BookCollectList from './pages/BookCollectList'
-import RentInfo from './pages/RentInfo'
-import Setting from './pages/Setting'
-import FeedBack from './pages/FeedBack'
-import SearchResult from './pages/SearchResult'
-import AboutUs from './pages/AboutUs'
-import AboutUsWeb from './pages/AboutUsWeb'
+import BookCollect from './pages/book_collect/BookCollect'
+import BookCollectAdd from './pages/book_collect/BookCollectAdd'
+import BookCollectList from './pages/book_collect/BookCollectList'
+import RentInfo from './pages/profile/RentInfo'
+import Setting from './pages/profile/Setting'
+import FeedBack from './pages/profile/FeedBack'
+import SearchResult from './pages/search/SearchResult'
+import AboutUs from './pages/about_us/AboutUs'
+import AboutUsWeb from './pages/about_us/AboutUsWeb'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 import * as scenes from './constants/scene'
 import SplashScreen from './SplashScreen'
+import Index from './pages/Index'
 
 export default class AppRouter extends Component {
   render() {
@@ -39,7 +39,7 @@ export default class AppRouter extends Component {
           />
           <Scene
             key={scenes.SCENE_INDEX}
-            component={HomePage}
+            component={Index}
             title="首页"
             type={ActionConst.REPLACE}
             hideNavBar

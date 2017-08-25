@@ -6,23 +6,23 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native'
-import CommonNav from '../components/CommonNav'
-import TextPingFang from '../components/TextPingFang'
+import CommonNav from '../../components/CommonNav'
+import TextPingFang from '../../components/TextPingFang'
 import {
   WIDTH,
   INNERWIDTH,
   HEIGHT,
   getResponsiveHeight
-} from '../common/styles'
+} from '../../common/styles'
 import { Actions } from 'react-native-router-flux'
-import { SCENE_SPLASH_SCREEN } from '../constants/scene'
+import { SCENE_SPLASH_SCREEN } from '../../constants/scene'
 
 export default function AboutUs () {
   return (
     <View style={styles.container}>
       <Image
         style={styles.bg}
-        source={require('../../res/images/about_bg.png')}
+        source={require('../../../res/images/about_bg.png')}
       >
         <CommonNav
           title={'关于我们'}
@@ -32,7 +32,7 @@ export default function AboutUs () {
       </Image>
       <Image
         style={styles.logo}
-        source={require('../../res/images/about_logo.png')}
+        source={require('../../../res/images/about_logo.png')}
       />
       <View style={styles.text}>
         <Text style={styles.slogan}>ONE</Text>

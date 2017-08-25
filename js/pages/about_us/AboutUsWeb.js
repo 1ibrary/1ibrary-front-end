@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, WebView } from 'react-native'
-import CommonNav from '../components/CommonNav'
-import { WIDTH, HEIGHT } from '../common/styles'
+import CommonNav from '../../components/CommonNav'
+import { WIDTH, HEIGHT } from '../../common/styles'
 
 export default function AboutUsWeb () {
   return (

@@ -7,15 +7,15 @@ import {
   ScrollView,
   Alert
 } from 'react-native'
-import RightButtonNav from '../components/RightButtonNav'
-import BookCollectItem from '../components/BookCollectTitle'
-import HttpUtils from '../network/HttpUtils'
-import { LISTS } from '../network/Urls'
-import { INNERWIDTH, HEIGHT } from '../common/styles'
+import RightButtonNav from '../../components/RightButtonNav'
+import BookCollectItem from '../../components/BookCollectTitle'
+import HttpUtils from '../../network/HttpUtils'
+import { LISTS } from '../../network/Urls'
+import { INNERWIDTH, HEIGHT } from '../../common/styles'
 import { Actions } from 'react-native-router-flux'
-import { SCENE_BOOK_COLLECT_ADD } from '../constants/scene'
+import { SCENE_BOOK_COLLECT_ADD } from '../../constants/scene'
 import Toast from 'antd-mobile/lib/toast'
-import Storage from '../common/storage'
+import Storage from '../../common/storage'
 
 const URL_SHOW = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
@@ -24,27 +24,31 @@ const URL_RM_LIST = LISTS.remove_list
 export default class BookCollectPage extends Component {
 
   state = {
-    lists: [],
+    bookCollectList: [],
     choosed: []
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchBookCollects()
+  }
+
+  fetchBookCollects = async () => {
     const result = (await HttpUtils.post(URL_SHOW)) || {}
-    const lists = result.data || []
-    this.setState({ lists })
+    const bookCollectLists = result.data || []
+    this.setState({ bookCollectList: bookCollectLists })
   }
 
   rightOnPress = async () => {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
       Actions.pop()
+      return
     }
 
     const tasks = []
 
     this.state.choosed.forEach((choosed) => {
-      let {
-        list_id
-      } = this.state.lists.filter(list => list.list_name === choosed)[0]
+      const { list_id } = this.state.bookCollectList
+                            .find(list => list.list_name === choosed)
 
       const params = {
         list_id,
@@ -57,49 +61,49 @@ export default class BookCollectPage extends Component {
 
     const responses = await Promise.all(tasks)
 
-    const successed = responses.every(res => res.status === 0)
+    const succeed = responses.every(res => res.status === 0)
 
-    if (successed) {
+    if (succeed) {
       Toast.success('收藏成功！', 1)
       Actions.pop()
-      return 
+      return
     }
 
     Toast.success('收藏失败，请重试', 1)
   }
 
-  onPressButton(select, item) {
+  onPressButton = (select, item) => {
     let choosed = this.state.choosed
     if (select) {
       choosed = [...new Set([...choosed, item.list_name])]
     } else {
       choosed.splice(choosed.indexOf(item.list_name), 1)
     }
-    this.setState({ choosed: choosed })
+    this.setState({ choosed })
   }
 
-  async onDelete(title) {
-    let array = this.state.lists
-    array.some(async (d, i) => {
-      if (d.list_name === title) {
-        array.splice(i, 1)
-      }
-      let params = {
-        list_id: d.list_id
-      }
-      let result = (await HttpUtils.post(URL_RM_LIST, params)) || {}
-      if (result.msg === '请求成功') {
-        await this.setState({ lists: array })
-        Toast.success('删除书单成功!', 1)
-        await Storage.set('book_list', array)
-        return true
-      } else {
-        Toast.offline(result.msg, 1)
-      }
-    })
+  onDelete = async (title) => {
+
+    const {
+      bookCollectList
+    } = this.state
+
+    const list = bookCollectList.find(collect => collect.list_name === title)
+
+    const params = { list_id: list.list_id }
+
+    const result = (await HttpUtils.post(URL_RM_LIST, params)) || {}
+
+    if (result.status !== 0) {
+      Toast.offline(result.msg, 1)
+      return
+    }
+
+    await this.fetchBookCollects()
+    Toast.success('删除书单成功!', 1)
   }
 
-  onConfirm(title) {
+  onConfirm = (title) => {
     Alert.alert('确认删除', '您真的要删除这个书单吗?', [
       { text: '确认', onPress: this.onDelete.bind(this, title) },
       { text: '取消' }
@@ -109,34 +113,18 @@ export default class BookCollectPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <RightButtonNav
-          title={this.props.title}
-          rightOnPress={() => this.rightOnPress()}
-        />
-        <TouchableOpacity
-          style={styles.add}
-          onPress={() => {
-            let params = {
-              onCallBack: async () => {
-                let array = await Storage.get('book_list', [])
-                this.setState({ lists: array })
-              }
-            }
-            Actions[SCENE_BOOK_COLLECT_ADD](params)
-          }}
-        >
-          <Image source={require('../../res/images/icon_add.png')} />
+        <RightButtonNav title={this.props.title} rightOnPress={this.rightOnPress} />
+        <TouchableOpacity style={styles.add} onPress={this.onAdd}>
+          <Image source={require('../../../res/images/icon_add.png')} />
         </TouchableOpacity>
         <ScrollView style={styles.list}>
-          {this.state.lists.map((item, i) => {
+          {this.state.bookCollectList.map((item, i) => {
             return (
               <BookCollectItem
                 item={item}
                 big_title={this.props.title}
-                onPress={(select, data) => this.onPressButton(select, data)}
-                onDelete={title => {
-                  this.onConfirm(title)
-                }}
+                onPress={this.onPressButton}
+                onDelete={this.onConfirm}
                 key={item.list_id}
                 data={item}
               />
@@ -146,6 +134,15 @@ export default class BookCollectPage extends Component {
       </View>
     )
   }
+
+  onAdd = () => {
+    const params = {
+      onCallBack: this.fetchBookCollects,
+      bookCollectList: this.state.bookCollectList
+    }
+    Actions[SCENE_BOOK_COLLECT_ADD](params)
+  }
+
 }
 
 const styles = StyleSheet.create({

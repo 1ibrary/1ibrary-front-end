@@ -12,7 +12,7 @@ import {
   AsyncStorage
 } from 'react-native'
 import TextPingFang from '../components/TextPingFang'
-import HttpUtils, { setToken, setHost } from '../network/HttpUtils'
+import HttpUtils, { setToken, setApiBaseUrl } from '../network/HttpUtils'
 import schools from '../network/schools'
 import { USERS } from '../network/Urls'
 import { SCENE_INDEX } from '../constants/scene'
@@ -109,7 +109,7 @@ export default class WelcomePage extends Component {
       choose_info: selectedSchool.name
     })
 
-    setHost(selectedSchool.host)
+    setApiBaseUrl(selectedSchool.host)
     
     this.hide_modal()
   }

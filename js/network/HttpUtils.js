@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { isDev } from '../common/util'
 
 let defaultData = {
   uid: '',
@@ -13,14 +14,16 @@ export function setToken(data) {
   }
 }
 
-let HOST = 'https://1ibrary.group/'
+let baseUrl = 'https://1ibrary.group/'
 
-export const setHost = (host) => {
-  HOST = host
+export const setApiBaseUrl = (newBase) => {
+  baseUrl = newBase
 }
 
 axios.interceptors.response.use((response) => {
-  console.dir(response)
+  if (isDev) {
+    console.dir(response)
+  }
   return response
 }, error => {
   console.dir(error)
@@ -30,12 +33,12 @@ axios.interceptors.response.use((response) => {
 export default class HttpUtils {
 
   static get(url) {
-    url = HOST + url
+    url = baseUrl + url
     return axios.get(url).then(response => response.data)
   }
 
   static post(url, data) {
-    url = HOST + url
+    url = baseUrl + url
     
     data = {
       ...defaultData,
