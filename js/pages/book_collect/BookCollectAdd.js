@@ -22,20 +22,25 @@ export default class BookCollectAddPage extends Component {
     list_content: ''
   }
 
-  async rightOnPress() {
+  rightOnPress = async () => {
+
     if (!this.state.list_name.trim()) {
       Toast.info('请输入书单的名字噢!', 1)
       return
     }
+
     if (!this.state.list_content.trim()) {
       Toast.info('请输入书单的描述内容噢!', 1)
       return
     }
+
     let array = await Storage.get('book_list', [])
+
     let item = {
       list_name: this.state.list_name,
       list_content: this.state.list_content
     }
+
     let flag = false
     if (array && array.length > 0) {
       flag = array.some(d => {
@@ -50,11 +55,14 @@ export default class BookCollectAddPage extends Component {
         return
       }
     }
+
     let params = {
       list_name: this.state.list_name,
       list_content: this.state.list_content
     }
+
     let response = (await HttpUtils.post(URL, params)) || {}
+
     if (response.status === 0) {
       Toast.success('创建书单成功！', 1)
       let result = (await HttpUtils.post(URL_SHOW)) || {}

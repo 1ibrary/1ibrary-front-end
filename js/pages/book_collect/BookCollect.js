@@ -37,6 +37,7 @@ export default class BookCollectPage extends Component {
   rightOnPress = async () => {
     if (this.props.title === '我的书单' || this.state.choosed.length == 0) {
       Actions.pop()
+      return
     }
 
     const tasks = []
