@@ -14,11 +14,9 @@ import { SCENE_SEARCH } from '../constants/scene'
 import TabNavigator from 'react-native-tab-navigator'
 
 export default class HomePage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedTab: 'home'
-    }
+
+  state = {
+    selectedTab: 'home'
   }
 
   icons = {
@@ -55,6 +53,7 @@ export default class HomePage extends Component {
       selected: <Image source={require('../../res/images/profile1.png')} />
     }
   }
+
   render() {
     return (
       <View style={styles.tabs_container}>
