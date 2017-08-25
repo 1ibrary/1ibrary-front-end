@@ -31,7 +31,7 @@ export default class BookInfo extends Component {
     const {
       book_id,
       book_db_id
-    } = this.props
+    } = this.props.data
 
     let params = { book_id, book_db_id }
 

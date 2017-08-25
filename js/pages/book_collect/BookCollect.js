@@ -114,10 +114,7 @@ export default class BookCollectPage extends Component {
     return (
       <View style={styles.container}>
         <RightButtonNav title={this.props.title} rightOnPress={this.rightOnPress} />
-        <TouchableOpacity
-          style={styles.add}
-          onPress={this.onAdd}
-        >
+        <TouchableOpacity style={styles.add} onPress={this.onAdd}>
           <Image source={require('../../../res/images/icon_add.png')} />
         </TouchableOpacity>
         <ScrollView style={styles.list}>
