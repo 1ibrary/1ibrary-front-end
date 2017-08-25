@@ -17,14 +17,16 @@ export default class Home extends Component {
         <View style={styles.list}>
           <SearchNav_Welcome
             placeholder={'搜索'}
-            onFocus={() => {
-              Actions[SCENE_SEARCH]()
-            }}
+            onFocus={this.onFocus}
           />
           <BookList style={styles.book_list} />
         </View>
       </View>
     )
+  }
+
+  onFocus = () => {
+    Actions[SCENE_SEARCH]()
   }
 }
 

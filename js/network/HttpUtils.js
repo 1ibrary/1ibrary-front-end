@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { isDev } from '../common/util'
 
 let defaultData = {
   uid: '',
@@ -20,7 +21,9 @@ export const setHost = (host) => {
 }
 
 axios.interceptors.response.use((response) => {
-  console.dir(response)
+  if (isDev) {
+    console.dir(response)
+  }
   return response
 }, error => {
   console.dir(error)
