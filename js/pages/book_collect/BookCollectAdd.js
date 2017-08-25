@@ -34,31 +34,26 @@ export default class BookCollectAddPage extends Component {
       return
     }
 
-    let array = await Storage.get('book_list', [])
+    const bookCollectList = this.props.bookCollectList
+    const {
+      list_name,
+      list_content
+    } = this.state
 
-    let item = {
-      list_name: this.state.list_name,
-      list_content: this.state.list_content
+    if (!Array.isArray(bookCollectList)) {
+      return
     }
 
-    let flag = false
-    if (array && array.length > 0) {
-      flag = array.some(d => {
-        if (d.list_name === item.list_name) {
-          Toast.info('你已经创建过同名书单啦！', 1)
-          Actions.pop()
-          flag = true
-          return true
-        }
-      })
-      if (flag) {
-        return
-      }
+    const exists = bookCollectList.some(collect => collect.list_name === list_name)
+
+    if (exists) {
+      Toast.info('你已经创建过同名书单啦！', 1)
+      return
     }
 
-    let params = {
-      list_name: this.state.list_name,
-      list_content: this.state.list_content
+    const params = {
+      list_name,
+      list_content
     }
 
     let response = (await HttpUtils.post(URL, params)) || {}

@@ -24,7 +24,7 @@ const URL_RM_LIST = LISTS.remove_list
 export default class BookCollectPage extends Component {
 
   state = {
-    lists: [],
+    bookCollectList: [],
     choosed: []
   }
 
@@ -34,8 +34,8 @@ export default class BookCollectPage extends Component {
 
   fetchBookCollects = async () => {
     const result = (await HttpUtils.post(URL_SHOW)) || {}
-    const lists = result.data || []
-    this.setState({ lists })
+    const bookCollectLists = result.data || []
+    this.setState({ bookCollectList: bookCollectLists })
   }
 
   rightOnPress = async () => {
@@ -49,7 +49,7 @@ export default class BookCollectPage extends Component {
     this.state.choosed.forEach((choosed) => {
       let {
         list_id
-      } = this.state.lists.filter(list => list.list_name === choosed)[0]
+      } = this.state.bookCollectList.filter(list => list.list_name === choosed)[0]
 
       const params = {
         list_id,
@@ -84,7 +84,7 @@ export default class BookCollectPage extends Component {
   }
 
   async onDelete(title) {
-    let array = this.state.lists
+    let array = this.state.bookCollectList
     array.some(async (d, i) => {
       if (d.list_name === title) {
         array.splice(i, 1)
@@ -94,7 +94,7 @@ export default class BookCollectPage extends Component {
       }
       let result = (await HttpUtils.post(URL_RM_LIST, params)) || {}
       if (result.msg === '请求成功') {
-        await this.setState({ lists: array })
+        await this.setState({ bookCollectList: array })
         Toast.success('删除书单成功!', 1)
         await Storage.set('book_list', array)
         return true
@@ -122,7 +122,7 @@ export default class BookCollectPage extends Component {
           <Image source={require('../../../res/images/icon_add.png')} />
         </TouchableOpacity>
         <ScrollView style={styles.list}>
-          {this.state.lists.map((item, i) => {
+          {this.state.bookCollectList.map((item, i) => {
             return (
               <BookCollectItem
                 item={item}
@@ -140,7 +140,10 @@ export default class BookCollectPage extends Component {
   }
 
   onAdd = () => {
-    let params = { onCallBack: this.fetchBookCollects }
+    const params = {
+      onCallBack: this.fetchBookCollects,
+      bookCollectList: this.state.bookCollectList
+    }
     Actions[SCENE_BOOK_COLLECT_ADD](params)
   }
 
