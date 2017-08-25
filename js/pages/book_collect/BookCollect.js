@@ -7,15 +7,15 @@ import {
   ScrollView,
   Alert
 } from 'react-native'
-import RightButtonNav from '../components/RightButtonNav'
-import BookCollectItem from '../components/BookCollectTitle'
-import HttpUtils from '../network/HttpUtils'
-import { LISTS } from '../network/Urls'
-import { INNERWIDTH, HEIGHT } from '../common/styles'
+import RightButtonNav from '../../components/RightButtonNav'
+import BookCollectItem from '../../components/BookCollectTitle'
+import HttpUtils from '../../network/HttpUtils'
+import { LISTS } from '../../network/Urls'
+import { INNERWIDTH, HEIGHT } from '../../common/styles'
 import { Actions } from 'react-native-router-flux'
-import { SCENE_BOOK_COLLECT_ADD } from '../constants/scene'
+import { SCENE_BOOK_COLLECT_ADD } from '../../constants/scene'
 import Toast from 'antd-mobile/lib/toast'
-import Storage from '../common/storage'
+import Storage from '../../common/storage'
 
 const URL_SHOW = LISTS.show_list
 const URL_ADD_BOOK = LISTS.collect_book
@@ -125,7 +125,7 @@ export default class BookCollectPage extends Component {
             Actions[SCENE_BOOK_COLLECT_ADD](params)
           }}
         >
-          <Image source={require('../../res/images/icon_add.png')} />
+          <Image source={require('../../../res/images/icon_add.png')} />
         </TouchableOpacity>
         <ScrollView style={styles.list}>
           {this.state.lists.map((item, i) => {

@@ -3,15 +3,15 @@ import {
   View,
   StyleSheet,
 } from 'react-native'
-import SearchNav from '../components/SearchNav'
-import { getResponsiveWidth, INNERWIDTH, HEIGHT, WIDTH } from '../common/styles'
+import SearchNav from '../../components/SearchNav'
+import { getResponsiveWidth, INNERWIDTH, HEIGHT, WIDTH } from '../../common/styles'
 import { Actions } from 'react-native-router-flux'
-import { SCENE_SEARCH_RESULT } from '../constants/scene'
-import SearchTags from '../components/SearchTags'
-import Storage from '../common/storage'
+import { SCENE_SEARCH_RESULT } from '../../constants/scene'
+import SearchTags from '../../components/SearchTags'
+import Storage from '../../common/storage'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import HttpUtils from '../network/HttpUtils'
-import { BOOKS } from '../network/Urls'
+import HttpUtils from '../../network/HttpUtils'
+import { BOOKS } from '../../network/Urls'
 
 const MAX_LENGTH = 5
 

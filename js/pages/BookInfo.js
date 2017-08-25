@@ -26,13 +26,14 @@ export default class BookInfo extends Component {
     is_subscribe: false
   }
 
-
   async componentDidMount() {
 
-    let params = {
-      book_id: this.props.data.book_id,
-      book_db_id: this.props.data.book_db_id
-    }
+    const {
+      book_id,
+      book_db_id
+    } = this.props
+
+    let params = { book_id, book_db_id }
 
     let result = await (HttpUtils.post(URL, params) || {})
     if (result.status === 0) {

@@ -7,7 +7,7 @@ import {
 import BookList from '../components/BookList'
 import SearchNav_Welcome from '../components/SearchNavHomePage'
 import MessagePage from './Message'
-import ProfilePage from './Profile'
+import ProfilePage from './profile/Profile'
 import { HEIGHT, getResponsiveHeight } from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_SEARCH } from '../constants/scene'

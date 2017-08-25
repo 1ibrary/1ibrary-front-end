@@ -10,7 +10,7 @@ import {
   Dimensions
 } from 'react-native'
 import TextPingFang from './TextPingFang'
-import RentInfoPage from '../pages/RentInfo'
+import RentInfoPage from '../pages/profile/RentInfo'
 import { INNERWIDTH } from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_MESSAGE } from '../constants/scene'

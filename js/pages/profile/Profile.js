@@ -7,36 +7,34 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native'
-import TextPingFang from '../components/TextPingFang'
+import TextPingFang from '../../components/TextPingFang'
 import { Actions } from 'react-native-router-flux'
-import * as scenes from '../constants/scene'
+import * as scenes from '../../constants/scene'
 import {
   WIDTH,
   INNERWIDTH,
   HEIGHT,
   getResponsiveWidth,
   getResponsiveHeight
-} from '../common/styles'
+} from '../../common/styles'
 
 export default class ProfilePage extends Component {
 
-  onJump(page, title) {
-    Actions[page]({
-      title
-    })
+  onJump = (page, title) => {
+    Actions[page]({ title })
   }
 
   render() {
-    const booklist = require('../../res/images/icon_booklist.png')
-    const history = require('../../res/images/icon_history.png')
-    const setting = require('../../res/images/icon_setting.png')
+    const booklist = require('../../../res/images/icon_booklist.png')
+    const history = require('../../../res/images/icon_history.png')
+    const setting = require('../../../res/images/icon_setting.png')
     // const apps = require("../../res/images/icon_apps.png")
-    const feedback = require('../../res/images/icon_feedback.png')
-    const aboutus = require('../../res/images/icon_aboutus.png')
+    const feedback = require('../../../res/images/icon_feedback.png')
+    const aboutus = require('../../../res/images/icon_aboutus.png')
     
     const texts = ['我的书单', '借阅图书', '设置', '意见反馈', '关于我们']
-    const male_pic = require('../../res/images/avatar.png')
-    const fm_pic = require('../../res/images/avatar2.png')
+    const male_pic = require('../../../res/images/avatar.png')
+    const fm_pic = require('../../../res/images/avatar2.png')
     const images = [booklist, history, setting, feedback, aboutus, images]
 
     return (
@@ -44,11 +42,11 @@ export default class ProfilePage extends Component {
         <View style={styles.info_container}>
           <Image
             style={styles.avatar}
-            source={require('../../res/images/avatar_bg.png')}
+            source={require('../../../res/images/avatar_bg.png')}
           >
             <Image
               style={styles.avatar_round}
-              source={require('../../res/images/avatar_round.png')}
+              source={require('../../../res/images/avatar_round.png')}
             >
               <Image
                 style={this.props.user.user_sex ? { marginTop: -6 } : {}}
@@ -89,7 +87,7 @@ export default class ProfilePage extends Component {
                 </TextPingFang>
                 <Image
                   style={styles.item_arrow}
-                  source={require('../../res/images/right_arrow.png')}
+                  source={require('../../../res/images/right_arrow.png')}
                 />
               </TouchableOpacity>
             )
@@ -119,7 +117,7 @@ export default class ProfilePage extends Component {
                 </TextPingFang>
                 <Image
                   style={styles.item_arrow}
-                  source={require('../../res/images/right_arrow.png')}
+                  source={require('../../../res/images/right_arrow.png')}
                 />
               </TouchableOpacity>
             )

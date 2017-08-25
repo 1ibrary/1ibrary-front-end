@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from 'react-native-scrollable-tab-view'
-import { getResponsiveHeight, getResponsiveWidth, HEIGHT, INNERWIDTH, WIDTH } from '../common/styles'
-import Book from '../components/Book'
-import SearchNav from '../components/SearchNav'
-import { SCENE_SEARCH } from '../constants/scene'
-import HttpUtils from '../network/HttpUtils'
-import { BOOKS } from '../network/Urls'
+import { getResponsiveHeight, getResponsiveWidth, HEIGHT, INNERWIDTH, WIDTH } from '../../common/styles'
+import Book from '../../components/Book'
+import SearchNav from '../../components/SearchNav'
+import { SCENE_SEARCH } from '../../constants/scene'
+import HttpUtils from '../../network/HttpUtils'
+import { BOOKS } from '../../network/Urls'
 
 const URL = BOOKS.search_book
 

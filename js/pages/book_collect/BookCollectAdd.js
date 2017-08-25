@@ -4,13 +4,13 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native'
-import RightButtonNav from '../components/RightButtonNav'
-import HttpUtils from '../network/HttpUtils'
-import { LISTS } from '../network/Urls'
-import { WIDTH, INNERWIDTH, HEIGHT } from '../common/styles'
+import RightButtonNav from '../../components/RightButtonNav'
+import HttpUtils from '../../network/HttpUtils'
+import { LISTS } from '../../network/Urls'
+import { WIDTH, INNERWIDTH, HEIGHT } from '../../common/styles'
 import { Actions } from 'react-native-router-flux'
 import Toast from 'antd-mobile/lib/toast'
-import Storage from '../common/storage'
+import Storage from '../../common/storage'
 
 const URL = LISTS.create_list // 缓存前先请求showxs
 const URL_SHOW = LISTS.show_list

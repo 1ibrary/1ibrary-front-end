@@ -6,18 +6,18 @@ import {
   Image,
   ScrollView
 } from 'react-native'
-import CommonNav from '../components/CommonNav'
-import TextPingFang from '../components/TextPingFang'
+import CommonNav from '../../components/CommonNav'
+import TextPingFang from '../../components/TextPingFang'
 import {
   WIDTH,
   INNERWIDTH,
   HEIGHT,
   getResponsiveHeight
-} from '../common/styles'
-import HttpUtils from '../network/HttpUtils'
-import { BOOKS } from '../network/Urls'
+} from '../../common/styles'
+import HttpUtils from '../../network/HttpUtils'
+import { BOOKS } from '../../network/Urls'
 import Toast from 'antd-mobile/lib/toast'
-import fetchData from '../common/loading'
+import fetchData from '../../common/loading'
 
 export default class MessageInfoPage extends Component {
 

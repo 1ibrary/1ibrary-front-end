@@ -5,13 +5,13 @@ import {
   ScrollView,
   Alert
 } from 'react-native'
-import BookCollect from '../components/BookCollect'
-import CommonNav from '../components/CommonNav'
-import HttpUtils from '../network/HttpUtils'
-import { LISTS } from '../network/Urls'
-import { HEIGHT } from '../common/styles'
+import BookCollect from '../../components/BookCollect'
+import CommonNav from '../../components/CommonNav'
+import HttpUtils from '../../network/HttpUtils'
+import { LISTS } from '../../network/Urls'
+import { HEIGHT } from '../../common/styles'
 import Toast from 'antd-mobile/lib/toast'
-import fetchData from '../common/loading'
+import fetchData from '../../common/loading'
 
 const URL_SHOW = LISTS.show_detail
 const URL_RM_BOOK = LISTS.remove_book

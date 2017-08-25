@@ -23,7 +23,7 @@ class SplashScreen extends Component {
     }
 
     setHost(schools[user.school_id].host)
-    console.log(user)
+
     try {
       const response = await login(user.account, user.password, user.school_id)
       Actions[SCENE_INDEX]({ user: response.data })
