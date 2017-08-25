@@ -37,7 +37,7 @@ export default class Book extends Component {
             source={{ uri: this.props.data.book_cover }}
           />
           <View style={styles.information}>
-            <Text style={styles.item_title}>
+            <Text style={styles.item_title} numberOfLines={2}>
               {this.props.data.book_title}
             </Text>
             <Text style={styles.item_author}>
