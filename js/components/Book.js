@@ -23,31 +23,34 @@ export default class Book extends Component {
   }
   
   render() {
+
+    const book = this.props.data
+
     return (
       <TouchableOpacity onPress={this.onPress}>
         <View style={[styles.item, this.props.style]}>
           <Image
             style={styles.image}
-            source={{ uri: this.props.data.book_cover }}
+            source={{ uri: book.book_cover }}
           />
           <View style={styles.information}>
             <Text style={styles.item_title} numberOfLines={2}>
-              {this.props.data.book_title}
+              {book.book_title}
             </Text>
-            <Text style={styles.item_author}>
-              {this.props.data.book_author}
+            <Text style={styles.item_author} numberOfLines>
+              {book.book_author}
             </Text>
             <Text style={styles.item_publish}>
-              {this.props.data.book_publish} {this.props.data.time}
+              {book.book_publish} {book.time}
             </Text>
             <Text style={styles.item_grade}>
-              {this.props.data.book_rate !== 0
-                ? this.props.data.book_rate + ' 分'
+              {book.book_rate !== 0
+                ? book.book_rate + ' 分'
                 : '暂无评分'}
             </Text>
           </View>
           <View style={styles.round}>
-            <Round data={this.props.data.book_last_number} />
+            <Round data={book.book_last_number} />
           </View>
         </View>
       </TouchableOpacity>
