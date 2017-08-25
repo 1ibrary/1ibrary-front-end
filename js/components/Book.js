@@ -37,7 +37,7 @@ export default class Book extends Component {
             <Text style={styles.item_title} numberOfLines={2}>
               {book.book_title}
             </Text>
-            <Text style={styles.item_author} numberOfLines>
+            <Text style={styles.item_author}>
               {book.book_author}
             </Text>
             <Text style={styles.item_publish}>

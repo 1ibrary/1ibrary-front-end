@@ -12,13 +12,11 @@ import { BOOKS } from '../../network/Urls'
 const URL = BOOKS.search_book
 
 export default class SearchResultPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      bookName: [],
-      author: [],
-      publishingHouse: []
-    }
+
+  state = {
+    bookName: [],
+    author: [],
+    publishingHouse: []
   }
 
   async componentDidMount() {
@@ -32,18 +30,22 @@ export default class SearchResultPage extends Component {
     }
   }
 
-  async onChangeTab(index) {
+  onChangeTab = async (index) => {
     let params = {
       content: this.props.content,
       type: index
     }
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.status === 0) {
-      if (index == 1) {
-        this.setState({ author: response.data })
-      } else {
-        this.setState({ publishingHouse: response.data })
-      }
+
+    if (response.status !== 0) {
+      Toast.fail(response.msg, 1)
+      return
+    }
+
+    if (index == 1) {
+      this.setState({ author: response.data })
+    } else {
+      this.setState({ publishingHouse: response.data })
     }
   }
 
