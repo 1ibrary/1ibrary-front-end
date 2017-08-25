@@ -1,6 +1,5 @@
 import React, { Component } from 'React'
 import LoginPage from './pages/Login'
-import HomePage from './pages/Home'
 import SearchPage from './pages/search/Search'
 import BookInfo from './pages/BookInfo'
 import BookCollect from './pages/book_collect/BookCollect'
@@ -15,6 +14,7 @@ import AboutUsWeb from './pages/about_us/AboutUsWeb'
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 import * as scenes from './constants/scene'
 import SplashScreen from './SplashScreen'
+import Index from './pages/Index'
 
 export default class AppRouter extends Component {
   render() {
@@ -39,7 +39,7 @@ export default class AppRouter extends Component {
           />
           <Scene
             key={scenes.SCENE_INDEX}
-            component={HomePage}
+            component={Index}
             title="首页"
             type={ActionConst.REPLACE}
             hideNavBar
