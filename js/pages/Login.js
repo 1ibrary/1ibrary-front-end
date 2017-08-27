@@ -27,6 +27,7 @@ import Toast from 'antd-mobile/lib/toast'
 import Storage from '../common/storage'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import login from '../network/login'
+import loading from '../common/loading';
 
 const URL = USERS.login
 
@@ -52,8 +53,11 @@ export default class WelcomePage extends Component {
       password
     } = this.state
 
+    Toast.loading('正在登陆', 0)
+
     try {
       const response = await login(account, password, this.state.school_id)
+      Toast.hide()
       Actions[SCENE_INDEX]({ user: response.data })
     } catch (e) {
       Toast.fail(e.message, 1)
@@ -160,13 +164,12 @@ export default class WelcomePage extends Component {
                 onChangeText={text => {
                   this.setState({ password: text })
                 }}
+                secureTextEntry
               />
               <Text style={styles.remind}>请使用您的学号密码登录哦</Text>
             </View>
             <TouchableOpacity
-              onPress={() => {
-                this.onSubmit()
-              }}
+              onPress={this.onSubmit}
               style={styles.online}
             >
               <Text style={styles.online_font}>登录</Text>
