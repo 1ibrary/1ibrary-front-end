@@ -10,13 +10,13 @@ import {
 import CommonNav from '../components/CommonNav'
 import HttpUtils from '../network/HttpUtils'
 import Round from '../components/Round'
-import { BOOKS } from '../network/Urls'
+import { BOOKS, SUBSCRIBE } from '../network/Urls'
 import { INNERWIDTH, WIDTH, HEIGHT , getResponsiveWidth} from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_BOOK_COLLECT } from '../constants/scene'
 import Toast from 'antd-mobile/lib/toast'
 
-const URL = BOOKS.show_detail
+const SHOW_DETAIL = BOOKS.show_detail
 
 export default class BookInfo extends Component {
   
@@ -26,8 +26,11 @@ export default class BookInfo extends Component {
     is_subscribe: false
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchBookData()
+  }
 
+  fetchBookData = async () => {
     const {
       book_id,
       book_db_id
@@ -35,12 +38,16 @@ export default class BookInfo extends Component {
 
     let params = { book_id, book_db_id }
 
-    let result = await (HttpUtils.post(URL, params) || {})
+    let result = await (HttpUtils.post(SHOW_DETAIL, params) || {})
     if (result.status === 0) {
       this.setState({ book_data: result.data })
     } else {
       Toast.offline(result.msg, 1)
     }
+  }
+
+  fetchSubscribeState = () => {
+
   }
 
   onNavigator = () => {
