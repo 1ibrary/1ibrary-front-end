@@ -28,14 +28,15 @@ export default class ProfilePage extends Component {
     const booklist = require('../../../res/images/icon_booklist.png')
     const history = require('../../../res/images/icon_history.png')
     const setting = require('../../../res/images/icon_setting.png')
+    const subscribe = require('../../../res/images/icon_subscribe.png')
     // const apps = require("../../res/images/icon_apps.png")
     const feedback = require('../../../res/images/icon_feedback.png')
     const aboutus = require('../../../res/images/icon_aboutus.png')
     
-    const texts = ['我的书单', '借阅图书', '设置', '意见反馈', '关于我们']
+    const texts = ['我的书单', '借阅图书', '订阅图书', '设置', '意见反馈', '关于我们']
     const male_pic = require('../../../res/images/avatar.png')
     const fm_pic = require('../../../res/images/avatar2.png')
-    const images = [booklist, history, setting, feedback, aboutus, images]
+    const images = [booklist, history, subscribe, setting, feedback, aboutus, images]
 
     return (
       <View style={styles.container}>
@@ -60,30 +61,32 @@ export default class ProfilePage extends Component {
           </Image>
         </View>
         <View style={styles.items1}>
-          {texts.map((d, i) => {
-            if (i >= 3) return
+          {texts.map((pageName, i) => {
+            if (i >= 4) return
             return (
               <TouchableOpacity
                 key={i}
                 onPress={() => {
-                  let text = d
-                  switch (text) {
+                  switch (pageName) {
                     case '我的书单':
-                      this.onJump(scenes.SCENE_BOOK_COLLECT, text)
+                      this.onJump(scenes.SCENE_BOOK_COLLECT, pageName)
                       break
                     case '借阅图书':
-                      this.onJump(scenes.SCENE_MESSAGE, text)
+                      this.onJump(scenes.SCENE_MESSAGE, pageName)
                       break
                     case '设置':
-                      this.onJump(scenes.SCENE_SETTING, text)
+                      this.onJump(scenes.SCENE_SETTING, pageName)
                       break
                   }
                 }}
                 style={styles.item}
               >
-                <Image source={images[i]} />
+                <Image source={images[i]} style={[pageName === '订阅图书' && {
+                  width: 26,
+                  height: 26
+                }]} />
                 <TextPingFang style={styles.item_font}>
-                  {d}
+                  {pageName}
                 </TextPingFang>
                 <Image
                   style={styles.item_arrow}
@@ -94,13 +97,13 @@ export default class ProfilePage extends Component {
           })}
         </View>
         <View style={styles.items2}>
-          {texts.map((d, i) => {
-            if (i < 3) return
+          {texts.map((pageName, i) => {
+            if (i < 4) return
             return (
               <TouchableOpacity
                 onPress={() => {
                   let params
-                  switch (d) {
+                  switch (pageName) {
                     case '意见反馈':
                       this.onJump(scenes.SCENE_FEEDBACK, {})
                       break
@@ -113,7 +116,7 @@ export default class ProfilePage extends Component {
               >
                 <Image source={images[i]} />
                 <TextPingFang style={styles.item_font}>
-                  {d}
+                  {pageName}
                 </TextPingFang>
                 <Image
                   style={styles.item_arrow}
