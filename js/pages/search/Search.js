@@ -55,6 +55,7 @@ export default class Search extends Component {
     Actions[SCENE_SEARCH_RESULT](params)
   }
 
+  // 暂时禁用搜索提示
   onChangeText(text) {
     // if (text === '') {
     //   this.setState({ remind: false })
