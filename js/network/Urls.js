@@ -20,3 +20,9 @@ export const BOOKS = {
   hot_search: 'books/hot_search',
   borrowed: 'users/borrowed'
 }
+
+export const SUBSCRIBE = {
+  get_subscribe: 'users/get_subscribe',
+  subscribe: 'users/subscribe',
+  remove_subscribe: 'users/remove_subscribe'
+}

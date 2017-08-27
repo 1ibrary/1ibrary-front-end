@@ -14,10 +14,12 @@ import { SCENE_LOGIN } from '../../constants/scene'
 import { WIDTH, HEIGHT } from '../../common/styles'
 
 export default class BookListPage extends Component {
-  logout() {
-    Actions[SCENE_LOGIN]()
+  
+  logout = () => {
     AsyncStorage.clear()
+    Actions[SCENE_LOGIN]()
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -27,9 +29,7 @@ export default class BookListPage extends Component {
           <SettingItem style={styles.item} text={'接受还书提醒'} />
         </View>
         <TouchableOpacity
-          onPress={() => {
-            this.logout()
-          }}
+          onPress={this.logout}
           style={styles.out}
         >
           <TextPingFang style={styles.out_font}>退出登录</TextPingFang>

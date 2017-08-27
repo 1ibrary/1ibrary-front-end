@@ -15,7 +15,7 @@ import {
   getResponsiveHeight
 } from '../../common/styles'
 import { Actions } from 'react-native-router-flux'
-import { SCENE_SPLASH_SCREEN } from '../../constants/scene'
+import { SCENE_ABOUT_US_WEB, SCENE_SPLASH_SCREEN } from '../../constants/scene'
 
 export default function AboutUs () {
   return (
@@ -48,7 +48,7 @@ export default function AboutUs () {
           <TouchableOpacity
             style={styles.contact}
             onPress={() => {
-              Actions[SCENE_SPLASH_SCREEN]()
+              Actions[SCENE_ABOUT_US_WEB]()
             }}
           >
             <Text style={styles.contact_font}>联系我们</Text>

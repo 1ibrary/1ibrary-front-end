@@ -16,23 +16,38 @@ export default class FeedBack extends Component {
     content: ''
   }
 
-  async onPost() {
-    if (!this.state.contact.trim()) {
+  onPost = async () => {
+
+    const {
+      content,
+      contact
+    } = this.state
+
+    if (!contact.trim()) {
       Toast.info('请输入您的联系方式哦~', 1)
       return
     }
-    if (!this.state.content.trim()) {
+
+    if (!content.trim()) {
       Toast.info('请输入您的反馈内容哦~', 1)
       return
     }
+
     let params = {
-      content: this.state.content,
-      contact: this.state.contact
+      content,
+      contact
     }
+
     let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.status === 0) {
-      Actions.pop()
+
+    if (response.status !== 0) {
+      Toast.fail(response.msg, '1')
+      return
     }
+
+    Toast.success('反馈成功', 1, () => {
+      Actions.pop()
+    })
   }
 
   render() {
@@ -40,9 +55,7 @@ export default class FeedBack extends Component {
       <View style={styles.container}>
         <RightButtonNav
           title={'意见反馈'}
-          rightOnPress={() => {
-            this.onPost()
-          }}
+          rightOnPress={this.onPost}
         />
         <TextInput
           placeholder={'请输入您的邮箱或者电话'}

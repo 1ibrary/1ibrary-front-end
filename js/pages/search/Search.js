@@ -22,7 +22,7 @@ export default class Search extends Component {
     hot: [],
     defaultValue: '',
     page: 1,
-    reminder: ['平凡', '平凡的世界', '人间失格', '陕西师范大学出版社', '太宰治'],
+    reminder: [],
     text: '',
     remind: false
   }
@@ -51,18 +51,17 @@ export default class Search extends Component {
 
   onSubmitEditing(text) {
     this.onSave(text)
-    let params = {
-      content: text
-    }
+    const params = { content: text }
     Actions[SCENE_SEARCH_RESULT](params)
   }
 
+  // 暂时禁用搜索提示
   onChangeText(text) {
-    if (text === '') {
-      this.setState({ remind: false })
-      return
-    }
-    this.setState({ remind: true })
+    // if (text === '') {
+    //   this.setState({ remind: false })
+    //   return
+    // }
+    // this.setState({ remind: true })
     // this.setState({ page: 2, information: data })
   }
 

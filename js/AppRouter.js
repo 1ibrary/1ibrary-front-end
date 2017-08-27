@@ -15,6 +15,7 @@ import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux'
 import * as scenes from './constants/scene'
 import SplashScreen from './SplashScreen'
 import Index from './pages/Index'
+import Subscribe from './pages/Subscribe'
 
 export default class AppRouter extends Component {
   render() {
@@ -81,6 +82,12 @@ export default class AppRouter extends Component {
             key={scenes.SCENE_MESSAGE}
             component={RentInfo}
             title="通知内容"
+            hideNavBar
+          />
+          <Scene
+            key={scenes.SCENE_SUBSCRIBE}
+            component={Subscribe}
+            title="新建书单"
             hideNavBar
           />
           <Scene

@@ -8,6 +8,7 @@ import SearchNav from '../../components/SearchNav'
 import { SCENE_SEARCH } from '../../constants/scene'
 import HttpUtils from '../../network/HttpUtils'
 import { BOOKS } from '../../network/Urls'
+import Toast from 'antd-mobile/lib/toast'
 
 const URL = BOOKS.search_book
 
@@ -20,32 +21,37 @@ export default class SearchResultPage extends Component {
   }
 
   async componentDidMount() {
-    let params = {
-      content: this.props.content,
-      type: 0
-    }
-    let response = (await HttpUtils.post(URL, params)) || {}
-    if (response.status === 0) {
-      this.setState({ bookName: response.data })
-    }
+    const data = await this.fetchBooks(0)
+    this.setState({ bookName: data })
   }
 
-  onChangeTab = async (index) => {
-    let params = {
+  fetchBooks = async (index) => {
+    Toast.loading('正在加载', 0)
+
+    const params = {
       content: this.props.content,
       type: index
     }
+
     let response = (await HttpUtils.post(URL, params)) || {}
 
     if (response.status !== 0) {
       Toast.fail(response.msg, 1)
-      return
+      return []
     }
 
+    Toast.hide()
+
+    return response.data
+  }
+
+  onChangeTab = async (index) => {
+    const data = await this.fetchBooks(index)
+
     if (index == 1) {
-      this.setState({ author: response.data })
+      this.setState({ author: data })
     } else {
-      this.setState({ publishingHouse: response.data })
+      this.setState({ publishingHouse: data })
     }
   }
 
@@ -113,6 +119,10 @@ export default class SearchResultPage extends Component {
       </ScrollView>
     )
 
+  }
+
+  componentWillUnmount () {
+    Toast.hide()
   }
 }
 

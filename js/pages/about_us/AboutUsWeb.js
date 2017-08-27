@@ -3,11 +3,11 @@ import { StyleSheet, View, WebView } from 'react-native'
 import CommonNav from '../../components/CommonNav'
 import { WIDTH, HEIGHT } from '../../common/styles'
 
-export default function AboutUsWeb () {
+export default function AboutUsWeb (props) {
   return (
     <View style={styles.container}>
       <CommonNav
-        navigator={this.props.navigator}
+        navigator={props.navigator}
         style={styles.nav}
         title={'联系我们'}
         navBarStyle={styles.nav}
