@@ -91,7 +91,13 @@ export default class BookInfo extends Component {
   }
 
   unSubscribe = async () => {
+    const {
+      book_id
+    } = this.props.data
 
+    await HttpUtils.post(SUBSCRIBE.remove_subscribe, { book_id })
+    this.setState({ is_subscribe: false })
+    Toast.success('您已取消订阅本书', 1)
   }
 
   render() {
