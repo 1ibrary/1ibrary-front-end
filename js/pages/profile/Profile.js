@@ -74,6 +74,9 @@ export default class ProfilePage extends Component {
                     case '借阅图书':
                       this.onJump(scenes.SCENE_MESSAGE, pageName)
                       break
+                    case '订阅图书':
+                      this.onJump(scenes.SCENE_SUBSCRIBE, pageName)
+                      break
                     case '设置':
                       this.onJump(scenes.SCENE_SETTING, pageName)
                       break
