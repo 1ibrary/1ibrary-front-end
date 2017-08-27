@@ -223,7 +223,7 @@ export default class BookInfo extends Component {
                   is_subscribe && styles.subscribe_font_disabled
                 ]}
               >
-                订阅
+                { is_subscribe ? '取消订阅' : '订阅' }
               </Text>
             </View>
           </View>
