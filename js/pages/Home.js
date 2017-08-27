@@ -8,8 +8,58 @@ import SearchNav_Welcome from '../components/SearchNavHomePage'
 import { HEIGHT, getResponsiveHeight } from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_SEARCH } from '../constants/scene'
+import HttpUtils from '../network/HttpUtils'
+import { BOOKS } from '../network/Urls'
+import Toast from 'antd-mobile/lib/toast'
+
+const URL = BOOKS.hot_books
 
 export default class Home extends Component {
+
+  state = {
+    books: [],
+    page: 1,
+    isLoading: true
+  }
+
+  componentDidMount() {
+    this.fetchHotBooks()
+  }
+
+  fetchHotBooks = async () => {
+    let params = { page: 1 }
+
+    let result
+    try {
+      result = (await HttpUtils.post(URL, params)) || {}
+    } catch (e) {
+      Toast.fail('加载失败', 1)
+      this.setState({ isLoading: false })
+      return
+    }
+
+    if (result.status !== 0) {
+      return
+    }
+
+    this.setState({
+      books: result.data,
+      isLoading: false
+    })
+  }
+
+  onEndReached = async () => {
+    const params = { page: this.state.page + 1 }
+
+    const result = (await HttpUtils.post(URL, params)) || {}
+
+    const books = [...this.state.books, ...result.data]
+
+    this.setState({
+      books,
+      page: this.state.page + 1
+    })
+  }
 
   render() {
     return (
@@ -19,7 +69,13 @@ export default class Home extends Component {
             placeholder={'搜索'}
             onFocus={this.onFocus}
           />
-          <BookList style={styles.book_list} />
+          <BookList
+            books={this.state.books}
+            onEndReached={this.onEndReached}
+            style={styles.book_list}
+            isLoading={this.state.isLoading}
+            onRefresh={this.fetchHotBooks}
+          />
         </View>
       </View>
     )
