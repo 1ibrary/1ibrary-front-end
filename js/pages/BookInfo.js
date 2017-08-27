@@ -31,6 +31,7 @@ export default class BookInfo extends Component {
   }
 
   fetchBookData = async () => {
+
     const {
       book_id,
       book_db_id
@@ -66,10 +67,31 @@ export default class BookInfo extends Component {
     }
   }
 
+  onSubscribe = async () => {
+
+    if (this.state.is_subscribe) {
+      this.unSubscribe()
+    } else {
+      this.subscribe()
+    }
+
+    // const message = !this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
+    // this.setState({ is_subscribe: !this.state.is_subscribe })
+    // Toast.success(message, 1)
+  }
+
   subscribe = async () => {
-    const message = !this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
-    this.setState({ is_subscribe: !this.state.is_subscribe })
-    Toast.success(message, 1)
+    const {
+      book_id
+    } = this.props.data
+
+    await HttpUtils.post(SUBSCRIBE.subscribe, { book_id })
+    this.setState({ is_subscribe: true })
+    Toast.success('您已成功订阅本书', 1)
+  }
+
+  unSubscribe = async () => {
+
   }
 
   render() {
@@ -192,7 +214,7 @@ export default class BookInfo extends Component {
 
     return (
       <View style={styles.bottom_bar}>
-        <TouchableOpacity onPress={this.subscribe}>
+        <TouchableOpacity onPress={this.onSubscribe}>
           <View style={[styles.subscribe, is_subscribe && styles.subscribe_disbaled ]} >
             <View>
               <Text
