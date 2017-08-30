@@ -80,7 +80,7 @@ export default class Index extends Component {
             renderSelectedIcon={() => this.icons.profile.selected}
             onPress={() => this.setState({ selectedTab: 'profile' })}
           >
-            <Profile user={this.props.user ? this.props.user : {}} />
+            <Profile />
           </TabNavigator.Item>
         </TabNavigator>
       </View>

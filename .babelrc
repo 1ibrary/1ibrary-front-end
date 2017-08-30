@@ -1,5 +1,15 @@
 {
-  "presets": ["react-native"],
+  "presets": [
+    "react-native"
+  ],
   "sourceMaps": true,
-  "plugins": [["import", { "libraryName": "antd-mobile" }]]
+  "plugins": [
+    "transform-decorators-legacy",
+    [
+      "import",
+      {
+        "libraryName": "antd-mobile"
+      }
+    ]
+  ]
 }
