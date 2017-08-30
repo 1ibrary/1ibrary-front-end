@@ -68,16 +68,11 @@ export default class BookInfo extends Component {
   }
 
   onSubscribe = async () => {
-
     if (this.state.is_subscribe) {
       this.unSubscribe()
     } else {
       this.subscribe()
     }
-
-    // const message = !this.state.is_subscribe ? '您已成功订阅本书！' : '您已取消订阅！'
-    // this.setState({ is_subscribe: !this.state.is_subscribe })
-    // Toast.success(message, 1)
   }
 
   subscribe = async () => {

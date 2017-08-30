@@ -22,11 +22,15 @@ export const setApiBaseUrl = (newBase) => {
 
 axios.interceptors.response.use((response) => {
   if (isDev) {
-    console.dir(response)
+    const api = new URL(response.config.url)
+    console.log(api.pathname, response)
   }
   return response
 }, error => {
-  console.dir(error)
+  if (isDev) {
+    const api = new URL(error.config.url)
+    console.log(api.pathname, error)
+  }
   return Promise.reject(error)
 })
 
