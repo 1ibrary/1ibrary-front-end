@@ -51,7 +51,7 @@ class SplashScreen extends Component {
       Actions[SCENE_INDEX]()
     } catch (e) {
       console.log(e)
-      Toast.fail('自动登录失败', 3)
+      Toast.fail('自动登录失败', 1.5)
       Actions[SCENE_LOGIN]()
     }
 
@@ -83,4 +83,8 @@ if (!(console.time instanceof Function)) {
 
 if (!(console.timeEnd instanceof Function)) {
   console.timeEnd = console.log
+}
+
+if (!global.URL) {
+  global.URL = function () {}
 }
