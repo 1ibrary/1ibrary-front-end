@@ -28,6 +28,7 @@ export default class BookInfo extends Component {
 
   componentDidMount() {
     this.fetchBookData()
+    this.fetchSubscribeState()
   }
 
   fetchBookData = async () => {
@@ -47,8 +48,10 @@ export default class BookInfo extends Component {
     }
   }
 
-  fetchSubscribeState = () => {
-
+  fetchSubscribeState = async () => {
+    const params = { book_id: this.props.data.book_id }
+    const data = await HttpUtils.post(SUBSCRIBE.subscribe_exist, params)
+    this.setState({ is_subscribe: data.is_subscribe })
   }
 
   onNavigator = () => {

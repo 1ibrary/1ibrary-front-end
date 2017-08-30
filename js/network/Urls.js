@@ -24,5 +24,6 @@ export const BOOKS = {
 export const SUBSCRIBE = {
   get_subscribe: 'users/get_subscribe',
   subscribe: 'users/subscribe',
-  remove_subscribe: 'users/remove_subscribe'
+  remove_subscribe: 'users/remove_subscribe',
+  subscribe_exist: 'users/subscribe_exist'
 }
