@@ -2,6 +2,8 @@ import Storage from '../common/storage'
 import { setToken } from './HttpUtils'
 import HttpUtils from './HttpUtils'
 import { USERS } from './Urls'
+import store from '../redux/store'
+import { fetchProfileSuccess } from '../redux/modules/user'
 
 export default async function login (account, password, school_id) {
   const params = {
@@ -31,6 +33,8 @@ export default async function login (account, password, school_id) {
     token,
     timestamp
   })
+
+  store.dispatch(fetchProfileSuccess(response.data))
 
   return response
 }
