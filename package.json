@@ -16,7 +16,12 @@
     "react-native-router-flux": "3.38.0",
     "react-native-scrollable-tab-view": "^0.7.4",
     "react-native-splash-screen": "^3.0.0",
-    "react-native-tab-navigator": "^0.3.4"
+    "react-native-tab-navigator": "^0.3.4",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-persist": "^4.9.1"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
