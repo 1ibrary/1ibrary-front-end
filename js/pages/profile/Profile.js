@@ -17,7 +17,15 @@ import {
   getResponsiveWidth,
   getResponsiveHeight
 } from '../../common/styles'
+import { connect } from 'react-redux'
 
+function mapStateToProps (state) {
+  return {
+    user: state.user
+  }
+}
+
+@connect(mapStateToProps)
 export default class ProfilePage extends Component {
 
   onJump = (page, title) => {
@@ -56,7 +64,7 @@ export default class ProfilePage extends Component {
             </Image>
 
             <TextPingFang style={styles.avatar_font}>
-              {this.props.user.user_name}
+              {this.props.user.username}
             </TextPingFang>
           </Image>
         </View>

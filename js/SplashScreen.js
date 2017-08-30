@@ -48,7 +48,7 @@ class SplashScreen extends Component {
 
     try {
       login(user.account, user.password, user.school_id)
-      Actions[SCENE_INDEX]({ user: this.props.user })
+      Actions[SCENE_INDEX]()
     } catch (e) {
       console.log(e)
       Toast.fail('自动登录失败', 3)
