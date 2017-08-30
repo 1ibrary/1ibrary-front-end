@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { isDev } from '../common/util'
+import configureResponseError from './interceptors/response_error'
 
 let defaultData = {
   uid: '',
@@ -20,6 +21,7 @@ export const setApiBaseUrl = (newBase) => {
   baseUrl = newBase
 }
 
+axios.interceptors.response.use(null, configureResponseError)
 axios.interceptors.response.use((response) => {
   if (isDev) {
     const api = new URL(response.config.url)
