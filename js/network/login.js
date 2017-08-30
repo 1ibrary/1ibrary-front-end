@@ -3,7 +3,6 @@ import { setToken } from './HttpUtils'
 import HttpUtils from './HttpUtils'
 import { USERS } from './Urls'
 
-
 export default async function login (account, password, school_id) {
   const params = {
     account,

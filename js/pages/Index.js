@@ -4,13 +4,9 @@ import {
   StyleSheet,
   Image
 } from 'react-native'
-import BookList from '../components/BookList'
-import SearchNav_Welcome from '../components/SearchNavHomePage'
 import Message from './Message'
 import Profile from './profile/Profile'
 import { HEIGHT, getResponsiveHeight } from '../common/styles'
-import { Actions } from 'react-native-router-flux'
-import { SCENE_SEARCH } from '../constants/scene'
 import TabNavigator from 'react-native-tab-navigator'
 import Home from './Home'
 
@@ -126,7 +122,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue'
   },
   image: {
-    tintColor: '#929292'
+    // tintColor: '#929292'
   },
   active: {
     tintColor: '#607D8B'
