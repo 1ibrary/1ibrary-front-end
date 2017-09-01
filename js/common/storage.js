@@ -18,4 +18,8 @@ export default class Storage {
     await AsyncStorage.setItem(key, JSON.stringify(value))
   }
 
+  static async remove(key) {
+    await AsyncStorage.removeItem(key)
+  }
+
 }

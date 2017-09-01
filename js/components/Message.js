@@ -2,24 +2,22 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Text,
-  Navigator,
   TouchableOpacity,
-  Image,
-  ListView,
-  Dimensions
+  Image
 } from 'react-native'
 import TextPingFang from './TextPingFang'
-import RentInfoPage from '../pages/profile/RentInfo'
 import { INNERWIDTH } from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_BOOK_INFO, SCENE_MESSAGE } from '../constants/scene'
 import moment from 'moment'
+import Storage from '../common/storage'
 
 export const MessageTypes = {
   SUBSCRIBE: 1,
   RETURN_BOOK: 0
 }
+
+export const MessageStoragePrefix = '__Message'
 
 export default class Message extends Component {
 
@@ -34,7 +32,20 @@ export default class Message extends Component {
     }
   }
 
-  onPress = () => {
+  async componentDidMount () {
+    const book_id = this.props.data.book.book_id
+    const read = await Storage.get(`${MessageStoragePrefix}${book_id}`, false)
+
+    if (!read) {
+      this.setState({ read: false })
+    }
+  }
+
+  onPress = async () => {
+    const book_id = this.props.data.book.book_id
+    await Storage.set(`${MessageStoragePrefix}${book_id}`, book_id)
+
+    this.setState({ read: true })
 
     if (this.props.data.kind === MessageTypes.SUBSCRIBE) {
       Actions[SCENE_BOOK_INFO]({ data: this.props.data.book })
