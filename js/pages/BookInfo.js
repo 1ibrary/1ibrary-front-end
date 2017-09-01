@@ -15,6 +15,8 @@ import { INNERWIDTH, WIDTH, HEIGHT , getResponsiveWidth} from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_BOOK_COLLECT } from '../constants/scene'
 import Toast from 'antd-mobile/lib/toast'
+import store from '../redux/store'
+import { fetchSubscribe } from '../redux/modules/subscribe'
 
 const SHOW_DETAIL = BOOKS.show_detail
 
@@ -72,10 +74,11 @@ export default class BookInfo extends Component {
 
   onSubscribe = async () => {
     if (this.state.is_subscribe) {
-      this.unSubscribe()
+      await this.unSubscribe()
     } else {
-      this.subscribe()
+      await this.subscribe()
     }
+    store.dispatch(fetchSubscribe())
   }
 
   subscribe = async () => {
