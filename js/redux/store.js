@@ -1,11 +1,13 @@
 import { AsyncStorage } from 'react-native'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { autoRehydrate, persistStore } from 'redux-persist'
 import rootReducer from './reducers'
+import thunk from 'redux-thunk'
 
 const enhancer = composeWithDevTools({})(
-  autoRehydrate()
+  autoRehydrate(),
+  applyMiddleware(thunk)
 )
 
 const store = createStore(rootReducer, enhancer)

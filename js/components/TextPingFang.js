@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text } from 'react-native'
 
-export default class TextPingFang extends Component {
-  render() {
-    return (
-      <Text style={[styles.font, this.props.style]}>
-        {this.props.children}
-      </Text>
-    )
-  }
+export default function TextPingFang (props) {
+
+  const { style, children, ...restProps } = props
+
+  return (
+    <Text { ...restProps } style={[styles.font, style]}>
+      {children}
+    </Text>
+  )
 }
 
 const styles = StyleSheet.create({

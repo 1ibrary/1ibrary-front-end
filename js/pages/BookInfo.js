@@ -15,6 +15,10 @@ import { INNERWIDTH, WIDTH, HEIGHT , getResponsiveWidth} from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_BOOK_COLLECT } from '../constants/scene'
 import Toast from 'antd-mobile/lib/toast'
+import store from '../redux/store'
+import { fetchSubscribe } from '../redux/modules/subscribe'
+import Storage from '../common/storage'
+import { MessageStoragePrefix } from '../components/Message'
 
 const SHOW_DETAIL = BOOKS.show_detail
 
@@ -72,10 +76,11 @@ export default class BookInfo extends Component {
 
   onSubscribe = async () => {
     if (this.state.is_subscribe) {
-      this.unSubscribe()
+      await this.unSubscribe()
     } else {
-      this.subscribe()
+      await this.subscribe()
     }
+    store.dispatch(fetchSubscribe())
   }
 
   subscribe = async () => {
@@ -94,6 +99,7 @@ export default class BookInfo extends Component {
     } = this.props.data
 
     await HttpUtils.post(SUBSCRIBE.remove_subscribe, { book_id })
+    await Storage.remove(`${MessageStoragePrefix}${book_id}`)
     this.setState({ is_subscribe: false })
     Toast.success('您已取消订阅本书', 1)
   }

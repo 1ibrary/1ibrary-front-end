@@ -41,9 +41,9 @@ export default function AboutUs () {
         <View style={styles.border} />
       </View>
       <View style={styles.names}>
-        <Text style={styles.name}>Back-End:Airing</Text>
-        <Text style={styles.name}>UI Design:Albert Leung</Text>
-        <Text style={styles.name}>IOS APP:YiFan Wang</Text>
+        <Text style={styles.name}>Back-End: Airing</Text>
+        <Text style={styles.name}>UI Design: Albert Leung</Text>
+        <Text style={styles.name}>iOS APP: YiFan Wang & FanYi</Text>
         <View>
           <TouchableOpacity
             style={styles.contact}
@@ -55,7 +55,7 @@ export default function AboutUs () {
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.version}>Verison1.0.2</Text>
+      <Text style={styles.version}>Verison 1.2.0</Text>
     </View>
   )
 }
