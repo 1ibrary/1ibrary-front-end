@@ -13,7 +13,8 @@ import TextPingFang from './TextPingFang'
 import RentInfoPage from '../pages/profile/RentInfo'
 import { INNERWIDTH } from '../common/styles'
 import { Actions } from 'react-native-router-flux'
-import { SCENE_MESSAGE } from '../constants/scene'
+import { SCENE_BOOK_INFO, SCENE_MESSAGE } from '../constants/scene'
+import moment from 'moment'
 
 export const MessageTypes = {
   SUBSCRIBE: 1,
@@ -23,26 +24,24 @@ export const MessageTypes = {
 export default class Message extends Component {
 
   state = {
-    read: false
+    read: true
   }
 
   static defaultProps = {
     data: {
-      kind: 1,
-      title: '平凡的世界'
+      kind: MessageTypes.RETURN_BOOK,
+      book: {}
     }
   }
 
   onPress = () => {
-    this.setState({ read: true })
-    let params = {
-      data: {
-        rent: '2017/4/2',
-        return_time: '2017/5/2',
-        title: '美洲小宇宙'
-      }
+
+    if (this.props.data.kind === MessageTypes.SUBSCRIBE) {
+      Actions[SCENE_BOOK_INFO]({ data: this.props.data.book })
+      return
     }
-    Actions[SCENE_MESSAGE](params)
+
+    Actions[SCENE_MESSAGE]()
   }
 
   render() {
@@ -51,7 +50,7 @@ export default class Message extends Component {
     let return_book = require('../../res/images/icon_return.png')
     let dot = <View style={styles.dot} />
     let subscribeTips = '可以借书啦，赶紧去借阅吧～'
-    let returnTips = '还有3天到期，记得还书呀～'
+    const book = this.props.data.book
 
     return (
       <TouchableOpacity onPress={this.onPress}>
@@ -61,17 +60,33 @@ export default class Message extends Component {
             source={this.props.data.kind === MessageTypes.SUBSCRIBE ? subscribe : return_book}
           />
           <View style={styles.item_info}>
-            <TextPingFang style={styles.item_info_title}>
-              《{this.props.data.title}》
+            <TextPingFang style={styles.item_info_title} numberOfLines={1}>
+              《{book.book_title}》
             </TextPingFang>
             <TextPingFang style={styles.item_info_content}>
-              {this.props.data.kind === MessageTypes.SUBSCRIBE ? subscribeTips : returnTips}
+              {this.props.data.kind === MessageTypes.SUBSCRIBE ? subscribeTips : this.returnTips}
             </TextPingFang>
           </View>
           {this.state.read ? <View /> : dot}
         </View>
       </TouchableOpacity>
     )
+  }
+
+  get returnTips () {
+    const book = this.props.data.book
+    const returnTime = moment(book.return_time)
+    const time = returnTime.diff(moment(), 'days')
+
+    if (time > 0) {
+      return `还有${time}天到期，记得还书呀～`
+    }
+    if (time === 0) {
+      return `今天就要超期啦，记得还书呀～`
+    }
+    if (time < 0) {
+      return `已经超期${time}天啦，记得还书呀～`
+    }
   }
 }
 
@@ -90,7 +105,8 @@ const styles = StyleSheet.create({
     marginLeft: 16
   },
   item_info: {
-    marginLeft: 4
+    marginLeft: 4,
+    flex: 1
   },
   item_info_title: {
     fontSize: 17

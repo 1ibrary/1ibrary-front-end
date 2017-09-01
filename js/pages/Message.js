@@ -8,6 +8,7 @@ import NavigationBar from '../components/NavigationBar'
 import Message, { MessageTypes } from '../components/Message'
 import { HEIGHT, getResponsiveHeight } from '../common/styles'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 function mapStateToProps (state) {
   return {
@@ -24,7 +25,13 @@ export default class MessagePage extends Component {
       <View style={styles.container}>
         <NavigationBar title={'通知'} />
         <ScrollView style={styles.item_container}>
+          {this.renderRentBooks()}
           {this.renderSubscribeBooks()}
+          <View
+            style={{
+              height: 60
+            }}
+          />
         </ScrollView>
       </View>
     )
@@ -32,12 +39,27 @@ export default class MessagePage extends Component {
 
   renderSubscribeBooks = () => {
     return this.subscribeBooks.map(book => {
-      return <Message key={book.book_id} data={{ title: book.book_title, kind: MessageTypes.SUBSCRIBE }} />
+      return <Message key={book.book_id} data={{ book, kind: MessageTypes.SUBSCRIBE }} />
     })
   }
 
   get subscribeBooks () {
     return this.props.subscribeBooks.filter(book => book.book_last_number > 0)
+  }
+
+  renderRentBooks = () => {
+    return this.rentBooks.map(book => {
+      return <Message key={book.book_id} data={{ book, kind: MessageTypes.RETURN_BOOK }} />
+    })
+  }
+
+  get rentBooks () {
+    const now = moment()
+    return this.props.rentBooks.filter(book => {
+      const returnTime = moment(book.return_time)
+      const time = returnTime.diff(now, 'days')
+      return time <= 5
+    })
   }
 }
 
