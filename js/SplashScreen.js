@@ -12,6 +12,7 @@ import login from './network/login'
 import Toast from 'antd-mobile/lib/toast'
 import { connect } from 'react-redux'
 import { delay } from 'redux-saga'
+import initApp from './redux/modules/init'
 
 function mapStateToProps (state) {
   return {
@@ -45,6 +46,8 @@ class SplashScreen extends Component {
       token,
       timestamp
     })
+
+    this.props.dispatch(initApp())
 
     try {
       login(user.account, user.password, user.school_id)

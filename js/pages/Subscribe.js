@@ -4,15 +4,10 @@ import {
   StyleSheet
 } from 'react-native'
 import BookList from '../components/BookList'
-import { HEIGHT, getResponsiveHeight } from '../common/styles'
-import { Actions } from 'react-native-router-flux'
-import HttpUtils from '../network/HttpUtils'
-import { SUBSCRIBE } from '../network/Urls'
-import Toast from 'antd-mobile/lib/toast'
+import { HEIGHT } from '../common/styles'
 import CommonNav from '../components/CommonNav'
 import { connect } from 'react-redux'
 import { fetchSubscribe } from '../redux/modules/subscribe'
-const URL = SUBSCRIBE.get_subscribe
 
 function mapStateToProps (state) {
   return {
@@ -35,26 +30,6 @@ export default class Subscribe extends Component {
   fetchSubscribeBooks = () => {
     this.props.dispatch(fetchSubscribe())
   }
-
-  // fetchSubscribeBooks = async () => {
-  //   let result
-  //   try {
-  //     result = await HttpUtils.post(URL, {})
-  //   } catch (e) {
-  //     Toast.fail('加载失败', 1)
-  //     this.setState({ isLoading: false })
-  //     return
-  //   }
-  //
-  //   if (result.status !== 0) {
-  //     return
-  //   }
-  //
-  //   this.setState({
-  //     books: result.books,
-  //     isLoading: false
-  //   })
-  // }
 
   render () {
     return (

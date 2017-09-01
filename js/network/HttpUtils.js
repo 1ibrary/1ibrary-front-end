@@ -36,7 +36,7 @@ axios.interceptors.response.use((response) => {
   return Promise.reject(error)
 })
 
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 20000
 
 export default class HttpUtils {
 

@@ -18,20 +18,27 @@ import HttpUtils from '../../network/HttpUtils'
 import { BOOKS } from '../../network/Urls'
 import Toast from 'antd-mobile/lib/toast'
 import fetchData from '../../common/loading'
+import { connect } from 'react-redux'
+import { fetchRentBooks } from '../../redux/modules/rent'
 
+
+function mapStateToProps (state) {
+  return {
+    books: state.rent.books
+  }
+}
+
+@connect(mapStateToProps)
 export default class MessageInfoPage extends Component {
 
-  state = {
-    books: []
-  }
-
-  async componentDidMount() {
-    fetchData(this.fetchBorrowed)
+  componentDidMount() {
+    if (this.props.books.length === 0) {
+      fetchData(this.fetchBorrowed)
+    }
   }
 
   fetchBorrowed = async () => {
-    const response = await HttpUtils.post(BOOKS.borrowed, {})
-    this.setState({ books: response.books })
+    await this.props.dispatch(fetchRentBooks())
   }
 
   render() {
@@ -54,7 +61,7 @@ export default class MessageInfoPage extends Component {
     return (
       <ScrollView>
         {
-          this.state.books.map((book, i) => {
+          this.props.books.map((book, i) => {
             return (
               <View style={styles.item} key={i}>
                 <Image
