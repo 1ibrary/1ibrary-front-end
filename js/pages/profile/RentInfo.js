@@ -14,9 +14,6 @@ import {
   HEIGHT,
   getResponsiveHeight
 } from '../../common/styles'
-import HttpUtils from '../../network/HttpUtils'
-import { BOOKS } from '../../network/Urls'
-import Toast from 'antd-mobile/lib/toast'
 import fetchData from '../../common/loading'
 import { connect } from 'react-redux'
 import { fetchRentBooks } from '../../redux/modules/rent'

@@ -15,6 +15,11 @@ import { INNERWIDTH } from '../common/styles'
 import { Actions } from 'react-native-router-flux'
 import { SCENE_MESSAGE } from '../constants/scene'
 
+export const MessageTypes = {
+  SUBSCRIBE: 1,
+  RETURN_BOOK: 0
+}
+
 export default class Message extends Component {
 
   state = {
@@ -45,22 +50,22 @@ export default class Message extends Component {
     let subscribe = require('../../res/images/icon_subscribe.png')
     let return_book = require('../../res/images/icon_return.png')
     let dot = <View style={styles.dot} />
-    let subscribe_c = '有人归还啦，赶紧去借阅吧～'
-    let return_c = '还有3天到期，记得还书呀～'
+    let subscribeTips = '可以借书啦，赶紧去借阅吧～'
+    let returnTips = '还有3天到期，记得还书呀～'
 
     return (
       <TouchableOpacity onPress={this.onPress}>
         <View style={styles.item_container}>
           <Image
             style={styles.item_image}
-            source={this.props.data.kind === 1 ? subscribe : return_book}
+            source={this.props.data.kind === MessageTypes.SUBSCRIBE ? subscribe : return_book}
           />
           <View style={styles.item_info}>
             <TextPingFang style={styles.item_info_title}>
               《{this.props.data.title}》
             </TextPingFang>
             <TextPingFang style={styles.item_info_content}>
-              {this.props.data.kind === 1 ? subscribe_c : return_c}
+              {this.props.data.kind === MessageTypes.SUBSCRIBE ? subscribeTips : returnTips}
             </TextPingFang>
           </View>
           {this.state.read ? <View /> : dot}
