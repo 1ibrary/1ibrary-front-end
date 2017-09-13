@@ -1,11 +1,14 @@
 import Storage from '../common/storage'
-import { setToken } from './HttpUtils'
+import { setApiBaseUrl, setToken } from './HttpUtils'
 import HttpUtils from './HttpUtils'
 import { USERS } from './Urls'
 import store from '../redux/store'
 import { fetchProfileSuccess } from '../redux/modules/user'
+import schools from './schools'
 
-export default async function login (account, password, school_id) {
+let reLoginInterval = null
+
+const login = async (account, password, school_id) => {
   const params = {
     account,
     password,
@@ -36,5 +39,28 @@ export default async function login (account, password, school_id) {
 
   store.dispatch(fetchProfileSuccess(response.data))
 
+  if (!reLoginInterval) {
+    autoReLogin()
+  }
+
   return response
+}
+
+export default login
+
+export function autoReLogin () {
+  reLoginInterval = setInterval(async () => {
+    const user = await Storage.get('user', {})
+    if (!user.account || !user.password) {
+      return
+    }
+
+    setApiBaseUrl(schools[user.school_id].host)
+
+    try {
+      login(user.account, user.password, user.school_id)
+    } catch (e) {
+      console.log(e)
+    }
+  }, 3600 * 1000)
 }
