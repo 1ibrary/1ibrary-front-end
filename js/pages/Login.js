@@ -103,7 +103,7 @@ export default class WelcomePage extends Component {
     const selectedSchool = schools[selectedId]
 
     if (!selectedSchool.host) {
-      Toast.info('正在开发中~', 1)
+      Toast.info('正在接入中~', 1)
       return
     }
 
