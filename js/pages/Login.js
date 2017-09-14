@@ -108,6 +108,11 @@ export default class WelcomePage extends Component {
     const selectedId = this.state.choosed_id
     const selectedSchool = schools[selectedId]
 
+    if (!selectedSchool.host) {
+      Toast.info('正在开发中~', 1)
+      return
+    }
+
     this.setState({
       school_id: selectedId,
       choose_info: selectedSchool.name
