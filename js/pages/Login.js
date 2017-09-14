@@ -67,12 +67,6 @@ export default class WelcomePage extends Component {
 
   get validatePassed() {
 
-    // forbid gd
-    if (this.state.school_id === 1) {
-      Toast.fail('请输入正确的密码', 1)
-      return false
-    }
-
     if (this.state.school_id === -1) {
       Toast.offline('请选择你的学校噢～', 1)
       return false
@@ -160,6 +154,7 @@ export default class WelcomePage extends Component {
                 onChangeText={text => {
                   this.setState({ account: text })
                 }}
+                defaultValue={this.state.account}
               />
               <TextInput
                 placeholder={'请输入密码'}
@@ -169,6 +164,7 @@ export default class WelcomePage extends Component {
                 onChangeText={text => {
                   this.setState({ password: text })
                 }}
+                defaultValue={this.state.password}
                 secureTextEntry
               />
               <Text style={styles.remind}>请使用您的学号密码登录哦</Text>
