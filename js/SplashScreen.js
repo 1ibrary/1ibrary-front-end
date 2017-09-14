@@ -13,6 +13,7 @@ import Toast from 'antd-mobile/lib/toast'
 import { connect } from 'react-redux'
 import { delay } from 'redux-saga'
 import initApp from './redux/modules/init'
+import {isDev} from './common/util';
 
 function mapStateToProps (state) {
   return {
@@ -67,6 +68,15 @@ class SplashScreen extends Component {
 }
 
 export default SplashScreen
+
+if (isDev) {
+  global.XMLHttpRequest = global.originalXMLHttpRequest
+    ? global.originalXMLHttpRequest
+    : global.XMLHttpRequest
+  global.FormData = global.originalFormData
+    ? global.originalFormData
+    : global.FormData
+}
 
 console.disableYellowBox = true
 

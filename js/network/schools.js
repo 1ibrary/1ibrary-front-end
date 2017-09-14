@@ -6,6 +6,10 @@ export default schools = [
   {
     name: '广州大学',
     host: 'https://1ibrary.group/'
+  },
+  {
+    name: '中山大学',
+    host: ''
   }
 ]
 
