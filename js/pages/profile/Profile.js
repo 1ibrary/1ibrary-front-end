@@ -5,7 +5,8 @@ import {
   Text,
   Navigator,
   TouchableOpacity,
-  Image
+  Image,
+  ScrollView
 } from 'react-native'
 import TextPingFang from '../../components/TextPingFang'
 import { Actions } from 'react-native-router-flux'
@@ -47,7 +48,10 @@ export default class ProfilePage extends Component {
     const images = [booklist, history, subscribe, setting, feedback, aboutus, images]
 
     return (
-      <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{ alignItems: 'center' }}
+      >
         <View style={styles.info_container}>
           <Image
             style={styles.avatar}
@@ -137,15 +141,15 @@ export default class ProfilePage extends Component {
             )
           })}
         </View>
-      </View>
+        <View style={{ height: 50 }}/>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: HEIGHT,
-    alignItems: 'center'
+    minHeight: HEIGHT
   },
   info_container: {
     alignItems: 'center',
