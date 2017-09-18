@@ -5,6 +5,7 @@ import { USERS } from './Urls'
 import store from '../redux/store'
 import { fetchProfileSuccess } from '../redux/modules/user'
 import schools from './schools'
+import initApp from '../redux/modules/init'
 
 let reLoginInterval = null
 
@@ -38,7 +39,8 @@ const login = async (account, password, school_id) => {
   })
 
   store.dispatch(fetchProfileSuccess(response.data))
-
+  store.dispatch(initApp())
+  
   if (!reLoginInterval) {
     autoReLogin()
   }
