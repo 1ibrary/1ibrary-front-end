@@ -224,7 +224,7 @@ export default class BookInfo extends Component {
 
     return (
       <View style={styles.bottom_bar}>
-        <TouchableOpacity onPress={this.onSubscribe}>
+        <TouchableOpacity activeOpacity={0.9} onPress={this.onSubscribe}>
           <View style={[styles.subscribe, is_subscribe && styles.subscribe_disbaled ]} >
             <View>
               <Text
